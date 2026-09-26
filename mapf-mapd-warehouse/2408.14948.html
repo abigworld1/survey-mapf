@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decentralized Unlabeled Multi - agent Pathfinding Via Target And Priority Swapping (With Supplementary) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2408.14948.en.html" lang="en">English</a></nav>
+  <h1>Decentralized Unlabeled Multi - agent Pathfinding Via Target And Priority Swapping (With Supplementary)</h1>
+<p class="meta">ターゲット交換と優先度交換による分散型非ラベル付きマルチエージェント経路計画</p>
+  <div class="meta">Stepan Dergachev, Konstantin Yakovlev<br>採択先: ECAI 2024 ・ 2024-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2408.14948" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2408.14948" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 ECAI 2024</span><span class="chip">公開日 2024-08-27</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、どのエージェントがどの目標へ到達するかを事前に定めない匿名MAPFを、中央制御器なし・局所通信のみで解くTP-SWAPを提案する。目標と優先度を交換しながら割当の整合性を維持し、完全性を理論的に示すとともに、完全分散型の競合手法よりフロータイムで優れ、初期に整合した割当を持つ半分散型手法にも勝る場合があることを実験で示した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有された離散空間で複数エージェントが衝突せずに移動し、与えられた目標集合をすべて占有する匿名または非ラベル付きMAPFである。特定のエージェントと特定の目標の対応は入力として与えられず、どのエージェントがどの目標に到達してもよい。エージェントはグラフ上を時間ステップごとに隣接頂点へ移動するか待機し、同時刻の頂点共有と、同じ辺を逆方向に同時通過する交換衝突を避ける。論文が焦点を当てるのは、初期の目標割当が整合しておらず、各エージェントが局所的な通信・観測だけを使う、特に難しい分散設定である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主な新規性は、匿名MAPFを完全分散方式で解く最初のソルバを提示した点にある。提案手法TP-SWAPは、各エージェントが独立に目標を選ぶことによって生じる重複を、目標交換と優先度交換の手続きで解消する。これにより、誰も同じ目標へ向かわない整合した割当を、中央コントローラなしで形成・維持する。さらに、TP-SWAPがすべての目標をいずれかのエージェントが到達することを保証する完全性を証明した。実験では、完全分散型の単純な競合手法だけでなく、初期に整合した割当を利用する分散型手法や中央集権型手法とも比較した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>TP-SWAPは、既存のルールベース匿名MAPF手法TSWAPを基礎にする。TSWAPは、まず各エージェントに異なる目標を割り当て、その後、割当を整合したままエージェントを目標へ進め、必要に応じて目標を交換する。完全分散設定では、エージェントが近傍の仲間と情報を交換し、局所的な優先度に基づいて行動と割当を調整する。あるエージェントが目標を占有して他のエージェントを妨げる場合などには、目標の交換によって停滞や衝突を解消する。優先度交換も組み合わせることで、初期割当が重複していても、探索を続けながら一貫した目標割当へ移行させる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、中央集権型のC-TSWAP、ランダムだが整合した初期割当に依存する分散型D-TSWAP-C、整合した初期割当を必要としない単純な完全分散型D-SWAP-N、そしてTP-SWAPを比較した。問題にはMovingAIベンチマークのrandom-32-32-10、maze-32-32-4、den404dという三つのグリッドマップを用い、各マップで250個のシナリオを生成し、各シナリオには100個の開始・目標位置を含めた。主な指標は、全エージェントの到達時刻を合計するフロータイムと、最後のエージェントの到達時刻であるメイクスパンであり、平均値と標準偏差を調べた。さらにmaze-32-32-4では通信範囲を変え、局所通信の広さが性能へ与える影響を調べた。補足資料には、異なるサイズのマップ、通信範囲の詳細、連結した通信サブグループの統計などが含まれる。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、目標・優先度交換が単なる実装上の追加ではなく、完全分散ソルバの性能を支える中心機構であることを示す。TP-SWAPはD-SWAP-Nをフロータイムで明確に上回り、場合によっては整合した初期割当を利用するD-TSWAP-Cにも勝る。エージェント密度が高い場合には、整合した割当をより速く回復できるため、メイクスパンが改善する可能性があると論文は説明するが、これは結果の解釈であり、すべての条件での因果関係として確立されたわけではない。通信範囲を広げると改善が得られるものの、さらに拡張すると改善が小さくなる傾向が報告されている。ただし、実際の通信遅延・誤り、情報共有機構、非同期移動、実ロボットでの運用は十分に扱われていない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、ロボット、輸送、ゲームなどで現れる複数移動体の衝突回避問題である。標準的なMAPFでは、各エージェントに到達すべき固有の目標が割り当てられるが、匿名MAPFでは目標だけが与えられる。最適なMAPF解の探索は、メイクスパンやフロータイムの観点で計算量的に難しく、中央制御を前提とする最適・準最適手法、実行速度や拡張性を重視するルールベース手法、優先度計画などが研究されてきた。学習型手法も存在するが、一般に保証、訓練コスト、未知の分布への頑健性に課題がある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>エージェントは連結した無向グラフ上のあらかじめ定められた開始頂点から出発し、目標頂点集合をすべて到達しなければならない。各時刻の行動は隣接頂点への移動または現在頂点での待機であり、目標へ着いたエージェントはそこに留まる。二つのエージェントが同じ時刻に同じ頂点にいること、および同じ辺を同じ時刻に反対方向へ通過することは禁止される。分散設定では、通信範囲内の情報交換を連鎖的に利用できると仮定するが、研究では通信を瞬時かつ誤りなく抽象化している。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>TP-SWAPの重要な不変条件は、各目標が高々一つのエージェントに割り当てられる整合性である。初期割当が重複していても、目標交換と優先度交換を通して重複を解消し、行動選択と再割当を同時に進める。完全性の証明はTSWAPの証明の考え方に着想を得ているが、分散性のため問題はより複雑であり、論文はこの文脈での完全性証明を新しいものと位置づける。証明は、TP-SWAPが各目標をいずれかのエージェントに到達させることを保証するが、最適性を保証するものではない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験対象は三つのMovingAIグリッドマップと、各マップにつき250シナリオである。シナリオは100個の開始・目標位置から構成され、エージェント数を変えて評価した。比較対象はC-TSWAP、D-TSWAP-C、D-SWAP-N、TP-SWAPである。通信範囲の実験はmaze-32-32-4で行われたが、提示された抜粋では各範囲の具体的な数値は欠落しており、数値を特定できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>TP-SWAPは、評価した設定で単純な完全分散型D-SWAP-Nよりフロータイムが良かった。フロータイムでは、初期に整合した目標割当を利用する分散型手法を上回る場合もあった。メイクスパンについては、エージェント数が増えるとその手法に近づくと報告され、特定条件では改善も観察された。提示された抜粋には平均値、標準偏差、エージェント数、通信範囲の具体的な数値が十分に含まれていないため、詳細な数値比較は確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>論文は、局所通信だけを用いる完全分散匿名MAPFという未解決性の高い設定に対し、TP-SWAPを提案した。目標交換と優先度交換により、重複した初期選択から整合した割当を作り、ルールベース経路計画と組み合わせる。理論的には完全性を示し、実験的には完全分散の競合手法を上回る性能を報告した。将来課題として、色付きMAPFのような一般化、通信問題、実ロボットでの実装と評価が挙げられている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>エージェントがサブグループ内の他エージェントに関する必要情報を行動時に持つことを仮定しており、実環境では専用の情報共有機構が必要になる。移動は同期的であると仮定され、分散ロボットでの同期方法は未解決である。通信は瞬時かつ誤りがないものとして扱われ、遅延、パケット損失、観測誤差の影響は提示された研究からは評価できない。最適性や現実環境での性能が保証されるとは述べられていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、中央の目標割当器と経路計画器を前提としない匿名MAPFの設計空間を広げた点にある。完全性と局所通信という性質を同時に扱うことで、通信可能な複数ロボット群への応用に向けた基礎を提供する。フロータイムで中央または半分散型に匹敵し得るという結果は、分散性に伴う性能低下が必ずしも避けられないわけではないことを示唆する。ただし、この意義は離散・同期・理想通信というモデルの範囲に限定される。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>匿名MAPF、分散マルチロボットナビゲーション、局所通信下の目標割当を研究する人に適している。ルールベース計画、優先度付き計画、完全性保証と実験的なフロータイム評価の関係を知りたい読者にも有用である。中央集権型手法から分散型手法への移行や、整合しない初期目標割当の扱いを検討する研究者に特に勧められる。実ロボット通信や非同期実行の詳細な実装指針を求める読者には、提示された研究だけでは不足する可能性がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-27
+  </footer>
+</div>
+</body>
+</html>

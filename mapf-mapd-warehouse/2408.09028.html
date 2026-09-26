@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2408.09028.en.html" lang="en">English</a></nav>
+  <h1>On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning</h1>
+<p class="meta">Conflict-Based Search の完全性：時間相対重複枝刈り</p>
+  <div class="meta">Thayne T Walker, Nathan R Sturtevant<br>採択先: 未取得 ・ 2024-08-16 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2408.09028" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2408.09028" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-08-16</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、解のない MAPF インスタンスに対して無限に実行し続ける可能性がある Conflict-Based Search（CBS）の完全性上の欠陥を扱う。時間相対重複枝刈り（TRDP）により、時間的に相対的な重複状態の展開を抑制し、最適性を保ちながら、古典的 MAPF と連続時間 MAPF の双方で有限停止を保証する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、複数のエージェントを現在の状態から目標状態へ移動させ、任意の時刻にエージェントの形状が重ならない経路を求める問題である。古典的 MAPF では、通常、二次元グリッド上の点エージェントと単位時間の移動を扱う。これに対して連続時間 MAPF は、非平面でもよい重み付きグラフ、正の実数または有理数の移動時間、待機を表す自己ループ辺、辺の走行中に生じる衝突を扱う。求める解は競合を含まない実行可能解であり、一般にメイクスパンまたはフロータイムの最小化も目的となる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、CBS に時間相対重複枝刈り（TRDP）を導入することである。TRDP は、絶対時刻が異なっていても、将来の経路生成に関して同じ意味を持つ状態を時間相対的な重複として検出し、別々の有用な状態として展開することを防ぐ。著者らは、TRDP が最適な実行可能解を排除せず、TRDP を備えた CBS が、インスタンスが可解かどうかにかかわらず停止することを理論的に示す。さらに、エージェント密度の高い設定向けのバイパス手続きを示し、通常は実行時間への影響が小さく、場合によっては性能が向上することを報告する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>通常の CBS は、各ノードにエージェントごとの経路を格納した競合木を探索する。根では他のエージェントの経路を考慮せずに個別経路を計画し、経路間の衝突が見つかると、関係するエージェントの一つに制約を追加して再計画し、後続ノードを生成する。TRDP は、個別経路または複数エージェントの経路に、時間のずれを許せば以前の状態と同じ将来の振る舞いを持つループがあるかを調べる。このようなループは、ループ部分を除去または回避しても同じ目標へ到達でき、最適経路として残す必要がないため、対応する重複状態の展開を枝刈りできる。密な環境では重複が大きな多分岐を生む可能性があるので、ループを避け、経路コストを増やさず、追加の衝突も生じさせない代替経路が見つかる場合には、バイパスによって分岐を省略する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、4、8、16、32 近傍のグリッド領域における MAPF ベンチマーク全体で、TRDP なしの CBS と TRDP 付き CBS を比較している。4 近傍は古典的 MAPF、より高い接続性の領域は提示された証拠では MAPF Q として扱われる。各問題についてエージェント数を2から始め、30秒以内に解けなくなるまで1体ずつ増やし、実行時間、制限時間内に解けたエージェント数、競合木の大きさ、TRD の発生回数、重複検出に要した時間の割合を記録した。手作りの解なしインスタンスと高密度の例も調べているが、抜粋だけでは、すべての実験条件や全インスタンスの完全な結果を確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>理論結果は、可解インスタンスで解を返すだけでは完全性として不十分であり、解なしインスタンスでも有限時間で停止する必要があるという CBS の長年の問題を扱う。論文の仮定の下では、TRDP によって関連する探索空間が有限になり、外部のタイムアウトや並列の緩和手続きに頼らず、失敗を報告して停止できる。通常のベンチマークでは TRD がまれで、単一エージェントのループがなければ検査も早期終了するため、追加コストは小さいとされる。一方、幅の狭い通路などエージェント密度の高い環境では多くの TRD が生じ、大きな多分岐により計算量が増える可能性がある。バイパスはこのトレードオフを緩和するが、提示された抜粋は、すべてのスケーリング問題を解消することや、あらゆる連続時間モデル、エージェント形状、他のソルバーでの性能を示してはいない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>CBS は MAPF の代表的な最適・非結合型手法である。多エージェント A* のような結合型手法が全エージェントの状態を一つの共同状態空間にまとめるのに対し、CBS は個別経路と衝突から生成される制約を組み合わせて探索する。ほかの非結合型最適手法にも、解が存在しない場合に停止しない問題があると論文は述べている。完全性には、解が存在するときに有限時間で解を返すことと、解が存在しないときに有限時間でその事実を報告することの二つがある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>本論文の中心問題は、完全性のうち後者である。有限の地図でも時間を状態に含めると、エージェントが同じ場所で永久に待てるため状態空間は無限になり得る。CBS は時間のずれだけが異なる同等の状態を繰り返し生成し、解のないインスタンスで有限停止を保証できない場合がある。連続時間 MAPF では、大きなエージェント形状や交差する辺によって古典的な点エージェントにはない衝突が生じるため、基礎グラフだけの解析で可解性を判断することもできない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>TRDP は、絶対時刻の完全一致ではなく、時間をずらしたときの相対的な将来の振る舞いを重複判定に用いる。後の状態が前の状態と同じ関連情報を持つなら、ループを続ける経路は、その部分を除いても同じ目標へ到達でき、最適解として必要ではない。理論的議論は、ループが劣った経路であること、TRD 制約が最適な実行可能解を遮らないこと、重複除去後の競合木に有限上限があることを示す。したがって、別個の可解性判定器を要求せずに、古典的および連続時間の領域を対象にできる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>論文は、約3万2千件のベンチマーク実験と、数百万個の競合木ノードの生成を報告している。テストしたグリッド領域全体で遭遇した TRD は29件で、通常のグリッドベンチマークのうち TRDP ロジックが発動した問題は0.01％未満だった。TRD は、通路幅1の小さな迷路のように、利用可能な空間に対してエージェント密度が高い問題で最も多く観測された。手作りの解なし問題と高密度の例についても、停止性、競合木の大きさ、実行時間を調べているが、抜粋は全ての生成手順や比較条件を示していない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提示された解なしの場所交換例では、TRDP 付き CBS は高レベル展開を5回行った後に停止した。ベンチマーク全体では、重複検出が大半の問題で実行時間に有意なコストを加えず、検出処理の割合も一般に小さいと報告されている。選択された高密度の例では、通常の CBS より浅い競合木で解を発見したり、競合木の大きさを減らしたりする場合があった。したがって証拠は停止性と場合によっては性能向上を支持するが、全問題での高速化や全数値比較までは示していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>TRDP は、時間的にずれた重複状態が探索を無限に引き延ばすことを防ぎ、CBS を本質的に完全にする。理論解析によれば、枝刈りは最適性を保ち、解の有無にかかわらず有限停止を保証する。実験では標準ベンチマークでの発動頻度が低く通常の負担は小さい一方、高密度の設定では重複除去とバイパスによる改善が得られる場合がある。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>論文の主目的は、CBS を大幅に大規模化することではなく、完全性に関する理論的な抜け穴を埋めることである。標準 MAPF ベンチマークには解なしインスタンスが含まれておらず、領域によってはそのような問題自体がまれで手作りされることも、停止性の利点を通常のベンチマークで測りにくくする。高密度の環境では TRD が多くなり、大きな多分岐が発生するため、TRDP のコストが常に無視できるわけではない。提示された抜粋だけでは、すべての連続時間意味論、エージェント形状、他の MAPF アルゴリズム、評価外の実運用負荷での挙動は確立されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>解のない要求に対して永遠に走り続ける最適プランナーは、実際の協調システムで安全に利用しにくい。TRDP は別個のタイムアウトや並列緩和手続きに依存せず、CBS の探索内部でこの失敗モードを扱う。最適解の保持、完全性の証明、低いと報告されたオーバーヘッドを組み合わせるため、信頼性の高い MAPF および連続時間 MAPF ソルバーの設計に意義がある。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>CBS、MAPF の完全性、解なしインスタンス、連続時間の衝突判定、探索における重複検出を研究する読者に適している。特に、最適性を保った有限停止保証を求めるソルバー設計者や、狭い通路と高いエージェント密度を扱う研究者に有用である。大規模なスループットを主目的とする読者は、本論文をまず完全性の貢献として読み、広範なスケーリング結論を得る前に完全な実験結果を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-27
+  </footer>
+</div>
+</body>
+</html>

@@ -6476,6 +6476,72 @@
       "url": "https://arxiv.org/abs/2408.03063",
       "venue": ""
     },
+    "arxiv:2408.09028": {
+      "added": "2026-09-27",
+      "added_at": "2026-09-27T08:25:02.473476",
+      "arxiv_id": "2408.09028",
+      "authors": [
+        "Thayne T Walker",
+        "Nathan R Sturtevant"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-08-16",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2408.09028.html",
+      "file_en": "mapf-mapd-warehouse/2408.09028.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.09028",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning",
+      "title_en": "On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning",
+      "title_ja": "Conflict-Based Search の完全性：時間相対重複枝刈り",
+      "tldr": "本論文は、解のない MAPF インスタンスに対して無限に実行し続ける可能性がある Conflict-Based Search（CBS）の完全性上の欠陥を扱う。時間相対重複枝刈り（TRDP）により、時間的に相対的な重複状態の展開を抑制し、最適性を保ちながら、古典的 MAPF と連続時間 MAPF の双方で有限停止を保証する。",
+      "tldr_en": "This paper addresses a completeness gap in Conflict-Based Search (CBS): on unsolvable MAPF instances, CBS can continue forever. It introduces Temporally-Relative Duplicate Pruning (TRDP), which suppresses temporally relative duplicate states, preserves optimality, and guarantees finite termination in both classic and continuous-time MAPF.",
+      "url": "https://arxiv.org/abs/2408.09028",
+      "venue": ""
+    },
+    "arxiv:2408.14948": {
+      "added": "2026-09-27",
+      "added_at": "2026-09-27T08:23:42.072532",
+      "arxiv_id": "2408.14948",
+      "authors": [
+        "Stepan Dergachev",
+        "Konstantin Yakovlev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-08-27",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2408.14948.html",
+      "file_en": "mapf-mapd-warehouse/2408.14948.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2408.14948",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Decentralized Unlabeled Multi - agent Pathfinding Via Target And Priority Swapping (With Supplementary)",
+      "title_en": "Decentralized Unlabeled Multi-Agent Pathfinding via Target and Priority Swapping",
+      "title_ja": "ターゲット交換と優先度交換による分散型非ラベル付きマルチエージェント経路計画",
+      "tldr": "本論文は、どのエージェントがどの目標へ到達するかを事前に定めない匿名MAPFを、中央制御器なし・局所通信のみで解くTP-SWAPを提案する。目標と優先度を交換しながら割当の整合性を維持し、完全性を理論的に示すとともに、完全分散型の競合手法よりフロータイムで優れ、初期に整合した割当を持つ半分散型手法にも勝る場合があることを実験で示した。",
+      "tldr_en": "This paper studies anonymous multi-agent pathfinding in which agents must collectively reach a set of goals without predetermined agent-goal identities, using only local communication and no central controller. It proposes TP-SWAP, which combines target and priority swapping with rule-based planning, proves completeness, and empirically outperforms a fully decentralized competitor in flowtime while sometimes surpassing a decentralized method with an initially consistent assignment.",
+      "url": "https://arxiv.org/abs/2408.14948",
+      "venue": "ECAI 2024"
+    },
     "arxiv:2410.12397": {
       "added": "2026-09-23",
       "added_at": "2026-09-23T08:31:13.511277",

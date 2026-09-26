@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2408.09028.html" lang="ja">日本語</a></nav>
+  <h1>On the Completeness of Conflict-Based Search: Temporally-Relative Duplicate Pruning</h1>
+
+  <div class="meta">Thayne T Walker, Nathan R Sturtevant<br>Venue: Unknown ・ 2024-08-16 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2408.09028" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2408.09028" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2024-08-16</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper addresses a completeness gap in Conflict-Based Search (CBS): on unsolvable MAPF instances, CBS can continue forever. It introduces Temporally-Relative Duplicate Pruning (TRDP), which suppresses temporally relative duplicate states, preserves optimality, and guarantees finite termination in both classic and continuous-time MAPF.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-agent pathfinding (MAPF) asks for paths that move multiple agents from their current configurations to goal states without any pair of agent shapes overlapping at the same time. Classic MAPF usually uses point agents on a two-dimensional grid, with movements of unit duration. The paper also considers continuous-time MAPF, called MAPF R in the supplied evidence, where a weighted graph may be non-planar, edges have positive real-valued or rational-valued durations, waiting is represented by self-directed edges, and collisions can occur while agents traverse edges. A feasible solution has no conflicts, and solvers commonly optimize makespan or flowtime.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is Temporally-Relative Duplicate Pruning, or TRDP, introduced for CBS. TRDP detects states that are duplicates in a temporally relative sense, even when their absolute timestamps differ, and prevents them from being expanded as distinct useful states. The authors prove that TRDP does not remove an optimal feasible solution and that CBS augmented with TRDP terminates whether or not the instance is solvable. They also describe a bypass procedure for agent-dense settings and report that TRDP usually has little runtime impact while sometimes improving performance.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Standard CBS searches a conflict tree whose nodes contain one path per agent. The root is obtained by planning for agents independently; when conflicts are found, CBS adds a constraint for one involved agent, replans, and generates successor nodes. TRDP searches individual or multi-agent paths for a loop whose later state has the same relevant future behavior as an earlier state after a temporal shift. Such a loop is suboptimal because the loop can be removed or avoided without preventing the agent from reaching its goal, so the corresponding duplicate expansion can be pruned. In dense environments, a temporally relative duplicate may otherwise create a large multi-way split, so the method can try a bypass: an alternative path that avoids the loop, does not increase path cost, and introduces no additional conflicts; if none is found, the resulting constraints and replanned paths are used to generate successors.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation compares CBS with and without TRDP on the complete set of MAPF benchmark problems across 4-, 8-, 16-, and 32-neighbor grid domains. The 4-neighbor cases represent classic MAPF, while the higher-connectivity cases are treated as MAPF Q instances in the supplied evidence. For each problem, experiments start with two agents and increase the count by one until the instance can no longer be solved within a 30-second limit. The reported measures include runtime, the number of agents solved within the limit, conflict-tree size, the number of TRD encounters, and the fraction of runtime spent on duplicate detection. Hand-crafted unsolvable and agent-dense cases are also examined, but the excerpt does not establish every experimental condition or a complete result for every instance.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The theoretical result addresses a long-standing CBS problem: returning a solution on solvable instances is not sufficient for completeness if an unsolvable instance can make the algorithm run indefinitely. Under the paper&#x27;s assumptions, TRDP makes the relevant search space finite, allowing CBS to terminate with failure without relying on an external timeout or parallel mitigation procedure. On ordinary benchmarks, the extra work is usually small because TRDs are rare and the check often exits early when no single-agent loop is present. The trade-off appears in agent-dense environments, especially narrow corridors, where many TRDs can cause expensive multi-way splits. Bypassing can mitigate this cost, but the supplied excerpt does not establish that it removes all scaling problems or proves performance for every continuous-time model, agent shape, or alternative solver.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>CBS is a prominent optimal, decoupled approach to MAPF. Unlike coupled methods such as multi-agent A*, which aggregate all agents into one joint state space, CBS combines individual paths with constraints generated from detected conflicts. The paper states that other decoupled optimal methods have also faced difficulty terminating when no solution exists. Completeness has two parts: finite termination with a solution when one exists, and finite termination reporting that no solution exists when none exists.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The central problem is the second part of completeness. Even on a finite map, including time can create an infinite state space because an agent may wait at a location indefinitely. CBS can repeatedly generate states that differ only by temporal offset and therefore lacks a finite stopping guarantee on some unsolvable instances. In continuous-time MAPF, larger agent shapes and intersecting edges introduce conflicts that do not occur for point agents in classic MAPF, so solvability cannot always be inferred by analyzing only the underlying graph.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>TRDP uses temporally relative future behavior rather than exact equality of absolute states to identify duplicates. If a later occurrence has the same relevant behavior as an earlier occurrence after shifting time, continuing around the loop is unnecessary and cannot be required by an optimal path. The theoretical argument establishes that loops are suboptimal, that TRD constraints do not block an optimal feasible solution, and that duplicate removal gives the conflict tree a finite upper bound. The approach therefore targets classic and continuous-time domains without requiring a separate solvability oracle.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The paper reports roughly 32,000 benchmark experiments and millions of generated conflict-tree nodes. Across the tested grid domains, only 29 TRDs were encountered, and fewer than 0.01 percent of the grid benchmark instances triggered the TRDP logic. TRDs were most common in small mazes with corridors of width one, where the agent density is high relative to the available space. Hand-crafted unsolvable and dense cases were also used to examine termination, tree size, and runtime, but the excerpt does not fully specify every generation procedure or comparison condition.</p></section>
+<section class="secsum"><h3>Results</h3><p>On the illustrative unsolvable place-swapping instance, CBS with TRDP terminates after five high-level expansions. Across the benchmark suite, duplicate detection is reported to add no significant runtime cost in the majority of instances, and its measured runtime share is generally small. In selected high-density cases, TRDP finds a solution at a shallower conflict-tree depth or reduces the conflict-tree size compared with regular CBS. The evidence supports termination on unsolvable instances and occasional performance gains, but it does not justify a universal speedup claim or provide enough information to reconstruct every numerical comparison.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>TRDP makes CBS natively complete by preventing temporally shifted duplicate states from causing unbounded search. The theoretical analysis says that pruning preserves optimality and guarantees finite termination regardless of whether a solution exists. Empirically, the technique is rarely activated on standard benchmarks, so its normal overhead is small, while dense cases can benefit from duplicate removal and bypassing. The paper therefore presents TRDP primarily as a reliability improvement and secondarily as a potential performance improvement.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The paper explicitly emphasizes completeness rather than making CBS scale to substantially larger problem instances. Standard MAPF benchmark sets are described as containing no unsolvable instances, and unsolvable cases may be rare or hand-crafted depending on the domain, limiting how often the termination benefit is exercised in routine benchmarks. Dense settings can generate many TRDs and large multi-way splits, so TRDP is not cost-free in every case. The supplied excerpt does not establish behavior under all continuous-time semantics, all agent shapes, other MAPF algorithms, or workloads outside the evaluated benchmarks.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>An optimal planner that can run forever on an impossible request is difficult to use safely in a real coordination system. TRDP addresses this failure mode inside the CBS search rather than depending on a separate timeout or parallel mitigation procedure. Its combination of an optimality-preservation argument, a completeness guarantee, and low reported overhead makes it relevant to researchers building dependable MAPF and continuous-time MAPF solvers. It also shows why duplicate detection must account for temporal equivalence rather than only exact repetition of a graph state.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers studying CBS, MAPF completeness, unsolvable instances, continuous-time collision checking, or duplicate detection in search. It is especially relevant to solver designers who need an optimality-preserving finite-termination guarantee and to researchers working in narrow, agent-dense environments. Readers whose primary goal is large-scale throughput should treat the paper as a completeness contribution and consult fuller experimental evidence before drawing broad scaling conclusions.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-27
+  </footer>
+</div>
+</body>
+</html>

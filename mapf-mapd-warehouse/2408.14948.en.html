@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decentralized Unlabeled Multi - agent Pathfinding Via Target And Priority Swapping (With Supplementary) | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2408.14948.html" lang="ja">日本語</a></nav>
+  <h1>Decentralized Unlabeled Multi - agent Pathfinding Via Target And Priority Swapping (With Supplementary)</h1>
+<p class="meta">Decentralized Unlabeled Multi-Agent Pathfinding via Target and Priority Swapping</p>
+  <div class="meta">Stepan Dergachev, Konstantin Yakovlev<br>Venue: ECAI 2024 ・ 2024-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2408.14948" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2408.14948" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue ECAI 2024</span><span class="chip">Published 2024-08-27</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies anonymous multi-agent pathfinding in which agents must collectively reach a set of goals without predetermined agent-goal identities, using only local communication and no central controller. It proposes TP-SWAP, which combines target and priority swapping with rule-based planning, proves completeness, and empirically outperforms a fully decentralized competitor in flowtime while sometimes surpassing a decentralized method with an initially consistent assignment.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The problem is anonymous, or unlabeled, multi-agent pathfinding on a shared discrete workspace. A set of agents must reach a set of goal vertices, but it does not matter which agent reaches which goal. Agents move on a connected undirected graph in discrete time, choosing either an adjacent move or a wait action, and an agent remains at its goal after arrival. Paths must avoid both vertex conflicts, in which agents occupy the same vertex at the same time, and swapping conflicts, in which agents traverse the same edge in opposite directions at the same time. The paper focuses on the especially difficult case in which there is no central controller, agents use only local communication, and the initial goal choices may be inconsistent because multiple agents may select the same goal.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is, according to the paper, the first solver for anonymous MAPF that operates in a fully decentralized fashion. TP-SWAP addresses duplicate or conflicting goal choices through a procedure that swaps targets and priorities while preserving a consistent assignment, meaning that no two agents are heading toward the same goal. This extends the established TSWAP approach from a centralized setting to one in which agents make decisions individually and exchange information locally. The paper also proves that TP-SWAP is complete: every target is eventually reached by some agent. Empirically, it compares the proposed solver with centralized and decentralized baselines, including a method that begins with a consistent assignment, rather than evaluating it in isolation.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>TP-SWAP is built on TSWAP, a rule-based anonymous MAPF method. TSWAP first creates a consistent assignment in which each goal is assigned to one agent, then repeatedly moves agents toward their assigned goals and swaps goals when necessary while retaining assignment consistency. In the fully decentralized variant, agents independently choose goals and communicate with nearby agents, potentially through chains of communication. Target swapping resolves cases such as an agent occupying its goal while blocking another agent’s route, while priority swapping coordinates which agent should proceed when local decisions conflict. Together, these operations allow the system to recover from an inconsistent initial assignment and continue rule-based path planning without a centralized assignment authority. The completeness argument is inspired by the proof strategy for TSWAP but must handle the additional complexity created by decentralized decisions.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation compares four methods: centralized C-TSWAP, decentralized D-TSWAP-C using a random but initially consistent target assignment, naive fully decentralized D-SWAP-N, and the proposed TP-SWAP. The experiments use three MovingAI benchmark grid maps: random-32-32-10, maze-32-32-4, and den404d. For each map, the authors generate 250 scenarios, with each scenario containing 100 start and target locations, and evaluate different numbers of agents. The reported objectives are flowtime, the aggregate of agents’ arrival times, and makespan, the arrival time of the last agent; averages and standard deviations are considered. A separate experiment on maze-32-32-4 varies the communication range, while supplementary material adds results on maps of different sizes and more detailed analyses of communication subgroups. The supplied excerpt does not preserve the numerical values of the ranges, agent counts, or measured scores, so those values cannot be reconstructed reliably.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported findings indicate that target-priority swapping is essential rather than cosmetic for the decentralized solvers. TP-SWAP notably outperforms the naive fully decentralized D-SWAP-N in flowtime and can even outperform the decentralized alternative that starts with a consistent assignment. The paper reports that its makespan approaches that of the latter as the number of agents grows, and it suggests that higher agent density may help agents recover a consistent assignment more quickly; this is presented as an interpretation, not as a universally established causal law. Enlarging the communication range improves performance in the examined setting, but the improvement diminishes when the range is extended further. The practical implications remain conditional because the model abstracts away communication failures and assumes synchronized movements and access to the necessary subgroup information.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-agent pathfinding is a foundational problem for coordinated movement in robotics, transportation, and video games. Classical MAPF assigns a specific goal to every agent, whereas anonymous MAPF supplies a goal set without fixing the agent-goal correspondence. Optimal MAPF planning with common objectives such as makespan or flowtime is computationally hard, which has motivated optimal, bounded-suboptimal, prioritized, and rule-based methods with different trade-offs between solution quality, runtime, and scalability. Many established methods assume a centralized controller and a discretized workspace. Learning-based approaches have also been used for navigation and goal assignment, but the excerpt notes that they commonly lack formal guarantees, require substantial training, and may generalize poorly outside their training distribution.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Formally, agents start at predefined vertices of a connected undirected graph and must collectively reach all predefined goal vertices. Time is discretized, and each agent may move to an adjacent vertex or wait; once an agent reaches its assigned goal, it stays there. A valid solution consists of paths that begin at the specified starts, end at goals, cover every goal, and contain no vertex or edge-swapping conflicts. In the decentralized scenario, agents can exchange information with others within a communication range, and chain communication can connect agents indirectly. For the study, communication is idealized as instantaneous and error-free, so the excerpt does not establish behavior under realistic communication delays, losses, or inaccurate observations.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The key invariant is consistency of the goal assignment: at most one agent should be pursuing each target. TP-SWAP combines target reassignment with priority changes so that agents can resolve duplicate selections, blocking situations, and local conflicts while continuing to move. Its rule-based path planner does not seek an optimal objective, and the completeness theorem should not be interpreted as an optimality guarantee. The authors describe the proof as extending the idea behind TSWAP’s completeness proof to the more complicated decentralized setting. The formal guarantee is that every target will be reached by some agent under the stated model.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The main empirical study uses three MovingAI maps and 250 scenarios per map. Each scenario is based on 100 start and target locations, and the number of active agents is varied. C-TSWAP uses the original centralized implementation with a bottleneck assignment because that assignment performed best on average in the original TSWAP study. The decentralized methods were implemented by the authors and include D-TSWAP-C, D-SWAP-N, and TP-SWAP. Communication-range experiments are conducted on maze-32-32-4, and the supplementary material reports additional map-size and communication-subgroup analyses.</p></section>
+<section class="secsum"><h3>Results</h3><p>Across the reported setups, TP-SWAP notably outperforms D-SWAP-N in flowtime. It can also outperform D-TSWAP-C, despite the latter relying on an initially consistent target assignment. The paper reports that makespan approaches the decentralized method’s makespan as the number of agents increases, with a possible improvement at higher density attributed to faster recovery of consistency. All evaluated methods are reported to solve the tested tasks, but the supplied excerpt does not provide enough numerical detail to state exact scores, standard deviations, agent counts, or communication radii.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper introduces TP-SWAP for a previously difficult anonymous MAPF setting with inconsistent initial assignments, local communication, and no central controller. Its target and priority swapping procedure produces and maintains a consistent assignment while agents use rule-based decentralized planning. Theoretical analysis establishes completeness under the paper’s assumptions, and experiments show an advantage over the naive fully decentralized competitor and competitiveness with a solver that receives a consistent initial assignment. The authors identify more general anonymous MAPF variants, communication mechanisms, and real-robot implementation and evaluation as future directions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>Agents are assumed to possess all information needed about other agents in their communication subgroup when choosing actions, which would require a practical information-sharing mechanism. Movements are synchronized, whereas real robots would need a decentralized way to coordinate motion timing. Communication is modeled as instantaneous and error-free, and the excerpt does not evaluate latency, packet loss, partial observability, or noisy localization. The method is complete but is not shown to be optimal, and performance on continuous, dynamic, or physical environments is not established by the supplied evidence.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>This work expands the design space for anonymous MAPF by removing the assumption that a central authority must assign goals and coordinate paths. It demonstrates that a fully decentralized solver can retain a formal completeness guarantee while achieving competitive flowtime in the tested discrete settings. The result is particularly relevant to multi-robot systems in which agents may need to coordinate through local interactions rather than a global planner. Its importance should nevertheless be understood within the stated synchronized, discrete, and ideal-communication model.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>The paper is recommended for researchers in anonymous MAPF, decentralized multi-robot navigation, local communication, and distributed goal assignment. It is useful for readers comparing centralized, decentralized, and fully decentralized rule-based planners, especially with flowtime and makespan objectives. Researchers studying how to recover from inconsistent initial assignments or how target and priority mechanisms affect completeness will find it particularly relevant. Readers seeking detailed physical-robot communication protocols or asynchronous execution techniques should treat the paper as a starting point rather than a complete implementation guide.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-27
+  </footer>
+</div>
+</body>
+</html>
