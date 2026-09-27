@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="doi-e9e63e5ddda0.html" lang="ja">日本語</a></nav>
+  <h1>Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks</h1>
+
+  <div class="meta">Roni Stern, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne T. Walker, Jiaoyang Li, Dor Atzmon, Liron Cohen, T. K. Satish Kumar, Roman Barták, Eli Boyarski<br>Venue: Proceedings of the International Symposium on Combinatorial Search 2021 ・ 2021-09-01 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W2949992533" target="_blank" rel="noopener">Original</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/18510/18301" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v10i1.18510" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">Additional candidate</span><span class="chip venue">Venue Proceedings of the International Symposium on Combinatorial Search 2021</span><span class="chip">Published 2021-09-01</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 644</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (open-access PDF)</span><span class="chip reading-value">Reading value 5/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (open-access PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper organizes the differing assumptions, objectives, and terminology used in Multi-Agent Pathfinding, where multiple agents must execute paths concurrently without collisions. It also introduces a new grid-based benchmark and experimentally reports that the benchmark is challenging for contemporary MAPF algorithms.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-Agent Pathfinding (MAPF) is the problem of planning paths for multiple agents so that each reaches its target and all paths can be executed concurrently without collisions. Motivating applications include automated warehouses, autonomous vehicles, and robotics. In classical MAPF, time is discrete, agents occupy graph vertices, and each agent performs one move or wait action per time step. Existing papers make different assumptions about motion and conflicts, including whether agents may traverse the same road at the same time, and optimize different objectives such as makespan or the sum of action costs. Because these assumptions and objectives may be implicit or described with inconsistent terminology, it is difficult to understand the literature, select appropriate baselines, or find work matching a concrete application.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a unified terminology and classification for describing common MAPF assumptions, conflicts, objectives, and variants. The classification is intended to help researchers state their problem settings accurately and choose baselines that are appropriate for comparison. It covers classical MAPF as well as extensions that relax classical assumptions about time, actions, or occupancy. The second contribution is a new grid-based benchmark with diverse maps and generated source-target scenarios, together with pointers to other benchmark resources. The paper is positioned as a foundation for definitions and evaluation, not as a comprehensive survey of the state of the art in MAPF algorithms.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The paper first formalizes classical MAPF using an undirected graph, a set of agents, and a source and target for every agent. Time is discretized, and a single-agent plan is defined as a sequence of actions that takes the agent from its source to its target. It then organizes collision concepts involving situations such as shared vertices and agents exchanging positions through an edge, so that joint plans can be judged for concurrent executability. It distinguishes makespan, the time until the last agent reaches its target, from the sum of all agents&#x27; action costs. The paper also discusses weighted graphs, where edge weights represent traversal durations, and other settings that relax classical time and occupancy assumptions. For benchmarking, map selection and source-target assignment are treated as separate design choices, and a standard MAPF 提案手順s used to examine the difficulty of the new benchmark.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The benchmark is composed of graph instances and source-target sets associated with those graphs. Its new grid-based component contains diverse maps and generated source and target vertices. The authors run a standard MAPF algorithm and experimentally report that the benchmark is challenging for contemporary MAPF algorithms. This supports the intended role of the benchmark as a future comparison baseline, but the supplied excerpt does not establish the complete names of all algorithms used, runtimes, success rates, solution costs, trial counts, hardware, or detailed numerical comparisons. The paper describes or points to existing resources including Dragon Age Origins maps, grids with randomly selected impassable cells, warehouse-style grids, and ASPRILO. Thus, the evidence supports a claim about benchmark difficulty and evaluation use, not a ranking of methods or a measured performance gap.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>A shared vocabulary can improve comparability by making the effects of collision rules, time models, traversal durations, objectives, map structures, and source-target assignments explicit. It can also help practitioners find research that matches application constraints rather than relying on superficially similar terminology. The authors explicitly acknowledge that the proposed benchmarks are not perfect and may contain biases, so the excerpt does not establish that they represent all MAPF workloads without bias. Map families and scenario assignments may favor or disadvantage particular algorithms or applications, and results from one benchmark should not be interpreted as universal superiority. Weighted travel, deadline-based maximization of the number of agents reaching targets, task arrivals, and new agents appearing over time illustrate directions beyond the classical model, but the excerpt does not establish detailed failure analyses or performance characteristics for those extensions.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF has received increasing attention from several research groups and academic communities because of its relevance to automated warehouses, autonomous vehicles, and robotics. Existing papers use different modeling assumptions and objective functions, and related formal settings may be described with different terminology. This fragmentation makes prior work difficult to understand, fair baselines difficult to establish, and application-relevant papers difficult to locate. The authors present this paper as a common reference for definitions, variants, and benchmarks rather than as a state-of-the-art algorithm survey. They also point readers to a website providing MAPF tutorials and other resources.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A classical MAPF instance contains an undirected graph, a set of agents, a source vertex for each agent, and a target vertex for each agent. At every discrete time step, each agent occupies one vertex and can wait or move to an allowed neighboring vertex. Each individual plan must end at its assigned target, while the collection of plans must avoid collisions during concurrent execution. The supplied excerpt contains only part of the formal conflict presentation, so it does not establish every mathematical condition needed to reconstruct the complete definition. The central problem is therefore both to find jointly executable paths and to describe the exact model being solved explicitly.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The paper distinguishes collision concepts involving agents sharing a vertex and agents moving in opposite directions through an edge to exchange positions. It separates makespan from the sum of action costs, while noting that both objective families have been studied by different classes of MAPF algorithms. Classical MAPF assumes that every move or wait takes one time step and that an agent occupies exactly one vertex at every time. Weighted-graph MAPF replaces uniform action duration with edge-specific traversal durations. The paper also mentions maximizing the number of agents reaching targets by a deadline, as well as settings with new tasks after arrival and new agents appearing over time.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The benchmark design combines collections of graphs with source-target scenarios for those graphs. The new grid benchmark provides diverse maps and generated assignments intended to support reusable and organized comparisons of future algorithms. Existing resources described or referenced include Dragon Age Origins game maps, grids with randomly selected impassable cells, warehouse-style grids, and ASPRILO. A standard MAPF 提案手順s used as a baseline demonstration of the benchmark&#x27;s difficulty. The supplied evidence does not establish all parameter choices, instance counts, time limits, implementation details, or evaluation metrics.</p></section>
+<section class="secsum"><h3>Results</h3><p>The central reported experimental result is that the new grid-based benchmark presents a challenging problem for contemporary MAPF algorithms. It is offered as a resource for more scientifically organized comparisons in future research. The excerpt does not provide enough numerical evidence to determine runtimes, success percentages, solution-quality gaps, algorithm rankings, or statistical significance. The result should therefore be read as a claim about benchmark difficulty and intended evaluation usefulness, not as evidence that one particular 提案手順s generally superior.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper defines common assumptions and objectives for classical MAPF and organizes notable extensions beyond that model. It also introduces a new MAPF benchmark suite and points to another set of benchmark problems. Together, these parts aim to provide common language, terminology, and experimental practice for MAPF research. The authors hope future researchers will use the terminology to describe contributions clearly and the benchmarks to support comparable evaluations. The excerpt establishes this intended role and the reported difficulty, but not a universal standard or a complete account of all MAPF research.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The authors explicitly state that the proposed benchmarks are not perfect and may contain biases. Map families and source-target scenarios can favor particular algorithms or workloads, so one benchmark cannot establish universally representative performance. The supplied excerpt does not establish the full experimental protocol, reproducibility procedure, quantitative results, coverage of every MAPF variant, or treatment of uncertainty in real deployments. It also does not provide detailed failure conditions or robustness evaluations for weighted-graph and task-oriented extensions. Continued use and study are expected to reveal benchmark biases and allow future corrections.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>Meaningful MAPF comparisons require explicit statements of the collision model, time and motion model, objective, map distribution, and source-target scenarios. This paper provides a common vocabulary and an organized benchmark starting point for doing that. It can improve the clarity of research reports and help practitioners identify work relevant to their application requirements. Its value is in structuring problem definitions and empirical comparisons, rather than in proving a best algorithm. It is especially useful for separating differences in problem assumptions from differences in solver performance.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for MAPF researchers who need a framework for describing problem variants, collision assumptions, objectives, and benchmark construction. It is also useful for newcomers learning how classical MAPF differs from weighted-graph and task-oriented extensions. Practitioners can use it as a checklist for matching application requirements with research model assumptions. Readers seeking detailed numerical comparisons of current algorithms or a complete state-of-the-art survey should also consult the full paper and dedicated algorithm surveys, because those conclusions are not established by the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (open-access PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-28
+  </footer>
+</div>
+</body>
+</html>

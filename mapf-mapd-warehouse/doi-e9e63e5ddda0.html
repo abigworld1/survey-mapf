@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="doi-e9e63e5ddda0.en.html" lang="en">English</a></nav>
+  <h1>Multi-Agent Pathfinding: Definitions, Variants, and Benchmarks</h1>
+<p class="meta">マルチエージェント経路探索：定義・変種・ベンチマーク</p>
+  <div class="meta">Roni Stern, Nathan Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne T. Walker, Jiaoyang Li, Dor Atzmon, Liron Cohen, T. K. Satish Kumar, Roman Barták, Eli Boyarski<br>採択先: Proceedings of the International Symposium on Combinatorial Search 2021 ・ 2021-09-01 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W2949992533" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/18510/18301" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v10i1.18510" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip venue">採択先 Proceedings of the International Symposium on Combinatorial Search 2021</span><span class="chip">公開日 2021-09-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 644</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、複数のエージェントが衝突せずに経路を同時実行するMAPFについて、研究間で異なる仮定、目的、用語を統一的に整理する。さらに、新しいグリッド型ベンチマークを導入し、それが現代的なMAPFアルゴリズムにとって難しい課題になることを実験的に示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、複数エージェントの経路を計画し、それぞれが目標へ到達しながら、全経路を同時に実行しても衝突しないようにする問題である。想定される応用には、自動倉庫、自律走行車、ロボティクスが含まれる。古典的MAPFでは、無向グラフ上で時間を離散化し、各エージェントは各時刻に一つの頂点に位置して、一つの移動または待機行動を行う。既存研究は、同じ道路を同時に通れるか、どの衝突を禁止するか、メイクスパンや行動コストの総和のどちらを最適化するかなどについて異なる前提を置いている。これらの前提や目的が暗黙的または統一されていない用語で記述されるため、文献の理解、適切なベースラインの設定、応用に合う研究の発見が難しくなる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、MAPFで一般的に研究されている仮定、衝突、目的関数、変種を記述するための統一的な用語と分類を提示することである。この分類は、研究者が自分の問題設定を正確に表現し、比較に適したベースラインを選ぶことを助けることを目指している。対象は古典的MAPFに限らず、時間、行動、占有に関する古典的仮定を緩和する拡張にも及ぶ。第二の貢献は、多様な地図と生成された始点・目標シナリオを含む新しいグリッド型ベンチマークを導入し、別のベンチマーク資源への案内も提供することである。本稿は、MAPFアルゴリズムの状態最先端を網羅的に調査する論文ではなく、定義と評価基盤を整える論文として位置づけられている。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、エージェント数、無向グラフ、各エージェントの始点と目標からなる古典的MAPFを定式化する。時間を離散化し、単一エージェント計画を、始点から目標へ到達する行動列として定義する。続いて、複数の計画を同時実行できるか判定するため、頂点の共有や辺上での位置交換などに関係する衝突の概念を整理する。目的関数として、最後のエージェントが目標に到達するまでの時間であるメイクスパンと、全エージェントの行動コストの総和を区別する。さらに、辺の重みが通過時間を表す重み付きグラフや、古典的な時間・占有モデルを緩和する設定を説明する。ベンチマークでは、地図の選択と、各地図への始点・目標割り当てを別々の設計要素として扱い、標準的なMAPFアルゴリズムによって新しいベンチマークの難しさを調べる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価用ベンチマークは、複数のグラフと、各グラフに対応する始点・目標の集合から構成される。新しいグリッド型ベンチマークには、多様な地図と生成された始点・目標頂点が含まれる。著者らは標準的なMAPFアルゴリズムを実行し、このベンチマークが現代的なMAPFアルゴリズムにとって挑戦的であると実験的に報告している。そのため、将来の研究で比較用の基準として使う意図は支持されるが、抜粋だけでは実験に用いたアルゴリズムの全名称、実行時間、成功率、解コスト、試行数、ハードウェア、詳細な数値比較は確定できない。既存資源としては、Dragon Age Origins由来の地図、ランダムな障害物を持つグリッド、倉庫型グリッド、ASPRILOが説明または参照されている。したがって、特定手法の順位や優越幅ではなく、ベンチマークの難しさと評価環境としての役割までを結果として解釈すべきである。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>統一された語彙は、衝突規則、時間モデル、移動時間、目的関数、地図構造、始点・目標割り当てが結果に及ぼす影響を明示し、研究間の比較可能性を高める。実務者にとっても、表面的に似た名称ではなく、具体的な応用条件に合う研究を探すための基盤になる。一方、著者ら自身がベンチマークは完全ではなく、バイアスを持つ可能性があると述べており、すべてのMAPF負荷を代表するとは確立されていない。地図やシナリオの選択は特定のアルゴリズムや利用場面に有利・不利になり得るため、単一ベンチマークから一般的な優劣を結論づけるべきではない。重み付き移動、期限までに目標へ到達するエージェント数の最大化、タスクの追加、新しいエージェントの時間的な出現は古典的モデルを超える方向を示すが、抜粋は各拡張の詳細な失敗分析や性能特性を確立していない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、自動倉庫、自律走行車、ロボティクスなどとの関係から、近年複数の研究グループや学術分野で活発に研究されている。既存論文は異なるモデル仮定や目的関数を採用し、形式的内容が近くても用語が一致しないことがある。その結果、先行研究の理解、適切な比較対象の設定、実際の応用に関連する研究の探索が難しくなっていた。本稿はこの断片化に対し、定義、変種、ベンチマークの共通基盤を提示するものであり、アルゴリズムの状態最先端を調査することは目的としていない。MAPFのチュートリアルや追加資源を提供するウェブサイトへの案内も示されている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>古典的MAPFの入力は、無向グラフ、エージェントの集合、各エージェントの始点、各エージェントの目標からなる。各離散時刻に、エージェントは一つの頂点に位置し、許可された隣接頂点への移動または待機を行う。個々の計画は割り当てられた目標で終了し、計画の集合は同時実行中の衝突を避けなければならない。抜粋では衝突の形式的説明の一部が欠落しているため、完全な数式条件をここから再構成することはできない。中心的な課題は、同時実行可能な経路を見つけることに加え、解いているモデルを明示的に記述できるようにすることである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>本稿は、複数エージェントが同じ頂点を共有する状況や、辺を反対方向に移動して位置を交換する状況に関係する衝突概念を区別する。目的関数として、最後のエージェントの到達までのメイクスパンと、全エージェントの行動コストの総和を分けて扱う。古典的MAPFでは移動と待機がそれぞれ一時間ステップを要し、各エージェントは各時刻に一つの頂点を占有する。重み付きグラフMAPFでは、辺ごとの重みが通過時間を表し、行動時間が一様であるという仮定を置き換える。さらに、期限までに目標へ到達するエージェント数の最大化や、到達後の新しいタスク、時間経過に伴う新規エージェントの出現を伴う設定が言及される。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>ベンチマーク設計は、グラフの集合と、各グラフに対する始点・目標シナリオを組み合わせる。新しいグリッド型ベンチマークは多様な地図と生成された割り当てを提供し、将来のアルゴリズムを再利用可能な形で比較することを意図している。既存の評価資源として、Dragon Age Originsのゲーム地図、ランダムに選ばれた通行不能セルを持つグリッド、倉庫型グリッド、ASPRILOが説明または参照される。標準的なMAPFアルゴリズムを用いた実験は、提案ベンチマークの難しさを示すための基準となっている。抜粋は、全パラメータ、インスタンス数、制限時間、実装条件、評価指標の詳細を確定していない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験から報告された中心的な結果は、新しいグリッド型ベンチマークが現代的なMAPFアルゴリズムにとって難しい課題を提示することである。このベンチマークは、将来の研究でより科学的に整理された比較を行うための資源として提示されている。抜粋だけでは、実行時間、成功率、解品質の差、手法の順位、統計的有意性を判断できない。したがって、この結果は特定アルゴリズムの一般的な優越性ではなく、ベンチマークの難易度と評価環境としての有用性に関する主張として理解する必要がある。</p></section>
+<section class="secsum"><h3>結論</h3><p>本稿は、古典的MAPFの一般的な仮定と目的を定義し、それらの関係および代表的な拡張を整理する。さらに、新しいMAPFベンチマーク群を導入し、別のベンチマーク問題への案内を示す。これら二つの部分は、MAPF研究に共通の言語、用語、実験設定を提供することを目指している。著者らは、将来の研究者がこの用語を使って貢献を明確に記述し、ベンチマークを比較可能な評価に役立てることを期待している。抜粋が確立するのはこの意図と報告された難しさであり、全研究を網羅する普遍的な標準ではない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>著者らは、提案したベンチマークが完全ではなく、バイアスを含む可能性があると明示している。地図の種類や始点・目標シナリオは特定のアルゴリズムや負荷に偏る可能性があり、一つのベンチマークから普遍的な性能を判断することはできない。抜粋では、実験プロトコルの全詳細、再現手順、定量的結果、すべてのMAPF変種の網羅性、実環境の不確実性への対応は確立されていない。重み付きグラフやタスク指向拡張についても、詳細な失敗条件や頑健性評価は示されていない。著者らは、ベンチマークの利用と研究を通じて偏りを発見し、将来それを修正できると考えている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFの比較を意味あるものにするには、衝突モデル、時間・移動モデル、目的関数、地図分布、始点・目標シナリオを明示する必要がある。本稿は、そのための共通語彙と、整理されたベンチマークの出発点を提供する。研究者には実験報告の明確化を促し、実務者には応用条件に合う研究を見つける手がかりを与える。特定のアルゴリズムを最良と証明するのではなく、問題定義と経験的比較の基盤を整える点に価値がある。特に、問題設定の違いとソルバー性能の違いを切り分けるために有用である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFの問題変種、衝突仮定、目的関数、ベンチマーク構成を整理したい研究者に適している。古典的MAPFと、重み付きグラフやタスク指向の拡張との違いを学びたい初学者にも有用である。実務者は、応用要件と研究上のモデル仮定を照合するチェックリストとして利用できる。最新アルゴリズムの詳細な数値比較や完全な状態最先端調査を求める読者には、本文と専門的なアルゴリズム調査も必要であり、 supplied excerpt だけではその結論は確立されていない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-28
+  </footer>
+</div>
+</body>
+</html>

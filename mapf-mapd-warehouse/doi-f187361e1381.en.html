@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PRIMAL: Pathfinding via Reinforcement and Imitation Multi-Agent Learning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="doi-f187361e1381.html" lang="ja">日本語</a></nav>
+  <h1>PRIMAL: Pathfinding via Reinforcement and Imitation Multi-Agent Learning</h1>
+
+  <div class="meta">Guillaume Sartoretti, Justin H. Kerr, Yunfei Shi, Glenn Wagner, T. K. Satish Kumar, Sven Koenig, Howie Choset<br>Venue: IEEE Robotics and Automation Letters ・ 2019-03-06 ・ source: openalex</div>
+  <div class="links"><a href="https://openalex.org/W2892258706" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/1809.03531" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1109/lra.2019.2903261" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">Additional candidate</span><span class="chip venue">Venue IEEE Robotics and Automation Letters</span><span class="chip">Published 2019-03-06</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 426</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (open-access PDF)</span><span class="chip reading-value">Reading value 5/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (open-access PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> PRIMAL is a framework that combines reinforcement learning and imitation learning to train fully decentralized policies for online collision-free pathfinding under partial observability. It scales well in obstacle-free and lightly obstructed large worlds, but its performance deteriorates earlier in densely obstructed environments.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies multi-agent path finding, in which multiple robots must reach individual goals without colliding with one another or with obstacles. Many strong MAPF planners are centralized, and their computational cost becomes problematic beyond a few hundred agents; recomputing plans after noise or uncertainty can also take seconds to minutes. PRIMAL instead lets each agent react online from a limited local observation without performing joint search at execution time. The supplied excerpt does not establish a formal optimality or completeness guarantee for this problem formulation.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a hybrid learning framework that extends earlier distributed multi-agent reinforcement learning with demonstrations from an expert MAPF planner. PRIMAL also combines a penalty for blocking other agents, carefully designed rewards, and environment sampling intended to expose agents to coordination-relevant situations. After training, one learned policy can be copied to any number of agents and used across different team sizes and world dimensions, rather than solving a new joint search problem at execution time. The paper therefore contributes a learned decentralized alternative to centralized online planning, not a new exact MAPF search algorithm.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Each agent observes local channels encoding obstacles, nearby agents, the goals of nearby agents, and its own goal when it is within the field of view. It also receives a normalized direction vector toward its goal and the corresponding distance, which supplies a general travel direction even when the goal is outside the local view. The policy network contains seven convolutional layers interleaved with max-pooling layers, followed by an LSTM, and selects one of four cardinal moves or a wait action on the grid. During training, invalid actions are filtered from the sampled action set; at test time, an invalid move becomes a wait. Agents are executed sequentially in a random order at each timestep, while learning uses value bootstrapping, a policy-gradient loss with an entropy term, expert demonstrations, and shaped rewards. All agents reaching their goals receives a positive reward, collisions receive a negative reward, and blocking is penalized when an agent prevents or substantially delays another agent.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The reported simulation evaluation randomizes square-world size, obstacle density, placements, agents, and goals, and includes teams of up to 1024 agents. PRIMAL is compared with state-of-the-art MAPF planners and a velocity-based collision-avoidance approach using success rates; the excerpt also states that path lengths and planning times were examined. The authors additionally validate the learned policy in a factory mockup combining real-world and simulated robots. The supplied material does not provide the complete dataset definition, every baseline name, a full numerical results table, the number of trials, or the hardware and reproducibility details of the hybrid experiment.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>In a 160-by-160 world without obstacles, centralized planners struggle once the team exceeds 100 agents because the joint configuration space grows rapidly, whereas PRIMAL handles up to 1024 agents with a near-perfect success rate. Its success rate begins to decline earlier than those of the other planners, but remains above 60 percent for the reported 512-agent cases while the other methods perform poorly. In a smaller world with very dense obstacles, all planners handle at most 64 agents, yet PRIMAL begins to struggle beyond eight agents while ODrM* handles up to 64. These results show a trade-off: decentralized local reaction and favorable execution scaling work especially well in open or lightly obstructed spaces, but limited visibility and local coordination are insufficient in severe congestion. The excerpt does not establish that PRIMAL dominates across all densities, map structures, robot dynamics, or noise models.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF is a core capability for deployments such as aerial swarms, warehouse automation, and factory robots. Centralized search methods can produce high-quality solutions but scale poorly because the joint state space grows with the number of agents. Decoupled, velocity-based, and priority-based approaches reduce search complexity, but can encounter collisions, deadlocks, livelocks, or dependencies on communication and global information. PRIMAL addresses this setting by learning a reusable decentralized policy rather than repeatedly solving a large joint planning problem.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The target setting is a partially observable grid world in which agents must move to assigned goals while avoiding static obstacles and other agents. Noise and uncertainty motivate online replanning, but a centralized planner that needs seconds or minutes for each computation may be unsuitable for real deployments. Individual shortest paths are not enough because agents can block one another or create cyclic waiting behavior. The supplied excerpt does not specify a formal objective combining success, path length, makespan, and optimality, so those guarantees should not be inferred.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The action space consists of moving one cell in one of four cardinal directions or staying still. Training uses valid-action filtering, a blocking penalty of negative two in practice, a completion reward of positive twenty, and a rule that prevents returning to the previous cell during training to reduce oscillation; collisions also receive negative two. Environment sizes are selected from 10, 40, and 70, with 10-sized worlds twice as likely, while obstacle density is sampled from a triangular distribution between zero and 50 percent with its peak at 33 percent. The reported discount factor is 0.95, the episode length is 256, and the batch size is 128. For larger test worlds, capping the goal-distance input at 75 substantially improves performance.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>An ablation removes environment sampling, blocking penalties, or imitation learning one at a time. The excerpt reports that each removal either makes learning unstable or leads to a worse policy, supporting the claim that all three components are important for the presented training procedure. Large randomized worlds include 80-by-80 and 160-by-160 cases, and a factory mockup combines physical and simulated robots. The supplied evidence does not state the complete number of episodes, random seeds, confidence intervals, hardware configuration, or the detailed setup of the physical robots.</p></section>
+<section class="secsum"><h3>Results</h3><p>PRIMAL performs best in the reported obstacle-free large-world scenario and slightly outperforms the other planners in low-obstacle-density worlds. In the dense-obstacle scenario it is strongly outperformed and starts failing beyond eight agents, showing that its favorable scaling is not uniform across environments. The excerpt reports per-step, per-agent future computation below 0.1 seconds on a standard GPU and below 0.2 seconds on a CPU, but it does not fully define the measurement protocol. The reported 512-agent success rate remains above 60 percent, and the 1024-agent open-world result is described as near-perfect, but the excerpt does not give the complete underlying measurements.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>PRIMAL demonstrates that reinforcement learning and imitation learning can be combined with reward shaping, blocking penalties, and targeted environment sampling to learn implicit coordination for decentralized MAPF. The policy can react online and be replicated across team sizes, providing a promising execution-time alternative to centralized joint planning in large, open environments. Its evidence is strongest for scalability and success in obstacle-free or lightly obstructed settings, not for universal MAPF performance or formal solution guarantees.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>A limited field of view makes it difficult for an agent to identify the cause of a penalty or reason about distant bottlenecks, such as a long hallway ending in a dead end. Dense obstacles and frequent agent-agent interactions expose failures that local policies do not resolve reliably, and the paper does not provide quantitative robustness results for unknown dynamic obstacles, sensor noise, or distribution shifts. It also does not establish optimality, completeness, or broad sim-to-real guarantees from the supplied excerpt. The authors identify combining PRIMAL with a complete planner as future work, aiming to retain fast decentralized planning while addressing difficult cases.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>For deployments that need frequent replanning for many robots, a policy copied across agents can avoid the repeated cost of centralized joint search. The work is important as a demonstration that expert demonstrations and reinforcement learning can be combined to produce implicit coordination under partial observability. Its contrasting open-space and dense-obstacle results are also useful evidence that scalability and local decision making do not remove the fundamental difficulty of congestion. PRIMAL is therefore best viewed as a complementary learned component, rather than a complete replacement for all MAPF planners.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for MAPF and MAPD researchers studying scalable decentralized execution, partially observable online planning, multi-agent reinforcement learning, or imitation learning from expert planners. It is especially relevant to readers interested in policy reuse across team sizes, reward shaping, environment sampling, and ablations of coordination mechanisms. Readers requiring exact optimality, completeness, or strong performance guarantees in dense environments should treat the supplied results as limited evidence and consult the full paper before drawing such conclusions.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (open-access PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-28
+  </footer>
+</div>
+</body>
+</html>
