@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cooperative Reward Shaping for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2407.10403.en.html" lang="en">English</a></nav>
+  <h1>Cooperative Reward Shaping for Multi-Agent Pathfinding</h1>
+<p class="meta">マルチエージェント経路探索のための協調的報酬整形</p>
+  <div class="meta">Zhenyu Song, Ronghao Zheng, Senlin Zhang, Meiqin Liu<br>採択先: 未取得 ・ 2024-07-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2407.10403v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2407.10403v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2407.10403" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-07-15</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 3</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、部分観測かつ分散的に実行されるマルチエージェント経路探索で、独立Q学習が協調行動を学びにくい問題に取り組む。近傍エージェントへの影響を報酬に反映するCoRSを提案し、多数のエージェントを含む設定で既存手法より高い成功率を示したと報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、格子状環境上で複数のエージェントが障害物や他エージェントとの衝突を避けながら、各自の目標へ到達するマルチエージェント経路探索である。港湾、空港、倉庫など、多数の移動ロボットが同時に動く応用が背景にある。中央集権型手法は全体情報を利用できる一方、エージェント数が増えると計算量と計画時間が大きくなり得る。分散型手法は大規模環境に適するが、局所情報だけではエージェント間の協調が不足し、成功率や効率が低下する可能性がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な提案は、Independent Q-Learningを基礎にした協調的報酬整形法CoRSである。あるエージェントの行動が近隣エージェントへ与える影響を評価し、その相互作用を報酬へ組み込むことで、個別報酬の最大化だけでは得にくい協調を促す。協調を学習時の報酬へ導入しながら、実行時は分散的な方針を維持できる点が、複雑な通信機構を用いる既存手法との差として位置づけられる。論文は、CoRSをDHCの学習へ組み合わせたCoRS-DHCを、複数の既存プランナと比較している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAPFを部分観測のマルチエージェント強化学習として扱い、各エージェントは局所観測に基づいて行動を選ぶ。環境は4近傍の格子移動を採用し、エージェントは視野を持ち、最大二つの最近傍エージェントと通信できると記述されている。基本報酬は、目標へ向かう移動、目標から離れる移動、目標上または目標外での停止、衝突、終了に異なる値を与える。CoRSは、近隣の行動や状態との関係を考慮して報酬を調整し、他者の通行を妨げたり衝突したりする方策を抑制する。既存のネットワーク構造を用い、事前に得た方策ネットワークからファインチューニングすることで学習を進める。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は標準的なMAPF環境で行われ、学習ではカリキュラム方式により、単一エージェントの簡単な課題からエージェント数または環境サイズを増やす課題へ段階的に移行する。最終的な学習対象は10エージェントで、エピソードの最大ステップ数は256、最大学習ステップ数は500,000とされる。評価では障害物密度0.3の各シナリオに200個のテストケースを用い、成功率、平均ステップ数、メイクスパンを比較した。CoRS-DHCはDHC、DCC、PRIMALなどの既存手法と比較され、DCCの複雑な通信機構に対してCoRSは学習時の報酬整形だけを追加する。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>報告された結果では、CoRS-DHCはDHC単独よりすべてのテストセットで優れ、高密度な64エージェントおよび128エージェントの設定では成功率を20%以上改善したとされる。平均ステップ数も、40×40および80×80の双方で、表に示されたエージェント数についてCoRS-DHCの方がDHCより短い。DCCと比べると、64エージェントの格子を除くシナリオでメイクスパンは同程度または短く、成功率は大半のシナリオで上回ったと報告される。一方、近隣の行動に報酬が依存すると学習安定性や収束方策の効率を損なう可能性があり、報酬整形の一般化範囲や失敗条件は抜粋から十分には確定できない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFでは、複数エージェントの衝突のない経路を求める。研究分野では、全体情報を使う中央集権型と、各エージェントが局所情報で動く分散型が大きな分類として扱われる。MARLは大規模シナリオで分散方策を学習する手段として有望だが、分散学習・分散実行では全体情報の不足により自己中心的な行動が生じやすい。CTDE、DTDE、IQL、DHC、DCC、PRIMALなどの関係は本文で概説されるが、提示抜粋には各手法の完全なアルゴリズム詳細はない。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>IQLのような分散的な学習では、エージェントが自分の報酬を優先し、他エージェントの経路を塞いだり衝突したりすることがある。MAPFでは局所的に合理的な行動でも全体の通行を阻害するため、協調不足が成功率と効率を低下させる。CoRSは、こうした局所方策と全体的な通行性能のずれを報酬設計で小さくすることを目指す。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>CoRSはエージェントの近隣への影響を報酬へ組み込む報酬整形であり、実行時の複雑な通信を主たる仕組みとしない。本文は、近傍半径が無限に近づく場合に、既存研究の近隣報酬と等価になると述べる。報酬表では、目標へ向かう移動はマイナス0.070、目標から離れる移動はマイナス0.075、目標上での停止は0、目標外での停止はマイナス0.075、衝突はマイナス0.5、完了は3である。提示文では、CoRSの厳密な数式、仮定の内容、近隣影響の計算法は欠落しており、そこは確定できない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>学習には16個の独立環境を並列利用し、経験を共有バッファへ集め、GPU上の学習器が方策を更新した。バッチサイズは192、系列長は20で、学習率は途中で半減され、最大500,000ステップまで訓練されたと記述される。テストでは40×40と80×80のマップ、4から128までのエージェント数、障害物密度0.3が用いられ、各シナリオは200ケースである。使用ハードウェアはIntel i5-13600KFとNvidia RTX2060 6Gである。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>平均ステップ数について、40×40では4エージェントでDHCが64.15、CoRS-DHCが50.36、64エージェントで179.69と151.02だった。80×80では4エージェントで114.69と92.14、64エージェントで183.44と153.06だった。128エージェントを含む40×40の比較では、DHCが213.75、CoRS-DHCが193.50と報告される。成功率については、高エージェント密度の設定で20%以上の改善が述べられるが、抜粋には全シナリオの成功率一覧はない。</p></section>
+<section class="secsum"><h3>結論</h3><p>論文は、CoRSがMAPF向けMARLに協調性を加える報酬整形法だと結論づける。CoRS-DHCはDHCより成功率と経路効率を改善し、DCCに対しても多くの条件で同等以上の性能を示したとされる。著者は、この考え方を他のマルチエージェント強化学習環境へ拡張することを今後の方向として挙げる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>近隣の行動へ報酬を依存させることは、学習の安定性や収束後の方策効率を損なう可能性がある。提示された抜粋は、CoRSの詳細な仮定、計算コスト、乱数によるばらつき、統計的有意性、未知のマップへの一般化を確立していない。通信範囲、視野、マップ形状などの設定依存性も、抜粋だけでは十分に評価できない。したがって、報告された優位性をすべてのMAPF環境へ外挿することはできない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、分散実行のスケーラビリティを保ちながら、報酬設計によってエージェント間協調を促そうとした点にある。DCCのような複雑な通信機構を導入せず、既存のDHC型ネットワークに適用できるため、実装上の負担を抑えた比較的簡潔な方向性を示す。特に多数エージェントで成功率が改善するという報告は、大規模ロボット群の経路計画に関心を持つ研究者に有用である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>分散MARL、MAPF、報酬設計、協調行動学習を研究する読者に適している。大規模なエージェント数での成功率と、通信機構の複雑さとのトレードオフを調べたい人にも向く。CoRSの完全な定式化や再現条件を必要とする読者は、提示抜粋だけでは不足するため、論文本文の詳細確認が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-29
+  </footer>
+</div>
+</body>
+</html>

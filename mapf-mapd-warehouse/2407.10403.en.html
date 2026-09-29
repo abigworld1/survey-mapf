@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cooperative Reward Shaping for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2407.10403.html" lang="ja">日本語</a></nav>
+  <h1>Cooperative Reward Shaping for Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Zhenyu Song, Ronghao Zheng, Senlin Zhang, Meiqin Liu<br>Venue: Unknown ・ 2024-07-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2407.10403v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2407.10403v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arXiv.2407.10403" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2024-07-15</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 3</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper addresses the difficulty of obtaining cooperative behavior in distributed, partially observed multi-agent pathfinding when agents are trained with Independent Q-Learning. It proposes CoRS, which incorporates an agent’s influence on nearby agents into its reward, and reports improved performance over DHC especially in settings with many agents.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The task is multi-agent pathfinding on grid environments, where multiple agents must reach their goals while avoiding obstacles, other agents, and path conflicts. The motivating applications include ports, airports, and warehouses containing many mobile robots. Centralized planners can use global information to produce efficient paths, but their computational demand and planning time can grow as the number of agents increases. Decentralized planners scale better to large systems, yet local information can lead to insufficient cooperation, lower success rates, and reduced overall efficiency. The paper frames this tension as a suitable target for multi-agent reinforcement learning.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is CoRS, a cooperative reward-shaping technique built around Independent Q-Learning. It evaluates how one agent affects neighboring agents and incorporates that interaction into the reward, encouraging behavior that considers more than the agent’s own immediate objective. Cooperation is introduced during training while execution remains distributed, distinguishing the approach from methods that depend on elaborate communication mechanisms. The paper combines CoRS with DHC, calling the resulting system CoRS-DHC, and compares it with DHC and other state-of-the-art planners. The supplied excerpt does not provide the complete formal contribution list or every mathematical detail, so claims beyond this description are not established.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>MAPF is modeled as a partially observed multi-agent reinforcement-learning problem in which each agent selects actions from local observations. The environment uses four-neighbor grid movement; agents have a field of view and can communicate with up to two nearest neighbors during the reported experiments. The base reward gives different values to movement toward or away from the goal, staying on or off the goal, collisions, and task completion. The reported values are minus 0.070 for moving toward the goal, minus 0.075 for moving away, 0 for staying on the goal, minus 0.075 for staying off the goal, minus 0.5 for a collision, and 3 for finishing. CoRS modifies the reward to account for neighborhood influence, aiming to discourage blocking or colliding with other agents. The method uses the DHC network structure and fine-tunes a previously obtained optimal policy network rather than training the network entirely from the initial state.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>Training and evaluation are conducted in a standard MAPF environment. Curriculum learning begins with a simple one-agent task; after the success rate exceeds 0.9, the procedure either adds an agent or increases the environment size by 5, eventually training for a setting with 10 agents. Episodes have a maximum of 256 steps, and training is reported to use batches of 192, sequence length 20, a changing learning rate, and at most 500,000 training steps. Sixteen independent environments generate experience in parallel, which is placed into a global buffer for GPU-based learning. Evaluation uses 200 test cases per scenario with obstacle density 0.3, maps of 40 by 40 and 80 by 80, and agent counts extending from 4 to 128. The compared measures include success rate, average steps, and makespan, with DHC, DCC, and PRIMAL among the referenced baselines.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported ablation comparison shows that CoRS-DHC outperforms the original DHC policy in every test set. In high-density settings with 64 and 128 agents, the paper states that CoRS-DHC improves pathfinding success rate by more than 20 percent relative to DHC. Its average-step results are also lower than DHC on both reported map sizes across the listed agent counts. Against DCC, CoRS-DHC is reported to exceed success rate in most scenarios and to have comparable or shorter makespan except for the 64-agent grid. This is presented as a favorable trade-off because DCC uses a substantially more complex communication mechanism during training and execution, whereas CoRS adds reward shaping during training. However, reward dependencies on neighbors may harm training stability or the efficiency of the converged policy, and the excerpt does not establish how often or under exactly which conditions this failure occurs.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF seeks collision-free routes for multiple agents and is commonly applied to grid abstractions of multi-robot environments. The paper distinguishes centralized algorithms, which exploit global information, from decentralized algorithms, which prioritize scalability and local decision making. MARL can learn distributed policies from partial observations and is therefore attractive for large agent populations. Centralized-training distributed-execution methods can use global information during training, while distributed-training distributed-execution methods lack that information and may encourage agents to maximize only their individual rewards. The related-work discussion mentions PRIMAL, DHC, DCC, IQL, imitation learning, causal reward ideas, and Shapley-value-based cooperation, but the supplied excerpt does not give complete specifications for these methods.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Independent Q-Learning is scalable to many agents but often performs poorly when the task requires strong coordination. In MAPF, an action that is locally beneficial can block another agent’s route or create a collision, even if it improves the acting agent’s own reward. This mismatch between individual optimization and system-level traffic motivates a reward that reflects neighborhood effects. CoRS is intended to reduce this mismatch without requiring centralized execution or a complex communication policy.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>CoRS measures or represents the effect of an agent on its neighbors and uses that interaction in reward shaping. The paper states that the method becomes equivalent to a previously described neighborhood reward when the neighborhood radius approaches infinity. Its implementation is positioned as a training-time reward modification rather than a new execution-time communication protocol. The exact equations, named assumptions, and procedure for calculating neighborhood influence are missing from the supplied excerpt, so those technical details cannot be established here. The base reward values are explicitly reported, but they do not by themselves specify the full CoRS reward.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The training system uses 16 independent environments in parallel to generate experiences, a global buffer, and a GPU learner. Training uses a batch size of 192, sequence length 20, a dynamic learning rate that is halved at 100,000 and 300,000 steps, and a maximum of 500,000 steps; the excerpt does not preserve all learning-rate values. Fine-tuning keeps the learning rate at a separate stated value, but that value is not visible in the supplied text. Tests use 200 cases per scenario, obstacle density 0.3, 40 by 40 and 80 by 80 maps, and up to 128 agents, with maximum episode horizons of 256 and 386 steps respectively. Hardware is reported as an Intel i5-13600KF and an Nvidia RTX2060 6G.</p></section>
+<section class="secsum"><h3>Results</h3><p>For a 40 by 40 map, the reported average steps for DHC and CoRS-DHC are 64.15 and 50.36 with 4 agents, 77.67 and 64.77 with 8, 86.87 and 68.48 with 16, 115.72 and 95.42 with 32, 179.69 and 151.02 with 64, and 213.75 and 193.50 with 128. For an 80 by 80 map, the corresponding values are 114.69 and 92.14 with 4 agents, 133.39 and 109.15 with 8, 147.55 and 121.25 with 16, 158.58 and 137.06 with 32, and 183.44 and 153.06 with 64. The paper reports more than a 20 percent success-rate improvement over DHC in the 64- and 128-agent high-density cases. It also reports that CoRS-DHC surpasses DCC in success rate in most scenarios and has comparable or shorter makespan except for the 64-agent case, but the excerpt does not include the complete success-rate values or uncertainty estimates.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that CoRS can promote cooperation in MARL-based solutions to standard MAPF. The CoRS-DHC combination is reported to improve efficiency and success rate over DHC and to perform comparably to, or better than, DCC in many tested conditions. The authors suggest that the reward-shaping idea may be extended to other multi-agent reinforcement-learning environments. The supplied evidence supports these conclusions for the reported experiments, not for all possible MAPF settings.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The paper itself identifies a potential drawback: making an agent’s reward depend on neighboring actions may reduce training stability and the efficiency of the converged strategy. The supplied excerpt does not establish the exact assumptions behind the shaping method, its computational overhead, sensitivity to communication range or field of view, variance across random seeds, statistical significance, or generalization to unseen map distributions. It also does not provide the full mathematical specification needed to reproduce every part of CoRS. Consequently, the reported superiority should not be generalized automatically to every environment, agent density, or MAPF objective.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important as a relatively lightweight way to inject cooperation into distributed MARL for MAPF. Rather than relying on a complicated communication mechanism at execution time, it changes the training reward while retaining the DHC network structure. The reported gains in dense, many-agent scenarios make the approach relevant to large robot fleets and other settings where centralized planning is costly. Its broader research value lies in treating neighborhood influence as a bridge between individual rewards and system-level traffic performance.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying MAPF, distributed multi-agent reinforcement learning, reward design, and cooperative behavior. It is especially relevant to readers comparing scalable local policies with communication-heavy coordination methods, or examining performance as agent density increases. Readers who need the exact CoRS equations, assumptions, or a fully reproducible training specification should consult the complete paper because those details are not contained in the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-29
+  </footer>
+</div>
+</body>
+</html>

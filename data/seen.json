@@ -11333,6 +11333,42 @@
       "url": "http://arxiv.org/abs/2406.10827v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2407.10403": {
+      "added": "2026-09-29",
+      "added_at": "2026-09-29T09:51:40.118657",
+      "arxiv_id": "2407.10403",
+      "authors": [
+        "Zhenyu Song",
+        "Ronghao Zheng",
+        "Senlin Zhang",
+        "Meiqin Liu"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 3,
+      "date": "2024-07-15",
+      "doi": "10.48550/arXiv.2407.10403",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2407.10403.html",
+      "file_en": "mapf-mapd-warehouse/2407.10403.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2407.10403v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Cooperative Reward Shaping for Multi-Agent Pathfinding",
+      "title_en": "Cooperative Reward Shaping for Multi-Agent Pathfinding",
+      "title_ja": "マルチエージェント経路探索のための協調的報酬整形",
+      "tldr": "本稿は、部分観測かつ分散的に実行されるマルチエージェント経路探索で、独立Q学習が協調行動を学びにくい問題に取り組む。近傍エージェントへの影響を報酬に反映するCoRSを提案し、多数のエージェントを含む設定で既存手法より高い成功率を示したと報告する。",
+      "tldr_en": "This paper addresses the difficulty of obtaining cooperative behavior in distributed, partially observed multi-agent pathfinding when agents are trained with Independent Q-Learning. It proposes CoRS, which incorporates an agent’s influence on nearby agents into its reward, and reports improved performance over DHC especially in settings with many agents.",
+      "url": "http://arxiv.org/abs/2407.10403v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2408.14527": {
       "added": "2026-07-29",
       "added_at": "2026-07-29T12:28:38.486082",
