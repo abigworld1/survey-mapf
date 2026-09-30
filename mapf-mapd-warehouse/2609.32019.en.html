@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2609.32019.html" lang="ja">日本語</a></nav>
+  <h1>Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Valeriy Vyaltsev, Anton Andreychuk, Taisia Zlotnikova, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik<br>Venue: Unknown ・ 2026-09-25 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.32019" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2609.32019" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-09-25</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies decentralized multi-agent pathfinding under partial observability and communication, focusing on the fact that independently sampling locally correct agent actions can produce an incompatible joint action. DMM replaces one-shot action sampling with iterative refinement of action intents, and its experiments generally show higher success and lower solution cost than the evaluated learned baselines.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is decentralized MAPF on a four-connected grid, where multiple agents must move from distinct starts to distinct goals over discrete time without collisions. Each agent acts from local observations and communication rather than from a centralized planner with complete joint information. The evaluation uses success rate, sum of costs (SoC), and makespan: respectively, the fraction of fully solved instances, the total arrival cost over agents, and the arrival time of the last agent. The supplied excerpt does not fully establish every observation limit, communication bandwidth, or horizon detail.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is to identify a factorization gap in decentralized policies: even if each agent learns its expert marginal action distribution correctly, independently sampling those marginals can combine pieces of different valid joint actions into an incompatible result. DMM addresses this by communicating and refining intermediate action intents before simultaneous commitment, rather than sampling final actions independently once. The paper also introduces MICPO, a critic-free group-relative reinforcement-learning method for fine-tuning the resulting multi-round decision process. At the solver level, DMM-MICPO-3M solves 1,598 of 1,600 MovingAI tasks, the highest coverage among the evaluated methods.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>DMM initializes each agent with a random action intent and updates that intent over several local communication rounds. The communicated object is the intermediate refinement state, not only a completed action or a context from which an action has already been formed; agents can therefore condition their evolving choices on one another while those choices are still being constructed. Each agent commits to an action simultaneously after refinement, reducing the chance that independently plausible local choices will be recombined inconsistently. Training has two stages: imitation pretraining on expert MAPF solutions, followed by MICPO fine-tuning using shared task-level outcomes. MICPO keeps a reference policy anchored to the imitation-pretrained behavior at each round while allowing the communication pathway to remain trainable, so coordination can be reshaped without unrestricted drift.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation combines POGEMA, which tests learned policies as team size increases, MovingAI, which compares MAPF methods and their action-processing mechanisms across maps and populations, a large-scale execution study, and targeted corridor experiments. POGEMA compares DMM-3M, DMM-0.8M, their MICPO-tuned versions, and five learned baselines. The MovingAI protocol uses the maximum-agent instance from each scenario on 32 of 33 maps, producing 1,600 tasks, with populations from 32 to 8,000 agents. The excerpt does not provide every baseline value, a statistical significance analysis, or a compute-equalized runtime comparison.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>On POGEMA, success rates generally decrease as teams become larger, but DMM-MICPO-3M retains a success rate of 1.000 on Warehouse at the largest evaluated size of 192 agents and 0.922 on Cities-Tiles at 256 agents. LC-MAPF-3M, the highest-success baseline at those maximum sizes, reaches 0.938 and 0.805, respectively, so the reported gap is especially visible in those domains. More refinement rounds can improve performance, but gains beyond four rounds become smaller; the MICPO checkpoint reaches a comparable level with fewer rounds. In the corridor experiment, a nonzero round-level teacher-forcing floor is important: setting it to zero removes concentration on the two valid resolutions and brings the frequencies closer to the near-uniform behavior of independent-sampling baselines.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical MAPF approaches include explicit search, reductions to optimization problems, and reactive coordination; the paper cites Conflict-Based Search, minimum-cost flow, and SAT as representative families. Learning-based MAPF instead acquires decision rules from data, but decentralized policies can lose coordination at the final independent sampling step even when communication has supplied richer context. DMM takes the position that communication should couple the intents while they are forming, not merely provide information before independent decisions are made.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>In MAPF, every agent must reach its goal while avoiding vertex and edge conflicts with the other agents. When several joint actions are valid in the same context, the correct joint distribution may contain dependencies that are absent from its per-agent marginals. Independent sampling can therefore mix locally plausible choices from different valid resolutions. The resulting error is not only imperfect learning; it can be an irreducible consequence of factorizing the executor at commitment time.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The paper instantiates the same intent-refinement mechanism as DMM-3M and DMM-0.8M. The compact DMM-0.8M moves most observation-dependent computation outside the refinement loop, reuses it across rounds, and has 763,296 trainable parameters. Each agent receives a tokenized observation of up to 256 tokens encoding its local field of view, agent-specific attributes, and spatial context. DMM-3M retains the LC-MAPF Transformer encoder-decoder for controlled comparison, while the excerpt does not fully specify all layers, message dimensions, or training hyperparameters.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The corridor study isolates a symmetric ambiguity in which two agents start at opposite corridor ends and must exchange positions. Independent sampling allows four joint outcomes; LC-MAPF, MAGAT+, and HMAGAT distribute probability nearly uniformly over them, yielding about 50 percent valid joint actions. DMM refinement instead concentrates probability toward the two valid resolutions. In the scalability study, DMM-MICPO-0.8M solves every tested large-scale instance up to 1,048,576 simultaneously acting agents in obstacle-rich environments.</p></section>
+<section class="secsum"><h3>Results</h3><p>On MovingAI, DMM-MICPO-3M solves 1,598 of 1,600 tasks and has the highest reported coverage among the evaluated methods. On POGEMA, DMM generally obtains higher success rates and lower pooled SoC ratios than LC-MAPF-3M, with the pattern appearing for both the 0.8M and 3M variants. MICPO further improves both DMM variants over their imitation-pretrained counterparts. The paper reports solution costs close to those of the strongest baselines, but the supplied excerpt does not give the complete mean values for every condition.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that independently sampling final actions is a structural weakness of decentralized MAPF: individually plausible decisions can still form an incompatible joint action. DMM couples stochastic intents through local communication before simultaneous commitment, and MICPO fine-tunes this multi-round process from shared task outcomes. The reported results support improving decentralized coordination beyond one-shot independent sampling while preserving decentralized execution.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>DMM does not enforce joint-action feasibility as a hard constraint, so refinement can still produce an incompatible joint action. Although the paper demonstrates large-scale execution, the excerpt does not establish performance under all communication failures, observation noise, environmental distributions, or out-of-distribution maps. More rounds can increase coordination quality but also add computation and delay, and the reported marginal improvements become smaller beyond four rounds. The authors identify explicit feasibility constraints inside the refinement process as a natural direction for future work.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it attributes decentralized MAPF failures not only to inaccurate policy learning, but also to the final reconstruction of a joint action from correct-looking marginal choices. Sharing an intermediate intent state provides a way to model cross-agent dependence without replacing decentralized execution with a centralized joint-action selector. The reported ability to solve instances with more than one million simultaneously acting agents also makes the interaction between coordination design and execution scalability particularly relevant.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is relevant to researchers in decentralized MAPF, learned pathfinding, multi-agent reinforcement learning, and communication-based coordination. It is especially suitable for readers studying multimodality caused by independent sampling, iterative intent formation, imitation-to-reinforcement-learning fine-tuning, and scalable multi-agent execution.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-09-30
+  </footer>
+</div>
+</body>
+</html>

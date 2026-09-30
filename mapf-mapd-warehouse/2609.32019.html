@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.32019.en.html" lang="en">English</a></nav>
+  <h1>Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding</h1>
+<p class="meta">分散型マスターマインド：マルチエージェント経路探索における反復的な意図デノイジングによる共同行動洗練</p>
+  <div class="meta">Valeriy Vyaltsev, Anton Andreychuk, Taisia Zlotnikova, Konstantin Yakovlev, Aleksandr Panov, Alexey Skrynnik<br>採択先: 未取得 ・ 2026-09-25 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.32019" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.32019" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、部分観測と通信のもとで動作する分散型マルチエージェント経路探索において、各エージェントの行動を独立に最終サンプリングすると、個々には妥当な選択が衝突する問題を扱う。DMMは、行動意図を通信ラウンドごとに反復洗練してから同時に確定し、実験では既存の学習型ベースラインより高い成功率と低い解コストを概ね達成した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、四近傍グリッド上の複数エージェントが、それぞれ異なる開始頂点から目標頂点へ、離散時間で衝突なく移動する分散型MAPFである。各エージェントは局所観測と通信を利用できるが、中央集権的な完全情報計画器ではなく、個別の方策として行動を決める。評価では、チーム全体が目標へ到達する成功率、全エージェントの到着コストの総和であるSoC、最後のエージェントの到着時刻であるメイクスパンが用いられる。抜粋は、すべての観測範囲、通信帯域、時間地平線の詳細を完全には確定していない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、分散型方策における「因子分解の隙間」、すなわち各エージェントの周辺行動分布が正しく学習されても、独立サンプリングで不整合な共同行動が生成される問題を明示した点である。これに対し、DMMは一回の独立サンプリングではなく、通信中に形成途上の行動意図そのものを共有し、共同で洗練する仕組みを導入する。さらに、模倣学習後の多ラウンド意思決定を、批評家を使わないグループ相対強化学習法MICPOで最適化する。評価上、DMM-MICPO-3MはMovingAIの1,600タスク中1,598タスクを解き、評価された手法の中で最高のカバレッジを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DMMでは、各エージェントがまずランダムな行動意図を初期化し、局所通信を複数ラウンド行いながら、その意図を更新する。通信対象は完成済みの最終行動だけではなく、まだ確定していない反復洗練状態であり、各エージェントは他エージェントの意図形成過程を条件として自身の意図を調整できる。最終ラウンドで各エージェントが行動を同時確定するため、独立に抽出された局所的に妥当な選択の組み合わせが崩れる可能性を抑える。学習は、専門家のMAPF解による模倣事前学習と、共有されたタスク単位の結果を使うMICPOによる微調整の二段階である。MICPOでは、参照方策が各ラウンドの行動分布を模倣事前学習済みの振る舞いに近づけ、通信経路は学習可能なままにして、協調能力を保ちつつ通信を再構成する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>検証は、制御されたチームサイズの増加を見るPOGEMA、異なる地図とエージェント数で手法と行動処理を比較するMovingAI、100万超の同時実行エージェントを扱う大規模実験、そして曖昧な廊下状態で共同行動分布を調べる標的実験から成る。POGEMAではDMM-3M、DMM-0.8M、MICPO微調整版、および5つの学習型ベースラインを比較し、MovingAIでは33地図のうち1地図を除く32地図から1,600タスクを構成した。MovingAIの各シナリオでは最大エージェント数のインスタンスを用い、人口は32から8,000までである。抜粋は全ベースラインの全数値、統計的有意性、または計算時間を公平にそろえた比較を提示していない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>POGEMAではチームサイズが増えるほど全手法の成功率が一般に低下するが、DMM-MICPO-3MはWarehouseの最大評価サイズ192エージェントで成功率1.000、Cities-Tilesの256エージェントで0.922を維持した。同じ条件で最高成功率のベースラインであるLC-MAPF-3Mは、それぞれ0.938と0.805であり、DMMの差は特にこれらの領域で大きかった。反復ラウンドを増やすと改善するが、4ラウンドを超えると追加改善は小さくなり、MICPOモデルは同程度の性能に少ないラウンドで到達する。廊下実験では、ラウンド単位の教師強制が相関した洗練行動の学習に重要で、教師強制の下限をゼロにすると有効な2種類の解への集中が失われ、独立サンプリング方式に近いほぼ一様な頻度になる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>古典的MAPFには、明示的な探索、最適化への帰着、反応的な協調などがあり、Conflict-Based Searchや最小費用フロー、SATに基づく手法が代表例として挙げられる。学習型MAPFはデータから意思決定規則を獲得するが、分散方策では最終行動の独立サンプリングが協調を壊し得る。DMMは、通信があるだけではこの問題を解決できず、確定前の意図を結合する必要があるという立場を取る。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPFでは、各エージェントが目標へ到達しながら頂点や辺の衝突を避ける必要がある。複数の共同行動が同じ文脈で有効なとき、正しい共同分布の周辺分布だけを個別に学習しても、サンプリング時に異なる有効解の部品を混ぜてしまう。したがって、これは学習誤差だけでなく、最終的な方策の因子分解と独立抽出から生じる不可約な協調誤差でもある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>DMMには同じ意図洗練機構を使うDMM-3MとDMM-0.8Mがあり、後者は観測依存計算の多くを反復ループ外で再利用する軽量構成で、訓練可能パラメータ数は763,296である。各エージェントの入力は、局所視野、エージェント固有属性、空間文脈を最大256トークンで表現する。DMM-3MはLC-MAPFのTransformerエンコーダ・デコーダを維持し、比較を容易にする。抜粋だけでは全ネットワーク層、通信メッセージの次元、すべてのハイパーパラメータは確定しない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>廊下の対称な衝突状態では、2エージェントが反対側から位置交換するため、独立サンプリングは4つの共同結果を許す。LC-MAPF、MAGAT+、HMAGATはこの設定で4結果にほぼ一様な確率を配分し、有効な共同行動は約50パーセントだった。DMMは反復洗練によって有効な2つの解に確率を集中させる方向を示した。大規模評価ではDMM-MICPO-0.8Mが最大1,048,576の同時実行エージェントを含む、テストされた大規模インスタンスをすべて解いた。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>MovingAIではDMM-MICPO-3Mが1,600タスク中1,598タスクを解き、評価手法中で最高のカバレッジを得た。POGEMAではDMMはLC-MAPF-3Mより一般に高い成功率と低いプール済みSoC比を示し、この傾向は0.8M版と3M版の双方で見られた。MICPOは模倣事前学習だけの両DMM構成をさらに改善した。解コストは最強ベースラインに近いと報告されているが、抜粋は全条件での具体的な平均値を示していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、分散型MAPFで最終行動を独立にサンプリングすることが、個別行動の妥当性とは別に共同行動の不整合を生むと結論づける。DMMは、局所通信を通じて確定前の確率的な意図を反復的に結合し、MICPOでその多ラウンド過程を微調整する。結果は、独立な一回限りのサンプリングを超えて、分散実行を保ったまま協調を改善できることを支持する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>DMMは共同行動の実行可能性をハード制約として強制しないため、洗練後にも不適合な共同行動が残る可能性がある。実験では大規模性が示された一方、抜粋はすべての環境、通信障害、観測誤差、未知分布への一般化を確定していない。反復ラウンドは協調品質を高め得るが、追加計算と遅延を伴い、4ラウンド以降の改善は小さい。著者らは、洗練過程に明示的な実行可能性制約を組み込むことを今後の方向としている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、分散MAPFの失敗原因を方策表現の不正確さだけでなく、正しい周辺分布から共同行動を再構成する最終処理にも求めた点にある。確定前の意図を共有する設計は、中央集権的な共同行動選択を導入せずに、エージェント間依存を扱う実用的な枠組みを与える。最大約105万エージェントでの報告は、計算可能性と協調機構を同時に検討する研究にとって特に示唆的である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>分散型MAPF、学習型経路探索、マルチエージェント強化学習、通信による協調に関心を持つ研究者に適している。特に、独立サンプリングによるモード混合、反復的な意図形成、模倣学習からの多エージェント微調整を調べたい読者に勧められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-09-30
+  </footer>
+</div>
+</body>
+</html>

@@ -9272,6 +9272,44 @@
       "url": "https://arxiv.org/abs/2609.23137",
       "venue": ""
     },
+    "arxiv:2609.32019": {
+      "added": "2026-09-30",
+      "added_at": "2026-09-30T09:06:22.933475",
+      "arxiv_id": "2609.32019",
+      "authors": [
+        "Valeriy Vyaltsev",
+        "Anton Andreychuk",
+        "Taisia Zlotnikova",
+        "Konstantin Yakovlev",
+        "Aleksandr Panov",
+        "Alexey Skrynnik"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-25",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.32019.html",
+      "file_en": "mapf-mapd-warehouse/2609.32019.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.32019",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding",
+      "title_en": "Decentralized Master-Mind: Joint Action Refinement through Iterative Intent Denoising in Multi-Agent Pathfinding",
+      "title_ja": "分散型マスターマインド：マルチエージェント経路探索における反復的な意図デノイジングによる共同行動洗練",
+      "tldr": "本論文は、部分観測と通信のもとで動作する分散型マルチエージェント経路探索において、各エージェントの行動を独立に最終サンプリングすると、個々には妥当な選択が衝突する問題を扱う。DMMは、行動意図を通信ラウンドごとに反復洗練してから同時に確定し、実験では既存の学習型ベースラインより高い成功率と低い解コストを概ね達成した。",
+      "tldr_en": "This paper studies decentralized multi-agent pathfinding under partial observability and communication, focusing on the fact that independently sampling locally correct agent actions can produce an incompatible joint action. DMM replaces one-shot action sampling with iterative refinement of action intents, and its experiments generally show higher success and lower solution cost than the evaluated learned baselines.",
+      "url": "https://arxiv.org/abs/2609.32019",
+      "venue": ""
+    },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:03:30.504873",
