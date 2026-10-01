@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Multi-Label A* Algorithm for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="doi-cf35a04b9d7c.html" lang="ja">日本語</a></nav>
+  <h1>A Multi-Label A* Algorithm for Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Florian Grenouilleau, Willem Jan van Hoeve, J. Hooker<br>Venue: International Conference on Automated Planning and Scheduling 2019 ・ 2019-07-06 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/6973709ce876e6e2f987698e4b7bc228febf5dd4" target="_blank" rel="noopener">Original</a> ・ <a href="https://ojs.aaai.org/index.php/ICAPS/article/download/3474/3342" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v29i1.3474" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue International Conference on Automated Planning and Scheduling 2019</span><span class="chip">Published 2019-07-06</span><span class="chip keyword-match">Keyword matches 3</span><span class="chip">Citations 91</span><span class="chip">Relevance 6</span><span class="chip basis-fulltext">full text (open-access PDF)</span><span class="chip reading-value">Reading value 5/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (open-access PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies online multi-agent pickup and delivery, where agents must receive tasks that appear over time and execute ordered pickup and delivery goals without collisions. It introduces Multi-Label A* (MLA*) and an h-value-based centralized assignment heuristic (HBH), reporting improvements in makespan, service time, and computation time on warehouse instances.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper addresses the multi-agent pickup and delivery problem (MAPD), an online variant of multi-agent pathfinding in which pickup-and-delivery tasks become available over time. Agents move on a graph, may wait or traverse an incident edge between consecutive time steps, and must avoid both vertex collisions and opposite-direction edge crossings. Each assigned task requires an agent to travel from its current position to a pickup location and then to a delivery location. Because tasks arrive dynamically and agents become available at different times, assignment and path planning interact: a locally reasonable path to a pickup point can unnecessarily restrict the agent&#x27;s later delivery path or interfere with other agents. The paper therefore treats the ordered pair of goals as a single planning problem rather than simply solving two independent path problems.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is MLA*, an extension of classical A* that searches for a path through multiple ordered goals. In the MAPD setting, it handles the pickup and delivery stages in one search and avoids some restrictions caused by sequential A* calls. The second contribution is HBH, a centralized heuristic that orders agent-task pairs by h-values and uses MLA* to test assignments and generate paths. The combined method is evaluated against TP, TP augmented with MLA*, and the Central method reported in prior work. According to the supplied evidence, the contribution is an empirical improvement in both solution quality and computational efficiency, rather than a claim of globally optimal MAPD solutions.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>MLA* retains the usual A* structure, including a priority queue and selection of the search node with the smallest f-value. Each search state has a label indicating which ordered goal is currently being pursued: label 1 means that the agent is seeking the pickup location, while label 2 means that it is seeking the delivery location. When a label-1 node reaches the pickup location, a corresponding label-2 state is created and placed in the queue; when a node reaches the delivery location, the search returns the path. Nodes that are still in the pickup phase after the latest permissible pickup time are rejected. The key mechanism is that the search can pass through the pickup location and continue toward delivery, instead of assuming that the agent will remain there for the rest of the planning horizon. HBH repeatedly obtains idle agents and open tasks, sorts candidate agent-task pairs in increasing h-value order, and tries each pair with MLA*. When an assignment is feasible, HBH commits the task and the path, updates the relevant state, and continues until the available assignments have been processed.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments use warehouse instances from earlier MAPD work. The small set contains 30 instances with 500 tasks released over time, release frequencies from 0.2 to 10 tasks per time step, and 10 to 50 agents. The large set contains five instances with 1000 tasks, a release frequency of 50 tasks per time step, and 100 to 500 agents. The evaluated methods include TP, TP with MLA*, HBH with MLA*, and the Central method for the cases where prior results are available. The reported measures are makespan, average service time, computation time per time step, and the number of A* states. TP, MLA*, and HBH were implemented in C++ and run on a 2.7 GHz Intel Core i5 MacBook with 16 GB of RAM using one core; the Central results were taken from the earlier study. The excerpt does not establish whether all implementations used identical code, compiler settings, or measurement procedures.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The main conceptual advantage of MLA* is that it does not terminate the first planning phase by treating the pickup location as a permanent stopping point. The paper identifies two cases where sequential planning is unnecessarily restrictive: the pickup node may be another agent&#x27;s future delivery node, or another agent may soon pass through it. In either case, an agent might be able to reach the pickup node and continue toward delivery before the other planned event occurs, but a sequential A* call can reject or delay that possibility. MLA* preserves this broader temporal view and can therefore enable more feasible assignments and shorter paths. HBH complements this search by using h-values to decide which candidate assignments to test, but it remains a centralized heuristic rather than an optimization procedure with a stated global optimality guarantee. The supplied excerpt also does not establish theoretical completeness, worst-case complexity, robustness to different task-release processes, or performance on maps other than the reported warehouse instances; the stated future direction is to extend MLA* to multi-order scheduling.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-agent pathfinding asks for collision-free paths from starts to goals for a set of agents and has applications including warehouse logistics, video games, and search and rescue. Prior variants introduce deadlines, kinematic motion constraints, anonymous-agent task assignment, and multiple goals. MAPD extends this setting by allowing tasks to be released over time and by requiring agents to execute task sequences such as pickup followed by delivery. The problem is especially relevant to warehouse systems in which robots move inventory or pods between storage and handling positions in real time.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The environment is represented by a graph whose vertices are possible positions and whose edges are feasible connections. At each time step, new tasks are added, and idle agents are assigned available tasks according to a heuristic. An agent may wait or move along an incident edge, but no two distinct agents may occupy the same vertex at the same time or traverse the same edge in opposite directions at the same time. The planning horizon expands as needed to accommodate the agents&#x27; tasks. The excerpt does not specify that the objective is an exact optimum under every condition; it presents the goal as finding high-quality, collision-free assignments and paths efficiently.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>MLA* encodes progress through the ordered goals as a label in each search state. Transitioning from label 1 to label 2 at the pickup location lets one A* search represent both legs of the task. Its rejection rule removes pickup-phase states that exceed the latest pickup time, while its delivery-arrival rule terminates the search. HBH uses h-values to prioritize candidate agent-task pairs and invokes MLA* to test feasibility and obtain a path.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The small benchmark has 30 instances, each with 500 tasks, 10 to 50 agents, and task-release frequencies between 0.2 and 10 per time step. The large benchmark has five instances with 1000 tasks, 100 to 500 agents, and a release frequency of 50 per time step. Runs for the new methods used one CPU core on a 2.7 GHz Intel Core i5 system with 16 GB of RAM. The evidence does not provide further details about map dimensions, random seeds, or repeated-run procedures.</p></section>
+<section class="secsum"><h3>Results</h3><p>On the large instances, HBH with MLA* reduced makespan by 30% and average service time by 43% relative to TP, while reducing computation time by 98%. The reported maximum case for 500 agents reaches a 30% makespan reduction and a 43% average-service-time reduction, with computation taking at most 74 milliseconds per time step. On small instances, HBH with MLA* consistently improved service time and produced quality similar to Central for 50 agents, with reported computation times of 0.84 milliseconds per time step versus 2085 milliseconds per time step. No comparison with Central was made on the large instances because of its scalability problems.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that MLA* provides a broader path-planning view than two sequential A* calls by handling ordered pickup and delivery goals in one search. Combining MLA* with HBH improves the reported makespan, service time, and computation time, especially on the larger warehouse instances. The evidence supports these conclusions for the tested benchmarks and baselines, but it does not prove that the same gains hold for all MAPD environments or task distributions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The experiments are limited to warehouse instances drawn from earlier work, so the excerpt does not establish generalization to other maps, obstacle layouts, release processes, or agent capabilities. Central is not evaluated on the large instances, leaving its relative performance at that scale unresolved. The supplied material does not state optimality or completeness guarantees, detailed worst-case complexity, sensitivity to heuristic choices, or behavior under inaccurate predictions of future tasks. It also gives only a brief indication of future work rather than a developed treatment of multi-order scheduling.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>MAPD systems must coordinate assignment and collision-free routing under continual task arrivals, and separating the pickup and delivery searches can impose avoidable constraints. MLA* offers a simple but meaningful modeling change: the ordered goals are represented inside one search, allowing the planner to reason about passing through the pickup location and continuing to delivery. The reported reductions in service time and computation time suggest practical relevance for large online warehouse workloads. The paper is therefore important as an example of how a path-planning representation and an assignment heuristic can jointly improve both throughput-related quality and runtime.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers working on MAPF, MAPD, warehouse robotics, online task assignment, and collision-free routing. It is particularly useful for readers who want to understand how A* can be extended to ordered goals and how a centralized h-value heuristic can exploit that extension. Readers primarily seeking formal optimality proofs, broad cross-domain benchmarking, or detailed robustness analysis should treat the supplied excerpt as insufficient evidence and consult the full paper.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (open-access PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-01
+  </footer>
+</div>
+</body>
+</html>

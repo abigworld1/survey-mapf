@@ -10307,6 +10307,42 @@
       "url": "http://arxiv.org/abs/2509.15381v1",
       "venue": "AAAI 2025"
     },
+    "doi:10.1609/icaps.v29i1.3474": {
+      "added": "2026-10-01",
+      "added_at": "2026-10-01T09:23:40.038989",
+      "arxiv_id": "",
+      "authors": [
+        "Florian Grenouilleau",
+        "Willem Jan van Hoeve",
+        "J. Hooker"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 91,
+      "date": "2019-07-06",
+      "doi": "10.1609/icaps.v29i1.3474",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/doi-cf35a04b9d7c.html",
+      "file_en": "mapf-mapd-warehouse/doi-cf35a04b9d7c.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://ojs.aaai.org/index.php/ICAPS/article/download/3474/3342",
+      "reading_value": 5,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 6,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "A Multi-Label A* Algorithm for Multi-Agent Pathfinding",
+      "title_en": "A Multi-Label A* Algorithm for Multi-Agent Pathfinding",
+      "title_ja": "マルチエージェント経路探索のためのマルチラベルA*アルゴリズム",
+      "tldr": "本論文は、時間とともに追加されるピックアップ・デリバリー課題を、衝突を避けながら複数エージェントに割り当てて実行するMAPDを対象とする。順序付き複数目標を一度に扱うMLA*と、h値に基づく集中型割当ヒューリスティックHBHを組み合わせ、大規模事例でメイクスパン、サービス時間、計算時間を改善した。",
+      "tldr_en": "This paper studies online multi-agent pickup and delivery, where agents must receive tasks that appear over time and execute ordered pickup and delivery goals without collisions. It introduces Multi-Label A* (MLA*) and an h-value-based centralized assignment heuristic (HBH), reporting improvements in makespan, service time, and computation time on warehouse instances.",
+      "url": "https://www.semanticscholar.org/paper/6973709ce876e6e2f987698e4b7bc228febf5dd4",
+      "venue": "International Conference on Automated Planning and Scheduling 2019"
+    },
     "doi:10.1609/icaps.v34i1.31522": {
       "added": "2026-08-31",
       "added_at": "2026-08-31T15:26:36.873536",

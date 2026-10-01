@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Multi-Label A* Algorithm for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="doi-cf35a04b9d7c.en.html" lang="en">English</a></nav>
+  <h1>A Multi-Label A* Algorithm for Multi-Agent Pathfinding</h1>
+<p class="meta">マルチエージェント経路探索のためのマルチラベルA*アルゴリズム</p>
+  <div class="meta">Florian Grenouilleau, Willem Jan van Hoeve, J. Hooker<br>採択先: International Conference on Automated Planning and Scheduling 2019 ・ 2019-07-06 ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/6973709ce876e6e2f987698e4b7bc228febf5dd4" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/ICAPS/article/download/3474/3342" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v29i1.3474" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 International Conference on Automated Planning and Scheduling 2019</span><span class="chip">公開日 2019-07-06</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 91</span><span class="chip">関連度 6</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 5/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、時間とともに追加されるピックアップ・デリバリー課題を、衝突を避けながら複数エージェントに割り当てて実行するMAPDを対象とする。順序付き複数目標を一度に扱うMLA*と、h値に基づく集中型割当ヒューリスティックHBHを組み合わせ、大規模事例でメイクスパン、サービス時間、計算時間を改善した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グラフ上を移動する複数エージェントに、時間とともに解放されるピックアップ・デリバリー課題を割り当てるオンライン多エージェント・ピックアップ・アンド・デリバリー問題（MAPD）である。各エージェントは現在位置からピックアップ地点へ移動し、その後に対応するデリバリー地点へ移動する必要があり、エージェント同士の衝突は禁止される。衝突には、同時に同じ頂点を占有する場合と、同時に同じ辺を逆方向へ通過する場合が含まれる。課題は逐次的に現れ、空いているエージェントへ割り当てられるため、単一の固定目標への通常のMAPFよりも、将来の経路と割当を考慮する必要がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、順序付けられた複数目標を一つの探索で扱うマルチラベルA*（MLA*）を提案したことである。第二の貢献は、エージェントと未割当課題をh値で並べ、MLA*による実現可能性判定と経路生成を反復する集中型ヒューリスティックHBHである。従来のTPやTPTSでは、ピックアップまでのA*とピックアップからデリバリーまでのA*を分けて実行していたのに対し、本手法はその分割による過剰な制約を避ける。提示された実験では、既存手法に対して解品質と計算効率の双方を改善できることが示される。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MLA*は古典的A*の探索構造を保ちながら、探索ノードに現在の目標段階を表すラベルを付ける。ラベル1ではエージェントはピックアップ地点を目指し、ピックアップ地点に到達すると同じ状態をラベル2へ進め、以後はデリバリー地点を目指す。探索キューから最小f値のノードを選び、許容される時間条件を満たさないノードを棄却し、デリバリー到着時に経路を返す。これにより、エージェントがピックアップ地点で計画終了まで待機すると仮定する必要がなくなり、他エージェントの将来経路との干渉を避けながら地点を通過して先へ進める。HBHは各時刻に利用可能なエージェントと未割当の公開課題を取得し、エージェント・課題対をh値の昇順に調べ、MLA*で実行可能な対を採用して経路と割当を更新する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、先行研究で用いられた倉庫インスタンスが使われた。小規模集合は、時間とともに解放される500課題、10〜50エージェント、解放頻度0.2〜10課題/時刻の30インスタンスで構成され、大規模集合は、1000課題、解放頻度50課題/時刻、100〜500エージェントの5インスタンスで構成される。比較対象はTP、TPにMLA*を組み込んだ構成、HBHとMLA*の組合せ、そして先行研究のCentral法であり、メイクスパン、平均サービス時間、1時刻あたりの計算時間、探索状態数を比較した。実装はC++で、2.7GHz Intel Core i5、16GB RAM、1コアの環境で実行されたが、Central法の結果は先行研究から取得された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>MLA*の中心的な利点は、ピックアップ地点に到着した時点で経路を分割せず、デリバリーまでを見通して探索できることである。これにより、ピックアップ地点が別エージェントの将来のデリバリー地点である場合や、別エージェントが近い将来にその地点を通過する場合に、実際には可能な経路を不可能または遅延した経路として扱う問題を緩和できる。一方、HBHは集中型であり、利用可能なエージェントと課題の対を繰り返し検査するため、問題全体の最適解を保証する方法として説明されているわけではない。抜粋には、理論的な最適性保証、一般の地図への移植性、課題解放規則の変更に対する頑健性は確立されていない。将来課題として、MLA*を複数注文のスケジューリングへ拡張する方向が示されている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数エージェントについて、開始位置から目標位置まで衝突のない経路を求める計画問題であり、倉庫物流、ゲーム、捜索救助などに応用される。研究では期限、運動学的制約、匿名エージェントへの課題割当、複数目標などの拡張が扱われてきた。MAPDはその一つで、課題が時間とともに現れ、各課題がピックアップとデリバリーの目標を含む。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>エージェントはグラフの頂点と辺に沿って、待機または隣接頂点への移動を行う。各時刻に新しい課題が追加され、空いているエージェントへ課題が割り当てられ、経路は全期間にわたって衝突を起こしてはならない。抜粋では、すべての動的課題に対する大域的最適解を求めることが問題の要求なのか、実行可能な高品質解を求めるのかは明示されていない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>MLA*の探索ノードは、位置、時間、コスト、目標段階を持つラベル付き状態として扱われる。ピックアップ到着時にラベルを1から2へ変更することで、二つの順序付き目標を単一探索に統合する。HBHはh値に基づくエージェント・課題対の順序付けと、MLA*による経路実現可能性の確認を組み合わせる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>小規模実験は30インスタンス、大規模実験は5インスタンスで行われた。小規模では500課題と10〜50エージェント、大規模では1000課題と100〜500エージェントが使われた。評価環境はC++、2.7GHz Intel Core i5、16GB RAM、1コアである。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>大規模事例では、HBH+MLA*はTPに対して平均メイクスパンを30%、平均サービス時間を43%、計算時間を98%削減した。500エージェントの場合、最大でメイクスパン30%、平均サービス時間43%の削減が報告され、1時刻あたりの計算時間は最大74ミリ秒だった。小規模事例では、HBH+MLA*はサービス時間を一貫して改善し、50エージェント時にCentral法と同程度の解品質を、0.84ミリ秒/時刻対2085ミリ秒/時刻で得たと報告されている。</p></section>
+<section class="secsum"><h3>結論</h3><p>MLA*は、ピックアップとデリバリーという順序付き目標を見通して探索することで、逐次A*が生む不要な制約を避ける。HBHと組み合わせると、MAPDの大規模倉庫事例で解品質と計算効率の双方が改善された。抜粋が示す結論は経験的なものであり、すべてのMAPD設定で同じ改善が得られることまでは確立していない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>実験は先行研究の倉庫インスタンスに基づいており、他の地図、障害物構造、課題分布、エージェント能力への一般化は抜粋から判断できない。Central法との比較は大規模事例では行われていないため、その規模での相対性能は確立されていない。最適性、完全性、最悪時計算量、動的環境の予測誤差に関する説明も、供給された抜粋には十分に含まれていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPDでは、課題割当と衝突回避経路計画を別々に扱うと、局所的に妥当な選択が将来の経路を不必要に制限しうる。本論文は、順序付き目標を一つの探索で扱うという比較的明確な機構により、その制約を減らし、大規模なオンライン物流に適用可能な計算効率を示した点で重要である。特に、解品質だけでなく1時刻あたりの処理時間を同時に評価している点が実運用志向の研究に有用である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFやMAPD、倉庫ロボットのオンライン課題割当、衝突回避経路計画を研究する読者に適している。通常のA*を複数の順序付き目標へ拡張する設計や、経路生成を利用した集中型ヒューリスティックの実験的効果を知りたい場合に特に有用である。厳密最適化の理論保証や多様な環境での頑健性を主目的とする読者は、抜粋だけでは情報が不足している点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-01
+  </footer>
+</div>
+</body>
+</html>
