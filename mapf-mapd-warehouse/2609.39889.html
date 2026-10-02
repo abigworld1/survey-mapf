@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Solving Multi-Agent Sokoban via LaCAM | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.39889.en.html" lang="en">English</a></nav>
+  <h1>Solving Multi-Agent Sokoban via LaCAM</h1>
+<p class="meta">LaCAMによるマルチエージェント・ソコバンの解法</p>
+  <div class="meta">Keisuke Okumura<br>採択先: 未取得 ・ 2026-09-30 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.39889" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.39889" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-30</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、複数のエージェントが箱を押して目標へ配置するマルチエージェント・ソコバンに、MAPFの探索基盤LaCAMを拡張したSokoban-LaCAMを提案する。実験は、箱押しによる不可逆な行き詰まりを含む問題でも、数十のエージェントと箱を扱いながら完全性と最終的な最適性の保証を維持できることを示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>ソコバンは、グリッド上のエージェントが箱を押して、ラベルのない目標位置をすべて箱で占有するパズルである。マルチエージェント版では、複数エージェントの衝突回避、箱をどのエージェントが扱うかという割当て、箱の押下順序を同時に考えなければならない。エージェント数の増加に伴って共同行動の分岐が急増するため、単一エージェント向けの探索をそのまま拡張するのは難しい。著者はこの問題を、倉庫内で複数ロボットが荷物を搬送する状況に近い、MAPFの応用可能性を検証するテストベッドとして扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、MAPFで用いられてきたLaCAMの構成空間探索を、箱押しを伴うマルチエージェント・ソコバンへ比較的小さな変更で適用できることを示した点である。具体的には、箱を意識したPIBTベースの構成生成器Sokoban-PIBTと、LaCAMの探索・遅延制約追加・解の改善の枠組みを組み合わせる。これにより、従来の単一エージェント・ソコバン向け手法を適応するより高いスケーラビリティを得られることを実験で示す。さらに、MAPFを単独の問題設定ではなく、より広い集合的自動化問題のアルゴリズム的プリミティブとして利用できるという見方を提示する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Sokoban-LaCAMは、エージェントと箱の位置からなる構成を探索ノードとして扱い、各ステップでエージェントの行動を生成する。Sokoban-PIBTは、ターゲットと箱、およびエージェントと箱の割当てを考慮して行動を決め、箱の位置変化はその行動から暗黙に定まる。箱同士または箱とエージェントの衝突を生じる行動は拒否され、隣接移動、交換衝突の禁止、箱を押すエージェントの存在といった遷移条件が守られる。LaCAM側では遅延制約の追加と構成生成を用いた探索を行い、初期解を得た後も解を改善する。実装上は、エージェントと箱を区別しない重複構成の検出、行き詰まり枝の枝刈り、ランダム再始動、停滞検出などが大規模な探索を支える。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、MAPF型探索基盤を導入する効果、小さい問題から大規模で多様な問題までの解決能力、各技術要素の寄与という三つの観点で行われた。インスタンスは、複数のグリッド地図上でエージェントと箱をランダム配置して生成され、明らかに実行不能な例は除外されたが、解のないインスタンスが残る可能性はある。実験はApple M1 Ultraの20コアCPUを搭載したデスクトップで行われ、最大16実行を並列化したと記載されているが、使用RAMの量と各時間制限の具体値は抜粋からは確定できない。成功率、初期解の取得時間、解のコスト、最適解に対する初期・最終解の差、探索ノードや制約数などが報告された。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、LaCAMとPIBTの組合せが、マルチエージェント・ソコバンの大きな共同探索空間を扱う有望な基盤であることを示唆する。通常の荷物搬送型MAPFでは許されることがある同一位置への同居や、物体を運ぶモデルとは異なり、ソコバンの押すだけの動力学では行き詰まりが深刻で不可逆になりやすい。したがって、成功率だけでなく、停滞や探索の偏りを抑える構成生成が重要であり、アブレーションでは停滞検出とランダム再始動の役割が大きいと報告される。一方、論文の目的はソコバン固有の最良ソルバを完成させることではなく、MAPF技術を別の集合的計画問題へ移植できるかを調べることである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>ソコバンは、箱が壁際にあると特定方向から押せず、到達不能な箱配置が生じるため、探索ヒューリスティクスの設計が難しい問題である。単一エージェント版は計算量の観点でPSPACE完全として知られ、マルチエージェント版ではこれにエージェント間衝突と割当ての複雑さが加わる。MAPFはグラフ上で複数エージェントの衝突のない経路を求める問題であり、LaCAMは多数エージェントに対する高速計画を目指す近年の探索手法として位置づけられる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>環境を、通行可能セルを頂点、直交隣接を辺とする無向グラフとして表す。エージェント、箱、目標位置を持ち、箱数と目標数は等しいと仮定する。構成は、エージェントと箱を異なる頂点へ割り当てる単射であり、解は最終的にすべての目標頂点を箱が占有する有限な構成列である。各遷移では、物体は停止または隣接頂点へ移動し、物体同士の交換衝突を起こさず、動いた箱には隣接位置からちょうど一つのエージェントが関与しなければならない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>Sokoban-PIBTは、エージェントの行動だけを生成し、行動の結果として生じる箱の配置を構成遷移に反映する。LaCAMの構成生成器がランダム歩行であっても探索全体は網羅的になるという分析を維持しつつ、箱に関する不正な衝突を拒否する。エージェントと箱を非識別的に扱う重複検出では、同じ占有位置集合を同一構成としてまとめ、保存する状態数を減らす。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>評価にはempty、random、warehouse風の複数サイズの地図と、異なるエージェント数・箱数のインスタンスが含まれる。抜粋には、合計1,880インスタンスに対する成功率の集計と、empty-5-5の90インスタンスを用いた小規模比較が記載されている。アブレーションはrandom系地図を対象とし、全バリエーションで解けた274インスタンスについて平均値を比較した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>小規模比較では、両方のプランナが解いた27インスタンスについて、Sokoban-LaCAMは初期解をほぼ即時に得て、最終的にそれらすべてで最適解へ収束したと報告される。大規模集計では、時間制限下の成功率としてSokoban-PIBTが40.2%、Sokoban-LaCAMが68.2%と記載されている。アブレーションでは、停滞検出を除くと成功率が低下し、ランダム再始動を除くと初期解と最終解の品質および探索の広がりが悪化した。</p></section>
+<section class="secsum"><h3>結論</h3><p>Sokoban-LaCAMは、箱押し、タスク割当て、衝突回避を統合した問題に対して、MAPF由来の構成空間探索を適用する実証例である。抜粋の結果は、数十規模のエージェントと箱を含む事例を扱いながら、完全性と最終的な最適性の保証を保てるという主張を支持する。より一般には、MAPFの探索バックボーンを集合的自動化の基盤として再利用する可能性を示す。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>論文は完全なエンジニアリング手順を目的とせず、実装の細部を一部省略しているため、抜粋だけでは再現に必要な全設定を確定できない。提示された実験には解なしインスタンスが含まれ得るが、時間制限、RAM容量、全ベースラインの詳細は十分に示されていない。ランダム配置と特定のグリッド地図に基づく評価であり、実運用の倉庫、動的障害物、異質ロボット、学習モデルへの一般化は本抜粋からは確立されない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、MAPFで培われたスケーラブルな探索を、標準MAPFにはない不可逆な物体操作へ接続したことにある。箱とエージェントの同時計画を扱うことで、倉庫ロボットの荷物操作など、経路計画だけでは表せない集合的自動化への橋渡しを示す。これは、問題ごとに探索器をゼロから設計する代わりに、MAPFを再利用可能な計画プリミティブとして捉える根拠を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチエージェント経路計画、倉庫自動化、箱押しパズル、構成空間探索の関係を調べる研究者に適している。特に、LaCAM、PIBT、タスク割当てと衝突回避の統合、MAPF手法の他領域への移植に関心がある読者に有用である。学習ヒューリスティクスの具体的な設計や、実運用環境での性能を知りたい場合は、抜粋だけでは情報が不足している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-02
+  </footer>
+</div>
+</body>
+</html>

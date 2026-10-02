@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Solving Multi-Agent Sokoban via LaCAM | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2609.39889.html" lang="ja">日本語</a></nav>
+  <h1>Solving Multi-Agent Sokoban via LaCAM</h1>
+
+  <div class="meta">Keisuke Okumura<br>Venue: Unknown ・ 2026-09-30 ・ source: arxiv</div>
+  <div class="links"><a href="https://arxiv.org/abs/2609.39889" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2609.39889" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-09-30</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper extends the MAPF search framework LaCAM to Multi-Agent Sokoban, where multiple agents must push boxes onto unlabeled targets while coordinating assignments and avoiding collisions. The reported experiments indicate that Sokoban-LaCAM can handle instances with tens of agents and boxes while retaining completeness and eventual optimality guarantees.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Sokoban is a grid-world puzzle in which an agent pushes boxes onto target locations. Its multi-agent version additionally requires simultaneous reasoning about which agent should handle which box, how boxes should be ordered, and how agents can move without colliding. The joint-action branching factor grows rapidly with the number of agents, while push-only motion creates severe and often irreversible dead ends. The paper treats this problem as both a challenging planning domain and a testbed for studying whether MAPF techniques can support broader collective automation, such as coordinated warehouse robots.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is an adaptation of LaCAM’s configuration-space search to Multi-Agent Sokoban with relatively modest domain-specific changes. The proposed solver combines LaCAM with a box-aware PIBT-based configuration generator, called Sokoban-PIBT, while preserving the overall search structure and its guarantees. The paper reports better scalability than adapting conventional single-agent Sokoban search and demonstrates instances involving tens of agents and boxes. More broadly, it argues that MAPF should be viewed not only as a standalone problem, but also as a reusable 提案手順c primitive for richer multi-agent planning tasks.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Sokoban-LaCAM searches over configurations containing the positions of all agents and boxes. At each expansion, the dedicated PIBT-based generator selects agent actions while accounting for target-to-box and agent-to-box assignments; the resulting box placements are induced by those actions rather than generated independently. Actions causing box-box or box-agent collisions are rejected, and valid transitions require that objects either wait or move to adjacent vertices, that no pair swaps positions, and that every moved box is pushed by exactly one adjacent agent. LaCAM adds lazy constraints and repeatedly generates configurations, allowing it to obtain an initial solution and then refine it. The implementation also uses duplicate detection for configurations that are equivalent when agents and boxes are treated as indistinguishable, dead-end pruning, random restart, and stuck detection. The excerpt states that the search remains exhaustive regardless of the underlying configuration generator, including a random-walk generator, according to prior analysis of LaCAM.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation has three stated goals: measuring the value of an MAPF-based search backbone on small instances, testing performance across maps and varying numbers of agents and boxes, and assessing the contribution of individual technical components. Instances are generated by randomly placing agents and boxes on specified grid maps, excluding trivially infeasible cases; unsolvable instances may nevertheless remain. The experiments use a desktop with an Apple M1 Ultra CPU and 20 cores, with up to 16 runs in parallel using multithreading. The excerpt does not establish the amount of RAM or the numerical value of every time limit, so those details cannot be inferred. Reported measures include success rate, time to obtain an initial solution, solution cost, initial and final cost improvement, comparison with optimal solutions, search-node counts, and constraint counts.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results suggest that the combination of LaCAM and PIBT is a promising backbone for the large joint search space of Multi-Agent Sokoban. This setting differs materially from transport-oriented MAPF variants in which an agent and cargo may co-locate or cargo may be repositioned more freely: Sokoban’s push-only dynamics make dead ends particularly severe and frequently irreversible. Consequently, the behavior of the configuration generator is important, not merely the outer search, and the ablation results identify stuck detection and random restart as especially influential. The paper’s goal is not to establish the best possible Sokoban-specific solver, but to test the transfer of MAPF ideas beyond canonical MAPF. The authors therefore frame the result as evidence for a general planning direction rather than as a complete engineering recipe for every manipulation or warehouse setting.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Sokoban is difficult because a box next to a wall cannot be pushed from every direction, creating restricted and sometimes unreachable box configurations. It is a long-standing heuristic-search benchmark and is PSPACE-complete from the computational-complexity perspective. Multi-Agent Sokoban adds inter-agent collision handling and integrated assignment to these already difficult object-manipulation constraints. MAPF computes collision-free paths for multiple agents on a graph, and LaCAM is presented as a recent configuration-based MAPF approach intended to scale to many agents.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The environment is modeled as an undirected graph whose vertices are traversable grid cells and whose edges connect orthogonally adjacent cells. An instance contains agents, boxes, and target locations, with the number of boxes equal to the number of targets. A configuration is an injective assignment of every agent and box to a distinct vertex, and a solution is a finite sequence ending with every target occupied by a box. Between consecutive configurations, each object may wait or move to an adjacent vertex, no ordered pair of objects may swap positions, and every moved box must have exactly one adjacent agent that pushes it. The problem must therefore satisfy object-manipulation, assignment, and multi-agent collision constraints at once.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Sokoban-PIBT generates only agent actions; the box configuration follows implicitly from those actions. The method rejects actions that create box-box or box-agent conflicts while retaining LaCAM’s configuration-based search and lazy constraint mechanism. Duplicate detection treats configurations with the same occupied-location set as identical when agents and boxes are considered indistinguishable, reducing the number of stored states and supporting anytime refinement. The excerpt says that the exhaustive-search property does not depend on using a sophisticated configuration generator, although domain-aware generation is important for practical performance.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The evaluation covers empty, random, and warehouse-style maps with different sizes and different numbers of agents and boxes. The excerpt reports an aggregated time-limited comparison over 1,880 instances and a small-scale comparison on 90 empty-5-5 instances. It also reports an ablation study on random maps, comparing variants on the 274 instances solved by every variant. The listed comparisons include Sokoban-PIBT versus Sokoban-LaCAM and versions removing duplicate detection, dead-end pruning, random restart, or stuck detection.</p></section>
+<section class="secsum"><h3>Results</h3><p>In the small-scale comparison, both planners solved 27 commonly solved instances; Sokoban-LaCAM reportedly found initial solutions almost instantly and eventually converged to the optimum on all of those instances. The time-limited aggregate success rates shown in the excerpt are 40.2% for Sokoban-PIBT and 68.2% for Sokoban-LaCAM. In the ablation, removing stuck detection reduced the reported success rate, while removing random restart degraded initial and final solution quality and reduced the breadth of exploration. The excerpt further reports that duplicate detection and dead-end pruning add per-node computation but reduce the number of generated search nodes and constraints, suggesting that their pruning benefit outweighs that overhead.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>Sokoban-LaCAM demonstrates that a MAPF configuration-search backbone can be extended to a domain combining pushing, assignment, and collision-free coordination. The reported evidence supports the claim that the solver can address instances with tens of agents and boxes while preserving completeness and eventual optimality guarantees. The broader conclusion is that MAPF methods may serve as reusable foundations for collective automation problems whose dynamics are richer than ordinary pathfinding.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The paper explicitly says that it is not intended to provide a complete engineering blueprint, and some implementation details are omitted. Although unsolvable instances may be present, the excerpt does not fully specify the time limits, RAM amount, or every baseline configuration, which limits exact reproducibility from the supplied evidence. The evaluation uses random placements and selected grid maps, so the excerpt does not establish generalization to real warehouses, dynamic obstacles, heterogeneous robots, or learned components. It also does not establish that Sokoban-LaCAM is optimal in practical runtime or solution quality against every relevant Sokoban or MAPF method.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work connects scalable MAPF search with irreversible object manipulation rather than only movement through a graph. That connection is relevant to warehouse robots and other collective-automation systems in which agents must transport or rearrange objects while coordinating their paths. It provides a concrete argument for reusing MAPF as a planning primitive instead of designing an entirely separate joint-search framework for every new multi-agent domain. The result also motivates future combinations of structured MAPF search with learned heuristics.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is useful for researchers in multi-agent pathfinding, warehouse automation, multi-agent planning, Sokoban, and configuration-space search. It is especially relevant to readers studying LaCAM, PIBT, integrated task assignment and collision avoidance, or the transfer of MAPF methods to object-manipulation domains. Readers seeking a detailed learned heuristic design or validated deployment study in a physical warehouse should note that the supplied excerpt does not provide those details.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-02
+  </footer>
+</div>
+</body>
+</html>

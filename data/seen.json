@@ -9310,6 +9310,38 @@
       "url": "https://arxiv.org/abs/2609.32019",
       "venue": ""
     },
+    "arxiv:2609.39889": {
+      "added": "2026-10-02",
+      "added_at": "2026-10-02T09:33:20.232875",
+      "arxiv_id": "2609.39889",
+      "authors": [
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-30",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.39889.html",
+      "file_en": "mapf-mapd-warehouse/2609.39889.en.html",
+      "matched_keywords": [
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.39889",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 1,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Solving Multi-Agent Sokoban via LaCAM",
+      "title_en": "Solving Multi-Agent Sokoban via LaCAM",
+      "title_ja": "LaCAMによるマルチエージェント・ソコバンの解法",
+      "tldr": "本稿は、複数のエージェントが箱を押して目標へ配置するマルチエージェント・ソコバンに、MAPFの探索基盤LaCAMを拡張したSokoban-LaCAMを提案する。実験は、箱押しによる不可逆な行き詰まりを含む問題でも、数十のエージェントと箱を扱いながら完全性と最終的な最適性の保証を維持できることを示す。",
+      "tldr_en": "This paper extends the MAPF search framework LaCAM to Multi-Agent Sokoban, where multiple agents must push boxes onto unlabeled targets while coordinating assignments and avoiding collisions. The reported experiments indicate that Sokoban-LaCAM can handle instances with tens of agents and boxes while retaining completeness and eventual optimality guarantees.",
+      "url": "https://arxiv.org/abs/2609.39889",
+      "venue": ""
+    },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:03:30.504873",

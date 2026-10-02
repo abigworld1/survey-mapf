@@ -1,0 +1,238 @@
+{
+  "date": "2026-10-02",
+  "dry_run": false,
+  "engine": "copilot-cli:default",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2609.39889.html",
+          "file_en": "mapf-mapd-warehouse/2609.39889.en.html",
+          "id": "2609.39889",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-09-30",
+          "reading_value": 4,
+          "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+          "relevance": 1,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Solving Multi-Agent Sokoban via LaCAM",
+          "venue": ""
+        }
+      ],
+      "already_added": 0,
+      "candidates_total": 302,
+      "fresh_total": 231,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 6,
+      "shortfall": 1,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-00d6c7f28ed3",
+          "matched_keywords": [
+            "Multi-Agent Pickup and Delivery",
+            "MAPD"
+          ],
+          "published": "2026-09-24",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 8,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Lay2Graph-MAPD: A Modular Framework with Layout-Aware Graph Generation for Multi-agent Pickup and Delivery Problems",
+          "venue": "Lecture notes in computer science"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-4822c9575452",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-09-30",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Multi-Robot Path Planning in Agriculture: Benchmarking State-of-the-Art MAPF Algorithms",
+          "venue": "Journal of Intelligent & Robotic Systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1256,
+          "id": "doi-8c62c898a76f",
+          "matched_keywords": [
+            "Multi-Agent Pathfinding"
+          ],
+          "published": "2014-12-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 3,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Conflict-based search for optimal multi-agent pathfinding",
+          "venue": "Artificial Intelligence"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-af917aee9c22",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF",
+            "MAPD"
+          ],
+          "published": "2026-09-21",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 3,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Extension of LaCAM* Algorithm for Multiagent Pathfinding Problems with Subgoals",
+          "venue": "Frontiers in artificial intelligence and applications"
+        },
+        {
+          "basis": "metadata",
+          "citations": 0,
+          "id": "doi-503ae1dff788",
+          "matched_keywords": [
+            "MAPF"
+          ],
+          "published": "2026-09-19",
+          "reasons": [
+            "曖昧な略語のみ一致（MAPF）、必須の分野語なし"
+          ],
+          "relevance": 1,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "RA-STGNN-AMR: Forecast-filter-rank Spatio-temporal Graph Learning for Resilient and Energy-feasible AGV/AMR Fleet Coordination",
+          "venue": "International journal of intelligent engineering and systems"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-b93d5bc64310",
+          "matched_keywords": [
+            "Multi-Agent Pathfinding",
+            "MAPF"
+          ],
+          "published": "2026-09-25",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Curriculum-guided decentralized deep Q-network for multi-agent pathfinding under intermittent obstacles",
+          "venue": "International Conference on Computer Vision, Graphics and Artificial Intelligence (CVGAI 2026)"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": {
+          "count": 0,
+          "reused_recent": true
+        },
+        "arxiv/recent/q1": {
+          "count": 77,
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "candidate_cache/important": {
+          "count": 0
+        },
+        "candidate_cache/recent": {
+          "count": 0
+        },
+        "openalex/important/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/important/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/recent/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/important/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/recent/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-10-02T09:30:02+09:00"
+}
