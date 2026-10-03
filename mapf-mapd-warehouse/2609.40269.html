@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Belief-Aware Multi-Agent Path Finding under Map Uncertainty | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.40269.en.html" lang="en">English</a></nav>
+  <h1>Belief-Aware Multi-Agent Path Finding under Map Uncertainty</h1>
+<p class="meta">地図の不確実性下における信念認識型マルチエージェント経路探索</p>
+  <div class="meta">Viraj Parimi, Shao-Hung Chan, Han Zhang, Jingkai Chen, Brian Williams<br>採択先: 未取得 ・ 2026-09-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.40269v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.40269v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.40269" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、実行前には未知だが実行中は固定された障害物を含む環境で、空間的に相関した観測を利用するMAPFを扱う。提案手法MAGICは、観測から共有された通行可能性の信念を更新し、迂回のリスクを反映したコストで既存のMAPFプランナを誘導することで、実行時の総コストを既存手法より低減したと報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>古典的なマルチエージェント経路探索（MAPF）は、共有環境の地図と静的障害物が正確に既知であることを前提に、複数エージェントの衝突しない経路を求める問題である。現実には、倒れた物体、閉鎖された通路、液体の流出などにより、計画時の地図と実際の環境が異なることがある。本稿が扱うのは、こうした地図の不一致が実行開始時には未知であるものの、実行中には変化せず、エージェントの局所観測によって判明する設定である。さらに、近隣地点の障害物状態に空間的な依存関係があるため、ある地点の観測が未観測地点の通行可能性にも情報を与える状況を対象とする。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>既存の不確実MAPF手法は、将来の観測に応じた条件付き計画を作るか、直接観測された地点を起点に再計画するが、未観測地点への空間的な推論を十分に利用しない。本稿は、局所観測を共有信念へ統合し、未観測領域の通行可能性を推定しながら標準MAPFプランナを反復的に実行するMAGICを提案する。MAGICはGaussian Markov Random FieldとGaussian Belief Propagationを用い、推定された通行可能性と、失敗時に必要となる迂回の影響をtraversal costに変換する。これにより、既存プランナの衝突解決能力を利用しながら、環境不確実性をルート選択へ組み込む枠組みを示す。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MAGICは、観測された情報を用いて未観測地点の共有された通行可能性の信念を更新し、その信念に基づく重み付きグラフを標準MAPFプランナへ渡す。空間相関を表す潜在場は、各地点を事前平均へ近づける項と、隣接地点の潜在値の差を抑制する項によって構成される。Gaussian Belief Propagationにより、エージェントが得た観測の影響を近隣の未観測地点へ近似的に伝播させる。推定された不確実地点の利用には、そこが通行不能だった場合の代替経路や再計画の負担を反映した迂回考慮コストを割り当てる。計画された行動を実行し、新しい観測が得られるたびに信念更新と再計画を繰り返す。隣接する不確実地点は進入前に観測され、観測はノイズレスであるため、健全なプランナを使えば実行される行動は真の環境で有効になると説明される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は標準MAPFベンチマークの、オープン、ランダム、迷路、部屋、倉庫、ゲーム、都市型など複数の地図レイアウトを用いて行われた。チーム規模は小規模から最大800エージェントまでの四つの規模層に分けられ、CBS、EECBS、PBS、PIBT、PIBT+、LaCAMなど複数のプランナ系統と、位置ベースの不確実性へ適応したMAPF-IMが比較対象となった。主な指標は、実際の実行に要したsum of costs（executed SoC）と成功率であり、地図規模、空間的不確実性、事前情報の感度も調べられた。要旨では、MAGICが既存手法より低いexecuted SoCを96.3%のインスタンスで達成したと報告されている。抜粋の一部では、具体的なパラメータ値、時間制限、各条件の細かな数値が欠落しているため、それらは supplied evidence からは確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>評価結果は、空間相関を利用することで、まだ直接観測していない障害物を予測し、後の高コストな迂回を避けられる可能性を示す。効果は複数のプランナ系統とエージェント規模にまたがって報告され、最大800エージェントの設定にも適用可能だとされる。一方、MAGICは隠れた環境状態と将来の観測履歴を含む厳密な意思決定問題を直接最適化せず、観測のたびに決定論的MAPFを解く近似である。性能は事前分布に依存し、価値のある通路へ低い事前通行確率を置くと、そこが人工的に高コストになる可能性がある。対象は固定された地図不一致と一回限りのMAPFであり、実行中に通行可能性が変化する環境や生涯タスクは扱われず、著者らはそれらを将来課題として挙げている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>不確実な障害物を扱うMAPF-OUは、観測結果に応じた条件付き計画を構成するが、不確実性が増えるほど計算コストが増大する。MAPF-IMは計画と実行を交互に行い、直接観測によって仮定した通行可能性を修正するが、未観測地点への空間推論を行わない。誘導グラフや重み付きグラフは既存プランナの経路を変える実用的なインターフェースだが、通常は環境通行可能性の不確実性そのものを表さない。Canadian Traveller Problem、部分観測オンライン計画、確率的ロードマップなどの関連研究は、情報獲得と経路選択の統合を扱うが、衝突解決を伴う大規模MAPFへ空間信念を組み込むことは十分に検討されていない。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>環境は無向グラフで表され、頂点が場所、辺が移動可能な接続、各エージェントが開始地点と目標地点を持つ。時間は離散化され、エージェントは待機または隣接頂点への移動を選び、頂点衝突と辺衝突を避けなければならない。実際に通行可能なグラフは未知の環境状態によって決まり、観測前には複数のグラフ実現が考えられる。本稿は、開始地点と目標地点を固定したone-shot MAPFに限定し、環境の状態が実行中に変化しないことを仮定する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>GMRFは隣接地点の潜在スコアを結び付け、局所的な観測が周辺の未観測地点へ影響する空間相関を表現する。GaBPは共有された事後信念を近似的に計算するため、完全な将来分岐を列挙する代わりにオンライン更新を可能にする。信念は単なる確率表示ではなく、失敗した場合の迂回負担を考慮した移動コストへ変換される。隣接地点を進入前に観測するモデルにより、計画された移動が真の環境で実行可能であることが説明される。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>不確実環境は、ベンチマーク地図上の不確実性中心と距離に基づく空間的に構造化された隠れ障害物として生成された。小規模層では五つの地図、各地図の25シナリオ、シナリオごとの三つの独立実現を用いて375インスタンスを構成したと抜粋に記載される。中規模、大規模、超大規模層では、各地図25シナリオと各シナリオ一実現を用いて100インスタンスを構成したとされる。二台のTurtleBotを用いた固定屋内環境の実演では、一方の観測が他方の近隣未観測地点への信念を更新し、二台目が直接観測する前に経路を変更した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>MAGICは、既存手法と比べてexecuted SoCを96.3%のインスタンスで低減したと要旨に記載されている。改善は複数のプランナファミリーと最大800エージェントのチーム規模にわたって報告される。成功率、実行コスト、空間情報を含む事前分布への感度が評価されたが、抜粋では多くのグラフ中の具体的な数値や手法別の比較値が欠落している。したがって、特定条件での改善幅、統計的有意性、すべてのベースライン間の順位は supplied evidence だけでは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本稿は、固定された未知の地図不一致を扱うBelief-Aware MAPFを定式化し、MAGICを提案した。MAGICは局所観測を共有された空間信念へ統合し、推定された通行可能性を迂回考慮コストとして標準MAPFへ渡す。ベンチマーク結果は、空間的に有益な事前情報とオンライン推論が実行コスト削減に結び付くことを支持する。将来の拡張先は、生涯タスクと実行中に通行可能性が変化する環境である。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>MAGICは、地図の不一致が実行中に固定され、開始地点と目標地点が変わらないone-shot設定に依存する。観測モデルは局所的かつノイズレスで、隣接する不確実地点が進入前に観測されると仮定する。近似的なGaBPと反復再計画は、厳密な最適性や将来観測の完全な条件付き推論を保証しない。抜粋には、誤った事前分布、観測ノイズ、動的障害物に対する失敗率の詳細は示されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>空間的に相関した障害物を一地点の観測から推定することで、直接観測を待ってから再計画する方式より早く危険な経路を避けられる可能性がある。既存のMAPFプランナを置き換えずに重み付きグラフで誘導するため、異なるプランナ系統へ適用できる点も実務上重要である。大規模チームを含む評価は、倉庫など共有空間での不完全な地図への対応という課題に関係する。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>地図が不完全または部分観測であり、障害物状態に空間相関があるMAPF、倉庫ロボットの経路計画、オンライン再計画に関心のある研究者に適している。GMRF、GaBP、信念を用いたコスト設計と既存MAPFプランナの統合例を探す読者にも有用である。動的環境、長期運用、厳密な最適性保証だけを主目的とする読者は、対象範囲の制限に注意して読むべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-04
+  </footer>
+</div>
+</body>
+</html>

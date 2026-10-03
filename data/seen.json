@@ -12235,6 +12235,43 @@
       "url": "https://arxiv.org/abs/2608.28697",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2609.40269": {
+      "added": "2026-10-04",
+      "added_at": "2026-10-04T08:31:58.770836",
+      "arxiv_id": "2609.40269",
+      "authors": [
+        "Viraj Parimi",
+        "Shao-Hung Chan",
+        "Han Zhang",
+        "Jingkai Chen",
+        "Brian Williams"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-30",
+      "doi": "10.48550/arxiv.2609.40269",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.40269.html",
+      "file_en": "mapf-mapd-warehouse/2609.40269.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.40269v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Belief-Aware Multi-Agent Path Finding under Map Uncertainty",
+      "title_en": "Belief-Aware Multi-Agent Path Finding under Map Uncertainty",
+      "title_ja": "地図の不確実性下における信念認識型マルチエージェント経路探索",
+      "tldr": "本稿は、実行前には未知だが実行中は固定された障害物を含む環境で、空間的に相関した観測を利用するMAPFを扱う。提案手法MAGICは、観測から共有された通行可能性の信念を更新し、迂回のリスクを反映したコストで既存のMAPFプランナを誘導することで、実行時の総コストを既存手法より低減したと報告する。",
+      "tldr_en": "This paper studies MAPF when obstacle discrepancies are initially unknown but remain fixed during execution, and when local observations reveal information about nearby unobserved locations. It proposes MAGIC, which maintains a shared spatial belief about traversability and converts it into detour-aware costs for standard MAPF planners; the abstract reports lower executed cost than existing approaches on 96.3% of instances.",
+      "url": "http://arxiv.org/abs/2609.40269v1",
+      "venue": ""
+    },
     "doi:10.65109/kpwj5508": {
       "added": "2026-08-02",
       "added_at": "2026-08-02T06:16:15.374441",
