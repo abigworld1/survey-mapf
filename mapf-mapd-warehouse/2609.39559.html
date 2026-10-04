@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Divide and Collapse: MAPF-Collapse via Exact Decomposition into Independent Sub-Instances | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.39559.en.html" lang="en">English</a></nav>
+  <h1>Divide and Collapse: MAPF-Collapse via Exact Decomposition into Independent Sub-Instances</h1>
+<p class="meta">分割して折り畳む：独立部分問題への厳密分解によるMAPF-Collapse</p>
+  <div class="meta">Oren Salzman<br>採択先: 未取得 ・ 2026-09-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.39559v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.39559v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.39559" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-30</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、実行可能なMAPF計画から不要な移動を除去しつつ実行可能性を保つMAPF-Collapseを、エージェント間の相互作用成分へ厳密に分解する手法を提案する。単独成分を線形時間で処理し、協調が必要な小部分だけを共同探索することで、Judgelightと同じ解品質を保ちながら、評価されたベンチマーク全体で中央値10.5倍の1インスタンス当たり高速化を報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、既存の実行可能なMAPF計画を入力とし、閉路的な往復移動などの不要な移動を待機に置き換えて、衝突なしのまま総移動数を最小化するMAPF-Collapseである。これは、学習ベースなどの高速MAPFソルバーが生成しがちな冗長な移動を、後処理で削減する問題として位置付けられる。入力計画はグラフ上の複数エージェントの時系列経路であり、頂点衝突と辺の交換衝突を避ける必要がある。論文の中心的な観察は、折り畳み後に相互に協調する必要があるエージェントが、しばしば全体の一部に限られるという点である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、エージェントが折り畳み後に影響し得る範囲を用いて相互作用グラフを構成し、その連結成分ごとにMAPF-Collapseを厳密に分解する枠組みである。第二に、1エージェント成分を解く1-MAPFCを導入し、入力経路に対する最適な折り畳みを計画長に対して線形時間で求める。第三に、非自明な成分向けの厳密なCollapse-CBSを提案し、Judgelightを部分問題に適用する選択肢も残している。これにより、商用ILPソルバーを使わず、協調が不要な成分を軽量に処理し、難しい成分では状況に応じて共同ソルバーへフォールバックできる。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、入力計画と各エージェントの到達可能範囲から、折り畳み後に相互作用し得るエージェントを特定し、相互作用グラフを構成する。入力計画が衝突なしであることから、折り畳み後に新たな辺衝突は生じず、分解時に主として頂点衝突を管理すればよいという構造性を利用する。連結成分が単独エージェントなら、各時刻にどの頂点で待機できるかを表すCollapse-DAGを作り、その最小コスト経路を求める。複数エージェント成分では、制約付き単独計画を低レベルとして、衝突を一つずつ分岐するCBS型の高レベル探索を行い、下界と衝突なし条件を使って早期終了する。成分ごとの解を結合し、協調が必要な成分だけをJudgelightまたはCollapse-CBSで処理する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価はPOGEMA由来の入力を用い、Random、Maze、Warehouse、MovingAI city tiles、Puzzleの5系列を対象とする。各入力スケジュールはPOGEMAのBatchAStarAgentで生成され、比較対象はTang、Koenig、BiyikによるILPベースのJudgelightである。実装はPythonで行い、1-MAPFC、Collapse-CBS、Divide-and-Collapse、Judgelightについて、解のコスト、実行時間、成功率、単独成分の割合、非自明成分の大きさを調べる。評価質問は、単独プリミティブの計算量、相互作用グラフの分解、非自明成分でのC-CBSとJudgelightの比較、そして全体フレームワークの品質・時間・成功率である。 supplied excerptでは各シナリオの正確な件数や、成分別の詳細数値の多くが欠落しているため、それらはここでは確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案法の利点は、問題の難しさをインスタンス全体ではなく、実際に相互作用する残余へ局所化できる点にある。単独成分では1-MAPFCがJudgelightより約1,900倍高速であり、協調が必要な成分にはCollapse-CBSを適用し、成分が大きく密な場合にはJudgelightへ戻すという実用的な構成になっている。一方、Collapse-CBSの探索木は成分サイズが大きいと依然として急速に増大し、提案法の優位性は単独成分が多く、非自明成分が小さいという構造に条件付けられる。将来課題として、区間制約やmutex伝播の適応、オンラインまたは生涯型MAPFで過去の探索情報を再利用する方法が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、倉庫、自動化されたフルフィルメント、物流フリートなどで、複数ロボットの衝突しない経路を計画する問題である。近年の探索型・学習型ソルバーは、大規模な群や長い時間範囲に対して素早く実行可能解を作るが、最小コスト性を必ずしも保証しない。学習ベースの計画では、同じ場所への往復など、後から除去可能な移動が残ることがある。MAPF-Collapseは、この冗長性を実行可能性を壊さずに削減する後最適化問題である。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力は無向グラフと、複数エージェントについて既に衝突のない共同計画である。各エージェントは待機または辺に沿った移動を行い、折り畳み操作は閉じた歩行の移動部分を適切な待機へ置き換える。目的は、折り畳みの組合せによって頂点衝突を起こさず、総移動数が最小の計画を得ることである。先行のJudgelightによるILP定式化は全エージェントを同時に扱うため、実際の協調部分が小さくても全体規模のコストを負う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>相互作用グラフの連結成分が、独立に解ける部分問題を定義する。入力計画が衝突なしなら、折り畳みで新たな辺衝突は発生しないという構造的性質により、分解の検証では頂点衝突を中心に扱える。1-MAPFCはCollapse-DAGの最小コスト経路として単独最適解を計算し、全体最適値の下界にも使える。Judgelightの依存制約を一括で構築する代わりに、C-CBSは成分内で衝突を遅延発見する。Judgelightでは、削減後も候補構築がエージェントの計画長に対して最悪時に四次になる可能性がある。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、POGEMAスイートの5種類のマップ・シナリオ系列から作られたMAPF-Collapseインスタンスを用いる。評価質問は、単独ソルバーの計算量、相互作用成分の実際の分解、C-CBSとJudgelightの比較、全体フレームワークの品質・時間・成功率である。NoCollapseは未処理入力を表す参照基準であり、IndepLBは単独エージェント最適値の和に基づく下界であるが、後者は一般には共同で実現できないためソルバーではない。抜粋では、全シナリオ数、すべての打切り条件、成分別の詳細値は十分に示されていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>単独成分に対する1-MAPFCは計画長に対して線形時間で、Judgelightより約1,900倍高速と報告される。Divide-and-CollapseはJudgelightと同じ解品質を保ち、Collapse-CBSが解く成分では厳密であり、Judgelightより高コストの計画を返さない。評価されたベンチマーク全体では、状況適応型のハイブリッド計画器がJudgelightに対して1インスタンス当たり中央値10.5倍の速度向上を達成する。協調が重い大規模成分ではC-CBSが実用的でない場合があり、そのとき計画器はJudgelightへフォールバックする。</p></section>
+<section class="secsum"><h3>結論</h3><p>MAPF-Collapseは、全エージェントを一括最適化するより、相互作用成分へ分けることで効率的に解ける場合が多い。単独成分を軽量に処理し、非自明成分だけを厳密な共同ソルバーへ渡すDivide-and-Collapseは、品質を犠牲にせず計算量を削減する。POGEMA由来の評価範囲では、報告された結果がこの設計の有効性を支持する。ただし、成分が大きく密な場合の性能上の課題は残る。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提案の高速化は、単独成分が多く、共同成分が小さいという小成分仮説に依存する。Collapse-CBSは大きな成分で探索木が急増し、すべてのインスタンスで高速とは限らない。評価はPOGEMA由来のスケジュールと5系列に基づくため、他の生成器、オンライン再計画、異なるMAPF制約への一般化は抜粋から確認できない。実験の具体的な件数や全条件も抜粋では欠落しており、報告された速度を他の設定へ直接外挿する根拠はない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、MAPFの計画そのものではなく、既存計画の無駄を除く後処理を、相互作用構造を利用して厳密に高速化する視点を示す。学習型ソルバーや継続的再計画で生じる冗長移動を、商用ILPソルバーに依存せず処理できる点が実務上重要である。特に、協調が必要な部分だけに高価な探索を集中する設計は、大規模フリート向けの後処理を拡張する可能性を持つ。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPF-Collapse、MAPFの後最適化、エージェント分解、CBS型探索に関心がある研究者に適している。学習ベースまたは生涯型MAPFで、実行可能性を保ったまま計画コストを削減したい読者にも有用である。大規模成分での探索限界や、相互作用構造に依存する高速化の条件を検討したい読者にも勧められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

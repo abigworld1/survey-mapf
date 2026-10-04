@@ -12235,6 +12235,39 @@
       "url": "https://arxiv.org/abs/2608.28697",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2609.39559": {
+      "added": "2026-10-05",
+      "added_at": "2026-10-05T08:50:18.042605",
+      "arxiv_id": "2609.39559",
+      "authors": [
+        "Oren Salzman"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-30",
+      "doi": "10.48550/arxiv.2609.39559",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.39559.html",
+      "file_en": "mapf-mapd-warehouse/2609.39559.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.39559v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Divide and Collapse: MAPF-Collapse via Exact Decomposition into Independent Sub-Instances",
+      "title_en": "Divide and Collapse: MAPF-Collapse via Exact Decomposition into Independent Sub-Instances",
+      "title_ja": "分割して折り畳む：独立部分問題への厳密分解によるMAPF-Collapse",
+      "tldr": "本稿は、実行可能なMAPF計画から不要な移動を除去しつつ実行可能性を保つMAPF-Collapseを、エージェント間の相互作用成分へ厳密に分解する手法を提案する。単独成分を線形時間で処理し、協調が必要な小部分だけを共同探索することで、Judgelightと同じ解品質を保ちながら、評価されたベンチマーク全体で中央値10.5倍の1インスタンス当たり高速化を報告する。",
+      "tldr_en": "This paper studies MAPF-Collapse, the post-optimization problem of removing avoidable moves from a feasible multi-agent path-finding plan without losing feasibility. It decomposes the problem by agent-interaction components, solves singleton components with a linear-time primitive, and reports the same solution quality as Judgelight with a median 10.5x per-instance speedup across the tested benchmarks.",
+      "url": "http://arxiv.org/abs/2609.39559v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2609.40269": {
       "added": "2026-10-04",
       "added_at": "2026-10-04T08:31:58.770836",
