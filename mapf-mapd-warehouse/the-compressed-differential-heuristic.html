@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Compressed Differential Heuristic | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="the-compressed-differential-heuristic.en.html" lang="en">English</a></nav>
+  <h1>The Compressed Differential Heuristic</h1>
+<p class="meta">圧縮差分ヒューリスティック</p>
+  <div class="meta">Meir Goldenberg, Nathan Sturtevant, Ariel Felner, Jonathan Schaeffer<br>採択先: AAAI 2011 ・ 2011 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/7823" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/AAAI/article/download/7823/7682" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v25i1.7823" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 AAAI 2011</span><span class="chip">公開日 2011</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 本論文は、明示的状態空間向けのメモリベース・ヒューリスティックである差分ヒューリスティック（DH）を、距離情報の一部だけを保持することで圧縮する方法を提案する。圧縮差分ヒューリスティック（CDH）は、利用可能なメモリに合わせて構成でき、提示された実験では、同じメモリ量の通常DHや基礎ヒューリスティックより高速な探索を実現した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、重み付きグラフ上で任意の始点から目標状態までの最短経路を求めるヒューリスティック探索問題である。状態集合をV、ピボット集合をPとし、通常のDHは各状態から各ピボットまでの距離を事前計算してルックアップ表に保存する。検索時には、基礎ヒューリスティックとピボットまでの距離から状態間距離の下界を作り、A*探索を導く。提示された抜粋だけでは、提案法のすべての理論的証明や各実験の完全な数値は確認できない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な新規性は、通常のDHの全距離表ではなく、各状態について一部のピボットへの距離だけを保存する圧縮方式である。CDHは利用可能なメモリ量に合わせてピボット数と状態ごとの保存距離数を柔軟に選べるため、通常DHのようにメモリ量からピボット数が固定されない。圧縮によって欠落した距離情報は、目標からピボットまでの距離に関する上界・下界とBPMXによって補う。さらに、巨大な非圧縮DHを一度作って保存することなく、CDHを直接構築できる点も貢献である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>入力グラフと使用可能メモリが与えられると、まずピボット数を経験的に決定し、Avoid配置戦略でピボットを配置する。その後、各ピボットについて距離を保存する状態集合を作り、各状態の配列内でそのピボットに対応する位置を記録する。各ピボットから幅優先探索を行い、選ばれた状態への距離だけを対応位置に格納する。問題インスタンスごとには、目標から各ピボットまでの距離の境界をBounding手続きで計算し、CDHでヒューリスティック値を生成してA*探索を行う。CDHは状態ごとに異なるピボット集合を使うため不整合になり得るので、実験では展開ノードと直下の子の間だけで値を伝播するBPMX(1)を使用した。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は三つの実世界ドメイン、すなわちDragon Age: Originsの八近傍グリッド、北米の道路地図、二次元空間で動くロボットアームで行われた。グリッドではオクタイル距離、道路地図では空気距離を基礎ヒューリスティックとして用い、ロボットアームでは隣接セグメント間の角度を状態とした。比較対象には基礎ヒューリスティックと通常のDHが含まれ、メモリ量、ピボット数、Boundingのパラメータ、解の長さなどを変化させて検索時間を測定した。提示された抜粋からは、全インスタンス数、すべての平均値、実験の反復条件、通常DHとの各ケースの正確な倍率までは確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CDHの主な利点は、固定したメモリ予算の中で、少数のピボットを全状態に適用する代わりに、より多様なピボットから距離情報を分配できることである。これにより、通常DHに必要なメモリが状態空間の大きさに達しないゲームなどでも、DH型の情報を利用できる。反面、状態ごとに参照できるピボットが異なるためヒューリスティックが不整合となり、BPMXを含む探索時の処理が必要になる。ピボット配置、距離の分配、ピボット数、Boundingの設定は性能に影響し、論文はより高度な分配方法やピボットの優先順位付けを将来課題として挙げている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>メモリベース・ヒューリスティックは、前処理で計算した値をルックアップ表として保持し、探索時に再利用する。パターンデータベースは代表例だが、暗黙的な指数状態空間と適切な抽象化を前提にすることが多い。明示的状態空間では、差分ヒューリスティックが少数のピボットまでの距離から下界を計算する、単純で効果的な表形式ヒューリスティックとして用いられてきた。先行するパターンデータベース圧縮の考え方と、距離表を圧縮したいという問題意識が本研究の背景にある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>通常のDHでは、各状態から全ピボットへの距離、すなわちピボット数と状態数の積に比例する情報を保存する必要がある。利用可能メモリが小さい場合、特に入力グラフ自体を格納するメモリにも満たない場合、通常DHを使えないことがある。単純にピボット数を減らすと、ヒューリスティックの多様性や値の強さが低下し得る。したがって、限られたメモリで有用な距離情報を残す方法が必要になる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>グラフG上の状態aとピボットpの距離d(a,p)を、状態ごとに選択的に保存する。欠落した距離は、目標からピボットまでの距離の上界・下界と、圧縮によって保存された情報を利用して推定する。CDHは許容的であるため、このヒューリスティックを用いたA*探索は最適経路を生成する。ピボットIDを各状態に明示的に保存しない方式では、その識別情報に必要なメモリを半分にでき、各状態についてより多くのピボットへの距離を保存できる可能性があるが、提示抜粋はその方式の全詳細を確定していない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>DAOのost100dマップ、北米の道路地図、3アームおよび4アームのロボット領域が実験対象として示されている。ロボット領域の状態数は、3アームで約1億3400万、4アームで約690億と記述されている。DAOではピボット数と検索時間の関係、Boundingのパラメータ、異なるメモリ量、最適解のホップ数に対する改善傾向を調べた。部屋マップとドロネーグラフでも傾向を確認したが、詳細結果は掲載されていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提示された結論では、適度なメモリ、つまり通常DHがほぼ完全なヒューリスティックになるほどではないメモリで、CDHは通常DHに対して検索時間を数倍改善した。入力グラフの格納に必要なメモリより少ない場合でも、CDHは基礎ヒューリスティックに対して数倍の改善を達成したと報告されている。DAOとサンフランシスコ湾岸地域の道路地図では、最適解のホップ数が長いほど基礎ヒューリスティックに対するCDHの改善率が増える傾向が観測された。正確な改善倍率や統計的有意性は、提示された抜粋には記載されていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>CDHは、通常DHの距離表の一部だけを保存しながら、検索に十分な情報を保つ圧縮方式である。メモリ量を任意に調整でき、非圧縮表を先に作成・保存せずに構築できる。三つの実世界ドメインで、通常DHおよび基礎ヒューリスティックに対する性能上の利点が報告された。著者らは、この考え方がDH以外の表形式距離ヒューリスティックにも適用可能だと述べている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>抜粋には、CDHの完全な数式、Boundingの詳細な定義、ピボット配置と距離分配の全アルゴリズム、実験表の全数値が含まれていない。したがって、どのメモリ量・マップ・インスタンスでどの倍率が得られたかをここから再現することはできない。性能はピボット配置、ハッシュまたは分配方法、キャッシュ効果、基礎ヒューリスティック、グラフ構造に依存する。BPMX(1)は不整合性への対処だが、追加の伝播コストや他の探索設定との比較範囲は抜粋からは確定できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、メモリ制約が厳しい明示的状態空間でも、事前計算型ヒューリスティックを利用可能にする設計を示している。特に、ゲームマップや巨大なロボット状態空間のように、通常DHの最小メモリすら確保できない場合に実用的な意味がある。メモリを単に削るのではなく、ピボットの多様性と状態ごとの情報分布を利用する点が、メモリと探索時間のトレードオフを考える上で重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>明示的状態空間、A*、差分ヒューリスティック、パターンデータベース圧縮を研究する読者に適している。限られたメモリで最短経路探索を高速化したいMAPF/MAPD研究者や、ゲーム・道路網・ロボットの探索問題を扱う人にも有用である。CDHの実装詳細や厳密な再現値を必要とする読者は、提示された抜粋だけでなく論文全体を参照すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

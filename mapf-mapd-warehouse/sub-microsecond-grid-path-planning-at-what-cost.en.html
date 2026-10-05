@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sub-Microsecond Grid Path Planning, at What Cost? | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="sub-microsecond-grid-path-planning-at-what-cost.html" lang="ja">日本語</a></nav>
+  <h1>Sub-Microsecond Grid Path Planning, at What Cost?</h1>
+
+  <div class="meta">Mark Carlson, Daniel D. Harabor, Peter J. Stuckey<br>Venue: SoCS 2025 ・ 2025 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/SOCS/article/view/35974" target="_blank" rel="noopener">Original</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/35974/38129/40046" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v18i1.35974" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue SoCS 2025</span><span class="chip">Published 2025</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> This paper proposes Jump Spanning Tree Search (JSTS), which combines Tree Cache preprocessing with Jump Point Search symmetry breaking to produce grid paths at exceptionally low latency, and Bounded Jump Spanning Tree Search (BJSTS), which adds a bounded-suboptimality guarantee. JSTS is usually faster than one microsecond per query with low average suboptimality, but it has no quality guarantee; BJSTS provides a specified bound at average single-digit-microsecond performance.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies path planning on 8-connected grid maps containing traversable and non-traversable cells. Orthogonal and diagonal moves are allowed, but diagonal moves may not cut corners: the two adjacent orthogonal cells must also be traversable. This model is common in video games and is also used as a simplification for robot motion planning and multi-agent path finding. The central practical requirement is to answer many path queries quickly while keeping paths reasonably close to optimal. Tree Cache already addresses latency by preprocessing a shortest-path tree from a root and connecting a start and target through their first common tree node, but it does not guarantee solution quality.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is JSTS, a jump-point version of the Tree Cache idea. Its spanning tree bypasses ordinary intermediate grid cells when JPS identifies a natural successor, so parent links refer to jump points and online paths contain fewer segments. The second contribution is BJSTS, which uses a JSTS path as an upper bound inside a JPS+-style search and guarantees a path no longer than a chosen factor w times the optimal path length. The supplied excerpt does not establish that either method dominates every prior method on every map or query.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The preprocessing phase constructs a shortest-path tree rooted at a selected grid cell. During expansion, JPS pruning rules distinguish natural and forced successors; when a successor is natural and the current node is not the root, the construction bypasses the current node and assigns the successor to the current node&#x27;s parent jump point. For an online query, JSTS follows the tree from the start and target toward the root, stops at their first shared node, and concatenates the two partial paths, reversing the result when necessary. BJSTS initializes an incumbent with the JSTS route, searches jump-point successors with lower-bound values, and returns a route when the search conditions certify the requested multiplicative bound. The approach therefore trades preprocessing and possible route-quality loss for extremely small query work.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The algorithms were implemented in Rust using the mkpath pathfinding library. Experiments used Ubuntu 22.04 on an AMD Ryzen 9 5950X at 4.5 GHz with 16 GB of DDR4 memory. The benchmarks were the standard Moving AI grid maps and the Iron Harvest grid-map benchmarks, grouped into Game, Street, Maze, Random, Room, and Iron Harvest categories. The primary metrics were tree construction time, average search time per path, and suboptimality factor; average search time was computed from the real time to solve all instances on a map, divided by the number of instances and repeated 100 times. Comparisons included JPS+, a weighted-heuristic JPS+ variant without re-expansions, JPS+BB+, Tree Cache, and an idealized oracle that reads an optimal path directly, although the excerpt does not provide every individual measurement.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>JSTS obtains its speed by reducing the number of path segments and making an online query resemble a compact tree read rather than a conventional search. The cost is that JSTS has neither an optimality guarantee nor a fixed finite suboptimality guarantee; the conclusion reports roughly 20 percent worse paths on average and three to five times worse paths at the 99th percentile on grids from real application domains. The trade-off depends strongly on map structure: jumping helps on Game, Street, and Iron Harvest maps, is largely ineffective on Random maps, and does not always produce sub-microsecond queries on narrow-corridor mazes. Staircase bypassing can reduce the number of segments while increasing runtime on Maze, Room, and Random maps, plausibly because of favorable or unfavorable CPU-cache behavior caused by node layout. BJSTS addresses the quality problem but necessarily spends more search effort, and future work is proposed on improving path quality without sacrificing too much speed.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Jump Point Search is an optimal grid-search algorithm that removes symmetries among paths and is described as typically much faster than A* without preprocessing. JPS+ adds preprocessing in the form of clearance information that records the distance to the next jump point in each grid direction. Tree Cache instead computes a shortest-path spanning tree from a root and answers queries by joining the tree paths from the two endpoints. JSTS combines the latter structure with the former pruning principle.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A map is a W-by-H grid in which each cell is either traversable or blocked. A valid move connects orthogonally or diagonally adjacent cells, with the no-corner-cutting rule applying to diagonal moves. A path is represented as a sequence of valid grid segments, and its cost is the sum of the Euclidean lengths of the move vectors. The paper seeks very low query latency for this problem while controlling the difference from an optimal path. The excerpt does not establish that dynamic obstacles, map updates, or multi-agent collision avoidance were directly evaluated.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>In ordinary Tree Cache, a node points to an immediate tree parent; in JSTS, natural-successor pruning can make a node point directly to a parent jump point. This reduces tree depth and the number of segments that must be assembled at query time. Root selection affects route quality: the supplied results state that the mean suboptimality with the Midpath choice did not exceed 1.4 on any reported graph. BJSTS uses the JSTS route as an upper bound and searches jump-point successors to certify a requested factor. The excerpt does not give all implementation details needed to reproduce every bound or configuration.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The evaluation covers Moving AI and Iron Harvest maps, including game, city-street, maze, room, random, and Iron Harvest categories. For JSTS, the study compares the standard method, a version without staircase bypassing, Tree Cache, and an idealized optimal-path oracle using time per path, path-segment count, and geometric-mean suboptimality. BJSTS is compared with JPS+, a weighted-heuristic JPS+ variant without re-expansions, and JPS+BB+. The supplied excerpt does not specify the number of queries per map or list every value of the bound parameter w.</p></section>
+<section class="secsum"><h3>Results</h3><p>The summary table reports average times of 89,979 microseconds for A*, 536 for JPS, 349 for JPS+, 85 for JPS+ with DH, 54 for CH-JPD, 24 for JPS+BB+, 4 for Tree Cache, and 0.3 for JSTS. JSTS is below one microsecond per path on every reported map category except narrow-corridor mazes, and it substantially reduces search time and path-segment count relative to Tree Cache, with an average path-cost increase of up to 5 percent in the described comparison. It is faster than the idealized oracle on Game, Street, and Iron Harvest maps, competitive with it on Maze, and gains little from jumping on Random maps. The conclusion summarizes JSTS as providing up to five orders of magnitude over conventional grid A* and BJSTS as providing up to four orders of magnitude while offering near-optimal bounded quality, but the excerpt does not establish those improvements for every possible condition.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>JSTS is presented as a preprocessing-based grid planner whose preprocessing is linear in the map size and typically takes only a few seconds even on large maps. Its online query cost can be on the order of a few hundred clock cycles, making it attractive for large numbers of path or distance queries in relatively static game maps. When unbounded path-quality loss is unacceptable, BJSTS uses JSTS within a bounded-suboptimal search and can provide a specified quality guarantee at single-digit-microsecond average performance. The main conclusion is that preprocessing and controlled tolerance for non-optimal paths can move grid path planning close to the output complexity of an idealized oracle.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>JSTS can return arbitrarily suboptimal paths, so a favorable average does not protect individual queries or high-percentile behavior. Its performance and quality depend on map topology, root-selection heuristics, the effectiveness of jumping, staircase layout, and processor-cache behavior. BJSTS supplies a bound but requires additional search, and the excerpt emphasizes that accurate heuristics are important for reducing the remaining gap. The supplied evidence does not fully establish memory usage, update costs for changing maps, behavior in dynamic environments, fairness of all baseline implementations, or direct performance in multi-agent collision-aware planning.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it treats the cost of producing the path itself as a primary performance limit rather than measuring only the amount of search avoided. The claim that JSTS can approach, and sometimes beat, an idealized oracle that simply reads an optimal path challenges conventional assumptions about the practical ceiling of grid planning. The paper also connects this speed to high-level game AI, where many pathfinding calls may evaluate distances or plans without ever being physically followed. For MAPF researchers, JSTS is a potentially useful low-level route-generation or distance-query component, although its single-agent guarantees and assumptions must not be confused with multi-agent conflict handling.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers working on single-agent grid planning, game AI, preprocessing, JPS-style symmetry reduction, and speed-versus-optimality trade-offs. It is especially relevant when maps change infrequently and applications issue many short-latency path or distance queries. MAPF and robotics readers should use it as evidence about a fast single-agent primitive, not as a complete treatment of dynamic obstacles, agent interactions, or collision avoidance. Readers interested in reproducibility should consult the implementation information and remember that the supplied excerpt omits some per-map measurements and experimental conditions.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

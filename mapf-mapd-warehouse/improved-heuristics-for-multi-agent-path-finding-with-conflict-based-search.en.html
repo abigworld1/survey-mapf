@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="improved-heuristics-for-multi-agent-path-finding-with-conflict-based-search.html" lang="ja">日本語</a></nav>
+  <h1>Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search</h1>
+
+  <div class="meta">Jiaoyang Li, Ariel Felner, Eli Boyarski, Hang Ma, Sven Koenig<br>Venue: IJCAI 2019 ・ 2019 ・ source: pdf</div>
+  <div class="links"><a href="https://www.ijcai.org/proceedings/2019/63" target="_blank" rel="noopener">Original</a> ・ <a href="https://www.ijcai.org/proceedings/2019/0063.pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2019/63" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue IJCAI 2019</span><span class="chip">Published 2019</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper identifies a fundamental limitation of the earlier CG heuristic for the high-level search of Conflict-Based Search: it reasons only about cardinal conflicts in the current solution. It introduces two admissible pairwise-dependency heuristics, DG and WDG, and reports that they substantially improve success rates while reducing expanded nodes and runtime by up to a factor of 50.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies Multi-Agent Path Finding, in which a set of agents must move from specified start vertices to specified goal vertices on a graph without vertex or edge collisions. Time is discrete, and an agent may move to an adjacent vertex or wait at its current vertex. The central focus is the high-level search of Conflict-Based Search, where constraints are added to resolve collisions and low-level paths are recomputed. The work asks how this search can obtain stronger admissible lower bounds without losing optimality.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a formal analysis of the previous CG heuristic, which uses only cardinal conflicts in the current solution. The paper proves that, when both child constraint-tree nodes have solutions, resolving a single conflict cannot provide more than a one-unit admissible increase through the conflict graph in the relevant cases, so the graph cannot yield a stronger admissible value simply by counting that conflict more aggressively. The second contribution is DG, which reasons about pairwise dependencies that may appear in descendant solutions, and WDG, which additionally uses the amount of extra cost required to make a dependent pair conflict-free. The paper establishes that WDG strictly dominates DG and DG strictly dominates CG. It also presents lazy computation and memoization techniques that make the stronger heuristics practical.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>A CBS high-level node contains a set of vertex and edge constraints, one cost-minimal path for every agent satisfying those constraints, and the sum of those path costs. CG builds a conflict graph from cardinal conflicts in the current solution and uses the size of a minimum vertex cover as an admissible heuristic value. DG extends the reasoning to future solutions: for a pair of agents, it constructs and explores their individual multi-value decision diagrams, or MDDs, until all possible branches lead to conflicts and cannot be extended, thereby identifying a pairwise dependency and assigning a lower bound of one when appropriate. WDG defines the pairwise dependency cost as the difference between the minimum sum of costs of conflict-free paths satisfying the node constraints and the sum of the two agents&#x27; current path costs. It assigns this difference as an edge weight and derives a weighted vertex-cover lower bound. To reduce overhead, the implementation evaluates expensive heuristic values lazily and memoizes repeated dependency, edge, weight, and MDD computations.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments compare CBS, ICBS, and CBSH variants using CG, DG, or WDG on four-neighbor grids. For each map and agent count, the authors generate 50 instances with random start and goal vertices. The reported settings include 20-by-20 empty maps, 20-by-20 maps with 30 percent randomly blocked cells, maps with varying obstacle densities, and a large-map setting; a one-minute limit is used for each solver and instance in the small-map experiments. The measured quantities include root-node heuristic values, runtime per expanded constraint-tree node, success rate, number of expanded nodes, and total runtime. The implementation is written in C++ and was run on a laptop with a 2.80 GHz Intel Core i7-7700 processor and 8 GB of RAM. The supplied excerpt does not establish every map dimension, every agent-count setting, or the complete numerical result tables, so those details cannot be reconstructed reliably.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The main limitation of CG is conceptual rather than merely computational: a non-cardinal conflict in the current solution can force future conflicts after a constraint is added, but CG does not see those descendant interactions. DG captures whether a pair of agents is dependent, yet it uses one as the lower bound even when the true additional cost is larger. WDG retains that additional-cost information, producing a stronger heuristic at the price of more computation per high-level node. The experiments indicate that map structure matters: empty maps often provide many bypasses, while dense maps create stronger coupling; consequently, a larger heuristic improvement does not automatically imply the largest node-reduction factor. The paper proposes future work on admissible or inadmissible heuristics for suboptimal CBS-based algorithms, applying the approach to ICTS and MDD-SAT, and generalizing it from pairs to groups of three or four agents.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF is NP-hard, but many optimal approaches have been developed, including reduction-based, A*-based, and dedicated search-based algorithms. CBS is a two-level search algorithm: its high level branches on collisions by adding constraints, while its low level computes cost-minimal paths that satisfy the current constraints. CBSH introduced an admissible high-level heuristic based on cardinal conflicts; this paper calls that heuristic CG. The work positions DG and WDG as stronger alternatives that preserve admissibility while incorporating information beyond the current set of cardinal conflicts.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The input is an undirected, unweighted graph and a set of agents, each with a start vertex and a goal vertex. Between consecutive time steps, an agent can traverse an adjacent edge or wait, with unit cost for ordinary movement and waiting; terminal waiting at the goal has zero cost. A vertex conflict occurs when two agents occupy the same vertex at the same time, and an edge conflict occurs when they traverse the same edge in opposite directions over one time step. The objective is to find collision-free paths, and a CBS node cost is the sum of the individual path costs.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>CG represents cardinal conflicts as edges in a conflict graph and uses a minimum vertex cover as a lower bound. DG constructs pairwise MDD combinations and checks whether all possible minimum-cost branches eventually conflict, which indicates dependency. WDG defines a nonnegative pairwise increment as the difference between the minimum conflict-free pair cost and the current pair cost, and uses positive increments as weights in a weighted dependency graph. Lazy evaluation first inserts a node using a cheaper or weaker value before calculating an expensive value when needed. Memoization reuses results for repeated constraint sets and MDD constructions, reducing repeated work across branches.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The implementation is written in C++ and was run on a laptop with a 2.80 GHz Intel Core i7-7700 processor and 8 GB of RAM. The benchmark uses four-neighbor grids, including empty and obstacle-filled 20-by-20 maps, varying obstacle densities, and a large-map condition. CBS, ICBS, and CBSH with CG, DG, or WDG are compared, with the CBSH variants using the two runtime improvements described by the paper. Fifty randomly generated start-goal instances are used for each map-and-agent-count combination. The excerpt does not provide the complete large-map specification, all agent-count settings, or all experimental parameter values.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper states that WDG strictly dominates DG, and DG strictly dominates CG, in the admissible-heuristic sense. On the reported benchmarks, the new heuristics significantly increase the success rate relative to CBSH with CG, while reducing expanded constraint-tree nodes and runtime by up to a factor of 50. Memoization is reported to save more than 90 percent of the edge and weight computation time. The excerpt includes selected root heuristic values and qualitative map-dependent interpretations, but it does not provide every success rate, runtime, or node-count value, so a complete numerical ranking across all settings is not established here.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>Pairwise dependency reasoning gives CBS a stronger admissible view of how resolving one interaction can create unavoidable costs elsewhere in the search tree. DG supplies a binary dependency-based lower bound, while WDG refines it with the actual extra cost needed for a conflict-free pair whenever that cost can be computed. The reported experiments support the conclusion that these heuristics improve both the number of solved instances and search efficiency with reasonable overhead. The approach therefore offers a practical way to strengthen optimal CBS without changing its admissibility-based optimality guarantee.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The proposed reasoning is fundamentally pairwise and does not fully encode dependencies involving three or more agents simultaneously. In dense maps, pairwise information may remain far from the ideal global lower bound because many agents are strongly coupled. WDG is computationally more expensive than CG and relies on implementation optimizations such as lazy evaluation and memoization. The supplied evidence does not establish statistical uncertainty, performance on non-grid graphs, behavior in real deployments, or generalization beyond the reported benchmark families. It also does not provide enough detail to verify every claimed comparison independently.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper shows why counting only currently visible cardinal conflicts can miss constraints that become unavoidable after branching. It turns pairwise path dependence into admissible lower bounds, offering a reusable design pattern for reducing optimal-search effort without sacrificing the underlying optimality guarantee. The reported success-rate and runtime improvements are relevant to MAPF applications such as warehouse robots, quadrotor swarms, and computer-game characters. More broadly, the work connects conflict resolution, MDD-based feasibility reasoning, and weighted graph optimization within a single CBS enhancement.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for MAPF researchers studying CBS, ICBS, CBSH, admissible heuristics, or optimal multi-agent planning. It is especially useful for readers interested in MDDs, conflict graphs, vertex-cover lower bounds, pairwise dependency detection, and practical search-speed improvements. Readers who need the exact benchmark dimensions, all numerical comparisons, or evidence on domains outside the supplied grid experiments should consult the complete paper, because the excerpt does not establish those details.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

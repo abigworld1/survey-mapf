@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The increasing cost tree search for optimal multi-agent pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="the-increasing-cost-tree-search-for-optimal-multi-agent-pathfinding.en.html" lang="en">English</a></nav>
+  <h1>The increasing cost tree search for optimal multi-agent pathfinding</h1>
+<p class="meta">最適マルチエージェント経路探索のための増加コスト木探索</p>
+  <div class="meta">Guni Sharon, Roni Stern, Meir Goldenberg, Ariel Felner<br>採択先: Artificial Intelligence ・ 2013 ・ source: pdf</div>
+  <div class="links"><a href="https://www.sciencedirect.com/science/article/pii/S0004370212001543" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1016/j.artint.2012.11.006" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 Artificial Intelligence</span><span class="chip">公開日 2013</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、複数エージェントが衝突を避けながら移動し、全エージェントの経路コストの総和を最小化する最適MAPFを対象とする。個々のエージェントの経路コストを探索する高レベル探索と、そのコストで衝突しない経路集合を検証する低レベル探索を組み合わせたICTSを提案し、問題構造によってA*系手法より有利にも不利にもなることを理論と実験で示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グラフ上で各エージェントに開始位置と個別の目標位置が与えられ、各時刻に移動または待機しながら衝突を避けるMAPFである。衝突には、同じ時刻に同じ頂点を占有する場合と、隣接頂点間を反対向きに同時通過する場合が含まれる。論文が主に最適化する目的関数はsum of costsであり、各エージェントが目標へ到達するまでの時間を合計する。最適解のコストを求める一方、makespanなど別の目的関数もあり得ることが説明されている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、従来の単一エージェント探索を状態空間全体に適用するA*系の定式化とは異なる、二層構造のIncreasing Cost Tree Search（ICTS）である。高レベルでは、各エージェントに割り当てる個別経路コストのベクトルを、最小の個別コストから総和が増える順に探索する。低レベルでは、各コストベクトルに対応する経路が衝突なく組み合わせられるかをMDDに基づいて検査する。さらに、ペア単位の整合性検査やEnhanced Pairwise Pruningなど、低レベル探索を縮小する改良も提示する。論文はICTSの最適性を示すだけでなく、どの条件でA*系が優位になるかという限界も明示する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ICTの根ノードは、他エージェントを無視した場合の各エージェントの最短経路コストを並べたベクトルである。高レベル探索は、そのベクトルの各成分を増加させる子ノードを生成し、総和の小さいノードから調べるため、最初に実行可能な解を表すノードが見つかった時点でその解は最適になる。低レベルでは、各エージェントについて指定コストちょうどの経路候補を保持するMulti-value Decision Diagram（MDD）を構築し、複数MDDの直積を暗黙的に探索して頂点衝突と辺の交換衝突がない組合せを探す。直積全体をメモリに展開せず、深さ方向の系統的探索として検証する点が重要である。ペアのMDDを先に照合し、どのペアにも両立する経路がなければ高レベルノードを棄却することで、より高価な探索を避ける。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、障害物のない4近傍グリッド、ランダム障害物を含むグリッド、およびSturtevantの経路探索ベンチマークに含まれるゲームマップを用いて行われた。大規模なゲームマップとして、Dragon Age: Origins由来の257×257マップも使用され、グリッドでは各エージェント数について100個のランダムインスタンスを生成したと記載されている。比較対象には、通常のA*、Operator Decompositionを加えたA*、基本ICTS、および複数の枝刈りを加えたICTSが含まれる。主な指標は、生成または訪問したノード数、実行時間、制限時間内に解けたインスタンス数、成功率である。抜粋は全ての実験条件や全表の値を網羅していないため、個別の設定ごとの完全な再現条件はここからは確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>ICTSは、低レベルで検査されるコストベクトルの組合せ数が小さい場合、A*が生成する全体状態の組合せを避けられるため有利になる。反対に、エージェント数が少ないのに相互作用のため個別コストの増加量が非常に大きい場合、ICTSの高レベル木が膨張し、A*の方が大幅に速くなる可能性がある。論文は、ノードあたりの定数オーバーヘッドも比較結果を左右し、ノード数が少ないことが常に実行時間の短縮を意味しないと示す。高密度な小グリッドや、長い廊下で二者が位置交換するような構造はICTSの病理的事例として扱われる。将来課題として、低レベル探索のCSPとしての定式化、問題パラメータの影響の解明、重み付きグラフや抽象的な目標への拡張が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFでは、各エージェントが独立に最短経路を選ぶだけでは、同時占有や交換衝突が発生し得る。従来の最適解法はA*の単一エージェント探索を拡張し、全エージェントの状態を組み合わせた探索を行っていた。論文が説明する他の手法には、最適性や一般グラフでの完全性を保証しない分離型アルゴリズムもある。したがって、最適性を保ちながら組合せ爆発を抑える別の探索分解が動機になる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力はグラフ、各エージェントの開始頂点、各エージェントの目標頂点である。エージェントは離散時間に合法な辺を移動するか待機し、頂点衝突と反対向きの辺通過を避けなければならない。求めるのは、全エージェントが目標に到達する実行可能な経路集合のうち、経路長の総和が最小のものである。抜粋では、重み付きグラフや集合として指定される抽象目標は本来の評価対象として確立されていない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>ICTノードはエージェントごとの個別コストを成分とするベクトルで、ノードのコストはその総和である。MDDは、開始位置から指定された深さで目標に到達する全ての候補経路を有向非巡回構造として表し、各時刻の位置候補を保持する。MDDの直積を探索する低レベル検査では、同時刻の位置一致と反対向きの辺通過を禁じる。理論的には、訪問されるICTノードの総和および低レベルで扱う状態の評価値が最適解コストを超えないことが、ICTSの探索効率の根拠として示される。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、8×8の開放グリッド、3×3グリッド、障害物割合の異なる32×32グリッド、さらにゲーム由来の大規模マップが扱われた。グリッド実験では、難しい事例を生成するためのエージェント結合機構が使われた場合と、改良的なID枠組みを使わない場合が区別されている。ゲームマップではIDが有効化された実験が行われ、解けたインスタンスについて平均値が報告された。抜粋だけでは、全マップ名、全エージェント数、各アルゴリズムの実装詳細までは確定できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>8×8開放グリッドでは、エージェント数が少ない領域でICTSがA*系より少ないノードを生成し、同程度またはやや短い時間で解いたと報告されている。エージェント数が増えると相対的な優位性は変化し、ある範囲ではA*系がノード数と時間の両方でICTSを上回った。別の実験では、強化された枝刈りを持つICTSが基本ICTSより高速で、A*系より大幅に速い場合が示され、8×8グリッドでは「ほぼ三桁のオーダー」と表現されている。DAOマップでも、ICTSやICTS＋強化枝刈りがA*＋ODより速い設定が複数報告される一方、全ての設定で一貫して優位だとは抜粋は示していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>ICTSは、最適MAPFを個別コストの決定と衝突しない経路集合の検査に分解することで、A*とは異なる最適探索を実現する。最初に見つかる実行可能なICTノードが最適解を表すため、方法の正しさは高レベルのコスト順序と低レベルの完全な検査に基づく。実験は、グラフの形状、エージェント密度、衝突の構造、エージェント数に応じてICTSとA*系の優位性が変わるという理論的説明を支持する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>ICTSの計算量は、個別コストベクトルの探索範囲やMDD直積の大きさに強く依存する。エージェント数が小さくても必要なコスト増分が大きい場合や、密集した環境で衝突が多い場合には、ICTSが極端に遅くなり得る。低レベルのMDD探索は最悪時に大きな状態空間を扱い、ペア検査にも追加コストがある。提示された抜粋は、提案法が全てのMAPF変種、目的関数、グラフクラスで有効だとは確立していない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本論文の重要性は、最適MAPFの組合せ爆発を、単一の全状態探索だけでなく個別経路コストの構造から扱う視点を示した点にある。MDDによる候補経路の表現は、衝突検査と枝刈りを体系化する基盤になる。さらに、どのアルゴリズムが常に最良とは限らず、問題構造に応じて探索方式を選ぶべきだという実証的な教訓を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>最適MAPFの探索分解、MDD、経路コストベクトル、A*との計算量比較に関心がある研究者に適している。特に、最適性保証と実際の性能のトレードオフを、グリッドやゲームマップ上の実験と結び付けて学びたい人に向く。強化枝刈りや後続のICTS系研究の背景を理解する出発点としても有用である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beyond Pairwise Reasoning in Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="beyond-pairwise-reasoning-in-multi-agent-path-finding.html" lang="ja">日本語</a></nav>
+  <h1>Beyond Pairwise Reasoning in Multi-Agent Path Finding</h1>
+
+  <div class="meta">Bojie Shen, Zhe Chen, Jiaoyang Li, Muhammad Aamir Cheema, Daniel D. Harabor, Peter J. Stuckey<br>Venue: ICAPS 2023 ・ 2023 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/ICAPS/article/view/27217" target="_blank" rel="noopener">Original</a> ・ <a href="https://ojs.aaai.org/index.php/ICAPS/article/download/27217/26990/31286" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v33i1.27217" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue ICAPS 2023</span><span class="chip">Published 2023</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper improves Conflict-Based Search (CBS) for optimal Multi-Agent Path Finding by reasoning about conflict clusters containing more than two agents. Cluster-based lower bounds and cost-equivalent bypasses reduce high-level search, with the reported benefits being especially strong on dense maps.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies Multi-Agent Path Finding (MAPF), in which a team of agents must move through a grid without collisions. An instance consists of a four-connected grid map and agents with distinct start and goal vertices. Time is discretized, and an agent may move to an orthogonal neighbor or wait at its current vertex at each timestep. A solution must let every agent reach its goal and remain there without being forced to move away, while minimizing the sum of individual path costs. The supplied excerpt does not establish results for objectives other than this sum-of-individual-costs objective.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is an extension of CBS reasoning from pairs of agents to clusters of three or more agents. The authors define a conflict cluster as a set of agents for which no assignment of individually cost-minimal paths can be conflict-free under the constraints of the current CBS node. Such a cluster yields a stronger lower bound: any collision-free solution satisfying the node must have a sum of individual costs at least one greater than the node&#x27;s current cost. The paper also introduces cluster-aware bypasses that replace some agents&#x27; paths with alternative paths of equal cost in order to reduce conflicts. These mechanisms are integrated with the existing weighted pairwise dependence graph heuristic rather than presented as a replacement for all prior CBS components.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>CBS first plans paths for agents independently and then resolves detected conflicts by adding constraints to a high-level constraint tree and replanning affected agents with a time-space search. The proposed method computes the existing weighted dependency-graph heuristic, inherits usable clusters from a parent node, and builds a conflict-state graph to select agents that are heavily involved in conflicts. It then uses mutex propagation between multi-value decision diagrams (MDDs), where an MDD represents vertices that can occur at each time level on paths satisfying the current constraints and having minimum individual cost; mutex nodes at the same level cannot be used together by conflict-free individually optimal paths. The method repeatedly removes incompatible MDD nodes and either identifies a conflict cluster or finds a bypass. When a cluster is found, its contribution is added to the cluster heuristic; when a bypass is found, an agent&#x27;s path and the conflict-state graph are updated. The resulting heuristic combines the pairwise WDG value with the number of detected clusters.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation compares the authors&#x27; method with WDG, described as a state-of-the-art CBS variant that already includes weighted pairwise dependency-graph heuristics, target reasoning, generalized rectangle reasoning, corridor reasoning, conflict prioritization, and standard bypassing. Three variants isolate the added components: WDG+CHBP uses both the cluster heuristic and cluster-aware bypass, WDG+CH uses only the cluster heuristic, and WDG+BP uses only the new bypass. Experiments use four grid benchmarks: a random-obstacle map, an empty map, a warehouse map, and a video-game map. For each map setting, one instance set uses randomly selected starts and goals, while another has an even mixture of short and long start-goal distances; each set contains 25 instances. Every instance is given one minute, and unsolved instances are those not solved within that limit. Reported measures include runtime, CBS constraint-tree node expansions, and the number of solved instances. The excerpt specifies the hardware and compilation setting, but it does not provide all exact per-map numbers, plots, confidence intervals, or statistical tests.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The main advantage is that the method can recognize an interaction that is invisible or weak when considered only one pair at a time. In the motivating pattern, an agent can avoid one current collision by choosing another minimum-cost route, but that route collides with a different agent; the cluster reasoning therefore proves that some agent must wait. The same information can support both pruning through a higher lower bound and a bypass that keeps cost unchanged while reducing future conflicts. The trade-off is additional heuristic computation: the excerpt states that the richer computations are more expensive than WDG but never more than twice as expensive on average, while not giving the complete condition-specific values. Reusable mutex propagation can weaken the available mutex information because it may detect only a subset of incompatible nodes, but caching pairwise incompatibilities reportedly makes it almost always faster overall. The paper identifies capturing more complex clusters, integrating cluster information into the integer-program formulation of WDG, and efficiently resolving all conflicts within clusters as future work.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Optimal MAPF is computationally difficult, including under common objectives such as the sum of individual costs, but effective solutions are needed in automated warehouses, drone-swarm coordination, and team navigation in games. CBS is a leading optimal approach: it routes agents independently at a low level and resolves conflicts at a high level. Recent CBS improvements have used symmetry reasoning for pairwise conflicts, increasingly sophisticated admissible heuristics, and bypasses that reduce the number of subproblems. Nevertheless, the supplied introduction states that timeout failures remain common even on modest instances with dozens of agents. The paper positions multi-agent reasoning as the next step beyond these pairwise improvements.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The problem is not merely to detect an existing pairwise collision, but to infer when several agents jointly make their individually cheapest routes incompatible. Pairwise reasoning may fail to express that every minimum-cost alternative for one agent conflicts with at least one of several other agents. This can leave CBS with weak lower bounds and too many high-level nodes. The paper therefore asks how to use interactions among three or more agents while preserving the optimal-search framework and its cost guarantees.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>A conflict cluster is a set of agents for which no conflict-free assignment exists among their cost-minimal paths under the constraints of a CBS node. Its existence implies that every collision-free completion must increase the sum of individual costs by at least one relative to that node. Mutex propagation transfers incompatibility information among MDDs, and the method can cache incompatibilities between an agent pair under their current constraints for reuse. The proposed algorithm combines the WDG pairwise lower bound, inherited and newly detected clusters, and bypasses that modify paths without increasing their individual costs.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The benchmark suite contains a 32-by-32 random map with 20 percent blocked cells, a 32-by-32 empty map, a large warehouse-style map, and a 256-by-257 video-game map. Agent counts vary by map, ranging from tens of agents to as many as 150 in the stated settings. Each map setting has two 25-instance groups, and all implementations are in C++ compiled with optimization; the runs use a one-minute limit and a 128 GB RAM Ubuntu cloud machine. The comparison is among WDG, WDG+CH, WDG+BP, and WDG+CHBP, so the ablation design separates the effects of the cluster heuristic and the new bypass.</p></section>
+<section class="secsum"><h3>Results</h3><p>The supplied conclusion reports that the combined method solves more instances within the limit and reduces runtime and constraint-tree node expansions. It reports particularly substantial improvements on dense maps and says that, for timeout cases, the method pushes the minimum lower-bound value to a significantly higher level. The excerpt also says that heuristic computation almost always pays for itself through reduced high-level search and that there are very few instances solved only by WDG. Exact improvement percentages, per-map averages, and the precise results of each ablation are not established by the supplied evidence.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that reasoning about conflict clusters can substantially improve CBS beyond pairwise reasoning. The combined cluster heuristic and bypass dynamically exploit multi-agent incompatibility to obtain stronger bounds and reduce unnecessary high-level exploration. Its reported gains are strongest on dense instances, where many agents compete for limited space. The work thus presents multi-agent conflict reasoning as a useful direction for scaling optimal MAPF.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied excerpt omits detailed descriptions of some supporting components and does not establish the full computational complexity of cluster detection or memory consumption. Its empirical evidence is limited to four grid-map families, a one-minute cutoff, and the stated sum-of-individual-costs objective, so generalization to other environments, objectives, or time limits is not demonstrated. The paper does not directly compare against the cited three-agent heuristic because that method changes the MAPF definition by imposing a maximum path-cost limit. Reusable mutex propagation may lose information, and the paper leaves the efficient resolution of all conflicts in a detected cluster open; exact numerical superiority over every baseline therefore cannot be inferred from the excerpt alone.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it exposes a structural limitation of pairwise CBS reasoning: several individually plausible choices can be jointly impossible even when no single pair fully explains the required delay. By turning that joint impossibility into a lower-bound contribution and a source of cost-equivalent path changes, the method connects stronger inference with practical search reduction. This is especially relevant to dense warehouses, bottlenecks, and other settings where local choices propagate across many agents. It also provides a concrete framework for studying the cost of richer reasoning against the savings it produces in high-level search.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers working on optimal MAPF, CBS, MDD-based reasoning, mutex propagation, dependency-graph heuristics, or multi-agent path planning in dense environments. It is particularly useful for readers studying how to move beyond pairwise conflict analysis, how to design lower bounds, and how to balance expensive heuristic computation against constraint-tree reduction. Readers seeking exact numerical tables, broad generalization claims, or a complete treatment of all cluster-resolution strategies should consult the full paper, because those facts are not established in the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

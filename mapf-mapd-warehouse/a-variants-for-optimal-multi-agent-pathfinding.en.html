@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A* Variants for Optimal Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="a-variants-for-optimal-multi-agent-pathfinding.html" lang="ja">日本語</a></nav>
+  <h1>A* Variants for Optimal Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Meir Goldenberg, Ariel Felner, Roni Stern, Guni Sharon, Jonathan Schaeffer<br>Venue: SoCS 2012 ・ 2012 ・ source: pdf</div>
+  <div class="links"><a href="https://cdn.aaai.org/ojs/18259/18259-77-21775-1-2-20210717.pdf" target="_blank" rel="noopener">Original</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue SoCS 2012</span><span class="chip">Published 2012</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies several A* variants for optimal multi-agent pathfinding (MAPF), focusing on enhanced partial expansion A*, pattern databases, and a hybrid of operator decomposition with basic partial expansion. In the supplied evidence, EPEA* is faster than the compared variants, while adding pattern databases gives up to about a threefold average improvement on hard instances, although the excerpt does not establish the complete experimental record.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The problem is MAPF on a graph with multiple labeled agents, each having a start and a goal location. At every time step, an agent may move to a neighboring vertex or wait, but no vertex may contain more than one agent at the same time. Two agents also may not traverse the same connecting edge in opposite directions simultaneously, although following another agent through successive edges is allowed. The objective is to find a minimum-cost joint sequence of move and wait actions that places every agent at its goal. Ordinary moves and waits cost one, while waiting at an agent&#x27;s goal costs zero; if the agent later leaves that goal, the accumulated goal-waiting time contributes to the cost of the subsequent move.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a detailed application of enhanced partial expansion A* (EPEA*) to MAPF. EPEA* uses domain-specific knowledge to avoid generating surplus nodes whose evaluation exceeds the cost of an optimal solution. The paper generalizes its application so that pattern databases can be used on top of EPEA*, and the authors describe this as the first reported application of pattern databases to MAPF in the literature at that time. A further contribution is a new optimal MAPF A* variant that combines Standley&#x27;s operator decomposition with basic partial expansion, called BPEODA* in the supplied evidence. Together, these contributions examine how different ways of controlling successor generation affect optimal MAPF search.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The method distinguishes a node&#x27;s ordinary evaluation, based on path cost plus heuristic value, from the value currently stored for that node in the open list. When a node is expanded, EPEA* does not generate every joint action and then discard high-valued successors; instead, it generates successors in the relevant increasing-cost categories and keeps only those matching the currently required stored value. For composite agents, the possible evaluation increases of individual operators are combined, and a recursive procedure enumerates combinations that meet the required total increase. Pattern databases are built for agent groups expected to participate in many conflicts, but such groups are not known in advance. The paper therefore uses the independence detection framework: when independence detection joins agents into a group, the method builds pairwise pattern databases for later stages. Basic partial expansion is also applied over operator decomposition: standard nodes use the normal partial-expansion condition, while an intermediate node is retained only when its value equals the stored value of the relevant standard predecessor.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The reported experiment uses a four-connected, obstacle-free 8 by 8 grid with varying numbers of agents. It compares ordinary A*, operator-decomposition A* (ODA*), basic partial-expansion A* (BPEA*), the operator-decomposition/basic-partial-expansion hybrid BPEODA*, EPEA*, and EPEA* augmented with pattern databases. The evaluation considers whether instances can be solved under the resource limit, together with runtime, search-node behavior, and the cost of constructing instance-specific pattern databases. The supplied excerpt says that each instance had a two-minute and two-gigabyte limit, but it does not provide the full instance set, exact timings, exact node counts, or complete implementation details. It also does not establish results on other maps, obstacle configurations, agent distributions, or objective functions.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported results say that, except for the most trivial instances, A* and BPEA* could not solve the tested problems within the allocated two minutes and two gigabytes per instance. ODA* was faster than A*, and BPEA* was also faster than A*, but BPEA* incurred overhead by generating surplus nodes and pruning them afterward. BPEODA* significantly outperformed A* and ODA* because it maintained a much smaller open list, making open-list operations cheaper. EPEA* was faster than all of these variants under the reported setting. For hard instances, adding pattern databases produced a significant improvement on top of EPEA*, reported as up to three times on average. The trade-off is that the databases are instance-dependent and their construction time cannot be amortized across all instances; on easier instances, EPEA* with pattern databases was best by node count but not by runtime. These observations support selective use of stronger, more expensive heuristics rather than assuming that preprocessing always improves elapsed time.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Optimal MAPF has attracted substantial attention because interactions among agents make the joint search space much larger than a single-agent pathfinding space. Earlier work introduced operator decomposition, partial-expansion techniques, and other search variants intended to reduce the cost of exploring that space. This paper focuses specifically on A*-based approaches and on using problem structure to avoid unnecessary successor generation. Its perspective is complementary to methods that change the high-level search organization: it improves the behavior of the underlying optimal A* exploration.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The formal input is a graph and a set of labeled agents, each with a start and goal vertex. Agents may move or wait, subject to vertex conflicts and opposite-direction edge conflicts. Both actions normally cost one, except that a wait at an agent&#x27;s goal costs zero; leaving after goal waiting incorporates the accumulated wait into the move cost. The required output is a minimum-cost joint plan that reaches all goals. The supplied excerpt does not establish any variant beyond this collision model and cost definition.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>EPEA* separates the static evaluation of a node from its current open-list value, allowing successor generation to be restricted to the value level that can still matter for an optimal solution. Joint operator choices are handled through their individual evaluation increases, with recursive enumeration of combinations that meet a required sum. Pattern databases are selected dynamically through independence detection rather than by assuming in advance which agents will conflict most. BPEODA* applies basic partial-expansion filtering to the intermediate nodes created by operator decomposition, retaining nodes consistent with the stored value of their standard predecessor.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The explicit test environment is an obstacle-free four-connected 8 by 8 grid, with the number of agents varied. The compared methods are A*, ODA*, BPEA*, BPEODA*, EPEA*, and EPEA* with pattern databases. A resource limit of two minutes and two gigabytes per instance is reported. The supplied evidence does not give the complete benchmark suite, repetitions, hardware details, exact preprocessing accounting, or results for other map families.</p></section>
+<section class="secsum"><h3>Results</h3><p>A* and BPEA* failed to solve all but the most trivial cases within the stated resource limit. ODA* was faster than A*, while BPEODA* substantially outperformed A* and ODA* by keeping the open list much smaller. EPEA* was faster than the other compared variants in the reported experiment. On hard instances, pattern databases improved EPEA* by up to about three times on average; on easier instances, the EPEA* plus PDB combination used the fewest nodes but was not best in elapsed time because of database construction.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The study argues that avoiding the generation of unnecessary nodes is central to efficient optimal MAPF search. Under the supplied experimental setting, EPEA* outperformed the other compared A* variants. Pattern databases can provide a substantial additional benefit on hard instances, but their instance-specific construction cost can dominate on easy ones. The authors also indicate that a fuller version would present further insights about the earlier techniques, so the excerpt does not establish the scope of those additional conclusions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The middle portion of the paper is explicitly omitted from the supplied evidence, so the complete EPEA* data structure, successor-generation procedure, and implementation treatment of conflicts are not established here. The experimental summary covers one obstacle-free grid family and does not provide the full benchmark distribution, exact timings, exact node counts, or detailed parameter settings. Pattern-database usefulness depends on identifying groups that participate in many conflicts, while those groups are not known a priori and must be inferred through independence detection. Consequently, the excerpt alone cannot show that the reported ranking or speedups generalize to arbitrary maps, obstacle densities, agent placements, cost models, or MAPF objectives.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper is important for showing that optimal MAPF performance depends not only on heuristic values but also on controlling which successors are generated at all. Its combination of EPEA*, pattern databases, independence detection, and operator decomposition provides a concrete design pattern for reducing node generation and open-list overhead. The contrast between node-count improvements and runtime improvements also gives a practical warning: a stronger heuristic can reduce search effort while still being disadvantageous when its construction cost is included.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is useful for researchers studying optimal MAPF, A* variants, partial expansion, operator decomposition, and pattern-database heuristics. It is especially suitable for understanding how low-level successor-generation choices affect open-list size and runtime. Researchers focused on large-scale deployment, bounded-suboptimal MAPF, stochastic environments, or alternative cost models should treat the supplied evidence as insufficient and seek the full paper and broader evaluations.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

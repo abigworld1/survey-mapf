@@ -70,8 +70,10 @@ def _usable_pdf_title(value):
     lowered = title.casefold()
     return bool(
         5 <= len(title) <= 350
+        and not any(ord(char) < 32 for char in title)
         and lowered not in {"untitled", "document", "paper", "title"}
         and not lowered.startswith(("microsoft word -", "acrobat distiller"))
+        and not lowered.endswith((".dvi", ".tex", ".ps", ".pdf"))
         and not re.fullmatch(r"(?:arxiv:)?\d{4}\.\d{4,5}(?:v\d+)?", lowered)
     )
 
@@ -182,7 +184,7 @@ def _from_pdf_bytes(data, title="", url="", filename=""):
         inferred_title = metadata_title if _usable_pdf_title(metadata_title) else ""
     if not inferred_title:
         inferred_title = _first_page_title(data)
-    if not inferred_title and filename:
+    if not _usable_pdf_title(inferred_title) and filename:
         inferred_title = _clean_pdf_value(Path(filename).stem.replace("_", " "))
     if not _usable_pdf_title(inferred_title):
         inferred_title = _clean_pdf_value(text.split("\n", 1)[0])[:180]
@@ -309,7 +311,8 @@ def _find_existing_entry(paper, entries):
 
 
 def _add_prepared_paper(
-    paper, sections, basis, uslug, sub, seen, summarizer, skip_existing=False
+    paper, sections, basis, uslug, sub, seen, summarizer, skip_existing=False,
+    include_unrelated=False, bilingual=False,
 ):
     useen = seen.setdefault(uslug, {})
     existing = _find_existing_entry(paper, useen)
@@ -336,7 +339,7 @@ def _add_prepared_paper(
 
     print(f"  タイトル: {paper.title}")
     print(f"  セクション数: {len(sections)} / 根拠: {basis}")
-    if uslug == DEFAULT_FIELD:
+    if uslug == DEFAULT_FIELD and not include_unrelated:
         from .run import _domain_context_issue
         matched = _matched_keywords(paper, sub.get("keywords", []))
         if not matched or _domain_context_issue(
@@ -344,10 +347,15 @@ def _add_prepared_paper(
             sub.get("ambiguous_context_groups"),
         ):
             return {"status": "skipped", "title": paper.title, "reason": "MAPF/MAPDとの関連性を確認できない"}
-    summary = summarizer.summarize(paper, sections=sections, basis=basis)
+    if bilingual:
+        summaries = summarizer.summarize_bilingual(paper, sections=sections, basis=basis)
+        summary, summary_en = summaries["ja"], summaries["en"]
+    else:
+        summary = summarizer.summarize(paper, sections=sections, basis=basis)
     matched_keywords = _matched_keywords(paper, sub.get("keywords", []))
     paper.matched_keywords = matched_keywords
-    summary.update(summarizer.rate_reading_value(paper, summary, basis))
+    rating = summarizer.rate_reading_value(paper, summary, basis)
+    summary.update(rating)
     paper.selection_type = "manual"
     paper.selection_label = "手動追加"
     paper.relevance_score = len(matched_keywords)
@@ -358,14 +366,34 @@ def _add_prepared_paper(
     rel = info.get("file") or _unique_output_rel(uslug, paper)
     if existing:
         summary["_followups_html"] = _extract_followups(info, root=ROOT)
-    html = render.render_paper_page(TPL, paper, summary)
+    rel_en = info.get("file_en") or rel.removesuffix(".html") + ".en.html"
+    if bilingual:
+        summary_en.update(rating)
+        if summary_en.get("_reading_value_reason"):
+            summary_en["_reading_value_reason"] = (
+                "Provisional rating estimated from citation count, full-text "
+                "availability, and summary depth."
+            )
+        if existing and info.get("file_en"):
+            summary_en["_followups_html"] = _extract_followups(
+                {"file": info["file_en"]}, root=ROOT
+            )
+        html = render.render_paper_page(TPL, paper, summary, alternate_file=os.path.basename(rel_en))
+        html_en = render.render_paper_page(TPL, paper, summary_en, language="en", alternate_file=os.path.basename(rel))
+    else:
+        html = render.render_paper_page(TPL, paper, summary)
     os.makedirs(os.path.join(ROOT, uslug), exist_ok=True)
     atomic_write(os.path.join(ROOT, rel), html)
+    if bilingual:
+        atomic_write(os.path.join(ROOT, rel_en), html_en)
     added_at = datetime.datetime.now().isoformat(timespec="microseconds")
     record = dict(info)
     record.update(_seen_record(
         paper, summary, basis, rel, matched_keywords, added_at
     ))
+    if bilingual:
+        record.update(file_en=rel_en, tldr_en=summary_en.get("tldr", ""),
+                      title_ja=summary.get("title", ""), title_en=summary_en.get("title", ""))
     if existing:
         record["regenerated"] = added_at[:10]
     useen[existing_key or paper.key()] = record
@@ -373,6 +401,7 @@ def _add_prepared_paper(
         "status": "updated" if existing else "added",
         "title": paper.title,
         "file": rel,
+        **({"file_en": rel_en} if bilingual else {}),
     }
 
 
@@ -421,6 +450,8 @@ def _add_pdf_folder(args, uslug, sub, label, subs, seen, summarizer=None):
             result = _add_prepared_paper(
                 paper, sections, basis, uslug, sub, seen, summarizer,
                 skip_existing=args.skip_existing,
+                include_unrelated=getattr(args, "include_unrelated", False),
+                bilingual=getattr(args, "bilingual", False),
             )
             if result["status"] in {"added", "updated"}:
                 (updated if result["status"] == "updated" else added).append(result)
@@ -447,7 +478,8 @@ def _add_pdf_folder(args, uslug, sub, label, subs, seen, summarizer=None):
     for item in failed:
         print(f"  失敗: {item['pdf']} ({item['reason']})")
     if completed:
-        _print_publish_command([item["file"] for item in completed], uslug)
+        _print_publish_command([path for item in completed for path in
+                                (item["file"], item.get("file_en")) if path], uslug)
     return 1 if failed else 0
 
 
@@ -474,11 +506,21 @@ def main(argv=None):
     ap.add_argument("--no-recursive", action="store_true", help="フォルダ直下のPDFだけを処理")
     ap.add_argument("--limit", type=int, default=0, help="一括処理する最大件数（0は全件）")
     ap.add_argument("--fail-fast", action="store_true", help="最初の失敗で一括処理を停止")
-    ap.add_argument(
+    existing_options = ap.add_mutually_exclusive_group()
+    existing_options.add_argument(
         "--skip-existing", action="store_true", default=True,
-        help="登録済み論文をスキップ（常に有効）",
+        help="登録済み論文をスキップ（既定）",
+    )
+    existing_options.add_argument(
+        "--update-existing", dest="skip_existing", action="store_false",
+        help="登録済み論文も再要約して更新（既存URL・追加質問を維持）",
+    )
+    ap.add_argument(
+        "--include-unrelated", action="store_true",
+        help="手動追加に限りMAPF/MAPDの関連性チェックを省略",
     )
     ap.add_argument("--stub", action="store_true", help="LLMを呼ばずスタブ要約で動作確認")
+    ap.add_argument("--bilingual", action="store_true", help="日本語・英語の両ページを生成")
     args = ap.parse_args(argv)
     if args.pdf_dir and args.title:
         ap.error("--title は単一PDFでのみ指定できます")
@@ -511,6 +553,8 @@ def main(argv=None):
         result = _add_prepared_paper(
             paper, sections, basis, uslug, sub, seen, summarizer,
             skip_existing=args.skip_existing,
+            include_unrelated=args.include_unrelated,
+            bilingual=args.bilingual,
         )
     except Exception as exc:
         print(f"[error] {exc}")
@@ -526,7 +570,7 @@ def main(argv=None):
             "トップ一覧には出ません（ページは生成されます）。"
         )
     print(f"{'更新' if result['status'] == 'updated' else '生成'}: {result['file']}")
-    _print_publish_command([result["file"]], uslug)
+    _print_publish_command([path for path in (result["file"], result.get("file_en")) if path], uslug)
     return 0
 
 

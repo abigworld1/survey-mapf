@@ -134,7 +134,13 @@ python -m pipeline.publish build /tmp/survey-pages-preview
 
 最後の出力先は空ディレクトリを指定します。テストは一時ディレクトリとmockを使い、論文履歴やCopilot枠を変更しません。`--render-indexes-only` は既存の一覧HTMLを更新します。`--offline` / `--stub` は開発用で、生成物は公開バリデータが拒否します。本番作業ディレクトリではdry runを使ってください。
 
-日次以外のPDF追加・追加質問ユーティリティも同じCopilotアダプターを使います。Actionsの外で使う場合は適切なCopilot認証が別途必要ですが、アダプターは `GITHUB_TOKEN` 以外へフォールバックしません。日次運用には不要です。`add_paper` の追加先はMAPFのみ、既存記事は既定でスキップします。`regenerate_existing` は明示的なMAPF記事1件を指定する保守用で、日次から呼びません。
+日次以外のPDF追加・追加質問ユーティリティも同じCopilotアダプターを使います。Actionsの外で使う場合は適切なCopilot認証が別途必要ですが、アダプターは `GITHUB_TOKEN` 以外へフォールバックしません。日次運用には不要です。`add_paper` の追加先はMAPFのみ、既存記事は既定でスキップします。手動で関連性を問わず全PDFを処理する場合は `--include-unrelated`、登録済み論文も再要約する場合は `--update-existing` を指定できます。更新時は既存URLと日本語ページの追加質問を維持します。`--bilingual` で日英の両ページを生成します。これらの指定は日次の選定・重複排除には影響しません。
+
+```bash
+python -m pipeline.add_paper --folder tmp --include-unrelated --update-existing --bilingual
+```
+
+`regenerate_existing` は明示的なMAPF記事1件を指定する保守用で、日次から呼びません。
 
 ## 設定
 

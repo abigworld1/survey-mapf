@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beyond Pairwise Reasoning in Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="beyond-pairwise-reasoning-in-multi-agent-path-finding.en.html" lang="en">English</a></nav>
+  <h1>Beyond Pairwise Reasoning in Multi-Agent Path Finding</h1>
+<p class="meta">ペアワイズ推論を超えるマルチエージェント経路探索</p>
+  <div class="meta">Bojie Shen, Zhe Chen, Jiaoyang Li, Muhammad Aamir Cheema, Daniel D. Harabor, Peter J. Stuckey<br>採択先: ICAPS 2023 ・ 2023 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/ICAPS/article/view/27217" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/ICAPS/article/download/27217/26990/31286" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v33i1.27217" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 ICAPS 2023</span><span class="chip">公開日 2023</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、CBSが主に2エージェント間の相互作用を推論していた点に着目し、3エージェント以上からなる競合クラスタを利用する手法を提案する。クラスタに基づく強い下界とコスト同値のバイパスによって競合木の展開を減らし、特に密な地図でCBSの性能を改善する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グリッド上を移動する複数エージェントに対して、衝突のない経路を計画するMAPFである。入力は直交近傍をもつ4連結グリッド地図と、固有の始点・目標をもつエージェント集合である。時間は離散化され、各エージェントは隣接セルへの移動またはその場での待機を行う。目的は、すべてのエージェントが目標に到達し、目標到達後は他のエージェントのために移動せず、個別経路コストの総和を最小化することである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主要な新規性は、CBSのヒューリスティックとバイパスを、2エージェントの関係から3エージェント以上の相互作用へ拡張した点にある。著者らは、現在のCBSノードにおいて、各エージェントのコスト最小経路を組み合わせても衝突を避けられない集合を競合クラスタとして動的に検出する。クラスタの存在から、現在ノードのコストより少なくとも1高い解が必要だという下界を導く。さらに、一部のエージェントの経路を同じコストの別経路に置き換え、競合数を減らすクラスタ対応バイパスを提案する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>基礎となるCBSは、各エージェントを個別に経路計画し、衝突が見つかると制約木の子ノードを生成して再計画する。提案手法は、WDGによる既存のペアワイズ・ヒューリスティックを計算した後、競合状態グラフから関与度の高いエージェントを選び、他のエージェントとのMDD間でmutex伝播を行う。MDDは、制約を満たすコスト最小経路が各時刻に訪れ得る頂点を表し、異なるMDDの同じレベルにあるmutex頂点は、その組合せでは個別最適経路を同時に実現できないことを示す。選択したエージェントのMDDから互換性のないノードを除去し、競合クラスタまたはバイパスを見つける。クラスタが見つかればヒューリスティック値を増やし、バイパスが見つかれば経路と競合状態グラフを更新して、同じコストで競合を減らす。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、最先端のCBS変種であるWDGと、WDGにクラスタ・ヒューリスティックとバイパスを加えたWDG+CHBPを比較した。加えて、クラスタ・ヒューリスティックだけのWDG+CHと、提案バイパスだけのWDG+BPも調べた。ベンチマークは、ランダム障害物地図、空の地図、倉庫地図、ビデオゲーム地図の4種類で、各設定にはランダムな始点・目標の集合と、短距離・長距離を均等に含む集合がある。各インスタンスを1分実行し、実行時間、CBS競合木のノード展開、制限時間内に解けたかどうかを報告した。抜粋は実験環境と設定を示しているが、各手法の正確な数値、全グラフの値、統計的ばらつきは確定させていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案法の利点は、ペアごとには見えにくい相互排他をクラスタとしてまとめ、CBSの高位探索をより早く枝刈りできる点である。クラスタ検出とバイパスを同時に行うため、単に下界を強くするだけでなく、同じコストの経路変更によって後続の衝突も減らせる。代償として、MDDとmutex伝播を含むヒューリスティック計算はWDGより高価であり、抜粋では平均計算時間がWDGの2倍を超えないとされるが、詳細な条件別数値は示されていない。再利用可能なmutex伝播は、伝播情報の一部しか得られない可能性がある一方、キャッシュによってほぼ常に高速化したと報告されている。将来課題として、より複雑なクラスタの捕捉、WDGの整数計画への統合、クラスタ内の全衝突を効率的に解消する方法が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFの最適解探索は、さまざまな目的関数のもとでNP困難であり、倉庫自動化、ドローン群制御、コンピュータゲームのチーム移動などに応用される。CBSは、エージェントを個別に経路計画してから衝突を解消する、最適MAPFの代表的なベストファースト探索である。近年のCBSの改良は、対称性処理、複雑な許容ヒューリスティック、バイパスを組み合わせてきたが、数十エージェント程度でもタイムアウトが起こり得る。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>従来の高性能CBS改良は、主としてエージェントのペア間の衝突や依存関係を扱っていた。ペアごとの推論では、あるエージェントの代替経路が別のエージェントと衝突するような、多数エージェントにまたがる不可避性を十分に表せない場合がある。本論文の問題設定は、これらの相互作用を利用して、最適性を保ちながらCBSの探索量を削減することである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>競合クラスタは、現在ノードの制約下で、クラスタ内のエージェントにコスト最小で衝突のない経路割当が存在しない集合として定義される。クラスタが存在すれば、そのノードから得られる衝突回避解の個別コスト総和は、現在ノードのコストより少なくとも1大きい。提案法はWDGのペアワイズ下界にクラスタ数を加え、さらに経路置換によるクラスタ対応バイパスを利用する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>4つの4連結グリッド地図で、エージェント数を地図ごとに変化させたインスタンスを評価した。各地図設定には25インスタンスからなる2種類の集合があり、すべてのアルゴリズムをC++で実装して1分の制限時間で実行した。比較対象はWDG、WDG+CH、WDG+BP、WDG+CHBPであり、WDGには既存の依存グラフ・ヒューリスティック、対称性推論、競合優先付け、バイパスが含まれる。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>抜粋された結論では、WDG+CHBPが解けるインスタンス数を増やし、実行時間と競合木ノード展開を削減したと報告されている。改善は特に密な地図で顕著であり、タイムアウトしたインスタンスでも下界の最小値を大きく押し上げた。正確な改善率、地図別の平均値、手法間の有意差は、 supplied excerpt には確立されていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>3エージェント以上を同時に扱う競合クラスタ推論は、ペアワイズ推論だけに依存するCBSを改善する有効な方向として示された。クラスタ・ヒューリスティックとバイパスを組み合わせることで、強い下界と少ない高位探索を両立する。論文は、特に大規模または密なMAPFで、多数エージェントの相互作用を明示的に扱う価値を示している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>抜粋は、すべての実験結果の数値、メモリ使用量、クラスタ検出の詳細な計算量を提示していないため、改善の大きさやスケーリング特性を完全には判断できない。評価は4種類のグリッド地図と1分の制限時間に基づくため、他の地図構造、目的関数、制限時間で同じ傾向になるかは確定していない。3エージェント・ヒューリスティックを扱う既存研究との直接比較は、MAPFのコスト定義を変更する必要があるとして行われていない。再利用mutex伝播は情報を弱める可能性があり、より複雑なクラスタの解消も未解決である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、MAPFのボトルネックが個別の衝突だけでなく、複数エージェントの同時の不可避な干渉にもあることを、CBSの探索機構に組み込んだ点にある。これは、密集した倉庫や狭い通路のように、局所的な選択が多数のエージェントへ波及する環境で特に有用である。最適性を維持するCBSの枠内で、下界強化とコスト同値の経路変更を統合したことも実用上重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>最適MAPF、CBS、MDD、mutex伝播、依存グラフ・ヒューリスティックに関心のある研究者に適している。特に、ペアワイズ推論の限界、密な地図での高位探索、ヒューリスティック計算コストと探索削減のトレードオフを調べたい読者に推奨される。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

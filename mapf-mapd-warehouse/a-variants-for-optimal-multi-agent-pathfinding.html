@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A* Variants for Optimal Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="a-variants-for-optimal-multi-agent-pathfinding.en.html" lang="en">English</a></nav>
+  <h1>A* Variants for Optimal Multi-Agent Pathfinding</h1>
+<p class="meta">最適マルチエージェント経路探索のためのA*バリアント</p>
+  <div class="meta">Meir Goldenberg, Ariel Felner, Roni Stern, Guni Sharon, Jonathan Schaeffer<br>採択先: SoCS 2012 ・ 2012 ・ source: pdf</div>
+  <div class="links"><a href="https://cdn.aaai.org/ojs/18259/18259-77-21775-1-2-20210717.pdf" target="_blank" rel="noopener">原典</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 SoCS 2012</span><span class="chip">公開日 2012</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、最適なマルチエージェント経路探索（MAPF）に複数のA*拡張を適用し、強化部分展開A*（EPEA*）、パターンデータベース（PDB）、演算子分解と基本部分展開の組合せを比較する研究である。提示された実験では、EPEA*が主要な比較手法より高速で、難しい事例ではPDBの追加により平均で最大約3倍の改善が報告されているが、論文抜粋には実験全体の詳細な数値は含まれていない。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グラフ上で複数のラベル付きエージェントを、それぞれの開始位置から目標位置へ衝突なく移動させるMAPFである。各時刻にエージェントは隣接頂点へ移動するか待機でき、同一頂点の同時占有は禁止される。また、隣接する2頂点を2体のエージェントが反対方向に同時通過することも禁止される。目的は、全エージェントが目標へ到達する行動列のうち、総コストが最小のものを求めることである。通常の移動と待機のコストは1であるが、目標位置での待機は0として扱われ、そこで待機してから移動する場合には待機回数が後続移動のコストに反映される。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、EPEA*をMAPFへ適用する方法を詳しく示したことである。EPEA*は、最適解のコストを超える評価値を持つ余分なノードを生成しないよう、問題領域の知識を利用する。第二に、EPEA*の枠組みを一般化し、その上にPDBヒューリスティックを利用できるようにした。著者らは、MAPFにPDBを適用した例として当時初めての報告だと述べている。第三に、Standleyの演算子分解と、部分展開に基づく基本部分展開を組み合わせた新しい最適探索法を提案した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>通常のA*では、ノードの評価値はこれまでのコストとヒューリスティック値の和で決まるが、EPEA*は静的な評価値とオープンリストに保存する値を区別する。ノードを展開するとき、すべての組合せを一度に生成するのではなく、適切な増分コストを持つ後続だけを順次生成し、それ以外を避けることでオープンリストを小さく保つ。複数エージェントの複合操作については、各エージェントの操作が評価値をどれだけ増加させるかを組み合わせ、必要な増分を満たす組合せを再帰的に列挙する。PDBは、衝突に頻繁に関与するエージェント群について構築すると有効だが、そのような群は事前には分からないため、独立性検出（ID）がエージェントをグループ化した後にペアワイズPDBを構築する。さらに、基本部分展開を演算子分解に重ね、標準ノードの先行ノードが持つ保存値に等しい評価値の中間ノードだけを残すBPEODA*を定義する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、障害物のない4近傍8×8グリッド上で、エージェント数を変えた事例が比較された。比較対象には通常のA*、演算子分解A*（ODA*）、基本部分展開A*（BPEA*）、演算子分解と基本部分展開の組合せ（BPEODA*）、EPEA*、およびEPEA*にPDBを加えた手法が含まれる。評価は、割り当てられた時間とメモリの範囲内で解けるか、実行時間、探索ノード数、およびPDB構築コストを中心に行われた。抜粋には、全インスタンスの構成、各手法の正確な実行時間、ノード数、使用したヒューリスティックの詳細は確立されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>報告された結果では、簡単な事例を除きA*とBPEA*は、1事例あたり2分・2ギガバイトという割当資源内で解けなかった。ODA*はA*より高速で、BPEA*もA*より高速だったが、BPEA*は不要なノードを生成してから刈り込むオーバーヘッドを負うと説明されている。BPEODA*はオープンリストを大幅に小さくできるため、A*とODA*を大きく上回り、EPEA*はこれらすべてより高速だった。難しい事例ではPDBがEPEA*をさらに平均で最大約3倍改善した一方、易しい事例ではPDB構築時間のため、ノード数では最良でも時間では最良でなかった。PDBの構築時間はインスタンス依存であり、複数事例間で償却できないため、性能向上と前処理コストのトレードオフがある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFの最適解を求めることは、複数エージェントの相互作用によって単一エージェント探索より難しくなるため、近年大きな関心を集めている。先行研究では、演算子分解や部分展開など、A*を拡張する複数の方向が提案されていた。本稿は、そうしたA*バリアントを同一のMAPF設定で整理し、探索ノードの生成を抑える技術に焦点を当てる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力はグラフと、開始頂点・目標頂点を持つ複数のラベル付きエージェントである。エージェントは移動または待機を行うが、頂点衝突と反対方向の辺通過衝突を避けなければならない。待機と移動の通常コストは1で、目標上の待機は0であり、そこから再び移動する場合のコスト規則も定義される。求めるのは、すべてのエージェントが目標へ到達する最小コストの行動列である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>EPEA*では、通常の評価値とオープンリストに保存された評価値を分離し、現在必要な評価値を持つ後続だけを展開する。複合エージェントの操作による評価値増分を組み合わせるため、必要な合計増分を満たす組合せを再帰的に探索する。PDBは衝突に関係するエージェント群に対して構築され、IDによるグループ化を利用して構築対象を決める。BPEODA*は、演算子分解で生じる中間ノードに部分展開の条件を適用する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験の明示的な環境は、障害物のない4近傍8×8グリッドで、エージェント数を変化させたものである。通常のA*、ODA*、BPEA*、BPEODA*、EPEA*、EPEA*とPDBの組合せが比較された。各インスタンスには2分と2ギガバイトの資源上限が設定されたと報告されているが、抜粋は他のデータセットや反復条件を示していない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>A*とBPEA*は、最も簡単な事例を除いて資源上限内に解けなかったと報告されている。ODA*はA*より速く、BPEODA*は小さいオープンリストによってA*とODA*を大きく上回った。EPEA*は比較されたバリアントの中でさらに高速で、難しい事例ではPDB追加により平均で最大約3倍改善した。易しい事例では、EPEA*+PDBはノード数では最良だったが、PDB構築時間を含む実行時間では最良とは限らなかった。</p></section>
+<section class="secsum"><h3>結論</h3><p>本稿は、MAPFの最適探索において、余分なノードの生成を避ける部分展開が重要であることを示している。EPEA*は、提示された実験条件では既存の比較手法より高速だった。PDBは難しい事例で有効だが、インスタンス依存の構築費用がある。著者らは、先行する技術についてさらに重要な知見を完全版で提示したいとしている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された証拠は論文の中間部を省略しており、EPEA*の完全なデータ構造、増分計算、衝突処理の実装詳細は確立されていない。実験結果も一つのグリッド設定についての要約であり、他の地図、障害物密度、エージェント配置、評価値の正確な表は示されていない。PDBの構築方法はIDに依存し、衝突の多いエージェントを事前に特定できないことが制約になる。したがって、報告された優位性がすべてのMAPF分布や目的関数に一般化することは、抜粋だけからは判断できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、最適MAPF探索で計算時間だけでなく、どのノードを生成しないかが重要であることを明確にする。EPEA*、PDB、ID、演算子分解の組合せは、探索空間の構造を利用してオープンリスト操作とノード展開を抑える設計例を与える。特に、PDBの有効性と構築コストを同時に示す点は、強いヒューリスティックを導入する際の実用的な判断材料になる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>最適MAPF、A*の部分展開、演算子分解、PDBヒューリスティックの関係を短く把握したい研究者に適している。大規模な実運用システムの評価や、非最適MAPF、確率的環境、異なるコストモデルの研究者は、抜粋に含まれない追加評価が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

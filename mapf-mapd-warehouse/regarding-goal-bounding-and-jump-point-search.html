@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Regarding Goal Bounding and Jump Point Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="regarding-goal-bounding-and-jump-point-search.en.html" lang="en">English</a></nav>
+  <h1>Regarding Goal Bounding and Jump Point Search</h1>
+<p class="meta">Goal Bounding と Jump Point Search について</p>
+  <div class="meta">Yue Hu, Daniel Harabor, Long Qin, Quanjun Yin<br>採択先: JAIR ・ 2021 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1613/jair.1.12255" target="_blank" rel="noopener">原典</a> ・ <a href="https://doi.org/10.1613/jair.1.12255" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 JAIR</span><span class="chip">公開日 2021</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 本論文は、静的な8近傍グリッド上の最適経路探索で、Jump Point Search（JPS）と Goal Bounding を組み合わせる際に必要となる高コストな全点対前処理を削減する方法を提案する。ジャンプポイントだけに補助データを限定し、オンライン枝刈りを強化することで、完全性と最適性を保ちながら前処理時間・記憶容量・クエリ性能を改善する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、各セルが通行可能または障害物である静的な8近傍一様コストグリッド上の、始点から目標までの最短経路探索である。直交移動のコストは1、斜め移動のコストは√2であり、同じコストを持つ対称な経路が多数存在し得る。JPSはこの対称性をオンラインで除去し、Goal Boundingは目標に到達し得ない方向を探索から除外する。従来の高性能な組合せは、地図全体に対する全点対の補助データ生成を必要としていた。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の新規性は、Goal Bounding のデータをすべてのグリッドセルや辺ではなく、独立なジャンプポイントに対応するセルだけについて前計算・保存することである。ジャンプポイント数は通常セル総数より少ないため、地図のトポロジーに応じて前処理時間と記憶容量を一桁以上、場合によっては二桁近く削減できる。第二の新規性は、正準順序付け、部分展開、強化された中間枝刈りを組み合わせ、補助データを減らしてもオンライン探索を高速化する点にある。この設計から、探索型のJPS+BB+とTOPS、経路抽出型のTopping+が導かれ、いずれも完全かつ最適であることが理論的に示される。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>JPSはA*を基礎に、同値な経路を繰り返し検討しないよう、障害物配置によって必要となるジャンプポイントまで直線または斜め方向に進む。提案手法では、直交・斜めの独立ジャンプポイントを特定し、それらに対してBounding BoxまたはCompressed Path DatabaseのGoal Bounding情報を保持する。探索中は候補ジャンプポイントのフロンティアを管理し、JPS+BB+ではオクタイルヒューリスティックに基づくA*型の優先順位を使う。Goal Boundingで目標に関係しない後続を中間段階から除き、部分展開で不要な再帰や候補生成を早期終了し、開始点の後続枝刈りと正準タイブレーキングで処理量と保存量を抑える。TOPSはA*型探索と二つのオラクルによる情報を組み合わせ、Topping+は補助データを用いた経路抽出を中心に構成される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、Bounding Boxによる部分Goal Bounding、Compressed Path Databaseによる部分Goal Bounding、そして複数の基準法との総合比較という三種類の実験で構成される。データにはSturtevantのリポジトリのベンチマークと、2014年のGrid-based Path Planning Competitionに登場した全問題が含まれる。後者は132個の地図と347,868個の問題を含み、ゲーム由来の地図と合成ベンチマークからなる。比較対象にはJPS+BB、Topping、競技会で最速だった手法、その他のグリッド経路計画法が含まれるが、抜粋は個々の全手法名、全条件、全測定値を網羅していない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、前処理を大幅に軽くしてもオンライン性能が必ずしも悪化しないことを示す。Bounding Box版では、地図の構造に依存するものの、前処理時間と空間について一桁以上の改善が報告され、一部のベンチマークでは二桁に近い削減に達する。Compressed Path Database版でも同様の傾向があり、圧縮のため前処理時間はやや大きい一方、総空間は最大で二桁程度改善し、データベースは基準となる圧縮表現より数倍小さい場合がある。もっとも、性能は地図トポロジー、正準順序、前処理方式、探索型か経路抽出型かに依存し、抜粋だけではすべての比較で一貫して最速だったとは断定できない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>A*は最短経路探索の基本手法であり、経路コストと目標までの推定距離を使って状態を優先する。8近傍グリッドでは、直交と斜めの移動費用に対応するオクタイル距離が標準的な推定値となる。JPSは、同じ費用の経路が多数あるというグリッド特有の対称性を利用し、不要な中間セルの展開を避ける。Goal Boundingは、ある探索遷移から到達可能な目標の集合や範囲を事前に記録し、現在の目標がそこに含まれなければ枝を捨てる考え方である。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>JPS単独でも対称性を除去できるが、静的地図では事前計算したGoal Boundingを加えることでさらに探索を減らせる。従来のJPS+BBとToppingは高いクエリ性能を持つ一方、地図サイズに対して二次的に増える全点対前処理を要求する。StarCraftの一つの地図でさえ、単一マシン上の前処理に数時間と数百メガバイトを要する場合があり、複数地図では補助データが数十ギガバイトに達し得る。したがって、実用上は前処理を並列化するCPU資源と大きな保存領域が問題になる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>提案の中心は、任意のグリッドセルではなく、最適経路を正準的に表現する独立ジャンプポイントにGoal Bounding情報を付与することである。独立な直線・斜めジャンプポイントは、セルからジャンプポイントまたは障害物までの距離情報などを用いて識別でき、斜めの場合には線形時間の手続きが説明される。実装ではジャンプ距離ラベルに2バイトを使う構成が述べられているが、これは抜粋された実装の一例であり、全方式の必要容量を意味しない。正準タイブレーキングは、同値な選択を一貫して処理し、保存量とオンライン処理量をさらに減らす。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>Bounding Box実験では、全グリッド辺にラベルを持つJPS+BBと、独立ジャンプポイントだけを対象にするJPS+BB+を比較する。Compressed Path Database実験では、JPSと二つのオラクルを組み合わせたToppingを、提案されたTOPSおよびTopping+の設計と対比する。総合評価では、ゲーム地図、部屋、迷路などのベンチマークと、競技会の多様な地図・問題を用いる。実装は、JPS+BBとSRCの原著者が公開したコードを基にしており、競技会由来の実装や参照CPDコードも利用している。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>抜粋から確認できる主要結果は、JPS+BB+の前処理時間・空間が基準法より一桁以上改善され、ベンチマークによっては二桁に近い改善が得られたことである。Topping系でも、圧縮オーバーヘッドにより前処理時間はBounding Box版よりやや大きいが、総空間は最大で二桁程度削減された。オンライン側では、中間枝刈り、部分展開、開始後続枝刈りを追加すると、候補後続や再帰を減らせると報告される。抜粋には総合競技会実験の個別クエリ時間、全基準法との順位、統計的有意性は十分に示されていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>Goal BoundingとJPSは互いに異なる高速化原理を持ち、それらを組み合わせることで静的グリッドの最短経路探索を強化できる。従来の組合せの主要な代償だった全点対前処理を、ジャンプポイント限定のデータに置き換えることで軽減できる。さらに、保存データを効果的に使うオンライン枝刈りにより、データベースを小さくしても探索性能を改善できる。論文は、JPS+BB+、TOPS、Topping+を、完全性と最適性を備えた実用的な候補として提示する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>供給された抜粋は、すべての実験表、クエリ時間、メモリ値、ハードウェア条件、各ベンチマークでの順位を含んでいないため、具体的な平均速度や最良・最悪値は確定できない。効果はジャンプポイントの密度と地図トポロジーに左右され、ジャンプポイントが多い地図では前処理削減が小さくなる可能性がある。静的地図を前提とするため、障害物が頻繁に変化する環境では補助データの更新コストが問題になり得る。著者らは、対称性除去、Goal Bounding、グラフベース高速化を統合する今後の研究に課題と機会があると述べている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、クエリを速くするために巨大なオフライン計算を許容する設計と、前処理・保存を現実的に抑える設計の間を埋める。特に、ゲームやロボティクスのように同じ静的地図へ多数の経路問い合わせを行う場合、数十ギガバイト規模にもなり得る補助データを削減できる点が重要である。前処理を減らすだけでなく、オンライン枝刈りの設計原理を示した点は、他のグリッド探索高速化との組合せにも示唆を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>静的な8近傍グリッドで多数の最適経路クエリを処理し、前処理時間またはメモリがボトルネックになっている研究者に適している。JPS、Goal Bounding、CPD、正準タイブレーキング、グリッド経路計画の実験設計を学びたい読者にも有用である。動的地図、非一様コスト、近似経路だけを対象とする読者は、前提条件との適合性を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

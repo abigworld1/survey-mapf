@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Regarding Goal Bounding and Jump Point Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="regarding-goal-bounding-and-jump-point-search.html" lang="ja">日本語</a></nav>
+  <h1>Regarding Goal Bounding and Jump Point Search</h1>
+
+  <div class="meta">Yue Hu, Daniel Harabor, Long Qin, Quanjun Yin<br>Venue: JAIR ・ 2021 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1613/jair.1.12255" target="_blank" rel="noopener">Original</a> ・ <a href="https://doi.org/10.1613/jair.1.12255" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue JAIR</span><span class="chip">Published 2021</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> This paper reduces the costly all-pairs preprocessing traditionally used when Jump Point Search is combined with Goal Bounding for optimal pathfinding on static grids. By storing bounding information only at jump points and strengthening online pruning, it obtains substantial preprocessing and storage savings while retaining completeness and optimality, with strong empirical support.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is shortest-path search on static, 8-connected grid maps in which each cell is traversable or blocked. Orthogonal moves cost 1 and diagonal moves cost the square root of 2, so many paths can have identical optimal cost because of grid symmetry. Jump Point Search removes much of this symmetry online, while Goal Bounding rules out directions that cannot lead to the chosen target. Existing high-performance combinations of these ideas require all-pairs auxiliary preprocessing, creating a major practical cost.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is to precompute and store Goal Bounding information only for cells that are independent jump points rather than for every grid cell or edge. Because jump points are usually much fewer than all cells, the paper reports more than one order of magnitude of savings in preprocessing time and space, approaching two orders of magnitude on some benchmark cases. The second contribution is a set of online techniques—canonical orderings, partial expansion, and enhanced intermediate pruning—that make more effective use of the smaller database. These ideas yield three algorithms: the search-based JPS+BB+ and TOPS, and the path-extraction method Topping+, for which the paper gives theoretical completeness and optimality results.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Jump Point Search is built on A* and skips redundant intermediate cells by continuing in straight or diagonal directions until a jump point or another relevant event is reached. The proposed preprocessing first identifies independent straight and diagonal jump points, then associates Goal Bounding data with those points. Two forms of auxiliary data are considered: geometric containers represented as bounding boxes, and Compressed Path Databases. During a query, a frontier of candidate jump points is maintained; the JPS+BB+ variant uses a binary heap ordered by the usual A* f-cost and the standard octile heuristic. Goal Bounding removes successors that cannot reach the target, intermediate pruning eliminates candidates earlier in the recursive reasoning, partial expansion stops unnecessary successor generation, and start-successor pruning reduces work near the beginning of the search. TOPS combines A*-like search with two-oracle information, whereas Topping+ is based on extracting a path using compressed auxiliary information.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation has three parts: partial Goal Bounding with geometric containers, partial Goal Bounding with Compressed Path Databases, and broad comparisons against baseline algorithms. It uses benchmarks from Sturtevant’s repository and the complete set of problems from the 2014 Grid-based Path Planning Competition. The competition benchmark contains 132 maps and 347,868 instances, including game-derived maps and synthetic maps. Baselines include JPS+BB, Topping, the overall fastest competition entry, and other recent grid pathfinding methods; however, the supplied excerpt does not provide every baseline, hardware condition, metric definition, or result for every experiment.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The evidence indicates that reducing the offline database does not inherently degrade query performance. For the bounding-box variant, preprocessing time and space improve by more than one order of magnitude overall, with results close to two orders of magnitude on at least one benchmark, although the exact gain depends on map topology. The compressed-database variant shows the same general pattern: compression makes preprocessing somewhat slower than in the bounding-box experiment, but total space can improve by up to about two orders of magnitude and the databases can be several factors smaller than the comparison compressed representation. The excerpt does not establish that one proposed method is fastest on every map or against every baseline, so such a universal ranking should not be inferred.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>A* is a standard shortest-path algorithm that prioritizes states using path cost plus a heuristic estimate to the goal. On an 8-connected grid, the octile distance is the standard heuristic consistent with the stated orthogonal and diagonal costs. Grid pathfinding often contains many symmetric paths with equal cost, and exploring all of them wastes effort. Jump Point Search is an online symmetry-breaking technique that keeps only strategically necessary jump points. Goal Bounding is a family of pruning methods that precomputes, for a directed search transition, the set or region of goals that can be reached through it, allowing other goals to be rejected during a query.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>JPS and Goal Bounding provide complementary speedups, but previous combinations such as JPS+BB and Topping rely on an all-pairs preprocessing phase. That phase grows quadratically with map size and can require hours and hundreds of megabytes for one StarCraft map on one machine. A collection of maps can consequently require tens of gigabytes of auxiliary storage. Parallel CPUs can accelerate the many Dijkstra-style computations, but parallel hardware does not remove the storage burden. The paper therefore addresses the practical question of how to preserve fast queries without materializing Goal Bounding information everywhere.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The key observation is that a canonical optimal path can be represented through independent jump points, so Goal Bounding data need not be attached to every cell. Independent straight and diagonal jump points can be identified using local grid structure and distance-to-obstacle information, with a linear-time procedure described for the diagonal case. The implementation described in the excerpt uses two bytes per jump-distance label, but this is an implementation detail rather than a general memory requirement for every variant. Canonical tie-breaking makes equivalent choices consistent and can reduce both stored information and online work. The framework is deliberately compatible with both geometric bounding boxes and compressed path databases.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The geometric-container experiment compares JPS+BB, which stores a bounding-box label for every grid edge and performs full all-pairs preprocessing, with JPS+BB+, which stores information only for independent jump points. The compressed-database experiment compares Topping with the proposed TOPS and Topping+ designs, using compressed path information together with Jump Point Search. The broad evaluation covers maps and instances from the Sturtevant benchmark collection and all problems in the 2014 competition, including game maps, rooms, and mazes as well as synthetic cases. The implementations are based on code released by the original authors of JPS+BB and SRC, together with reference compressed-path-database code and competition submissions.</p></section>
+<section class="secsum"><h3>Results</h3><p>The supplied evidence supports substantial preprocessing reductions for JPS+BB+: more than one order of magnitude in time and space, with some benchmark results approaching two orders of magnitude. For the Compressed Path Database approach, total space improves by up to about two orders of magnitude; preprocessing times are somewhat larger because compression adds overhead, but the resulting databases are often several times smaller than the comparison compressed representation. Online pruning components reduce candidate successors and can stop recursive processing earlier, supporting query improvements despite the smaller auxiliary database. The excerpt gives a few aggregate and illustrative measurements, but it does not establish complete per-map query-time rankings, exact averages, confidence intervals, or a universally best method.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>Goal Bounding and Jump Point Search exploit different sources of redundancy in static grid pathfinding, and their combination can be made more practical than earlier designs. Restricting auxiliary data to jump points removes much of the all-pairs preprocessing and storage burden. Stronger online reasoning then compensates for the reduced database, rather than treating smaller preprocessing as an unavoidable query-time loss. The paper presents JPS+BB+, TOPS, and Topping+ as complete and optimal algorithms with convincing empirical support across a broad benchmark collection.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied excerpt omits many exact values, including full query-time distributions, hardware specifications, all memory measurements, and the detailed ranking of every baseline. Benefits depend on map topology and jump-point density; maps with relatively many jump points may obtain smaller preprocessing reductions. The approach assumes a static grid, so frequent obstacle changes would require updating or rebuilding auxiliary data. The excerpt also does not quantify the maintenance cost for dynamic environments or establish how the methods transfer to nonuniform costs, non-grid graphs, or approximate pathfinding. The paper identifies integration of symmetry breaking, Goal Bounding, and graph-based speedups as an area for future work.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>This work addresses an important systems trade-off in repeated shortest-path queries: extremely fast online search can be unattractive if it requires hours of preprocessing and tens of gigabytes of stored data. The jump-point restriction offers a principled way to reduce that burden while preserving exactness. Its online techniques also show that a smaller database can be paired with stronger reasoning rather than simply accepting slower queries. The ideas are particularly relevant to games, robotics, and other applications that reuse a fixed map for many optimal-path requests.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>The paper is most relevant to researchers working on exact pathfinding over static 8-connected grids, especially when preprocessing time or memory is a deployment constraint. It is useful for readers studying Jump Point Search, Goal Bounding, Compressed Path Databases, canonical tie-breaking, and empirical evaluation of grid path planners. Readers whose primary setting is dynamic maps, nonuniform edge costs, general graphs, or approximate planning should treat the stated assumptions as a limitation and assess transferability separately.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

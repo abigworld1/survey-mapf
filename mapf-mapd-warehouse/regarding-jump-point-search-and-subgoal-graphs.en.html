@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Regarding Jump Point Search and Subgoal Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="regarding-jump-point-search-and-subgoal-graphs.html" lang="ja">日本語</a></nav>
+  <h1>Regarding Jump Point Search and Subgoal Graphs</h1>
+
+  <div class="meta">Daniel D. Harabor, Tansel Uras, Peter J. Stuckey, Sven Koenig<br>Venue: IJCAI 2019 ・ 2019 ・ source: pdf</div>
+  <div class="links"><a href="https://www.ijcai.org/Proceedings/2019/173" target="_blank" rel="noopener">Original</a> ・ <a href="https://www.ijcai.org/Proceedings/2019/0173.pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2019/173" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue IJCAI 2019</span><span class="chip">Published 2019</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> This paper gives a graph-theoretic account of Jump Point Search and relates it directly to Subgoal Graphs, then introduces a preprocessing-based Jump Point Graph representation. The JP family can be combined with bidirectional search and Contraction Hierarchies, and it reduces expansions and runtime relative to SG on some important grid benchmarks, especially game maps.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies optimal pathfinding on eight-neighbor grid maps with blocked and unblocked cells. Jump Point Search and Subgoal Graphs both remove redundant symmetric paths, but they do so in different practical ways: JPS prunes successors during search, whereas SG identifies important vertices and builds an abstraction during preprocessing. The authors argue that the relationship between the methods, including their respective strengths and weaknesses, had not been sufficiently understood. Their work formalizes the common structure and evaluates the resulting methods against each other and against established grid-pathfinding techniques.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a graph-theoretic description showing that JPS, like SG, connects vertex pairs through a direct reachability relation. The second is the extraction of a graph containing all jump points, called a Jump Point Graph or JP, which makes JPS compatible with preprocessing-based speedups. The paper also describes a Diagonal Merged Jump Point Graph variant, JPD, whose additional jump points allow diagonal-first scans to terminate earlier. The excerpt states that JPD can be constructed with time and space proportional to the product of the map width and height. Finally, the study combines JP and its variants with bidirectional search and Contraction Hierarchies, and compares them with SG and other leading methods. The authors present this as the first way to incorporate JPS-style pruning into abstraction-based speedup techniques.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The underlying problem is an eight-neighbor grid graph derived from a map. Cardinal moves cost one and diagonal moves cost the square root of two; diagonal moves are legal only when the adjacent-corner condition prevents corner cutting. The Octile distance in obstacle-free space is used as the heuristic. JPS retains successors that allow a taut continuation of the current path and cause diagonal moves to occur as early as possible, pruning other symmetric alternatives without losing optimality. To make this behavior explicit, the paper defines a direction-extended graph in which each grid cell is represented once for each possible move direction. Edges in this expanded graph encode the local conditions for cardinal and diagonal-first, taut continuation. JP uses the resulting jump-point connectivity as a preprocessed search structure. At query time, the start and target are connected to suitable jump points, followed by a Connect-Search-Refine procedure similar in spirit to SG. Clearances are precomputed distances to relevant cells in a direction; they support both SG successor identification and JPS jump generation. JP stores forward and backward clearance information, while the reported SG implementations store eight directional clearances per cell.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation uses standard grid-based pathfinding benchmarks from Sturtevant’s repository, game-derived instances from the 2014 Grid-based Path Planning Competition, and the full set of instances from that competition. The principal comparison includes SG, JP, JPD, and Contraction Hierarchies applied to each of them as CH-SG, CH-JP, and CH-JPD. CH-G, a fast Contraction Hierarchies implementation using bidirectional Dijkstra, stall-on-demand, and midpoint-based path unpacking, serves as an important reference. The reported measures include graph edge counts, expanded vertices, branching factor, runtime, storage, and preprocessing time. All searches use the Octile heuristic and a binary-heap priority queue. The supplied excerpt gives the hardware and broad outcomes, but it does not provide every measurement, every map-level breakdown, the number of queries, or measures of variance.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>On game-map instances, JP is reported to have substantially fewer edges than SG, to expand fewer nodes, to have a smaller branching factor, and to run faster by several factors. Adding Contraction Hierarchies reduces the gap between the JP and SG variants, but CH-JP and CH-SG are both reported to be faster than CH-G in the relevant comparison. The paper attributes most of CH-JP’s advantage over CH-SG to faster Search and Refine stages; their Connect stages are comparable. Although JP target insertion has a worst-case linear-time requirement, the authors report that it is fast in practice. These benefits are not universal: JP can be much slower than CH-G on random maps, and the full GPPC aggregate is also unfavorable. Further optimizations for JP or JPD combined with Contraction Hierarchies are identified as future work.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>JPS and SG are successful symmetry-breaking approaches for speeding up optimal pathfinding on grids. JPS prunes unnecessary successors during search and jumps along directions, whereas SG selects distinguished subgoal vertices during offline preprocessing and builds an abstraction for fast and optimal pathfinding in directed weighted graphs. Both methods rely on a direct notion of reachability between important locations, even though their implementations and query procedures look different. This paper places them in a shared framework rather than treating JPS only as an online pruning rule.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Given a grid map, the task is to find a minimum-cost path from a start cell to a target cell while respecting blocked cells and the no-corner-cutting rule. A shortest path in the obstacle-free grid is called a freespace-shortest path, and it is usable on the actual graph only when all of its moves remain unblocked. The computational challenge is to preserve optimality while avoiding the many paths that differ only by reordering equivalent cardinal and diagonal moves. A practical solution must also keep preprocessing, storage, query connection, search, and path-refinement costs manageable.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The direction-extended graph represents each cell-direction state separately, allowing the search space induced by JPS to be described explicitly. A jump-point graph records the meaningful direct connections produced by cardinal scans and diagonal-first scans. The diagonal-merged variant adds jump points at suitable convex corners so that scans can stop sooner; the excerpt states that JPD can be constructed with time and space proportional to the product of the map width and height. During a query, cardinal successors of the start can be obtained through constant-time clearance lookups, while diagonal expansion performs further clearance checks. The same clearance idea appears in SG, but it is used to identify subgoal successors rather than to generate JPS jumps.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments run on a 3.6 GHz Intel Core i7-7700 system with 32 GB of RAM. The implementations are in C++ and are derived from a common CH-SG code base, except for CH-G. SG and CH-SG store clearance values in all eight directions for each grid cell, while JP and CH-JP store forward and backward clearances, totaling sixteen values per cell; each value occupies one byte, with longer distances retrieved in multiple steps. The searches use the Octile heuristic and a binary heap. The supplied material does not establish the complete query protocol, repetitions, per-map sample sizes, or statistical uncertainty.</p></section>
+<section class="secsum"><h3>Results</h3><p>For the game-derived GPPC instances, the paper reports that JP has many fewer edges than SG, expands many fewer nodes, has a smaller branching factor, and is faster by several factors. The advantage of CH-JP over CH-SG is mainly associated with Search and Refine, while Connect is comparable; both are reported to outperform CH-G in that comparison. In a comparison with JPS+BB on GPPC benchmarks, the excerpt reports that CH-JP is 4.83 times faster than CH-G, uses 49 percent less storage, and has 51 percent shorter preprocessing. It describes JPS+BB as 2.42 times faster than CH-G, with 16 percent less storage and 3.14 times longer preprocessing. The paper also reports unfavorable cases: on all GPPC instances JP is 7.48 times slower than CH-G, and on random maps JP is two orders of magnitude slower. These figures are quoted from the supplied excerpt; the complete experimental conditions are not established there.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that JPS and SG have a common reachability structure and that JPS can therefore be represented as a preprocessing-based jump-point graph. JP enables JPS-style pruning to be combined with Contraction Hierarchies and related speedups for the first time in the paper’s account. The authors state that JP is uniformly better than SG, including on random maps where it may contain more jump points than subgoals, and that the combination improves the state of the art for game-map path planning. The reported results support strong benefits on some benchmarks, but they also document substantial disadvantages on random maps and on the full GPPC aggregate.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied text omits substantial intermediate material, so the complete definitions, proofs, theorem assumptions, and full 提案手順c procedures cannot be verified from the excerpt alone. It summarizes many results at the benchmark-set level without providing all per-map values, query counts, variance measures, or statistical tests. JP has worst-case linear-time target insertion and requires directional clearance storage. Most importantly, the reported results are for single-agent grid pathfinding; direct performance or correctness consequences for MAPF or MAPD are not established by the supplied evidence.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The main significance is conceptual as well as empirical: the paper turns a search-time pruning method into an explicit, preprocessable graph representation. That bridge opens the use of Contraction Hierarchies and other abstraction-based techniques for jump-point search while preserving the goal of optimal grid paths. The study also clarifies that fewer expansions and faster searches do not guarantee the best total performance on every map family, making storage, preprocessing, connection, and refinement costs important design variables.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is a good fit for researchers studying optimal grid pathfinding, JPS, Subgoal Graphs, Contraction Hierarchies, and symmetry-breaking search. It is especially useful for readers who want to understand how online directional pruning can be converted into a reusable abstraction and how that abstraction behaves on game and random maps. MAPF and MAPD researchers should treat it as a single-agent low-level planning foundation rather than as evidence of multi-agent performance, since the supplied paper excerpt does not evaluate those settings.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

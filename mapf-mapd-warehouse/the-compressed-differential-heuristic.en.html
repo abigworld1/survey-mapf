@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Compressed Differential Heuristic | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="the-compressed-differential-heuristic.html" lang="ja">日本語</a></nav>
+  <h1>The Compressed Differential Heuristic</h1>
+
+  <div class="meta">Meir Goldenberg, Nathan Sturtevant, Ariel Felner, Jonathan Schaeffer<br>Venue: AAAI 2011 ・ 2011 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/7823" target="_blank" rel="noopener">Original</a> ・ <a href="https://ojs.aaai.org/index.php/AAAI/article/download/7823/7682" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v25i1.7823" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue AAAI 2011</span><span class="chip">Published 2011</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> This paper introduces the compressed differential heuristic (CDH), which retains only selected distances from states to pivots instead of storing a complete differential-heuristic table. The reported experiments show that CDH can be fitted to very small memory budgets and, for a fixed amount of memory, can search faster than an uncompressed differential heuristic and the domain’s base heuristic.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is shortest-path search between arbitrary start and goal states in a weighted graph. A differential heuristic (DH) precomputes distances from every state to a set of pivot states and uses those distances as a memory-based heuristic during search. The paper assumes that a domain already provides a base heuristic, such as octile distance on grids or air distance on road maps. The supplied excerpt does not establish every theoretical detail or every numerical result from the full paper.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a compression method that stores only a portion of the distances in a regular DH while retaining enough information for effective search. Unlike a regular DH, whose memory budget fixes the number of pivots when all state-to-pivot distances are stored, a CDH can use an arbitrary number of pivots and distribute only selected distances among states. Missing distances are handled using upper and lower bounds on distances from the goal to pivots, together with bidirectional pathmax. The paper also shows that a CDH can be built directly, without first constructing and storing the much larger uncompressed table.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Given an input graph and a memory budget, preprocessing first determines the number of pivots empirically and places them with the Avoid strategy. For every pivot, the method selects a subset of states that will retain a distance to that pivot; each selected state stores the pivot’s position in its local distance array. A breadth-first search from each pivot then computes distances only for the selected states and writes them into those positions. For each search instance, the method computes bounds on distances from the goal to pivots using the Bounding procedure, constructs the CDH heuristic, and runs A* to obtain an optimal path. Because different states can use different pivot subsets, the heuristic can be inconsistent, so the experiments use BPMX(1), which propagates values only between an expanded node and its immediate children.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation covers three real-world domains: eight-connected Dragon Age: Origins game maps, North American road maps, and a two-dimensional robotic-arm domain. Octile distance is used as the base heuristic for the grid maps, air distance is used for road maps, and the robotic-arm state is defined by the angles between adjacent segments. The comparisons include the base heuristic and a regular DH, and vary memory, the number of pivots, the Bounding parameter, and solution length while measuring search time. The supplied material does not provide the complete instance counts, all averages, repetition conditions, or exact values for every comparison.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>CDH’s principal advantage is that a fixed memory budget can represent a richer diversity of pivots by distributing pivot distances across states, rather than applying a small set of pivots uniformly to every state. This makes DH-style information available even when the memory needed for a regular DH, or even the memory needed to store the input graph, is unavailable. The trade-off is that state-dependent pivot subsets can make the heuristic inconsistent, requiring BPMX and additional search-time handling. Performance also depends on pivot placement, distance distribution, the number of pivots, the Bounding setting, graph structure, and cache behavior. The authors identify more sophisticated distance distribution and pivot prioritization as future work.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Memory-based heuristics precompute values during a preprocessing phase and reuse them through lookup tables during search. Pattern databases are a prominent example, but they are commonly associated with implicit exponential domains where useful abstractions are available. Differential heuristics provide a simple and effective table-based heuristic for explicit state spaces by using distances to pivots. Earlier work on compressing pattern databases motivates the broader idea that selectively retained information can preserve useful heuristic strength with less memory.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A regular DH stores the distance from every state to every pivot, requiring information proportional to the number of states times the number of pivots. When memory is severely restricted, especially below the memory needed to represent the domain, a regular DH may be unusable. Merely reducing the number of pivots can reduce the diversity and strength of the heuristic. The problem is therefore to retain useful distance information while allowing the table to fit an arbitrary, possibly very small, memory budget.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>For a state a and pivot p, the CDH stores d(a,p) only when that state-pivot pair is selected. Unstored distances are replaced or bounded using information about the goal-to-pivot distances and the values preserved by the compressed table. The resulting heuristic remains admissible according to the supplied evidence, so A* returns an optimal path. The paper also discusses omitting explicit pivot identities from a storage design, which can cut that part of the memory overhead in half and allow distances to more pivots, although the excerpt does not fully specify that variant.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The reported domains include the DAO ost100d map, North American road maps, and robotic arms with three or four segments. The three-arm and four-arm domains are described as having approximately 134 million and 69 billion states, respectively. The experiments study the effect of pivot count on search time, tune the Bounding parameter, compare several memory levels, and examine improvement as the optimal path becomes longer. Room maps and Delaunay graphs were also tested to confirm trends, but their detailed results are not included in the supplied evidence.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper’s conclusion reports several-fold time improvements of CDH over a regular DH when the memory budget is moderate, meaning it is not large enough to make the regular DH nearly perfect. When the available memory is smaller than the memory needed to store the input graph, the regular DH is described as inapplicable while CDH still achieves a several-fold improvement over the domain’s base heuristic. On the DAO map and the San Francisco Bay Area road map, the improvement over the base heuristic generally increased with the number of hops in the optimal solution, although deviations were attributed to cache effects. The excerpt does not give the exact improvement factors or their statistical significance.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>CDH compresses a differential-heuristic table by retaining only selected state-to-pivot distances while preserving enough information for effective optimal search. It can be tuned to any memory size, including one smaller than the size of the state space, and can be constructed without materializing the complete uncompressed DH. Experiments across three real-world domains report advantages over both the regular DH and the corresponding base heuristics. The authors further suggest that the underlying ideas may apply to other table-based distance heuristics.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied excerpt omits the complete formulas, the detailed definition of the Bounding procedure, the full pivot-placement and distance-distribution algorithms, and the complete experimental tables. Exact performance for each memory budget, map, and instance set therefore cannot be reconstructed from the evidence provided here. Results are likely sensitive to pivot placement, the distribution or hashing method, cache effects, the base heuristic, and graph structure. BPMX(1) addresses inconsistency in the reported experiments, but the excerpt does not establish the cost of alternative propagation depths or the scope of comparisons with other search configurations.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work provides a way to use precomputed heuristic information in explicit state spaces where conventional differential heuristics do not fit in memory. This is especially relevant to game maps and very large robotic configuration spaces, but the design principle is broader: memory can be spent on pivot diversity and selective coverage rather than on a uniform complete table. For memory-limited optimal search, this exposes a useful trade-off between table size, heuristic strength, and search effort.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>The paper is a good fit for readers studying explicit-state A*, differential heuristics, heuristic compression, and memory-bounded shortest-path search. It is also relevant to MAPF and MAPD researchers interested in reusable distance heuristics for large grids, road networks, or robot configuration spaces. Readers who need implementation-level details or exact reproducible measurements should consult the full paper, because the supplied excerpt does not establish all of them.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

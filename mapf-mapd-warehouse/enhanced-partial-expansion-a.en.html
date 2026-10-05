@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Enhanced Partial Expansion A* | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="enhanced-partial-expansion-a.html" lang="ja">日本語</a></nav>
+  <h1>Enhanced Partial Expansion A*</h1>
+
+  <div class="meta">Meir Goldenberg, Ariel Felner, Roni Stern, Guni Sharon, Nathan Sturtevant, Robert C. Holte, Jonathan Schaeffer<br>Venue: JAIR ・ 2014 ・ source: pdf</div>
+  <div class="links"><a href="https://doi.org/10.1613/jair.4171" target="_blank" rel="noopener">Original</a> ・ <a href="https://doi.org/10.1613/jair.4171" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue JAIR</span><span class="chip">Published 2014</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> In high-branching search domains, generating and storing surplus nodes whose cost exceeds the optimal-solution cost can dominate runtime and memory. The paper introduces Enhanced Partial Expansion A*, or EPEA*, which uses domain- and heuristic-specific operator-selection knowledge to generate only children with the evaluation value currently needed by the search, and extends the idea to IDA* as EPEIDA*.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies optimal state-space search guided by an admissible heuristic, with particular attention to domains in which a node has many applicable operators. Standard A* generates the children of an expanded node and adds frontier candidates to OPEN, so children that are not immediately needed for an optimal solution may still consume time and memory. The paper calls nodes whose cost exceeds the optimal-solution cost surplus nodes. Partial Expansion A* avoids retaining surplus nodes in OPEN, but it still generates all children before deciding which ones are needed. EPEA* addresses that remaining generation cost by selecting appropriate operators before their children are generated.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a refinement of Partial Expansion A* that moves partial expansion from post-generation filtering to pre-generation operator selection. EPEA* uses prior knowledge about a domain and its heuristic in an Operator Selection Function, or OSF, to identify operators producing children with the evaluation value currently required by the search. The paper studies full-checking, direct-computation, and hybrid OSFs, and develops OSFs based on pattern databases and additive pattern databases. It also extends the principle to iterative-deepening A*, producing Enhanced Partial Expansion IDA*, and provides theoretical analyses intended to explain when the additional computation is worthwhile.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>When EPEA* expands a node, it does not immediately turn every applicable operator into a child node. Its OSF first identifies the operators whose children have the evaluation value currently required by the search. Only those children are generated and inserted into OPEN; the parent is reinserted with the next relevant value so that later children can be produced in the same search order without materializing surplus children. A full-checking OSF examines candidate operators, a direct-computation OSF derives the needed operators from domain-specific structure, and a hybrid OSF combines the two strategies. For additive pattern databases, the OSF combines contributions from several abstractions, and needed entries can be computed lazily when a node is first expanded. EPEIDA* applies analogous threshold-based selection within IDA* iterations.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The reported evaluation covers standard benchmark domains including the 15-puzzle, pancake puzzle, Rubik’s cube, single-agent pathfinding, and multi-agent pathfinding. The comparisons include A*, IDA*, PEA*, EPEA*, and variants using different heuristics or OSFs, although the supplied excerpt does not establish every comparison condition or every dataset detail. In the MAPF study, 1,000 instances place agents on an obstacle-free, four-connected 8-by-8 grid; all variants run in an iterative-deepening framework and receive a limit of two minutes and two gigabytes of memory per instance. Results are grouped by the number of agents, and the reported measures include node performance, runtime, and memory performance. The MAPF comparison specifically includes EPEA* with the SIC heuristic and EPEA* with an additive-pattern-database-based OSF.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported results show substantial runtime and memory improvements for EPEA* and EPEIDA* on several standard benchmark applications, and the conclusion describes their runtime performance as state of the art on the reported domains. For difficult MAPF instances, EPEA* with the additive-pattern-database OSF is described as the clear winner and runs up to three times faster than EPEA* using the SIC heuristic. The advantage is not unconditional: partial expansion does not always make OPEN smaller, and a particular MAPF construction can cause PEA* and EPEA* to maintain a much larger OPEN than A*. Performance depends on average branching factor, implementation costs of ordinary A* and IDA*, OSF cost, and domain- and heuristic-dependent parameters. EPEA* is therefore a specialized optimization whose benefit depends on whether selecting operators costs less than generating and managing surplus children.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>A* selects frontier nodes using an evaluation formed from the cost already incurred and a heuristic estimate. With an admissible, non-overestimating heuristic, it is guaranteed to find an optimal solution; IDA* and RBFS are related state-space search methods. Partial Expansion A* saves memory by placing only children with the currently needed evaluation value into OPEN and reinserting the parent with the best discarded value. This leaves the cost of generating and inspecting all children, which is the time overhead that motivates EPEA*.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The central problem is the surplus-node effect. A node with a large branching factor can produce many children whose evaluation values exceed the cost of an optimal solution, so they are not immediately useful to an optimal best-first search. Standard A* may nevertheless generate them and add them to OPEN, causing runtime and memory growth. PEA* removes much of the storage burden but still pays for generating every child. The challenge is to preserve the search order and optimality of partial expansion while identifying useful operators without first constructing every child.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>EPEA* uses an OSF to select, before child creation, the applicable operators that produce the required evaluation increment. Full-checking OSFs inspect candidate operators, direct-computation OSFs derive the needed candidates from domain-specific knowledge, and hybrid OSFs combine the approaches. Pattern databases represent abstractions that retain only selected state variables, while additive pattern databases combine contributions from multiple abstractions. In the MAPF additive-PDB OSF, needed difference-PDB entries are computed lazily at a node’s first expansion if they are not already available.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The paper reports OSF studies that begin with comparatively simple domains and progress to pattern-database and additive-pattern-database constructions. The domains named in the supplied material include the 15-puzzle with the Manhattan-distance heuristic, the pancake puzzle with a GAP heuristic, Rubik’s cube, single-agent pathfinding, and MAPF. For MAPF, six A*-variants are compared in terms of nodes and time, with two EPEA* configurations: one using SIC and one using an additive-PDB OSF. The MAPF instances use an obstacle-free four-connected 8-by-8 grid, total 1,000 instances, per-instance limits of two minutes and two gigabytes, and grouping by agent count. The excerpt does not provide complete tables, exact averages, all baseline configurations, or hardware details for every experiment.</p></section>
+<section class="secsum"><h3>Results</h3><p>The abstract states that the experiments show significant runtime and memory improvements on several standard benchmark applications. The conclusion describes EPEA* and EPEIDA* as achieving state-of-the-art runtime performance across the reported domains. In MAPF, the additive-PDB-based EPEA* is reported to be up to three times faster than the SIC-based EPEA* on hard instances. The supplied material also says that EPEA* was not observed to be slower than A* in the reported experiments except for an unshown SAPF experiment where it was slightly slower. It does not establish exact node counts, absolute runtimes, averages, variance, statistical significance, or a universal ranking across all domains.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>EPEA* advances partial expansion by using prior domain and heuristic knowledge to avoid generating surplus nodes rather than merely avoiding their storage. Its OSF mechanism can be adapted to simple local heuristics, pattern databases, additive pattern databases, and, with a related threshold interpretation, IDA*. The experiments and theoretical discussion support strong benefits when branching is large and the OSF can be computed efficiently. They also show that memory behavior, runtime, and applicability depend on structural and implementation factors. The paper therefore presents EPEA* as a domain-sensitive complement to A*, PEA*, and IDA*, not as an unconditional replacement.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>EPEA* requires sufficiently detailed domain- and heuristic-specific knowledge, and the abstract explicitly notes that it is not always applicable or practical. Constructing or evaluating an OSF can itself be expensive, especially when the branching factor is not large enough to justify that cost. Partial expansion can sometimes increase rather than decrease the size of OPEN, as illustrated by a MAPF case in the supplied material. The analysis depends on branching behavior, implementation costs, OSF cost, and EPEA*-specific parameters, but the excerpt does not provide a generally reliable way to estimate all of them. The paper also identifies an unresolved trade-off between EPEA* and exploiting the full power of value propagation with inconsistent heuristics; an experimental study of that trade-off is left for future work. Exact limitations of the reported benchmarks cannot be fully assessed because many numerical details are omitted from the supplied excerpts.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper’s importance is conceptual as well as 提案手順c. It treats unnecessary child generation as a distinct source of search cost and shows how heuristic structure can be used before state generation, rather than only after states have been created. For MAPF and other combinatorial planning problems, this provides a way to connect strong abstraction-based heuristics with selective successor generation. It also gives researchers a framework for analyzing whether a specialized operator selector will repay its computation through fewer generated nodes, lower memory pressure, or faster search.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers in MAPF, optimal pathfinding, heuristic search, pattern databases, and implementations of A* or IDA*. It is particularly useful for readers studying surplus-node suppression, successor-generation cost, and the trade-off between OPEN size and runtime. The distinction between full-checking and direct-computation OSFs also makes it useful as a design reference for domain-specific search accelerators. Readers who need reproducible numerical comparisons should consult the complete paper, since the supplied evidence does not establish all experimental conditions or detailed measurements.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

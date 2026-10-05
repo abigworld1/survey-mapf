@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The increasing cost tree search for optimal multi-agent pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="the-increasing-cost-tree-search-for-optimal-multi-agent-pathfinding.html" lang="ja">日本語</a></nav>
+  <h1>The increasing cost tree search for optimal multi-agent pathfinding</h1>
+<p class="meta">Increasing Cost Tree Search for Optimal Multi-Agent Pathfinding</p>
+  <div class="meta">Guni Sharon, Roni Stern, Meir Goldenberg, Ariel Felner<br>Venue: Artificial Intelligence ・ 2013 ・ source: pdf</div>
+  <div class="links"><a href="https://www.sciencedirect.com/science/article/pii/S0004370212001543" target="_blank" rel="noopener">Original</a> ・ <a href="https://doi.org/10.1016/j.artint.2012.11.006" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue Artificial Intelligence</span><span class="chip">Published 2013</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 1</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies optimal multi-agent pathfinding in which agents must reach individual goals without collisions while minimizing the sum of their path costs. It introduces Increasing Cost Tree Search (ICTS), a two-level method that searches over individual cost vectors and then checks whether those costs admit mutually non-conflicting paths, showing theoretically and experimentally that ICTS can outperform A*-based methods on some structures but can also be substantially inferior on others.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The problem is MAPF on a graph with a start vertex and a goal vertex for every agent. At each discrete time step an agent may move along a legal edge or wait, but agents must not occupy the same vertex at the same time or traverse the same edge in opposite directions simultaneously. The principal objective studied is sum of costs, defined as the sum, over all agents, of the number of time steps needed to reach their goals. The paper notes that other global objectives, such as makespan, are possible, but the supplied excerpt does not establish results for those alternatives.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is Increasing Cost Tree Search, a two-level formulation that differs conceptually from applying traditional single-agent A* variants to the joint state space. At the high level, ICTS searches vectors of individual path costs, beginning with each agent&#x27;s shortest-path cost when other agents are ignored and increasing components in increasing total-cost order. At the low level, it tests whether the selected individual costs can be realized by a set of paths without conflicts, using multi-value decision diagrams. The paper also develops pruning mechanisms, including pairwise consistency tests and Enhanced Pairwise Pruning, to reduce low-level work. Beyond proving optimality, it explicitly characterizes cases in which A*-based approaches are better than ICTS.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>An ICT node is a vector containing one individual path cost for each agent, and its node cost is the sum of those components. The high-level tree starts at the vector of independent shortest-path costs and generates cost-increasing alternatives, so the first ICT node whose costs admit a valid joint solution has minimum possible total cost. For a selected cost, the low-level phase builds an MDD for each agent; the MDD contains the agent&#x27;s possible paths from its start to its goal with exactly that cost, represented as a layered directed acyclic structure. The algorithm searches the implicit Cartesian product of the MDDs rather than materializing the entire product in memory, rejecting combinations with vertex conflicts or opposite edge traversals. Pairwise MDD checks can first determine whether two agents have compatible paths, allowing an ICT node to be discarded before a more expensive multi-agent search is performed.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation covers open four-connected grids, grids with randomly scattered obstacles, and benchmark game maps from Sturtevant&#x27;s pathfinding database. It also includes a large 257 by 257 map from Dragon Age: Origins. For the grid experiments, the authors randomized 100 problem instances for each relevant agent count and report averages over instances solved by all compared variants. Comparisons include regular A*, A* with Operator Decomposition, basic ICTS, and ICTS with additional pruning or enhanced variants. Reported measures include generated or visited nodes, runtime, the number of instances solved within a time limit, and success rate. The excerpt does not provide every implementation detail, complete parameter setting, or full table, so all experimental conditions cannot be reconstructed from the supplied evidence alone.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>ICTS is attractive when the set of relevant individual cost vectors is smaller than the joint state expansion generated by A*. Its advantage depends not only on the number of agents but also on map topology, the ratio of agents to vertices, conflict density, and the amount by which agents must increase their individual costs to pass one another. In some cases ICTS generates fewer nodes but still takes longer because its per-node constant overhead is larger. Conversely, pruning can make ICTS dramatically faster on instances where many cost combinations or MDD branches can be rejected early. The paper presents dense small grids and a corridor in which two agents must travel far to swap order as pathological cases for ICTS. Future work proposed in the excerpt includes viewing low-level search as a constraint satisfaction problem, understanding the influence of instance parameters, and extending ICTS to weighted graphs and abstract goals.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Independent shortest paths are not sufficient for MAPF because paths that are individually optimal can collide when executed simultaneously. Earlier optimal approaches described in the paper extend A* to search combinations of agent states, while other decoupled approaches use macro-operators but do not generally provide both optimality and completeness. The resulting challenge is to preserve an optimality guarantee without exploring every combination of all agents&#x27; positions at every time step. ICTS addresses this challenge by separating the question of individual path costs from the question of whether paths with those costs can coexist.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The input consists of a graph and a start and goal vertex for each of the agents. A solution is a collection of paths that reaches every goal while respecting vertex and opposite-edge collision constraints. The optimization target is the minimum sum of individual arrival costs, denoted in the paper by the optimal solution cost. The supplied evidence does not establish the behavior of the method for weighted edges, abstract or set-valued goals, or objectives other than sum of costs; these are presented as extensions or alternatives rather than fully evaluated settings.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The high-level root is the vector of independent shortest-path costs, and each ICT node is ordered by the sum of its vector components. An MDD stores only locations and transitions that can participate in a path of one specified cost, with layers corresponding to time steps. Low-level search traverses the implicit product of the individual MDDs and enforces both same-vertex and opposite-edge conflict rules. The paper&#x27;s theoretical argument shows that every high-level node visited has total cost no greater than the optimal solution cost and that low-level states are similarly bounded under the relevant admissible-cost reasoning. This bound explains why ICTS can avoid some surplus states generated by a full-state A* search.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments include an 8 by 8 open grid, a 3 by 3 grid, 32 by 32 grids with different percentages of random obstacles, and large game maps. Some grid experiments use a coupling mechanism to generate hard instances and do not activate the ID framework, whereas the game-map experiments activate it; these experiment types are distinguished in the supplied text. The DAO evaluation reports runtime and success-rate behavior as the number of agents changes, and the grid evaluations report node and time comparisons as well. The excerpt does not establish the complete set of map names, all tested agent counts, or all implementation choices.</p></section>
+<section class="secsum"><h3>Results</h3><p>On the 8 by 8 open grid, ICTS generated fewer nodes than the A* variants and required the same or slightly less time in a lower-agent regime. As the number of agents increased, the comparison shifted: for one reported threshold, A* variants became faster even when ICTS still generated slightly fewer nodes, and with more agents the A* variants clearly outperformed ICTS in both nodes and time. The corridor example illustrates the opposite extreme: A* solved the stated instance in 51 milliseconds, while basic ICTS required 36,688 milliseconds because the relevant cost-vector increase was very large. In other experiments, especially with enhanced pruning, ICTS was faster than basic ICTS and was reported to outperform A* with Operator Decomposition by almost three orders of magnitude on an 8 by 8 setting. DAO results also contain many cases where ICTS or ICTS with enhanced pruning was faster, but the evidence does not support a claim of universal dominance.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>ICTS provides an optimal MAPF search framework by decomposing the problem into selecting individual path costs and checking whether those costs support a collision-free collection of paths. Because high-level nodes are explored in nondecreasing total-cost order and the low-level test is exhaustive over the relevant MDD space, the first feasible ICT node represents an optimal solution. The experiments support the theoretical claim that performance is governed by structural properties of the instance rather than by a universally best algorithm. ICTS and A*-based methods therefore occupy complementary parts of the optimal-MAPF design space.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>ICTS can suffer from an exponential search over individual cost vectors, while A*-based approaches can suffer from exponential growth in the number of agents in the joint state space. If only a few agents are present but they must incur a large cost increase to resolve a conflict, the ICT tree can become very large. Dense environments can create many conflicts and large MDD products, and pairwise pruning itself adds computation. The supplied excerpt does not establish worst-case practical performance beyond the discussed examples, nor does it show that the proposed variants are complete or optimal for all MAPF variants.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper is important because it introduces a structural alternative to joint-state A* for optimal MAPF. Its use of cost vectors and MDDs turns the relationship between individual shortest paths and global feasibility into an explicit search problem. The analysis also gives a useful methodological lesson: node counts, runtime, and solvability can favor different algorithms, and the best method depends on agent density, topology, and conflict structure. The pruning ideas provide a foundation for later work on cost-based and constraint-based optimal MAPF search.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers studying optimal MAPF, search decomposition, multi-value decision diagrams, and the practical trade-offs between ICTS and A*-based solvers. It is especially useful for readers who want both an optimality argument and empirical evidence showing why algorithm rankings change across instance families. It also serves as a starting point for understanding pruning strategies and the later research directions suggested by the ICTS framework.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

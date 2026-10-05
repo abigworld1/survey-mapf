@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="improved-heuristics-for-multi-agent-path-finding-with-conflict-based-search.en.html" lang="en">English</a></nav>
+  <h1>Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search</h1>
+<p class="meta">Conflict-Based Searchのための改良ヒューリスティクスによるマルチエージェント経路探索</p>
+  <div class="meta">Jiaoyang Li, Ariel Felner, Eli Boyarski, Hang Ma, Sven Koenig<br>採択先: IJCAI 2019 ・ 2019 ・ source: pdf</div>
+  <div class="links"><a href="https://www.ijcai.org/proceedings/2019/63" target="_blank" rel="noopener">原典</a> ・ <a href="https://www.ijcai.org/proceedings/2019/0063.pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.24963/ijcai.2019/63" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 IJCAI 2019</span><span class="chip">公開日 2019</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 1</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、CBSの高レベル探索で用いられてきた、現在の解にあるカーディナル衝突だけを利用するCGヒューリスティクスの限界を分析し、エージェント間のペア依存関係を利用する二つの許容的ヒューリスティクスを提案する。実験では、新しいヒューリスティクスを備えたCBSHが、CGを用いるCBSHより成功率を高め、展開ノード数と実行時間を最大50倍改善したと報告されている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グラフ上で複数エージェントを衝突なく開始頂点から目標頂点へ移動させるマルチエージェント経路探索（MAPF）である。時間は離散化され、各エージェントは隣接頂点への移動または現在頂点での待機を行う。研究の焦点は、衝突を制約として分岐するCBSの高レベル探索を、より情報量の多い許容的ヒューリスティクスで導くことである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、従来のCGヒューリスティクスは現在の解にあるカーディナル衝突だけを考慮するため、衝突グラフから得られる許容的情報には限界があることを定理によって分析する。第二に、将来の子ノードで生じる衝突や、エージェント対の経路依存性を利用するDGおよびWDGという二つの許容的ヒューリスティクスを導入する。第三に、WDGがDGを厳密に支配し、DGがCGを厳密に支配する関係を示す。さらに、遅延計算とメモ化を用いて、強いヒューリスティクスの計算オーバーヘッドを抑える。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CBSの各高レベルノードは、エージェントごとの制約、制約を満たすコスト最小経路、経路コストの総和を持つ。CGは、現在解に含まれるカーディナル衝突を辺とする衝突グラフを作り、その最小頂点被覆の大きさを下界として使う。本論文は、両方の子ノードに解がある場合、単一の衝突を解消することによるコスト増分が、衝突グラフから得られる範囲では実質的に1を超えて評価できないことを示す。DGは、あるエージェント対について、制約下のコスト最小経路同士が必ず衝突するかを、二つのMDDを段階的に組み合わせて調べ、依存する対ごとに少なくとも1の増分を数える。WDGは、依存する対を重み付き辺として表し、衝突のない二者の経路コストと現在解の二者コストとの差分を辺の重みにして、重み付き頂点被覆をヒューリスティクスにする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、4近傍グリッド上でCBS、ICBS、CG・DG・WDGを備えたCBSHを比較している。各マップとエージェント数について、開始頂点と目標頂点をランダムに選んだ50インスタンスを生成し、20×20の空マップ、30%のランダム障害物を持つ密なマップ、障害物密度を変えたマップ、および大きなマップを用いたと記載されている。指標は成功率、展開したCTノード数、実行時間、ルートノードのヒューリスティクス値、展開ノード当たりの計算時間であり、小規模マップでは各ソルバと各インスタンスに1分の制限を設けた。実験はC++で、2.80GHzのIntel Core i7-7700と8GB RAMのラップトップ上で行われた。提供された抜粋には、大規模マップの正確なサイズ、全エージェント数、すべての結果表の数値は含まれていないため、個別の比較を網羅的には確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>CGの弱点は、現在の解で見えているカーディナル衝突だけでは、子孫ノードの解で必ず現れる依存性を捉えられないことである。DGはこの将来の依存性を扱うが、依存性があっても増分を1として数えるため、実際の追加コストが大きい場合には情報を捨てる。WDGは追加コストを重みとして利用するため、より強い下界を得られる一方、MDD構築や二エージェント問題の解法に計算費用がかかる。空マップでは迂回経路が多く、密なマップではエージェント間の結合が強いため、ヒューリスティクスの値の改善とノード削減効果の関係は単純ではない。著者らは、将来課題として非最適CBS、ICTSやMDD-SATなど他のMAPFアルゴリズム、さらに三者以上の依存関係への一般化を挙げている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFはNP困難であるが、削減型、A*型、専用探索型など多くの最適解法が研究されている。CBSは、低レベルで各エージェントの経路を計算し、高レベルで衝突を制約に分割する二層探索法である。CBSHはCBSの高レベル探索に許容的ヒューリスティクスを導入した先行研究であり、本論文ではその従来手法をCGと呼んでいる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>グラフは無向かつ重みなしで、通常の移動と待機には単位コストがあり、目標到達後の終端待機はコスト0である。頂点衝突は同じ時刻に同じ頂点を占有すること、辺衝突は反対方向に同じ辺を通過することである。求めるのは制約を満たす全エージェントの経路であり、CBSのノードコストは経路コストの総和である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>CGはカーディナル衝突を辺とする衝突グラフの最小頂点被覆を用いる。DGは二エージェントのMDDを組み合わせ、すべての分岐が衝突状態になってこれ以上展開できなくなるかを調べ、依存関係を検出する。WDGでは、二エージェントの衝突回避コストと現在経路コストの差分を非負の値として計算し、正の差分を持つ依存対に重みを与える。高価な評価を必要な時点まで遅らせ、同じ制約集合に対応する依存関係、辺、重み、MDDの計算結果をメモ化することでオーバーヘッドを抑える。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験はC++で、2.80GHzのIntel Core i7-7700、8GB RAMのラップトップ上で実施された。4近傍グリッドに対し、空の20×20マップ、障害物を含む20×20マップ、障害物密度を変えた設定、大きなマップを扱っている。CBS、ICBS、CG・DG・WDGを使うCBSHを比較し、CBSHには遅延計算などの二つの改善を適用した。大規模マップの正確な構成、全エージェント数、その他の実験パラメータは、提供された抜粋だけでは完全には確定しない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>DGとWDGはCGを厳密に支配し、WDGはDGを厳密に支配すると報告されている。WDGはCGと比べて成功率を大幅に向上させ、展開ノード数と実行時間を最大50分の1にした。メモ化により、グラフの辺と重みの計算時間を90%以上削減したと記載されている。抜粋はすべてのマップとエージェント数に対する具体的な成功率、実行時間、ノード数を提示していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>ペアワイズな依存関係を考慮することで、CBSの高レベル探索に対してCGより強い許容的下界を与えられる。DGは依存関係の有無を利用し、WDGは依存しているかどうかだけでなく、衝突回避に必要な追加コストの大きさも利用する。実験結果は、計算オーバーヘッドが合理的な範囲にあり、解けるインスタンス数と探索効率が改善することを支持している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>CG、DG、WDGはいずれも主にエージェント対の依存関係を扱うため、三者以上の同時依存を完全には表現しない。密なマップではエージェントが強く結合し、ペアワイズ情報だけではより強い全体下界に近づきにくいと報告されている。WDGの計算はCGより高価で、遅延計算やメモ化が必要になる。提供された抜粋からは、実験結果の統計的ばらつき、他のデータセットでの再現性、非グリッドグラフや実運用環境での性能は確定できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>CBSの高レベル探索で衝突を解消する際、現在の解にある衝突だけを数えると、将来の制約波及を十分に評価できないことを明確にした。ペアワイズ依存性を許容的下界へ変換する枠組みは、最適性を保ちながら探索量を減らす実用的な設計指針になる。MAPFが倉庫ロボット、クアッドロータ群、ゲームキャラクターなどに利用される中で、成功率と実行時間の改善は実装上重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>CBS、ICBS、CBSHの内部動作と許容的ヒューリスティクスを学びたいMAPF研究者に向いている。MDD、衝突グラフ、頂点被覆、エージェント間依存性を組み合わせた探索改善に関心がある読者にも有用である。実験の完全な数値、大規模マップの詳細、グリッド以外の性能を必要とする場合は、提供された抜粋だけでは不十分であり、原論文全体の確認が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Additive Pattern Database Heuristics | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="additive-pattern-database-heuristics.en.html" lang="en">English</a></nav>
+  <h1>Additive Pattern Database Heuristics</h1>
+<p class="meta">加法的パターンデータベースヒューリスティクス</p>
+  <div class="meta">Ariel Felner, Richard E. Korf, Sarit Hanan<br>採択先: JAIR ・ 2004 ・ source: pdf</div>
+  <div class="links"><a href="https://arxiv.org/abs/1107.0050" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/1107.0050" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1613/jair.1480" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 JAIR</span><span class="chip">公開日 2004</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 本論文は、部分問題の正確な解コストを蓄積するパターンデータベースを、互いに素な変数集合に分割して加算することで、許容的で強力なヒューリスティクスを構成する方法を研究する。静的分割と状態ごとの動的分割を、スライディングタイル、ペグ版ハノイの塔、頂点被覆で評価し、動的分割は計算時間とメモリのトレードオフを伴いながら、しばしばより強い探索削減を実現する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、状態空間探索によって最適解を求める組合せ問題である。許容的ヒューリスティクスは、元の問題を緩和した問題の最適解コストなど、真の残りコストを決して過大評価しない値を返す。パターンデータベースは、選択した変数だけを残した部分問題について、各パターン状態から目標までの正確なコストを事前計算する。本論文は、部分問題同士が作用素のコストを共有しないようにすれば、複数のデータベース値を足し合わせても許容性を保てるという枠組みを扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、互いに素なパターンに対するデータベース値を加算する一般的なヒューリスティクスと、その静的・動的な分割方法を整理して示したことである。静的方式では問題変数をあらかじめ固定したグループに分け、動的方式では探索中の各状態で、利用可能なパターンの中から値の合計が最大になる分割を選ぶ。スライディングタイルでは、ペアやより大きなタイル集合の距離、相互コストグラフ、重み付きマッチングや頂点被覆を用いた強化も検討する。さらに、同じ考え方をペグ版ハノイの塔と頂点被覆へ適用し、領域をまたいで加法的データベースの有用性を示す。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>前処理では、変数の部分集合ごとに緩和された部分問題を逆向き幅優先探索などで解き、各パターン状態から目標までの最小コストを表に保存する。探索中は現在状態から各表のインデックスを作り、静的方式なら固定グループの値を、動的方式なら候補グループを選んだ値を加算してヒューリスティック値とする。加法性の根拠は、元の解の各作用素を、影響を受けるパターンに割り当てたコストの合計が元の解コストを超えないという分解である。したがって、単一の作用素が複数のパターンを同時に変更しないことなど、問題固有の条件を検証する必要がある。タイル問題では、空白位置をデータベースのインデックスから省いて、可能な空白位置に対する最小値を保存する圧縮も用いられる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価対象は、スライディングタイルパズル、ペグ版ハノイの塔、頂点被覆の三領域である。探索アルゴリズムとして、主に反復深化型の深さ優先探索やヒューリスティック探索を用い、ノード生成数、実行時間、メモリ使用量、解の最適性を比較している。比較対象にはマンハッタン距離、静的分割データベース、動的分割データベース、ヒューリスティクスなしの探索、枝刈りや分岐規則が含まれる。抜粋では、多くの表にある正確なインスタンス数、解長、ノード数、時間、メモリ量が欠落しているため、個々の数値や統計的有意性は確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>動的分割は状態ごとに最も強い分割を選べるため、通常は静的分割より少ないノードを生成するが、分割選択の計算コストが増える。特に頂点被覆では、動的方式が静的方式より実行時間で最大一桁程度優れたと報告され、ペグ版ハノイの塔では動的データベースによって扱える問題が拡大したとされる。一方、スライディングタイルの二十四パズルでは、動的方式が少ないノードを生成しても、各状態で重み付き頂点被覆を解くため、静的方式より全体の実行時間が長くなる場合がある。静的方式は表の参照と加算だけで済む反面、固定分割が状態ごとの構造を活用できない。抜粋からは、全てのドメインや入力分布での優位性、前処理時間を含む統一的な実験条件、各方式の漸近的な最適性までは確定できず、将来課題は他の問題領域への拡張とデータベース圧縮にある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>従来の許容的ヒューリスティクスは、制約を取り除いた緩和問題を解くことで構成できる。スライディングタイルで空白との衝突制約を無視すると、各タイルのマンハッタン距離の和が得られる。パターンデータベースはこの発想を一般化し、選択したタイルや変数の部分問題を正確に解いた値を保存する。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>単一の緩和問題は計算しやすい一方で、元の問題にある相互作用を無視するため、探索を十分に削減できないことがある。複数のパターンを利用するとヒューリスティックは強くなるが、パターンが同じ作用素のコストを二重に数えると許容性を失う。したがって、強さ、データベースのメモリ、参照や分割選択の実行時間を同時に扱う必要がある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>静的加法方式は、全変数を互いに素なグループへ一度だけ分割し、各グループの値を常に加算する。動的方式は、ペアや三つ組など複数の候補パターンを前計算し、各状態で値の合計が最大となる互いに素な選択を決める。タイルのペア距離は相互コストグラフの最大重みマッチングとして、衝突制約の一部は頂点被覆として扱える。加法性は、作用素が複数パターンの変数を同時に変更しない場合に、部分問題コストの合計が元の解コスト以下となることから導かれる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>スライディングタイルでは、複数の静的タイル分割と動的分割を反復深化探索で比較した。ペグ版ハノイの塔では、異なるディスク集合をパターンとしてデータベース化し、静的分割と動的分割を調べた。頂点被覆では、頂点を互いに素なクリークへ分け、クリークの下界を加算して探索に組み込んだ。抜粋は実験表やグラフの全数値を保持していないため、再現に必要な全入力条件は示されていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>静的データベースでは、より大きなグループの方が一般に良い探索性能を示したと本文は述べる。ペグ版ハノイの塔では、動的分割が最小のノード生成数とメモリ消費を示したと報告される。頂点被覆では、両方式ともヒューリスティクスなしより明らかに優れ、動的方式は静的方式を実行時間で最大一桁程度上回ったとされる。正確な数値、全ベースライン間の順位、結果のばらつきは抜粋だけでは確定しない。</p></section>
+<section class="secsum"><h3>結論</h3><p>論文は、静的および動的な加法的パターンデータベースが、三つの異なる問題領域で強い許容的ヒューリスティクスを構成できると結論づける。動的方式は、状態ごとの適応によりヒューリスティック値を高められるが、その選択コストを伴う。これらの手法は、最適解探索を必要とする新しい領域にも拡張可能だと示唆される。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された抜粋には論文全体の定量表が完全には含まれず、問題サイズ、試行数、ハードウェア、前処理を含むかどうかなどは十分に確定できない。動的分割の利点は、状態ごとの最適化コストとメモリ容量に依存する。加法性の条件は問題固有であり、任意の作用素や任意のパターン分割へ自動的に適用できるとは本文抜粋からは言えない。標準的な初期状態と目標状態に特化した幅優先探索の比較は、任意の状態対を扱うヒューリスティック探索とは適用範囲が異なる。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、単なる距離下界を、部分問題の正確な相互作用情報へ置き換える設計原理を示している。特に、ヒューリスティックの強さと計算コストを静的・動的分割として明示的に交換できる点が、MAPFやMAPDを含む大規模探索の設計に有用である。作用素の独立性を確認できる問題では、複数の局所下界を安全に統合する考え方を再利用できる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>パターンデータベース、許容的ヒューリスティクス、反復深化探索、組合せ最適化を研究する読者に適している。MAPFやMAPDでは、エージェントや局所タスクの相互作用を分離して下界を加算する設計を考える際の基礎資料になる。実験の厳密な数値比較を必要とする読者は、抜粋では欠落している本文の表、設定、データベース構成を追加確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

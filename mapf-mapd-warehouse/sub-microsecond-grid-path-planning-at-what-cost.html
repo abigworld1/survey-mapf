@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sub-Microsecond Grid Path Planning, at What Cost? | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="sub-microsecond-grid-path-planning-at-what-cost.en.html" lang="en">English</a></nav>
+  <h1>Sub-Microsecond Grid Path Planning, at What Cost?</h1>
+<p class="meta">サブマイクロ秒のグリッド経路計画、その代償は何か？</p>
+  <div class="meta">Mark Carlson, Daniel D. Harabor, Peter J. Stuckey<br>採択先: SoCS 2025 ・ 2025 ・ source: pdf</div>
+  <div class="links"><a href="https://ojs.aaai.org/index.php/SOCS/article/view/35974" target="_blank" rel="noopener">原典</a> ・ <a href="https://ojs.aaai.org/index.php/SOCS/article/download/35974/38129/40046" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/socs.v18i1.35974" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">手動追加</span><span class="chip venue">採択先 SoCS 2025</span><span class="chip">公開日 2025</span><span class="chip">被引用 0</span><span class="chip">関連度 0</span><span class="chip basis-fulltext">本文(PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(PDF)を根拠に要約しています。</div>
+
+  <div class="tldr"><strong>一言で:</strong> 本論文は、Tree CacheとJump Point Search（JPS）の対称性削減を組み合わせたJump Spanning Tree Search（JSTS）と、経路品質の有界保証を加えたBounded Jump Spanning Tree Search（BJSTS）を提案する。JSTSは通常1マイクロ秒未満で経路を生成できる一方、品質保証を持たず、BJSTSは指定係数以内の劣化を保証する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、障害物を含む8近傍グリッドマップ上で、始点から目標までの経路を高速に求める問題である。直交移動と斜め移動を許すが、斜め移動では角を切り抜けないという制約を課す。グリッド経路計画はゲームだけでなく、ロボットの動作計画やマルチエージェント経路探索の簡略モデルとしても利用されるため、探索速度と経路品質の両立が重要になる。従来のTree Cacheは根から全セルへの最短経路木を前計算し、始点と目標から根へ向かう木をたどって共通祖先で接続するが、品質保証を持たない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、Tree Cacheの木構築にJPSの対称性削減規則を組み込んだJSTSである。JSTSでは通常のセルではなく、ジャンプ点を親とするジャンプ全域木を作り、オンライン時に木をたどることで経路上のセグメント数を減らす。第二の貢献は、JSTSを上界としてJPS+型探索に組み込んだBJSTSであり、指定した係数wに対して最適経路長のw倍以内という有界劣化を保証する。提示された抜粋は、これらがすべての既存手法を常に上回ることや、任意の地図・クエリで同じ性能を示すことまでは確立していない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、根から各セルへの最短経路木を構築し、JPSの後継判定を用いて、自然後継に当たる中間セルを親のジャンプ点へスキップする。オンライン探索では、始点と目標からそれぞれ木を根方向へたどり、最初の共通セルを見つけて二つの部分経路を連結する。始点と目標の順序に応じて経路を反転・連結し、JSTSの解を得る。BJSTSはJSTSの経路長を初期上界として保持し、ジャンプ点後継を探索しながら下界と上界を比較し、指定係数の条件を満たした時点で保証付き経路を返す。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実装はRustのmkpathライブラリを用い、Ubuntu 22.04、AMD Ryzen 9 5950X（4.5GHz）、16GB DDR4メモリの環境で評価された。データセットにはMoving AIの標準グリッドベンチマークとIron Harvestグリッドベンチマークを使用し、Game、Street、Maze、Random、Room、Iron Harvestとして分類している。主な指標は木構築時間、1経路あたりの探索時間、劣化率であり、探索時間は地図上の全問題を解く実時間を問題数で割り、100回繰り返して測定した。JSTSはJPS+、重み付きヒューリスティックを使うJPS+、JPS+BB+、Tree Cache、理想化された最適経路オラクルなどと比較されたが、抜粋には全ての個別測定値は含まれていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>JSTSの速度は、ジャンプにより返却経路のセグメント数を減らし、オンライン処理をほぼ木の読み出しに近づけることで得られる。その代償は、経路が最適である保証も、一定の有限係数以内に収まる保証もないことであり、結論では実アプリケーション領域のグリッドで平均約20パーセント、99パーセンタイルで最適値の3〜5倍悪化し得ると報告される。性能と品質の関係は地図構造に依存し、Game、Street、Iron Harvestではジャンプが有効だった一方、Randomでは効果が小さく、狭い通路のMazeではサブマイクロ秒を外れる場合がある。階段状の中間ノードを迂回する最適化はセグメント数を減らしても、メモリ配置とCPUキャッシュの影響でMaze、Room、Randomの実行時間を悪化させることがある。将来課題は、複数の木などを用いて速度を大きく失わずに経路品質を改善することである。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>JPSは前処理なしでグリッド上の対称な経路を削減する最適探索であり、通常のA*より大幅に高速だと説明されている。より高速にするには前処理が必要で、JPS+は各方向の次のジャンプ点までの距離を記録するクリアランステーブルを利用する。Tree Cacheは、根からの最短経路木を前処理し、クエリ時に二つの木上経路を共通祖先でつなぐ単純な方式である。JSTSはこの方式とJPSの対称性削減を結合したものとして位置づけられる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>地図はW×H個のセルからなり、各セルは通行可能または不通行である。移動は隣接する直交・斜めセルへの遷移で、斜め移動では両側の直交セルも通行可能でなければならない。経路長は各移動ベクトルのユークリッド長の合計で、JSTSはこの問題に対して非常に短い計算時間を目指す。抜粋だけでは、動的障害物、複数エージェントの衝突回避、オンライン地図更新を直接評価したかどうかは確定できない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>Tree Cacheでは各セルが直近の親セルを持つのに対し、JSTSではJPSの規則に基づく親ジャンプ点を持つため、木の深さと経路セグメント数を減らせる。根の選択は劣化率に影響し、提示された結果ではMidpathを用いた平均劣化率はどのグラフでも1.4を超えなかった。BJSTSはJSTSの経路を上界として使い、JPS+型の探索で品質保証を導く。正確な保証を得るには、指定された重みwと探索条件が重要だが、抜粋は全ての実装上の詳細を示していない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>評価対象はMoving AIとIron Harvestのグリッドマップで、ゲーム、都市街路、迷路、部屋、ランダム、Iron Harvestのカテゴリが含まれる。JSTSについて、通常版、階段状迂回なし版、Tree Cache、最適経路を直接読み出す理想化オラクルを比較し、時間、セグメント数、幾何平均劣化率を測定した。BJSTSはJPS+、重み付きヒューリスティックを使うJPS+、JPS+BB+と比較された。抜粋には、全クエリ数、各地図の件数、使用したwの一覧は示されていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>要約表では、A*の平均時間は89979マイクロ秒、JPSは536マイクロ秒、JPS+は349マイクロ秒、JPS+ with DHは85マイクロ秒、CH-JPDは54マイクロ秒、JPS+BB+は24マイクロ秒、Tree Cacheは4マイクロ秒、JSTSは0.3マイクロ秒とされる。JSTSは狭い通路のMazeを除く全地図で平均1マイクロ秒未満となり、Tree Cacheより大幅に高速で、平均経路コストの増加は最大5パーセントと報告される。Game、Street、Iron Harvestでは理想化オラクルより速く、Mazeではそれに競合する一方、Randomではジャンプの効果が小さい。結論では、JSTSは従来のグリッドA*に対して最大5桁、BJSTSは近最適な品質保証付きで最大4桁の性能向上と要約されるが、抜粋は全条件での再現を保証していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>JSTSは、線形時間で通常数秒程度の前処理を行い、数百クロックサイクル規模で経路を返す方式である。品質を厳密に要求しない大量の経路問い合わせ、特に地図が頻繁には変わらないゲームの高レベル行動計画に適している可能性がある。品質保証が必要な場合はBJSTSが代替となり、指定した係数内の経路を単一桁マイクロ秒規模で平均的に求める。本研究の中心的な結論は、前処理と許容可能な最適性損失を交換することで、グリッド経路計画を理想化された経路出力の複雑性に近づけられるということである。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>JSTSの経路品質には保証がなく、平均的に良好でも個別クエリや99パーセンタイルでは大きく劣化し得る。性能は地図構造、根の選択、ジャンプの有効性、メモリ配置に依存し、Randomや狭い通路では利点が弱い場合がある。BJSTSは保証を与えるが、最適性に近づけるほど探索の負担が増え、正確な改善はヒューリスティックの質に依存する。抜粋は、動的環境、メモリ使用量、前処理更新費用、全ての比較手法の実装公平性について十分な情報を確立していない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、最適解を求めることだけでなく、経路出力そのものにかかる時間を基準にグリッド探索を捉えている点に意義がある。JSTSが理想化された最適経路オラクルに近づき、場合によっては上回るという報告は、前処理済み探索の実用的な限界を考える材料になる。ゲームの高レベル計画では、実際には経路を移動に使わず距離評価だけを行う問い合わせも多いという議論があり、そのような用途では速度と完全最適性の交換が有用になり得る。MAPF研究者にとっては、単一エージェントの高速な経路生成を低レベル部品として検討する際の参考となる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>グリッド上の単一エージェント経路計画、ゲームAI、頻繁な距離問い合わせ、地図が比較的静的な環境を研究する読者に適している。JPS、Tree Cache、前処理付き経路計画、速度と最適性のトレードオフに関心がある人にも有用である。MAPFやロボット計画への直接適用を考える場合は、衝突回避、動的障害物、複数エージェント間の相互作用が抜粋で評価されていない点を踏まえて読むべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>

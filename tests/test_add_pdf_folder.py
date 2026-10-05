@@ -54,6 +54,11 @@ class PdfFolderTests(unittest.TestCase):
         self.assertEqual(doi, "10.1234/ABC.42")
         self.assertEqual(arxiv_id, "2608.12345")
 
+    def test_rejects_pdf_build_filenames_and_corrupt_title_text(self):
+        self.assertFalse(add_paper._usable_pdf_title("jairpdb.dvi"))
+        self.assertFalse(add_paper._usable_pdf_title("Broken\x01Title"))
+        self.assertTrue(add_paper._usable_pdf_title("Additive Pattern Database Heuristics"))
+
     @mock.patch("pipeline.add_paper.enrich_venue")
     def test_registered_paper_is_skipped_before_metadata_or_llm(self, enrich_venue):
         paper = Paper(source="pdf", title="Already Added Paper")
@@ -292,6 +297,75 @@ class ManualReadditionTests(unittest.TestCase):
                     )
                 self.assertEqual(rc, 0)
                 self.assertEqual(self.summarizer.summarize.call_count, 0)
+
+    def test_explicit_manual_import_allows_unrelated_paper_and_preserves_default(self):
+        for allow in (False, True):
+            with self.subTest(allow=allow):
+                seen = {}
+                result = add_paper._add_prepared_paper(
+                    self.paper, [("Body", "text")], "fulltext(pdf)",
+                    add_paper.DEFAULT_FIELD, {"keywords": ["MAPF"]}, seen,
+                    self.summarizer, include_unrelated=allow,
+                )
+                self.assertEqual(result["status"], "added" if allow else "skipped")
+
+    def test_bilingual_import_saves_both_pages_and_language_links(self):
+        self.summarizer.summarize_bilingual.return_value = {
+            "ja": {"title": "日本語", "tldr": "日本語の要約"},
+            "en": {"title": "English title", "tldr": "English summary"},
+        }
+        result = add_paper._add_prepared_paper(
+            self.paper, [("Body", "text")], "fulltext(pdf)",
+            "reading", {}, self.seen, self.summarizer, bilingual=True,
+        )
+        record = self.seen["reading"][self.key]
+        self.assertEqual(record["file_en"], result["file_en"])
+        self.assertEqual(record["tldr_en"], "English summary")
+        self.assertIn('href="original-url.en.html"', (self.root / self.rel).read_text())
+        self.assertIn('href="original-url.html"', (self.root / result["file_en"]).read_text())
+        self.summarizer.summarize.assert_not_called()
+
+    def test_bilingual_render_failure_keeps_existing_page(self):
+        self.summarizer.summarize_bilingual.return_value = {
+            "ja": {"tldr": "Japanese summary"}, "en": {"tldr": "English summary"},
+        }
+        old_html = (self.root / self.rel).read_text()
+        before = copy.deepcopy(self.seen)
+        original = add_paper.render.render_paper_page
+
+        def render(*args, **kwargs):
+            if kwargs.get("language") == "en":
+                raise RuntimeError("English rendering failed")
+            return original(*args, **kwargs)
+
+        with mock.patch.object(add_paper.render, "render_paper_page", side_effect=render), \
+             self.assertRaisesRegex(RuntimeError, "English rendering failed"):
+            add_paper._add_prepared_paper(
+                self.paper, [("Body", "text")], "fulltext(pdf)",
+                "reading", {}, self.seen, self.summarizer, bilingual=True,
+            )
+        self.assertEqual((self.root / self.rel).read_text(), old_html)
+        self.assertEqual(self.seen, before)
+
+    def test_cli_explicit_update_and_unrelated_flags_reach_import(self):
+        with mock.patch.object(add_paper, "_load_subs", return_value=[]), \
+             mock.patch.object(add_paper, "load_seen", return_value={}), \
+             mock.patch.object(add_paper, "_from_arxiv", return_value=(
+                 self.paper, [("Body", "text")], "fulltext(pdf)"
+             )), \
+             mock.patch.object(add_paper, "Summarizer", return_value=self.summarizer), \
+             mock.patch.object(add_paper, "_add_prepared_paper", return_value={
+                 "status": "added", "file": "reading/paper.html"
+             }) as prepared, \
+             mock.patch.object(add_paper, "_render_and_save"), \
+             redirect_stdout(io.StringIO()):
+            self.assertEqual(add_paper.main([
+                "--arxiv", "2601.12345", "--update-existing",
+                "--include-unrelated", "--bilingual",
+            ]), 0)
+        self.assertFalse(prepared.call_args.kwargs["skip_existing"])
+        self.assertTrue(prepared.call_args.kwargs["include_unrelated"])
+        self.assertTrue(prepared.call_args.kwargs["bilingual"])
 
 
 if __name__ == "__main__":

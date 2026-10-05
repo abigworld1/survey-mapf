@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Additive Pattern Database Heuristics | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="additive-pattern-database-heuristics.html" lang="ja">日本語</a></nav>
+  <h1>Additive Pattern Database Heuristics</h1>
+
+  <div class="meta">Ariel Felner, Richard E. Korf, Sarit Hanan<br>Venue: JAIR ・ 2004 ・ source: pdf</div>
+  <div class="links"><a href="https://arxiv.org/abs/1107.0050" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/1107.0050" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1613/jair.1480" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-manual">Manually added</span><span class="chip venue">Venue JAIR</span><span class="chip">Published 2004</span><span class="chip">Citations 0</span><span class="chip">Relevance 0</span><span class="chip basis-fulltext">full text (PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (PDF).</div>
+
+  <div class="tldr"><strong>In short:</strong> This paper studies admissible heuristics that add exact costs from pattern databases built for disjoint subproblems. Across sliding-tile puzzles, the peg version of Towers of Hanoi, and vertex cover, static and dynamically selected partitions provide strong search guidance, with dynamic selection often reducing expansions but sometimes increasing per-state computation time.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper addresses optimal search in combinatorial state spaces. An admissible heuristic never overestimates the true remaining solution cost and can be obtained by solving a relaxed version of the original problem. A pattern database stores exact costs for many states of a subproblem that retains only selected variables. The central setting is one in which several such subproblems can be combined additively because their operator costs do not overlap. The supplied excerpt does not provide a complete abstract or all details of every experiment, so some quantitative claims cannot be reconstructed exactly.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a general framework for adding pattern-database values over disjoint variable subsets while preserving admissibility. In a statically partitioned heuristic, the variables are divided into fixed groups before search, and one value is retrieved for each group. In a dynamically partitioned heuristic, multiple candidate patterns are precomputed and the partition that maximizes the current sum is selected separately for each search state. The paper applies this idea to three substantially different domains and connects it with stronger distance constructions for sliding-tile puzzles, including pairwise and higher-order patterns. It also shows how matching and vertex-cover formulations can select compatible pair costs or capture additional conflict lower bounds.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>During preprocessing, the method solves relaxed subproblems for selected variable subsets and stores the minimum cost from each abstract state to the goal. Reverse breadth-first search is used for the finite pattern spaces described in the excerpt, although the general idea is not tied to one preprocessing procedure. During search, the current state is mapped to an entry in each relevant database, and the retrieved values are summed. The admissibility argument assigns each operator&#x27;s cost to the pattern variables it affects; when no operator affects variables in more than one pattern, the sum of attributed pattern costs cannot exceed the cost of the original solution. Static heuristics perform a fixed lookup-and-add operation, whereas dynamic heuristics solve a selection problem at each state to choose compatible patterns with the largest total value. For sliding-tile databases, the blank position can be omitted from the index and the minimum over possible blank positions stored, reducing memory through a compressed abstraction.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation covers sliding-tile puzzles, the peg Towers of Hanoi problem, and minimum vertex cover. Search experiments compare measures such as generated nodes, running time, memory use, and whether optimal solutions are obtained. The baselines include Manhattan distance, different static pattern partitions, dynamic pattern partitioning, no-heuristic search, and systems using pruning or branching rules. The excerpt reports qualitative and some relative results, but many table entries have lost their numbers, instance identifiers, and experimental settings. Consequently, exact averages, instance counts, hardware details, preprocessing costs, and statistical significance are not established by the supplied evidence.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>Dynamic partitioning can produce a larger heuristic value for a particular state because it chooses the best available disjoint grouping rather than committing to one grouping in advance. That strength is not free: selecting the partition may require solving a weighted vertex-cover problem or a related optimization problem at every state. In the twenty-four-tile puzzle discussion, the dynamic heuristic generally generated fewer nodes but could take longer overall than the static heuristic because static lookup and addition were much cheaper; the dynamic database also used less memory in the reported comparison. In vertex cover, the dynamic approach was reported to outperform the static approach in running time by up to an order of magnitude, while both clearly improved on having no heuristic. In the peg-disk problem, dynamic pattern databases were important for solving instances that the less accurate alternatives could not solve within the stated memory setting. These outcomes show a three-way trade-off among heuristic strength, database size, and per-node computation, but the excerpt does not establish that dynamic selection is best for every domain, input distribution, or hardware configuration. The paper points toward broader applications and further database compression, while leaving the engineering of domain-specific partition selection as an open issue.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical admissible heuristics can be understood as exact solution costs in relaxed problems. For a sliding-tile puzzle, ignoring the requirement that a destination be empty yields independent tile movement and the Manhattan-distance lower bound. Pattern databases generalize this idea by retaining selected tiles or variables and solving their induced subproblem exactly. Adding several databases is attractive because separate abstractions can capture different interactions, but it is safe only when the cost accounting prevents double counting.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A weak relaxation is inexpensive but may ignore important conflicts among objects, causing a search algorithm to expand many states. A stronger abstraction can retain several objects together, but its database grows and its lookup or construction cost increases. Combining overlapping abstractions can count one operator multiple times and invalidate admissibility. The design problem is therefore to obtain a large lower bound while controlling preprocessing, memory, and per-state selection time.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>For a static additive heuristic, all variables are assigned to disjoint groups once, and the database values of those groups are always added. For a dynamic heuristic, databases for pairs, triples, or other candidate subsets are available, and a compatible collection with maximum current sum is selected for each state. Pairwise tile costs can be represented by a mutual-cost graph and selected through maximum-weight matching. Conflict constraints can also yield vertex-cover lower bounds; for clique partitions, the cover size of each clique supplies an additive component. The soundness condition is domain-dependent: the excerpt specifically relies on the fact that one operator does not affect variables in more than one selected pattern.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>In the sliding-tile domain, the study compares several static tile partitions with dynamic partitioning using iterative-deepening search. In the peg Towers of Hanoi domain, disks are divided into disjoint groups, and a database records the cost of moving each group&#x27;s disks to the goal peg while ignoring other disks. In vertex cover, vertices are partitioned into vertex-disjoint cliques and the clique-based lower bounds are added during search. The paper also integrates the heuristic with a previously established tree-search method using pruning and branching classes. The supplied excerpt does not preserve enough information to reproduce every benchmark or configuration.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper states that, among static sliding-tile databases, larger groups generally give better performance. For the twenty-four-tile puzzle, dynamic partitioning usually generated fewer nodes but could run longer because computing the best partition was more expensive; the static database used more memory in the reported comparison, while the dynamic one used three megabytes. For the peg Towers of Hanoi experiments, dynamic partitioning generated the fewest nodes and used the least memory among the compared heuristic-search alternatives, and heuristic search could solve a disk instance that exhausted memory without an effective heuristic. In vertex cover, both static and dynamic additive heuristics clearly outperformed an unheuristic system, and the dynamic method was reported to be faster than the static method by up to an order of magnitude. Exact values, labels, and all comparisons are not established because the supplied text has lost portions of the original numerical results.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that static and dynamic additive pattern-database heuristics are effective admissible heuristics in sliding-tile puzzles, peg Towers of Hanoi, and vertex cover. It presents them as among the best known admissible heuristics for the studied problems and as effective tools for finding optimal solutions to arbitrary instances, subject to domain-specific conditions. For the standard initial and goal configurations of Towers of Hanoi, specialized breadth-first methods exploiting symmetry may solve larger instances, so that comparison has a narrower scope than arbitrary-instance heuristic search. The general framework is intended to transfer to additional problem domains.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The provided evidence is an excerpt with corrupted or missing numerical fields, so it does not establish exact problem sizes, sample counts, machine specifications, timing methodology, or complete baseline rankings. Dynamic partitioning may lose its advantage when the cost of selecting a partition dominates the savings from fewer expansions. Static partitions are cheaper to evaluate but may miss state-specific interactions and can require substantially more database memory. The additivity proof depends on operator-pattern independence and therefore cannot be assumed for arbitrary domains, overlapping patterns, or actions that change variables in multiple groups. Results for standard Towers of Hanoi states also should not be generalized automatically to arbitrary start and goal states.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper provides a reusable way to turn exact local subproblem costs into a safe global lower bound. Its explicit trade-off between fixed and state-dependent partitions is especially relevant when search memory is limited or when conflicts change substantially across states. For MAPF and MAPD research, the same design perspective can guide abstractions over agents, tasks, locations, or conflict structures, provided that operator costs are assigned without double counting. The work is therefore useful as a conceptual foundation for combining multiple admissible local estimates.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers studying pattern databases, admissible heuristics, iterative-deepening search, and combinatorial optimization. It is also useful to MAPF and MAPD researchers designing additive lower bounds from independent or partially separable agent and task subsets. Readers who need precise empirical comparisons should consult the complete paper because the supplied excerpt omits numerical table entries and several experimental conditions. It is particularly valuable for understanding when a stronger dynamic heuristic justifies its additional computation and when a cheaper static abstraction is preferable.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-05
+  </footer>
+</div>
+</body>
+</html>
