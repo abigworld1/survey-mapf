@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MGCBS: An Optimal and Efficient Algorithm for Solving Multi-Goal Multi-Agent Path Finding Problem | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2404.19518.en.html" lang="en">English</a></nav>
+  <h1>MGCBS: An Optimal and Efficient Algorithm for Solving Multi-Goal Multi-Agent Path Finding Problem</h1>
+<p class="meta">MGCBS：マルチゴール・マルチエージェント経路探索問題を解く最適かつ効率的なアルゴリズム</p>
+  <div class="meta">Mingkai Tang, Yuanhang Li, Hongji Liu, Yingbing Chen, Ming Liu, Lujia Wang<br>採択先: IJCAI2024 ・ 2024-04-30 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2404.19518v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2404.19518v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 IJCAI2024</span><span class="chip">公開日 2024-04-30</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、各エージェントが割り当てられた複数のゴールを衝突なく訪問するMG-MAPFを扱う。ゴール頂点の訪問順序と単一エージェント経路探索を分離する従来法は常に最適解を保証できないと示し、安全区間の訪問順序を探索するMGCBSとTIS Forestによって、評価時に最適解と最大7倍の高速化を報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MG-MAPFでは、複数のエージェントが単位長の辺を持つ無向グラフ上を移動し、それぞれにあらかじめ割り当てられた複数のゴールを任意の順序で少なくとも一度訪問する。各時刻にエージェントは現在の頂点で待機するか、隣接頂点へ移動できる。同じ時刻に同じ頂点に滞在すること、また同じ時刻に同じ辺を移動することが衝突となる。全エージェントのゴール訪問完了までの時間の総和を最小化する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、ゴール頂点訪問順序の探索と単一エージェント経路探索を分離するDVS型手法は、MG-MAPFで常に最適解を返せないことをケーススタディと実験で示す。第二に、ゴールの安全区間訪問順序の探索と単一エージェント経路探索を分離するMGCBSを提案する。第三に、任意の始点と開始時刻から各ゴール安全区間までの最短経路を保持して再利用するTime-Interval-Space Forestを導入する。論文はさらに、MGCBSの最適性と完全性を理論的に示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>MGCBSは、CBSを拡張した高位探索と、A*に基づく低位探索からなる二層ソルバである。高位ソルバは制約木を管理し、最小コストのノードを選び、衝突を検出すると、衝突に対応する制約を追加した子ノードを生成する。制約を追加されたエージェントについて、低位ソルバはその制約下で全ゴールを訪問する最良の安全区間訪問順序と経路を求める。TIS Forestはエージェントごとに構築され、各TIS Treeは特定のゴール安全区間に対応し、始点頂点と始点時刻からその安全区間への最短経路と長さを提供する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は4近傍グリッドマップ上で行われ、MAPFベンチマークから小・中・大規模の3マップが選ばれた。各エージェント数について開始点とゴールをランダムに生成し、異なるエージェントの開始点は重ならないようにした。比較対象は、DVS型の従来SOTAであるHCBS、TIS Forestを除いたMGCBS、提案手法MGCBS、そして最適アルゴリズムとして扱われるCBSとA*の組合せである。効率について平均実行時間と成功率を、解の質について最適基準とのコスト差、最大相対誤差、平均相対誤差を用いた。提示された抜粋には、全条件の実行時間や全インスタンスの詳細値は含まれていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>DVSではゴール頂点の訪問順序を探索するが、論文のケーススタディは、この分離ではMG-MAPFの最適性を保証できないことを示す。DSSはゴールを時間的な安全区間と結び付けて扱い、MGCBSの低位探索にその情報を取り込む。TIS Forestは複数の始点・時刻から同じ安全区間への問い合わせを共有できる一方、制約が変わると関連する木の再構築が必要になる。実験は提案手法の有効性を支持するが、抜粋だけでは実環境、非グリッド地図、異なる衝突モデル、メモリ使用量、スケーリング限界については確立されていない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数エージェントの開始地点から目標地点までの衝突のない経路を計画する問題であり、航空機牽引車両、ビデオゲーム、交通管理などへの応用がある。MG-MAPFは、各エージェントが単一のゴールではなく、割り当てられた複数のゴールを訪問するよう拡張した問題である。関連問題にはMAPD、先行制約付きMAPF、ゴール割当を含む同時マルチゴール順序付け問題などがあるが、論文はそれらの設定がMG-MAPFと異なり、手法を直接適用できないと説明する。既存のMG-MAPF手法としてHCBSとSMT-HCBSが挙げられ、HCBSはヒューリスティックを利用するため通常はSMT-HCBSより速い一方、最適性と効率に改善余地があると位置付けられる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力は、単位長の辺を持つ無向グラフ、複数エージェント、各エージェントの開始頂点、複数の割り当てゴールである。各エージェントは待機または隣接頂点への移動を行い、すべてのゴールを少なくとも一度訪問した後はゴール頂点の一つに留まる。頂点衝突と辺衝突を避けつつ、各経路のゴール訪問完了までの時間の総和を最小化する。訪問順序は任意であり、時間的な衝突回避と同時に決める必要がある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>TIS Forestは、エージェントごとに複数のTIS Treeから構成され、各木は特定のゴール安全区間に対応する。木は、時間・区間・空間に関する状態から安全区間へ至る最短経路を逆向きに保持する。論文の説明では、これは逆向きDijkstra法に基づき、同じTIS状態内の状態をまとめて逆向きの辺に沿って展開する。ゴール到達時刻が事前に分からないため、通常のSIPPに類似した構築機構をそのまま使えない点も設計上の特徴である。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>効率実験では、MAPFベンチマークのmaze-32-32-4、lak303d、orz900dという3つの4近傍グリッドマップを用いた。各マップとテスト対象のエージェント数の組について100インスタンスを生成し、実行時間が60秒を超えたケースは失敗として扱い、実行時間を60秒に設定した。HCBS、TIS ForestなしのMGCBS、MGCBSを比較し、平均実行時間と成功率を測定した。最適性実験ではCBS+A*とコストを比較し、コストが異なるインスタンス数、最大相対誤差、平均相対誤差を調べた。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>論文は、MGCBSが評価した成功インスタンスで一貫して最適解を得たと報告している。HCBSでは最適経路との差が生じるインスタンスがあり、最大相対誤差は17%を超えたとされる。効率について、MGCBSは従来SOTAに対して最大7倍の高速化を達成した。提示された抜粋には、すべてのマップとエージェント数における平均実行時間の具体値は含まれていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>MG-MAPFでは、ゴール頂点訪問順序と単一エージェント経路を分離するだけでは最適性を保証できない。MGCBSは安全区間訪問順序を探索し、CBS型の衝突解消とA*型の低位探索を組み合わせる。TIS Forestは安全区間への最短経路問い合わせを再利用し、最適性を保ちながら効率化する。提示された実験結果は、従来のDVS型手法より高い最適性と実行効率を示している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>論文の抜粋は、主に4近傍グリッドと単位長辺を持つグラフ、総コスト最小化を対象としており、他の地図構造や目的関数への一般性は示していない。TIS Forestの構築・再構築に必要なメモリ量と、制約やエージェント数が増えた場合の詳細な計算量は、提示情報からは分からない。実験はランダム生成された開始点とゴールを使うため、特定の構造を持つ実運用シナリオでの失敗モードは評価されていない。将来課題として明示された具体的な拡張計画は、提示された抜粋からは確定できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、MG-MAPFで訪問順序決定と経路計画を単純に分離する設計が、効率だけでなく最適性にも影響することを明確にする。安全区間を探索対象にすることで、ゴール訪問順序と時間的な衝突回避を同じ低位計画に結び付ける。理論的な最適性・完全性と、TIS Forestによる最短経路情報の再利用を組み合わせた点は、複数ゴールを持つエージェント群の厳密計画に有用である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>複数の作業地点を持つロボット群で、衝突のない経路と総コストの最適性を研究する人に適している。CBS、MAPFの安全区間、A*、単一エージェント経路探索の再利用に関心がある読者にも向く。実時間運用、非グリッド環境、確率的な移動、メモリ制約を主題とする読者は、これらが提示された抜粋で十分評価されていない点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-06
+  </footer>
+</div>
+</body>
+</html>

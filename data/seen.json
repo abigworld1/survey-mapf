@@ -6379,6 +6379,45 @@
       "url": "http://arxiv.org/abs/2403.13421v3",
       "venue": ""
     },
+    "arxiv:2404.19518": {
+      "added": "2026-10-06",
+      "added_at": "2026-10-06T10:43:11.482419",
+      "arxiv_id": "2404.19518",
+      "authors": [
+        "Mingkai Tang",
+        "Yuanhang Li",
+        "Hongji Liu",
+        "Yingbing Chen",
+        "Ming Liu",
+        "Lujia Wang"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-04-30",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2404.19518.html",
+      "file_en": "mapf-mapd-warehouse/2404.19518.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2404.19518v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "MGCBS: An Optimal and Efficient Algorithm for Solving Multi-Goal Multi-Agent Path Finding Problem",
+      "title_en": "MGCBS: An Optimal and Efficient Algorithm for Solving the Multi-Goal Multi-Agent Path Finding Problem",
+      "title_ja": "MGCBS：マルチゴール・マルチエージェント経路探索問題を解く最適かつ効率的なアルゴリズム",
+      "tldr": "本論文は、各エージェントが割り当てられた複数のゴールを衝突なく訪問するMG-MAPFを扱う。ゴール頂点の訪問順序と単一エージェント経路探索を分離する従来法は常に最適解を保証できないと示し、安全区間の訪問順序を探索するMGCBSとTIS Forestによって、評価時に最適解と最大7倍の高速化を報告する。",
+      "tldr_en": "This paper studies multi-goal multi-agent path finding, in which every agent must visit its assigned set of multiple goals without conflicts. It shows that decoupling goal-vertex ordering from single-agent path finding does not always preserve optimality, and proposes MGCBS with a Time-Interval-Space Forest; in the reported evaluation, MGCBS consistently found optimal solutions and achieved a speedup of up to seven times.",
+      "url": "http://arxiv.org/abs/2404.19518v1",
+      "venue": "IJCAI2024"
+    },
     "arxiv:2405.17794": {
       "added": "2026-09-03",
       "added_at": "2026-09-03T06:04:09.861625",
