@@ -6379,6 +6379,41 @@
       "url": "http://arxiv.org/abs/2403.13421v3",
       "venue": ""
     },
+    "arxiv:2404.16379": {
+      "added": "2026-10-07",
+      "added_at": "2026-10-07T09:24:14.038944",
+      "arxiv_id": "2404.16379",
+      "authors": [
+        "Konstantin Yakovlev",
+        "Anton Andreychuk",
+        "Roni Stern"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-04-25",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2404.16379.html",
+      "file_en": "mapf-mapd-warehouse/2404.16379.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2404.16379v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Optimal and Bounded Suboptimal Any-Angle Multi-agent Pathfinding",
+      "title_en": "Optimal and Bounded-Suboptimal Any-Angle Multi-Agent Pathfinding",
+      "title_ja": "最適および有界劣最適な任意角度マルチエージェント経路探索",
+      "tldr": "本論文は、エージェントが障害物に衝突しない任意の直線経路を移動できる任意角度MAPFを対象とし、最適解を保証するAA-CCBSと、その有界劣最適版を提案する。CCBSとTO-AA-SIPPの組合せにDisjoint SplittingとMulti-Constraintsを適応することで、任意角度移動が生む大きな分岐を抑え、実行時間と解コストのトレードオフを扱う。",
+      "tldr_en": "This paper studies any-angle MAPF, in which agents may move along any straight segment between valid locations when the segment is free of obstacle collisions, and presents AA-CCBS as an optimal solver together with a bounded-suboptimal variant. It combines Continuous Conflict-based Search with optimal single-agent any-angle planning and adapts Disjoint Splitting and Multi-Constraints to reduce the large branching factor caused by any-angle moves.",
+      "url": "http://arxiv.org/abs/2404.16379v2",
+      "venue": "IROS 2024"
+    },
     "arxiv:2404.19518": {
       "added": "2026-10-06",
       "added_at": "2026-10-06T10:43:11.482419",

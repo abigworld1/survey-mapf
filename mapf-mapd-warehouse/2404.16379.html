@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Optimal and Bounded Suboptimal Any-Angle Multi-agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2404.16379.en.html" lang="en">English</a></nav>
+  <h1>Optimal and Bounded Suboptimal Any-Angle Multi-agent Pathfinding</h1>
+<p class="meta">最適および有界劣最適な任意角度マルチエージェント経路探索</p>
+  <div class="meta">Konstantin Yakovlev, Anton Andreychuk, Roni Stern<br>採択先: IROS 2024 ・ 2024-04-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2404.16379v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2404.16379v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 IROS 2024</span><span class="chip">公開日 2024-04-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、エージェントが障害物に衝突しない任意の直線経路を移動できる任意角度MAPFを対象とし、最適解を保証するAA-CCBSと、その有界劣最適版を提案する。CCBSとTO-AA-SIPPの組合せにDisjoint SplittingとMulti-Constraintsを適応することで、任意角度移動が生む大きな分岐を抑え、実行時間と解コストのトレードオフを扱う。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複数エージェントを指定された始点から目標点へ移動させ、エージェント同士が衝突しない計画集合を求める任意角度MAPFである。古典的な格子MAPFのように移動方向を固定せず、障害物との衝突がない限り、可視な任意の頂点間を直線的に移動できる。エージェントは一定半径の円盤としてモデル化され、頂点で任意の連続時間だけ待機できる。各移動の時間は始点と終点の距離であり、主な目的は全エージェントの目標到着時刻の総和を最小化することである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、著者らは最適性を保証する任意角度MAPFアルゴリズムとしてAA-CCBSを提示する。これは、連続時間を扱うContinuous Conflict-based Searchを高レベル探索に用い、最適な単一エージェント任意角度探索器TO-AA-SIPPを低レベル探索器として組み合わせる。第二に、任意角度経路探索による大きな分岐数を抑えるため、古典的MAPFのDisjoint SplittingとMulti-Constraintsを任意角度設定へ適応する。さらに、Multi-Constraintsの三つの実装方法を示し、これらの拡張を利用できる有界劣最適版も構成する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>CCBSは各エージェントの計画を個別に作成し、連続時間上で計画間の衝突を検出し、衝突を避ける制約を加えて関係するエージェントを再計画する。AA-CCBSでは低レベル探索にTO-AA-SIPPを用い、障害物を通過しない可視な直線移動と、他エージェントに関する制約のもとで安全な時間区間を考慮する。Multi-Constraintsは一つの衝突を解消するときに複数の制約を追加し、高レベル探索木をより強く枝刈りする。Disjoint Splittingは衝突の解消を互いに分離された制約分岐として扱い、任意角度移動による探索負荷の軽減を図る。有界劣最適版では、高レベルのBest-First SearchをFocal Searchに置き換え、最適解からのコスト超過を指定因子内に制限する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価にはC++実装とMovingAIベンチマークの五つのマップ、すなわちempty-16-16、random-32-32-20、maze-32-32-4、den321d、warehouse-10-20-10-2-2を用いた。各マップには25シナリオがあり、各シナリオで2エージェントから開始し、制限時間内に解ける限りエージェント数を増加させた。評価した構成は、バニラAA-CCBS、Multi-Constraintsの三方式、Disjoint Splitting単独、およびDisjoint Splittingと第三のMulti-Constraints方式の組合せである。指標には300秒以内に解けたインスタンス数、異なる時間制限での解決数、高レベル反復回数が含まれる。有界劣最適版では、性能のよかった三構成を同じ問題集合で評価し、最適解に対する解コストの超過を調べた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、Multi-Constraintsの第一および第二方式がバニラAA-CCBSに対して大きな改善を示さない一方、第三方式、Disjoint Splitting、および両者の組合せが大幅に優れることを示す。非常に短い時間制限では第三方式が適し、より長い制限ではDisjoint Splittingとその組合せが優位であり、インスタンスの難しさや利用可能時間に応じて有効な技法が異なる。第三方式は比較的容易なインスタンスで高レベル反復を減らす傾向があり、Disjoint Splittingはより難しいインスタンスで有効である。少量の劣最適性を許すと解ける問題数が増えるが、抜粋には各因子についての完全なコストデータは示されていない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>古典的MAPFでは、エージェントの移動はあらかじめ定めた疎なグラフ上の遷移に制限され、通常は各移動が一単位時間である。Conflict-Based Searchは代表的な最適MAPF枠組みであり、CCBSは衝突ベースの考え方を連続時間と異なる行動時間へ拡張する。単一エージェントの最適任意角度探索器としてAnyaやTO-AA-SIPPがあり、先行する任意角度MAPF手法には最適性を保証しないものもある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>頂点は計量空間内に配置され、例えば格子セルの中心として表される。エージェントは頂点で任意時間待機でき、二頂点間の直線が障害物に衝突しない場合だけ移動できる。二つの円盤形エージェントの距離が、ある時刻に両者の半径の和未満になる場合、計画は衝突する。求めるのは、全ての計画が相互に衝突せず、エージェントの目標到着時刻の総和が最小となる解である。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>AA-CCBSの高レベル探索は離散的な時刻ではなく連続時間の衝突と制約を扱い、低レベル探索はTO-AA-SIPPが担う。待機は必ずしも明示的な行動として列挙されず、ある移動の終了と次の移動の開始の間の時間差で表現できる。移動速度は単位速度で、開始と停止は瞬時と仮定されるため、移動時間は端点間の距離になる。論文は他の目的関数、例えばメイクスパンへの適応も可能だとしているが、提示された評価は主に総コストを扱う。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では五種類のMovingAIマップと各マップ25シナリオを使い、エージェント数を段階的に増やした。あるシナリオで300秒以内に解を見つけられない場合、そのシナリオを終えて次へ進んだ。比較対象はバニラAA-CCBS、Multi-Constraintsの三方式、Disjoint Splitting、および第三のMulti-Constraints方式との組合せである。有界劣最適実験では、Disjoint Splitting、第三方式、両者の組合せを同じインスタンスで評価した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>要旨では、提案技法によりバニラのCCBSとTO-AA-SIPPの組合せより30パーセント超多くの問題を解けたと報告されている。時間制限の分析では、第三のMulti-Constraints方式が0.01秒から0.1秒の範囲で最も良く、より長い制限ではDisjoint Splitting系が優位だった。全ての比較手法で解けたインスタンスのうち、第三方式はほぼ半数でDisjoint Splitting系より少ない高レベル反復を必要とし、これは主に容易なインスタンスで見られた。少量の有界劣最適性を許すと、より多くの問題を解けることも報告されている。</p></section>
+<section class="secsum"><h3>結論</h3><p>AA-CCBSは、任意角度MAPFに最適性保証を与えるCCBSベースの枠組みである。Disjoint SplittingとMulti-Constraintsは、任意角度移動による大きな探索分岐を抑える有効な拡張として示された。有界劣最適版は、解コストと実行時間を制御して交換する手段を提供する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>任意角度移動は移動候補を増やし、CCBSとTO-AA-SIPPの単純な組合せは小さなインスタンスでもスケールしにくい。論文は、有界劣最適な低レベル探索の構成を扱っていない。実験は指定された五マップ、シナリオ、エージェント増加手順、時間制限に基づくため、他の環境やより豊かなロボット運動学への性能の一般化は抜粋から確認できない。将来課題として、より高度なMulti-Constraintsの形成、各段階で考慮する行動集合の選択、任意角度低レベル探索への増分探索の適応が挙げられている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>任意角度移動は固定された4近傍などより短い経路を表現できる一方、マルチエージェント探索の分岐を大きくする。本研究は、連続時間の衝突処理と最適な単一エージェント任意角度探索を、最適なマルチエージェント枠組みに結び付けた点で重要である。さらに、厳密な最適解が高コストな場合に、制御されたコスト保証を保ちながら実行時間を短縮する選択肢を示している。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>任意角度MAPF、CCBS、SIPP、CBS拡張、連続時間衝突処理、または有界劣最適探索を研究する読者に適している。特に、高レベル探索の負荷を減らす衝突分割と複数制約の方法を比較したい人に向く。異種エージェント、異なる速度、キノダイナミクスに関心がある読者は関連研究の背景として参照できるが、提示された抜粋だけではそれらの性能は評価できない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-07
+  </footer>
+</div>
+</body>
+</html>
