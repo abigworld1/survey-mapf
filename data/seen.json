@@ -7451,6 +7451,43 @@
       "url": "https://arxiv.org/abs/2511.18604",
       "venue": ""
     },
+    "arxiv:2511.21886": {
+      "added": "2026-10-08",
+      "added_at": "2026-10-08T09:43:44.684891",
+      "arxiv_id": "2511.21886",
+      "authors": [
+        "Jingtian Yan",
+        "Shuai Zhou",
+        "He Jiang",
+        "Stephen F. Smith",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-11-26",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2511.21886.html",
+      "file_en": "mapf-mapd-warehouse/2511.21886.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2511.21886v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "From Discrete Plans to Real-World Execution: A World-Model-Driven Framework for Execution-Aware Multi-Agent Path Finding",
+      "title_en": "From Discrete Plans to Real-World Execution: A World-Model-Driven Framework for Execution-Aware Multi-Agent Path Finding",
+      "title_ja": "離散計画から実世界実行へ：世界モデル駆動型の実行認識マルチエージェント経路探索フレームワーク",
+      "tldr": "本論文は、離散時間と簡略化されたロボットモデルで生成されたMAPF計画と、連続的・非同期的な実ロボット実行とのギャップを扱う。ExecTimeNet、REMAP、ESADGを組み合わせ、シミュレーションと実機で実行時間を改善できることを報告する。",
+      "tldr_en": "This paper addresses the gap between MAPF plans generated with discrete time and simplified robot models and their continuous, asynchronous execution on physical robots. It combines ExecTimeNet, REMAP, and ESADG and reports improved execution time in realistic simulation and on physical hardware.",
+      "url": "http://arxiv.org/abs/2511.21886v2",
+      "venue": ""
+    },
     "arxiv:2512.10078": {
       "added": "2026-09-16",
       "added_at": "2026-09-16T08:24:44.904476",

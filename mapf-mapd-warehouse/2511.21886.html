@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>From Discrete Plans to Real-World Execution: A World-Model-Driven Framework for Execution-Aware Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2511.21886.en.html" lang="en">English</a></nav>
+  <h1>From Discrete Plans to Real-World Execution: A World-Model-Driven Framework for Execution-Aware Multi-Agent Path Finding</h1>
+<p class="meta">離散計画から実世界実行へ：世界モデル駆動型の実行認識マルチエージェント経路探索フレームワーク</p>
+  <div class="meta">Jingtian Yan, Shuai Zhou, He Jiang, Stephen F. Smith, Jiaoyang Li<br>採択先: 未取得 ・ 2025-11-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2511.21886v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.21886v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-11-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、離散時間と簡略化されたロボットモデルで生成されたMAPF計画と、連続的・非同期的な実ロボット実行とのギャップを扱う。ExecTimeNet、REMAP、ESADGを組み合わせ、シミュレーションと実機で実行時間を改善できることを報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路探索（MAPF）は、共有環境内の複数エージェントを衝突させずにそれぞれの目標へ到達させる問題である。自動倉庫や製造だけでなく、交通交差点の調整や空港地上運用など、大規模なロボットシステムの基盤として利用される。従来のMAPFソルバは、離散時間と簡略化されたロボットモデルを使い、経路長の総和やメイクスパンなどの離散目的を最適化する。しかし実世界では、ロボットごとの運動性能、蓄積遅延、通信、低レベル制御、共有場所での相互作用が計画からのずれを生み、離散モデルで良い計画が壁時計時間でも良いとは限らない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、離散MAPF解から各動作の実現完了時刻と終了時のキノダイナミック状態を予測する学習型世界モデルExecTimeNetである。第二に、その予測をMAPF探索中に利用して実行性能の高い解を探すREMAPを提案する。第三に、経路の実行可能性を保ったまま、共有場所におけるエージェント間の通過順序を最適化する計画後処理ESADGを導入する。さらに、予測器を必要な場面で選択的に呼び出す適応的ゲーティングにより、REMAPの予測オーバーヘッドを抑える。これらは、詳細なロボットモデルを計画探索へ直接組み込む方法と、実行を無視した離散計画との間を、学習型実行予測とスケジュール最適化で橋渡しする。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>ExecTimeNetは、離散MAPF解から構成されるAction Dependency Graph（ADG）を入力とし、同一エージェント内の動作列と、共有場所で生じるエージェント間依存を同時に扱う。各ノードには、エージェント経路上の動作位置、Type-2エッジの入次数と出次数、同じエージェントにおける前後の並進・回転動作の累積数、他エージェントの動作をブロックする出力エッジの有無などを与える。エージェントごとの系列を重み共有の3層一方向LSTMで処理し、その表現を3層のGATv2グラフ注意層へ渡して、エージェント間の依存関係に沿った空間的文脈を集約する。モデルは各動作の完了時刻と実行状態を予測し、真の実行時間を計画時に利用できないため、REMAPはその予測を代理目的としてCBSおよびMAPF-LNSの探索へ組み込む。適応的ゲーティングは予測呼び出しの価値を判断し、タイムアウト時には既知の最良解を返す。ESADGは計画後に切替可能なType-2エッジの向きを反転する候補を評価し、ADGの非巡回性を維持することでデッドロックのない実行を保つ。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、連続的なロボット運動、低レベル制御、ネットワーク通信、エージェント間相互作用をモデル化する物理ベースのSMARTシミュレータと実ロボットが用いられた。シミュレーションでは、MovingAI Benchmarkから変換したempty、maze、random、room、den312d、WH-S、WH-L、bostonの8マップを使い、各マップ25インスタンス、最大300エージェントまでを評価した。ExecTimeNetの学習には6マップ上でMAPF-LNSが生成した、エージェント数10から300までの解を用い、反復ごとの解を保存して合計28,177グラフを収集した。モデルは分布内データと分布外データで評価され、未知のマップとエージェント数への転移、ならびに特徴量のアブレーションも調べられた。実機検証も行われたが、提示された抜粋だけでは全ベースラインの名称、実機の台数と構成、完全な指標表は確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>シミュレーションでは、REMAPがベースラインに対して遅延を最大21％削減し、ESADGが最大40％の正規化改善を達成した。実機では、全パイプラインが総実行時間を最大15.3％削減し、シミュレーションで学習・評価した仕組みを実環境へ移せる可能性を示した。これらの結果は、予測が完全でなくても、計画時の選択と実行順序の調整が有効であり得ることを示唆する。一方、MAPF計画だけからは観測できない物理的要因があるため、実行時間予測には誤差が残る。実機の校正データは実験室の制約により100回の実行に限られており、論文が示す将来課題は、より多様な実行認識目的と、より広いロボットプラットフォームへの拡張である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>標準的なMAPFは無向グラフ上で定義され、各エージェントに開始頂点と目標頂点を与え、均一な離散時間ステップで経路を表す。妥当な解は、同じ時刻に2体が同じ頂点を占有する頂点衝突と、同じ辺を反対方向へ通過する辺衝突を避ける。CBSは制約を追加しながら衝突を解消し、LNSは実行可能解から一部のエージェントを反復的に再計画する。実行時にはADGなどが離散経路を実行可能なスケジュールへ変換し、共有場所の通過順序を表す。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>離散計画では、動作が一定の時間単位で完了し、ロボットが理想化された状態遷移に従うと仮定されることが多い。実際には、速度、加速度、角速度、過去の動作からの遅延、通信、共有場所での待機が各動作の完了時刻を変える。あるロボットの遅延は依存関係を通じて別のロボットへ伝播し、長い依存鎖のメイクスパンを悪化させ得る。したがって課題は、衝突のない経路を見つけるだけでなく、その経路が物理システムでどう実行されるかを予測し、改善することである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>ExecTimeNetは、エージェント内の時間的依存を処理する系列エンコーダと、エージェント間依存を処理するグラフ注意機構を組み合わせる。入力特徴には、動作順序、Type-2依存の次数、前後の並進・回転動作数、他エージェントをブロックするかどうかが含まれる。REMAPは計画時に利用できない真の実行時間の代わりに、ExecTimeNetの予測を代理目的として使う。ESADGは経路自体を変えずに共有場所の優先順位を変更し、ADGの非巡回性を守る。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>SMARTでは、倉庫ロボットで一般的な運動モデルに従い、ロボットは現在の向きに沿って並進し、方向転換はその場で回転して行う。各インスタンスには開始・目標ペアと、相関のある分布からサンプリングされたエージェントごとの最大線速度、線加速度、最大角速度が設定された。ExecTimeNetの学習データは6マップ上のMAPF-LNS解から収集され、各反復時点の解を含む。評価には未知のマップとエージェント数、特徴量アブレーション、実機検証が含まれるが、抜粋には実機の全条件や比較手法の完全な実装情報はない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>ExecTimeNetは実行情報を正確に予測し、未知のマップとエージェント数へ転移したと報告されている。多様な地形のシミュレーションで、REMAPは遅延をベースラインより最大21％削減し、ESADGは最大40％の正規化改善を達成した。実機では、全パイプラインが総実行時間を最大15.3％削減した。これらは「最大」の値であり、平均、中央値、または常に保証される改善率だとは提示情報から判断できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、離散MAPF計画を現実的な実行性能へ接続する世界モデル駆動型の枠組みを提示した。ExecTimeNetが依存構造から実行時間と状態を予測し、REMAPが探索中の選択を、ESADGが計画後の実行順序を改善する。シミュレーションと実機の結果は、離散目的だけに基づく方法より実行性能を改善できるという主張を支持する。締切付きMAPFも実行認識最適化の例として扱われ、予測された壁時計到着時刻を考慮することで、実用的な時間制約下の性能を改善できることが示された。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>予測器は、MAPF計画から得られない物理的な実行変動要因のために誤差を持ち得る。実機の校正データは実験室の制約により100回の実行に限られたが、実運用で得られる大規模なログは追加の微調整に利用できる可能性がある。提示された抜粋からは、多様なロボットプラットフォーム、深刻な通信障害、動的障害物、明示的な計算時間上限に対する挙動は確定できない。したがって、報告された改善率が未検証のハードウェアや条件へどの程度一般化するかは判断できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>離散目的に関して優れたMAPF解でも、ロボットごとの速度差、共有場所での待機、遅延の蓄積によって、実際の完了時間が悪化し得る。そのため、計画と実行を壁時計時間という共通の性能軸で扱うことは、MAPFを実運用へ移すうえで重要である。本手法は、詳細な運動モデルをすべて探索へ直接組み込むことによる計算量増大を避けながら、実行予測を使って計画とスケジュールを補正する方向を示す。最大300エージェントの現実的なシミュレーションと実機の双方で評価している点は、実環境向けMAPF研究にとって有用である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>離散MAPFの解品質とロボット群の実際の完了時間との差に関心がある研究者に適している。MAPF、CBS、LNS、ADG、学習型世界モデル、実行スケジューリング、倉庫ロボット、締切付きMAPFを研究する読者にも有益である。既存の探索ソルバを実行認識目的へ拡張したい場合はREMAPと適応的ゲーティングを、計画後の協調を扱いたい場合はESADGの通過順序最適化を参照できる。ただし、完全な実機仕様、全ベースラインの定義、広範な機種横断評価を必要とする読者には、提示された抜粋だけでは情報が不足している。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-08
+  </footer>
+</div>
+</body>
+</html>
