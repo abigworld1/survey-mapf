@@ -9453,6 +9453,41 @@
       "url": "https://arxiv.org/abs/2609.39889",
       "venue": ""
     },
+    "arxiv:2610.10100": {
+      "added": "2026-10-09",
+      "added_at": "2026-10-09T09:58:47.817189",
+      "arxiv_id": "2610.10100",
+      "authors": [
+        "Alvin Combrink",
+        "Sabino Francesco Roselli",
+        "Martin Fabian"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-10-07",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.10100.html",
+      "file_en": "mapf-mapd-warehouse/2610.10100.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.10100v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "The Cost of Classical Multi-Agent Path Finding",
+      "title_en": "The Cost of Classical Multi-Agent Path Finding",
+      "title_ja": "古典的マルチエージェント経路探索のコスト",
+      "tldr": "本研究は、離散時間とグラフ上の衝突定義を用いる古典的MAPFが、連続時間MAPFと比べてどの程度の解品質を失うかを調べる。連続時間やエージェント形状だけの効果は小さいが、それらが多様な移動、特に非カーディナルな移動を可能にすることで、開けた空間では平均17%以上、狭く制約された地図でも少なくとも5%の改善につながり、場合によっては20%を超える改善になると報告する。",
+      "tldr_en": "This study measures how much solution quality is forfeited by classical MAPF's discrete-time and graph-based collision assumptions, using continuous-time MAPF as a counter-formulation. Continuous time and shape awareness have only modest direct effects, but they enable richer moves that improve average solution quality by at least 5% on narrow, constrained maps and 17% on open maps, with some improvements above 20%; doubling classical map resolution recovers less than 3%.",
+      "url": "http://arxiv.org/abs/2610.10100v1",
+      "venue": ""
+    },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",
       "added_at": "2026-08-17T06:03:30.504873",

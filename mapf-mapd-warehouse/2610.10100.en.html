@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cost of Classical Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2610.10100.html" lang="ja">日本語</a></nav>
+  <h1>The Cost of Classical Multi-Agent Path Finding</h1>
+
+  <div class="meta">Alvin Combrink, Sabino Francesco Roselli, Martin Fabian<br>Venue: Unknown ・ 2026-10-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.10100v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2610.10100v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-10-07</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This study measures how much solution quality is forfeited by classical MAPF&#x27;s discrete-time and graph-based collision assumptions, using continuous-time MAPF as a counter-formulation. Continuous time and shape awareness have only modest direct effects, but they enable richer moves that improve average solution quality by at least 5% on narrow, constrained maps and 17% on open maps, with some improvements above 20%; doubling classical map resolution recovers less than 3%.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-Agent Path Finding plans collision-free routes for multiple agents sharing an environment, taking each agent from a unique start to a unique goal. In classical MAPF, the environment is an undirected graph, time is discrete, and every agent either waits at its current vertex or moves along an adjacent edge for one time step. Conflicts are defined by two agents occupying the same vertex or traversing the same edge at the same discrete time. This formulation has supported applications in warehouses, factories, video games, road traffic, and airport management, but its abstractions may fail to represent physical collision avoidance and achievable cost accurately.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The paper&#x27;s central contribution is a systematic comparison of optimal classical MAPF solutions with solutions from continuous-time MAPF, used to quantify the cost of the classical assumptions. The study varies continuous versus discrete time, agent size, graph connectedness, map resolution, topology, and agent count rather than treating the difference as a purely 提案手順c issue. It separates the small direct benefit of continuous time and shape awareness from their more important enabling role: they make non-cardinal and non-unit-length moves representable. It also shows that simply refining the classical grid does not buy back most of the solution quality that the formulation excludes, and identifies settings in which classical MAPF remains a reasonable simplification.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The experiments use four-connected classical MAPF as the baseline and compare it with several continuous-time MAPF settings. Classical optimal solutions are searched with Conflict-Based Search (CBS), while the continuous-time side uses Anytime-Optimal Continuous-time CBS (AOC-CBS), an algorithm that produces an incumbent solution early, improves it during execution, and eventually returns an optimum while maintaining bounds on the optimal cost. AOC-CBS runs a portfolio of node-selection policies in parallel and uses configurable repair functions to find potentially suboptimal incumbents; the best incumbent remains available before optimality is proved. The main measure is the reduction in solution cost obtained by continuous-time MAPF relative to an optimal classical solution, analyzed across agent radii, connectedness levels, topologies, resolutions, and tested agent counts.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>Validation covers multiple two-dimensional grid maps, different levels of graph connectedness, agent radii, agent counts, and a resolution-doubling comparison. The study compares solution cost and bounds on the continuous-time optimum, and it reports classical CBS success rates to show where the baseline search succeeded across scenarios. The supplied abstract reports average improvements of at least 5% on narrow and constrained maps and 17% on open maps, with some cases exceeding 20%, whereas doubling the map resolution within classical MAPF recovers less than 3%. The supplied excerpts do not establish every map name, exact agent count, runtime, hardware condition, number of trials, statistical test, or individual scenario result, so those details should not be inferred.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>At the tested agent counts, continuous time and explicit agent shape produce only a few percent of improvement when considered directly. Their larger value is that they enable a richer action set, especially diagonal and other non-cardinal movements, which has much greater impact in open spaces than in narrow corridors. Narrow or highly constrained maps offer fewer opportunities for such connections, so classical MAPF forfeits less there; open maps expose a larger gap. The results nevertheless depend on the quality of the continuous-time bounds, and a broad bound can make a particular scenario only weakly informative, so the reported average patterns should not be read as equally precise for every case.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical MAPF assigns each agent a unique start and goal on an undirected graph and seeks a set of conflict-free action sequences. Its synchronized discrete steps make waiting and cardinal edge traversal easy to define, and decades of work have produced optimal solvers for relatively small groups as well as suboptimal, bounded-suboptimal, and anytime methods for much larger groups. Continuous-time MAPF relaxes the shared time grid and, in the version used here, models homogeneous circular agents moving in two-dimensional space. The comparison therefore targets representational assumptions, not merely a competition between two implementations.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A common discrete timestep cannot faithfully synchronize edges of different lengths without delaying or slowing some agent, which increases cost. Location-based graph conflicts also make it unsafe or undefined to include multiple diagonal routes through the same cell without changing the collision model. As a result, classical MAPF excludes some physically meaningful trajectories before any search algorithm begins. Reaching an optimal classical solution only proves optimality inside that restricted action and conflict model; additional computation cannot recover actions that the model does not permit.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Continuous-time MAPF represents movement without forcing all agents to begin and end actions on one common discrete clock, and it accounts for the spatial extent of agents. Higher connectedness introduces diagonal or otherwise non-cardinal edges, increasing the available route choices and often reducing cost. Shape awareness and continuous time are therefore enabling conditions for richer movement rather than only independent sources of direct improvement. Resolution refinement is not an equivalent substitute: classical MAPF cannot increase resolution without limit while preserving a valid relation between graph cells, agent size, and collision semantics.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The main study compares four-connected classical MAPF with continuous-time alternatives over several two-dimensional map topologies and connectedness levels. Agent radius and agent count are varied, and the results examine how cost reduction changes as environments become narrower or more open. A separate comparison doubles map resolution under both formulations to test whether refinement can compensate for classical restrictions. The continuous-time solver&#x27;s incumbent solutions and optimality bounds allow the study to retain information even when a final optimum is not immediately available.</p></section>
+<section class="secsum"><h3>Results</h3><p>The direct effect of continuous time and shape awareness alone is limited to a few percent under the tested conditions. When the richer connectedness that they enable is available, continuous-time solutions improve average cost by at least 5% on narrow and constrained maps and by 17% on open maps; some cases exceed 20%. Doubling the classical map resolution recovers less than 3%, indicating that most of the lost quality is not recoverable through more resolution or computation within the same formulation. Higher connectedness has a much larger effect than resolution, and much of the quality benefit is already obtained at eight-connectedness according to the discussion.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>Classical MAPF remains a useful and scalable abstraction, but its discrete-time and graph-based conflict assumptions impose a fundamental quality ceiling. The main cost is paid through the exclusion of richer actions, not simply through imperfect search. Classical MAPF is more defensible in narrow corridors and tight spaces, with relatively large agents and environments where cardinal movements are sufficient. Continuous-time MAPF becomes especially valuable in open spaces where diagonal, non-unit-length, or otherwise richer movements can materially shorten solutions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The study is restricted to two-dimensional grid maps, and the specified continuous-time formulation uses homogeneous circular agents. The excerpts do not provide all exact experimental conditions, per-map scenario counts, runtimes, hardware details, or statistical analyses. Some scenarios have broad continuous-time optimality bounds, which limits how much those cases can establish; the authors specifically note that one constrained maze setting offers little insight at relatively small agent counts. Classical plans may also require post-processing before non-holonomic robots can execute them, whereas the continuous-time framework can support kinodynamically feasible trajectories directly, so the measured cost gap may be conservative rather than an upper estimate of execution-level differences.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper reframes a familiar MAPF limitation as a representational cost: an algorithm cannot optimize movements that its formulation rules out. Its evidence suggests that researchers should prioritize action and conflict expressiveness, especially connectedness, rather than assuming that finer classical grids provide an equivalent path to quality. For practitioners, the study offers a way to judge when classical MAPF is an acceptable simplification and when the environment makes its omitted movement options operationally important.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for MAPF researchers comparing classical, continuous-time, and richer geometric formulations. It is particularly relevant to work on warehouse or robot-fleet planning that must choose between increasing map resolution and changing the movement model. It is also useful for readers studying when scalability and physical fidelity pull in different directions. Readers who need complete reproduction details, three-dimensional environments, non-circular agents, or implementation-level algorithm specifications should not assume that the supplied excerpts establish those facts.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-09
+  </footer>
+</div>
+</body>
+</html>

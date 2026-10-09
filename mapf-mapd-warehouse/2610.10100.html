@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cost of Classical Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.10100.en.html" lang="en">English</a></nav>
+  <h1>The Cost of Classical Multi-Agent Path Finding</h1>
+<p class="meta">古典的マルチエージェント経路探索のコスト</p>
+  <div class="meta">Alvin Combrink, Sabino Francesco Roselli, Martin Fabian<br>採択先: 未取得 ・ 2026-10-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.10100v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.10100v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-10-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、離散時間とグラフ上の衝突定義を用いる古典的MAPFが、連続時間MAPFと比べてどの程度の解品質を失うかを調べる。連続時間やエージェント形状だけの効果は小さいが、それらが多様な移動、特に非カーディナルな移動を可能にすることで、開けた空間では平均17%以上、狭く制約された地図でも少なくとも5%の改善につながり、場合によっては20%を超える改善になると報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>MAPFは、共有空間にいる複数のエージェントを、それぞれの開始位置から目標位置まで、互いに衝突しないように移動させる計画問題である。古典的MAPFでは、環境をグラフとして表し、時間を離散化し、各エージェントは頂点で待機するか隣接頂点へ移動する。衝突は、同じ時刻に同じ頂点にいること、または同じ辺を同時に通過することによって定義される。この定式化は倉庫、工場、ゲーム、道路交通、空港管理などに広く利用されてきたが、現実のロボットに対する厳密な衝突回避や達成可能な解品質を十分に表現できない可能性がある。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、古典的MAPFの仮定が解品質に課す損失を、連続時間MAPFとの比較として体系的に調べた点にある。比較では、連続時間、エージェントの大きさ、グラフ接続性、地図解像度、地図トポロジー、エージェント数を変化させ、古典的な最適解と連続時間側の解を比べる。研究は、連続時間や形状認識が単独でどれほど効くかだけでなく、それらが非単位長の辺や斜めの移動を可能にする役割を強調する。さらに、地図の解像度を単純に上げても、古典的定式化が排除した移動の豊かさをほとんど取り戻せないことを示し、古典的MAPFを採用してよい状況と、より表現力のある定式化が必要な状況を整理する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>研究では、4方向接続の古典的MAPFを基準として、連続時間MAPFの解を、時間、エージェント半径、グラフ接続性、解像度、地図トポロジーの違いにわたって比較する。古典側の最適解探索にはConflict-Based Search（CBS）を用い、連続時間側には、早期に実行可能な暫定解を出しながら実行中に解を改善し、最終的に最適解と最適値に対する境界を返すAnytime-Optimal Continuous-time CBS（AOC-CBS）を用いる。AOC-CBSは複数の方策を並列に動かし、修復関数によって暫定解を探索するため、最適解が未発見でも最良の暫定解と上界を利用できる。評価量は、連続時間側の解が古典側の最適解からどれだけコストを削減したかであり、エージェント数、接続性、半径などの条件ごとに真の改善値を境界付きで扱う。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>検証は、複数の2次元グリッド地図について、異なる接続性、エージェント半径、エージェント数、地図解像度を組み合わせて行われる。主な比較は、古典的MAPFと連続時間MAPFの解コスト、ならびに連続時間側の最適性に関する上下界であり、古典側の探索成功率も結果の解釈に使われる。報告された要約では、狭く制約された地図で平均少なくとも5%、開けた地図で平均17%以上、場合によっては20%を超える改善が得られた一方、地図解像度を2倍にした古典的MAPFの回復は3%未満だった。与えられた抜粋は、全ての地図名、各条件の正確なエージェント数、実行時間、ハードウェア構成、試行数、統計的検定、全ての個別結果を確定させるほど完全ではない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果から、連続時間とエージェント形状の考慮を追加するだけなら、検証されたエージェント数では改善は数パーセントにとどまると解釈される。大きな価値は、それらが斜め方向や非単位長の移動など、より高い接続性を持つ行動を表現可能にする点にあり、開けた空間ほどその効果が大きい。狭い通路や密集した環境では、利用できる非カーディナルな接続が少ないため、古典的MAPFの損失は比較的穏やかである。もっとも、連続時間側の境界が広い条件では結論の精度が低くなり得るため、全てのケースで改善量を同じ確信度で読めるわけではなく、研究は2次元グリッドに限定される。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>古典的MAPFは、各エージェントが一意な開始頂点と目標頂点を持つ無向グラフ上の計画問題として定式化される。時間は離散的で、各時刻に待機または隣接頂点への移動を行い、頂点衝突と辺衝突を避ける。連続時間MAPFはこの枠組みを緩和し、指定された2次元空間で、同質な円形エージェントの形状と連続的な移動を扱う。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>古典的MAPFの同期的な時刻と位置だけに基づく衝突定義は、異なる長さの辺を自然に組み合わせることや、同じセル内の複数の斜め経路を安全に扱うことを難しくする。短い辺を進むエージェントが長い辺に同期するには、待機または速度低下が必要になり、コストが増える。したがって、アルゴリズムを高速化して古典的最適解に到達しても、定式化そのものが許さない低コストの行動は得られない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>連続時間側では、エージェントの移動時刻を固定された共通の刻みに合わせず、空間的な形状を考慮して衝突を扱う。8方向や16方向のような高い接続性は、斜め移動や非カーディナルな辺を導入し、経路の選択肢を増やす。単純な解像度向上には限界があり、古典的MAPFではエージェントサイズとの整合性や衝突判定の妥当性を損なわずに無制限に細分化できない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、4方向接続の古典的MAPFを基準に、複数の地図トポロジーと接続性、エージェント半径、エージェント数を変えて行う。別の実験では、古典的定式化と連続時間定式化の双方で地図解像度を2倍にし、解像度だけで損失を回復できるかを調べる。連続時間アルゴリズムは暫定解、最適解への上界、最適性に関する境界を返すため、最適解探索が完了しない場合にも結果の不確実性を扱える。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>連続時間と形状認識だけの直接効果は、検証された条件では数パーセント程度だった。高い接続性を利用できる場合、古典的MAPFに対する平均コスト改善は、狭い地図で少なくとも5%、開けた地図で17%以上となり、一部では20%を超えた。古典的MAPFの地図解像度を2倍にしても、回復した改善は3%未満だった。</p></section>
+<section class="secsum"><h3>結論</h3><p>古典的MAPFは、多数のエージェントを扱うスケーラブルな計画手法として有用だが、最適化計算を増やすだけでは、離散時間とグラフベースの衝突定義が排除した行動を再現できない。連続時間や形状認識の主な価値は、それ自体の小さな改善よりも、斜め移動や非単位長の移動を可能にすることにある。したがって、狭い通路、比較的大きなエージェント、カーディナルな移動だけで十分な環境では古典的MAPFが合理的な簡略化になり得るが、開けた空間では連続時間MAPFの検討価値が高い。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>研究は2次元グリッド地図と、連続時間側では同質で円形のエージェントを扱っている。抜粋からは、全ての実験条件の正確な数値、地図ごとの試行数、計算時間、統計的有意性は確定できない。連続時間側の最適性境界が広い場合、改善量の推定は弱くなり、特に一部の迷路条件では結果の情報量が小さい。さらに、古典的MAPFの計画は非ホロノミックなロボットが実行する前に後処理を必要とし得るため、実行時の実際の差は本研究で測定された差より大きい可能性がある。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、古典的MAPFの限界を、単なる探索アルゴリズムの性能不足ではなく、定式化が許す移動集合の制約として捉える視点を与える。接続性が解品質に対して解像度より大きな影響を持つという報告は、将来のMAPF研究でどの表現力を優先するかを考える材料になる。古典的MAPFを使い続ける場合にも、どの環境なら損失が小さいかを事前に判断する助けとなる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFの古典的定式化と連続時間定式化の違いを概観したい研究者に適している。倉庫やロボット群の経路計画で、地図解像度を上げることと移動モデルを豊かにすることのトレードオフを検討する人にも有用である。個々のアルゴリズムの実装詳細、3次元環境、非円形エージェント、完全な実験再現条件を必要とする読者は、与えられた抜粋だけでは不足する点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-09
+  </footer>
+</div>
+</body>
+</html>
