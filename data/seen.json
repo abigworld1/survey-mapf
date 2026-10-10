@@ -7237,6 +7237,40 @@
       "url": "http://arxiv.org/abs/2508.05890v1",
       "venue": ""
     },
+    "arxiv:2508.16410": {
+      "added": "2026-10-10",
+      "added_at": "2026-10-10T09:31:42.484287",
+      "arxiv_id": "2508.16410",
+      "authors": [
+        "Alvin Combrink",
+        "Sabino Francesco Roselli",
+        "Martin Fabian"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-22",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2508.16410.html",
+      "file_en": "mapf-mapd-warehouse/2508.16410.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.16410v3",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Optimal Multi-Agent Path Finding in Continuous Time",
+      "title_en": "Optimal Multi-Agent Path Finding in Continuous Time",
+      "title_ja": "連続時間における最適マルチエージェント経路探索",
+      "tldr": "本論文は、連続時間MAPFで広く使われてきたCCBSが、最適解を探索から誤って除外し得るため、厳密性と解完全性を保証しないことを示す。そのうえで、健全な分岐規則を用いるOC-CBSを提案し、可解なMAPF-Rインスタンスに対する最適解と解完全性の保証を与える。",
+      "tldr_en": "This paper shows that Continuous-time Conflict-Based Search, or CCBS, does not always preserve optimal solutions because its implemented branching rule can remove valid plans from the search. It introduces OC-CBS, a drop-in replacement whose sound branching rule provides formal guarantees of optimality and solution completeness for solvable continuous-time MAPF instances.",
+      "url": "http://arxiv.org/abs/2508.16410v3",
+      "venue": ""
+    },
     "arxiv:2509.23778": {
       "added": "2026-06-30",
       "added_at": "2026-06-30T06:00:01.000000",
@@ -12419,6 +12453,44 @@
       "title": "Multi-Group Pipe Routing under Permanent Geometric Occupancy: Problem, Benchmark, and Classical Baselines",
       "tldr": "本研究は、配置済みの配管が空間を恒久的に占有し、後続の配管がそれを回避する必要がある三次元の多グループ配管経路計画を定式化する。構成的に実行可能な証人を備えたベンチマークで比較した結果、幾何学的衝突に対して局所的に分岐するCBSが、特に難しいPlaneSlice条件でPBSと優先順位計画を大きく上回った。",
       "url": "https://arxiv.org/abs/2608.28697",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2609.35267": {
+      "added": "2026-10-10",
+      "added_at": "2026-10-10T09:30:19.078749",
+      "arxiv_id": "2609.35267",
+      "authors": [
+        "Yuan Zhou",
+        "Zhenyu Hou",
+        "Guangtong Xu",
+        "Xiaoqiang Ji",
+        "Yuqing Tang",
+        "Jialiang Hou",
+        "Fei Gao"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-09-28",
+      "doi": "10.48550/arxiv.2609.35267",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2609.35267.html",
+      "file_en": "mapf-mapd-warehouse/2609.35267.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2609.35267v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding",
+      "title_en": "GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding",
+      "title_ja": "GuardPIBT：超大規模3Dマルチエージェント経路探索のための反実仮想ゲート付きニューラル誘導",
+      "tldr": "本論文は、PIBTの実行器を置き換えず、ニューラルモデルでPIBTが生成する候補行動の順序だけを補正するGuardPIBTを提案する。局所的な相互作用、集団的な始点・目標輸送情報、反実仮想的なグループゲートを組み合わせ、密集した2D・3D環境で大規模な協調を目指す。",
+      "tldr_en": "This paper presents GuardPIBT, a neural extension of PIBT that reorders PIBT's native candidates without replacing the PIBT executor. It combines local interaction modeling, global source-goal transport context, and a counterfactual group gate to improve coordination in dense 2D and 3D scenes at very large populations.",
+      "url": "http://arxiv.org/abs/2609.35267v1",
       "venue": ""
     },
     "doi:10.48550/arxiv.2609.39559": {

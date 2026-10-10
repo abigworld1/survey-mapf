@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2609.35267.en.html" lang="en">English</a></nav>
+  <h1>GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding</h1>
+<p class="meta">GuardPIBT：超大規模3Dマルチエージェント経路探索のための反実仮想ゲート付きニューラル誘導</p>
+  <div class="meta">Yuan Zhou, Zhenyu Hou, Guangtong Xu, Xiaoqiang Ji, Yuqing Tang, Jialiang Hou, Fei Gao<br>採択先: 未取得 ・ 2026-09-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.35267v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2609.35267v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.35267" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-09-28</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、PIBTの実行器を置き換えず、ニューラルモデルでPIBTが生成する候補行動の順序だけを補正するGuardPIBTを提案する。局所的な相互作用、集団的な始点・目標輸送情報、反実仮想的なグループゲートを組み合わせ、密集した2D・3D環境で大規模な協調を目指す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、障害物のある離散3Dボクセルグラフ上で、多数のラベル付きエージェントをそれぞれの始点から目標へ移動させるオンラインMAPFである。各ステップでは待機または26個の近傍移動のいずれかを選び、移動先が空間内かつ自由であること、頂点衝突と逆向き辺衝突がないことを満たす必要がある。問題は、エージェント数、障害物、狭い通路、変化する始点・目標需要が増えると、PIBTの一段先を用いた候補順序付けだけでは混雑を十分に解消できない点にある。論文は、低高度航空モビリティなどの大規模な3D群ロボット協調を主な動機としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の新規性は、PIBTのネイティブ候補集合を維持し、その候補の順序にだけニューラルな残差を加える実行器整合型の設計である。第二に、局所グラフ注意と集団レベルの始点・目標輸送特徴を用い、単なる局所行動選好ではなく、PIBTの閉ループ実行に関係する候補再順序付けを学習する。第三に、介入後の閉ループ効果を反実仮想的に評価するグループゲートを導入し、悪化する再順序付けを抑制する。さらに、人口適応型グループ化、非同期キャッシュ推論、選択的な末尾エージェント修復によって、超大規模集団への展開を拡張している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず3D PIBTバックボーンが、既定の候補キーと優先度を計算する。グローバル・ローカルネットワークは、近傍エージェントの相互作用をグラフ注意で処理し、集団の始点・目標輸送コンテキストと結合して、PIBTがすでに生成した候補をスコアリングする。候補の順序変更は、実行条件付きのグループゲートと決定論的ガードを通過した場合だけ有効になる。最終的な競合解決、優先度継承、押し出し、バックトラッキングはPIBTが行うため、ニューラル部は有効性検査を直接置き換えない。学習は、実行可能なPIBT状態から候補スコアラーを訓練した後、ベースラインと介入版のPIBTロールアウトを対にしてゲートを訓練する二段階構成である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価軸は、エージェント数に対するスケーラビリティ、異なるシーンへの一般化、主要部品の有効性である。実験環境はAMD EPYC 7502、1TiBメモリ、8基のRTX 4090で、実装はC++17、Python、PyTorch、CUDAを用いるが、大規模監査実行は単一GPUとCPU並列化で行ったと記載されている。100から10,000エージェントの2D Forest、Maze、WarehouseでLaCAM、LaGAT、PyPIBTと比較し、実行時間、平均総コスト、エージェント当たり待機ステップなどを報告する。さらに2D・3Dの異なるシーン、最大100,000エージェントの評価、3D Warehouseでの部品除去実験を行い、3つの100,000エージェントWarehouse実行では監査されたグラフ違反がゼロだったと要約されている。抜粋では全データセットの完全な条件、各比較の全数値、統計的検定、そして一部のエージェント数が確定しない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果が示す中心的な利点は、すべての指標で一律に最良になることではなく、集団が大きくなるほど計算時間と解品質のトレードオフを保つことである。グローバル輸送分岐を除くと平均総コストが悪化し、反実仮想ゲートを除くとコストが増えるという3D Warehouseのアブレーション結果は、それぞれが異なる役割を持つことを示す。ただし、オンラインプランナーは完全性や最適性を主張しておらず、選択的修復による経験的な全エージェント完了と理論保証は区別される。学習推論の更新間隔、キャッシュの古さ、長い待機列、極端な混雑、連続時間や動力学制約への適用は、性能や安全性を制限し得る。将来課題として、論文は大規模な空中ロボット群に向けた連続時間・キノダイナミクス協調を挙げている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>従来の最適または有界準最適MAPF手法は強い解の保証を持つ一方、エージェント数や衝突密度の増大で計算負荷が高くなる。大近傍探索、ウィンドウ化計画、遅延後継生成、PIBTなどは実用的なスケーラビリティを改善してきたが、繰り返し再計画や大規模な配置探索に依存する場合がある。学習型MAPFでは、PRIMAL2やMAGATのように局所観測や通信から行動選好を学ぶ方向があるが、学習上の選好が実際のMAPF実行の改善に直結するとは限らない。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>空間は自由な3Dボクセルからなるグラフで、エージェントは個別の始点と目標を持ち、離散時刻ごとに待機または26近傍の移動を行う。評価では待機を時間コストとして数え、幾何学的移動距離とは分けて扱うため、実行時間、待機、混雑、移動距離、完了率、衝突数を別々に観測できる。評価窓はオンライン目的のために使われるが、抜粋は固定長の計画だけを意味せず、実験では終了までの完全な実行過程を測ったと説明する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>PIBTは優先度継承とバックトラッキングによって、候補の要求を解決しながら有効な次状態を作る。各目標の完全な距離場を持つ代わりに、障害物を考慮した緩和下界を使い、同じ目標列を共有するエージェントで連結なBFS場を再利用する。参照ネットワークは局所GAT、トークン注意、マクログリッドなどを含むと記載されるが、抜粋では全ハイパーパラメータの意味や感度は確定しない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>比較実験は2D Forest、Maze、Warehouseを含み、GuardPIBT、LaCAM、PyPIBT、LaGATを対象とする。大規模評価では複数の2D・3Dシーンと最大100,000エージェントを扱い、3つの100,000エージェントWarehouse実行で監査グラフ違反ゼロが報告された。アブレーションではグローバル輸送分岐と反実仮想ゲートを個別に除去し、3D Warehouseで全10評価実行が完了したと記載される。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>100から10,000エージェントの比較では、GuardPIBTは3つの2Dシーンで計算効率と解品質のバランスを狙う結果を示したとされる。3D Warehouseの提示値では、完全版、グローバルフローなし、反実仮想ゲートなしの平均総コストはそれぞれ2192.83、2521.93、2205.99であり、実行時間も異なるが、抜粋では全列の意味が完全には示されていない。論文の結論は、2D・3Dでの信頼できる完了、監査された100,000エージェントWarehouse実行での違反ゼロ、さらに100万エージェント実行の成功を主張している。ただし、100万エージェントの実行条件や詳細指標は、 supplied excerpt からは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>GuardPIBTは、ニューラル誘導をPIBTの候補順序付けに限定し、最終的な安全性に関わる実行をPIBTへ残す設計である。局所相互作用、集団輸送情報、反実仮想ゲート、超大規模展開機構を組み合わせ、密集3D MAPFでのスケールと実行品質の両立を目指す。抜粋が示す範囲では、最大100,000エージェントの2D・3D評価、3つのWarehouse実行の監査違反ゼロ、そして詳細不明の100万エージェント実行が主要な実証・主張である。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>オンラインプランナーは完全性と最適性を保証せず、選択的修復による完了は経験的なものである。ニューラル更新の非同期性とキャッシュ残効、人口適応型グループ化、特に混雑した狭隘部での末尾エージェントは、追加の失敗要因になり得る。抜粋には、全ベースラインの実行条件、再現に必要な完全なハイパーパラメータ、失敗率の詳細、連続時間・キノダイナミクスでの検証がない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>大規模なUAV、検査機、緊急航空機、eVTOLが共有空域を利用する想定では、3Dでの衝突回避を多数エージェントへ拡張することが重要である。PIBTの検証とバックトラッキングを保持したまま学習モデルを候補順序付けに使うため、学習方策が直接不正な行動を出力する設計より、既存の軽量実行器と接続しやすい。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模MAPF、3D UAV協調、PIBTやLaCAMのスケーラビリティ、学習誘導型探索の研究者に適している。特に、ニューラル提案を安全性の最終判断から分離する設計、閉ループに整合した介入評価、100,000エージェント級の実験設定を比較したい読者に勧められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-10
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2609.35267.html" lang="ja">日本語</a></nav>
+  <h1>GuardPIBT: Counterfactually Gated Neural Guidance for Ultra-Large-Scale 3D Multi-Agent Path Finding</h1>
+
+  <div class="meta">Yuan Zhou, Zhenyu Hou, Guangtong Xu, Xiaoqiang Ji, Yuqing Tang, Jialiang Hou, Fei Gao<br>Venue: Unknown ・ 2026-09-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2609.35267v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2609.35267v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2609.35267" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-09-28</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper presents GuardPIBT, a neural extension of PIBT that reorders PIBT&#x27;s native candidates without replacing the PIBT executor. It combines local interaction modeling, global source-goal transport context, and a counterfactual group gate to improve coordination in dense 2D and 3D scenes at very large populations.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies online multi-agent path finding on an obstacle-containing discrete 3D voxel graph. Labeled agents must move from individual starts to goals using either waiting or one of the 26 neighboring displacements, while satisfying validity, vertex-conflict, and reverse-edge-conflict constraints. The central difficulty is that PIBT&#x27;s one-step goal-directed candidate ordering can become insufficient when many agents interact in dense traffic, narrow passages, and large congested populations. The motivation includes future shared-airspace applications involving delivery UAVs, inspection platforms, emergency aerial vehicles, and passenger eVTOLs.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is an executor-aligned design that preserves PIBT&#x27;s native candidate set and adds a learned residual only to its ordering. Second, GuardPIBT combines local graph attention over nearby interactions with population-level source-goal transport features, so it learns candidate reorderings tied to the underlying executor rather than unconstrained action preferences. Third, a counterfactual group gate filters proposed reorderings according to their predicted closed-loop effect under PIBT and suppresses interventions that may harm coordination. The paper also adds population-adaptive grouping, asynchronous cached inference, and selective repair for tail agents to extend deployment to ultra-large populations.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The 3D PIBT backbone first computes default candidate keys and priorities. A global-local network models nearby agents with graph attention and combines those features with population-level transport context to score the same native PIBT candidates. A deterministic guard and an execution-conditioned group gate decide whether a residual reordering may be activated. PIBT then performs claim resolution, priority inheritance, displacement, and backtracking, so the neural module does not replace the executor&#x27;s validity handling. Training is staged: a scorer is trained from execution-valid PIBT states, followed by gate training on paired baseline and intervention PIBT rollouts; online neural preferences are refreshed asynchronously and cached between updates.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation targets scalability, cross-scene generalization, and component effectiveness. The reported hardware includes an AMD EPYC 7502 CPU, 1 TiB of system memory, and eight RTX 4090 GPUs; the large audited runs reportedly use one RTX 4090 with CPU parallelism rather than multi-GPU execution. GuardPIBT is compared with LaCAM, LaGAT, and PyPIBT on 2D Forest, Maze, and Warehouse scenes for populations from 100 to 10,000, using end-to-end time, average sum of costs, and average waiting steps per agent among the reported measures. Additional tests cover different 2D and 3D scenes, populations up to 100,000, and matched 3D Warehouse ablations. The abstract reports zero audited graph violations in all three 100,000-agent Warehouse runs, but the supplied excerpt does not establish every dataset condition, all numerical comparisons, statistical tests, or some omitted population values.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The stated advantage is not uniform dominance on every metric, but a favorable runtime-quality trade-off as the population increases. In the 3D Warehouse ablation, removing global transport context increases the reported average sum of costs, and removing the counterfactual gate also increases it, suggesting that the two components serve different purposes. However, the online planner does not claim completeness or optimality, and empirical completion obtained through selective repair should not be confused with a formal guarantee. Stale asynchronous preferences, long waiting queues, extreme congestion, narrow passages, and the gap between discrete motion and real vehicle dynamics can all limit performance or create failure modes. The paper identifies continuous-time and kinodynamic coordination for large aerial-robot systems as future work.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Optimal and bounded-suboptimal MAPF solvers such as CBS and ECBS provide strong solution guarantees but become expensive as the number of agents and conflicts grows. Large-neighborhood search, windowed planning, lazy successor generation, and PIBT improve practical scalability, although some approaches still depend on repeated replanning or extensive configuration exploration. Learning-based MAPF methods such as PRIMAL2 and MAGAT learn preferences from observations, reinforcement, imitation, or communication, but a learned preference does not necessarily improve the behavior of the actual MAPF executor. These observations motivate learning candidate ordering while retaining a lightweight PIBT execution core.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The free space is represented as a 3D voxel graph, and each labeled agent has a start and a goal. At each discrete time, an agent may wait or move to one of 26 neighbors; the destination must be free and inside the map, and joint motion must avoid vertex and reverse-edge conflicts. The formulation distinguishes waiting-aware execution cost from pure geometric motion length, enabling reports of completion ratio, summed costs, waiting, congestion, motion length, runtime, and explicit conflicts. The horizon defines an online evaluation window rather than a fixed planning horizon, and the excerpt says that experiments measure the complete execution process until termination.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>PIBT resolves candidate claims through priority inheritance and backtracking while producing a valid next configuration. Instead of storing a complete obstacle-aware distance field for every labeled goal, the implementation uses a relaxed obstacle-aware lower bound and reuses connected BFS fields for agents sharing a goal column. The reference network is described as including local GAT layers, token attention, and a macro grid, but the excerpt does not establish the full hyperparameter specification or sensitivity results. The standard scorer proposes a limited top set of candidates, while an extreme-population profile may use an additional centi-cost bonus.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The baseline comparison covers GuardPIBT, LaCAM, PyPIBT, and LaGAT on Forest, Maze, and Warehouse scenes in 2D. Scalability tests range from 100 to 10,000 agents, while broader generalization tests include diverse 2D and 3D scenes and up to 100,000 agents. The paper reports three 100,000-agent Warehouse runs with zero audited graph violations. In the core ablation, global transport context and the counterfactual gate are removed separately on a 3D Warehouse setting; the excerpt states that all 10 evaluated runs completed.</p></section>
+<section class="secsum"><h3>Results</h3><p>Across the 100-to-10,000-agent comparison, the paper characterizes GuardPIBT as balancing computational efficiency and solution quality across the three 2D scenes rather than optimizing one metric in every case. The supplied ablation values give average sum of costs of 2192.83 for GuardPIBT, 2521.93 without global flow, and 2205.99 without the counterfactual gate; the corresponding reported times also differ, although the excerpt does not label every column completely. The conclusion claims reliable completion across 2D and 3D environments, zero audited graph violations in the three 100,000-agent Warehouse runs, and successful million-agent execution, while the supplied evidence does not establish the complete conditions or detailed metrics for that million-agent claim. The strongest explicitly detailed scale result is the zero-violation statement for the three 100,000-agent Warehouse runs.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>GuardPIBT uses neural guidance only to reorder PIBT candidates and leaves final conflict handling and execution to PIBT. Local interaction features, global transport context, counterfactual gating, adaptive grouping, asynchronous caching, and selective repair are combined to target the tension between scalability and coordination quality in dense 3D MAPF. Within the supplied evidence, the main empirical support is the 2D and 3D evaluation up to 100,000 agents, the absence of audited graph violations in the three large Warehouse runs, and the paper&#x27;s less-detailed claim of successful million-agent execution. The method is therefore presented as a practical executor-preserving extension rather than a complete or optimal MAPF solver.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The online planner explicitly provides no completeness or optimality claim, and completion through selective repair is empirical rather than a formal guarantee. Asynchronous inference and cached residuals can become stale; adaptive grouping and selective repair may also expose weaknesses among tail agents or in severe congestion. The excerpt lacks full reproducibility details for all baselines and hyperparameters, detailed failure rates, and validation for continuous-time or kinodynamic motion. It also does not provide enough information to independently interpret every value in the scalability table or the million-agent claim.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>Large fleets sharing constrained 3D airspace require coordination methods that remain computationally usable while avoiding graph-invalid conflicts. By retaining PIBT&#x27;s validity checking, priority inheritance, and backtracking, GuardPIBT offers a way to attach learned population-level guidance without making the neural policy solely responsible for safety-critical action validity. Its reported scale and audited zero-violation runs make the executor-aligned design relevant to researchers studying practical ultra-large MAPF.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suited to researchers in large-scale MAPF, 3D UAV coordination, PIBT or LaCAM scalability, and learning-guided planning. It is especially relevant for readers comparing executor-preserving neural guidance, closed-loop intervention filtering, and experimental designs for populations reaching 100,000 agents. Readers seeking formal completeness, optimality, continuous dynamics guarantees, or fully documented million-agent conditions should treat those as open issues rather than established results.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-10
+  </footer>
+</div>
+</body>
+</html>
