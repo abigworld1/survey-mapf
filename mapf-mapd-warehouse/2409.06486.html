@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2409.06486.en.html" lang="en">English</a></nav>
+  <h1>Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain</h1>
+<p class="meta">協調運動計画：高密度で有界な領域におけるマルチエージェント経路探索</p>
+  <div class="meta">Sándor P. Fekete, Ramin Kosfeld, Peter Kramer, Jonas Neutzner, Christian Rieck, Christian Scheffer<br>採択先: the proceedings of the 35th International Symposium on Algorithms and Computation (ISAAC 2024) ・ 2024-09-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.06486v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2409.06486v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 the proceedings of the 35th International Symposium on Algorithms and Computation (ISAAC 2024)</span><span class="chip">公開日 2024-09-10</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、単純ポリオミノ内の各セルを一体ずつ占めるラベル付きエージェントを、衝突のない並列移動によって初期配置から目標配置へ再構成するMAPFを扱う。再構成可能性の幾何学的特徴づけ、領域形状が強制するメイクスパン下界、ならびに狭いインスタンスで漸近的に最悪ケース最適なスケジュールを示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、単純連結な離散領域の各セルに一体ずつエージェントが存在する高密度MAPFである。各エージェントには一意な開始位置と目標位置があり、全エージェントが目標へ到達するまでの時間、すなわちメイクスパンを最小化する。1ステップでは複数エージェントが並列に動けるが、移動は衝突を起こしてはならず、エージェントは領域外へ出られない。特に、軸平行な境界と整数座標を持つ単純ポリオミノ、つまり格子セルの単純連結な和集合に焦点を当てる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、任意の配置から任意の配置へ移せるポリオミノを、交差グラフが連結な正方形サイクル被覆を持つ領域として特徴づける。第二に、ボトルネック長とドメイン深さという形状パラメータを導入し、狭い通路や領域内部の厚みがメイクスパンに与える影響を明らかにする。第三に、直径に対して深さが小さい狭いインスタンスについて、達成可能なストレッチに関して漸近的に最悪ケース最適なスケジュールを構成する。これらは矩形領域を扱った先行研究と、凸な格子グラフ片上のPermutation Routingに関する研究を、より一般的な有界形状へ拡張する結果である。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>領域を、セルを頂点とし隣接セルを結ぶ双対グラフや、局所的な巡回移動を表す正方形サイクルによって解析する。サイクル被覆の交差が連結なら、サイクルの交差部分で隣接エージェントを交換でき、その交換を双対グラフの全域木に沿って組み合わせることで、任意のラベル配置を実現するスケジュールを構成できる。形状による遅延を評価するため、インスタンスの直径、ボトルネック、ドメイン深さを用いる。狭い領域では問題をPermutation Routingとして捉え、スケーリングされたポリオミノや深さが制限された一般ポリオミノを段階的に処理し、複数の部分領域で交換を並列化する。提示された抜粋では、個々の補題やアルゴリズムの詳細な式、正確な定数、実装手順までは確立されていない。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>検証は、理論的な定理、命題、補題、構成的証明によって行われている。評価対象は、単純ポリオミノ上のラベル付きエージェント配置であり、主な指標はスケジュールのメイクスパン、インスタンス直径に対するストレッチ、そして形状パラメータとの関係である。先行研究として矩形領域の再構成手法と、関連する格子グラフのPermutation Routingの結果を位置づけている。提示された抜粋には、数値シミュレーション、実データセット、実験的ベースライン、平均性能、実行時間比較は記載されていないため、実験による優位性は確立されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>高密度配置では空きセルがないため、単独エージェントの経路を計画するだけでは不十分であり、局所的な巡回と交換を全体として調整する必要がある。サイクル被覆による条件は、再構成が可能かどうかを形状から判定する明確な基準を与える一方、再構成可能であっても狭い通路によって大きな遅延が生じうることを示す。矩形領域で得られた定数ストレッチが、非凸境界を持つ領域では一般に維持されない点が重要なトレードオフである。非単純ポリオミノ、ボトルネックと深さの間に大きな差がある場合、穴を持つ領域、または狭さの条件を満たさない領域では、現行の保証は不十分である。著者らは、非単純領域への拡張、固体格子グラフのルーティング、未解決の形状領域の解析を将来課題として挙げる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFでは、複数のエージェントがそれぞれの目標へ同時に到達する衝突回避計画を求める。幾何学的MAPFは障害物やエージェント間の干渉のため難しく、一般的な到達可能性判定にも計算量上の困難が知られている。一方、矩形領域やグラフ上の関連問題では、より効率的な構成法や定数ストレッチ保証が研究されてきた。本論文は、可動性が極端に制限されるセル充填型の有界領域に焦点を移す。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>単純ポリオミノの全セルにラベル付きエージェントを一体ずつ置き、初期配置と目標配置を与える。許されるのは、領域内での並列かつ衝突のない移動であり、全エージェントが目標へ到達する時刻を最小化する。インスタンスの直径は、各エージェントの開始位置と目標位置の間の地理的距離の最大値で、ストレッチはメイクスパンを直径で割った比である。理論的抜粋では、一部の式や定数が欠落しているため、具体的な数値下界は完全には確認できない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>中心的な形状量は、領域を非自明な二つの部分に分けるカットの最小長としてのボトルネック長と、任意のセルから境界までの最大地理的距離としてのドメイン深さである。普遍的再構成可能性は、正方形サイクルの被覆と、その交差関係の連結性で特徴づけられる。狭いインスタンスは、直径に対してドメイン深さが定数倍以下となる形状として導入される。提示された断片だけでは、各定理の完全な漸近式や保証される定数は明示されていない。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>本研究の主な評価形式は、形状に関する理論解析と構成アルゴリズムの正当化である。扱われる例には、狭い通路を持つ普遍的再構成可能なポリオミノ、スケーリングされたポリオミノ、深さが制限されたポリオミノが含まれる。抜粋には、具体的な実験データ、乱数生成法、ベースライン実装、反復回数、ハードウェア条件は示されていない。したがって、計算機実験の再現性や実環境での性能は判断できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>任意の配置間の再構成が可能なポリオミノについて、正方形サイクル被覆の連結性による必要十分条件が与えられる。さらに、普遍的に再構成可能な領域でも、狭い通路をまたぐ交換では、直径に対して大きなメイクスパンが必要になる例が示される。狭いインスタンスに対しては、達成可能なストレッチの漸近的最悪ケース最適性を持つ効率的スケジュールが主張される。抜粋では具体的なオーダー式の一部が欠落しているため、数値的な性能値は報告できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、高密度な単純ポリオミノ上のMAPFについて、再構成可能性とスケジュール長を領域形状から体系的に説明する。特に、局所サイクルの連結性が可解性を決め、ボトルネックと深さが時間的な難しさを決めるという見方を提示する。狭い領域では、理論的に最適な漸近ストレッチを達成する構成法が得られる。これにより、矩形領域中心だった既存の理解を、より複雑な有界形状へ広げている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された資料は論文の抜粋であり、定理に対応する完全な式、証明、擬似コード、正確な計算量、定数を含んでいない。数値実験や実機検証が記載されていないため、理論保証が実際の倉庫や群ロボット環境でどの程度有効かは不明である。ボトルネックと深さの差が直径に比べて非有界となる単純領域、穴を持つ非単純領域、狭さの仮定を満たさない領域は未解決として残る。非単純領域では、カットに基づくボトルネック定義をそのまま使えない可能性もある。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>一体ずつセルを占める高密度群では、自由空間を仮定する通常の経路計画の直観が使えない。本研究は、局所的な交換可能性と大域的な形状制約を結びつけ、いつ再構成が可能で、どの形状が遅延を強制するかを明確にする。これは、密集した倉庫搬送、群ロボット、並列ソーティングの理論的基盤に関係する。実装性能を直接示す研究ではないが、形状依存の保証を設計するための概念枠組みとして重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>高密度MAPF、群ロボティクス、格子グラフ上のPermutation Routing、組合せ幾何学の理論研究者に適している。特に、矩形ではなく非凸または狭い有界領域での再構成可能性とメイクスパン下界に関心がある読者に向く。実験的アルゴリズム比較や実機システムの評価を探している読者には、提示抜粋だけでは目的を満たさない可能性がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-12
+  </footer>
+</div>
+</body>
+</html>

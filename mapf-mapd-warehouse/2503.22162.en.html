@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2503.22162.html" lang="ja">日本語</a></nav>
+  <h1>Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps</h1>
+
+  <div class="meta">Ning Liu, Sen Shen, Xiangrui Kong, Hongtao Zhang, Thomas Bräunl<br>Venue: Unknown ・ 2025-03-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.22162v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2503.22162v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-03-28</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper proposes a hybrid framework for multi-agent pathfinding that combines D* Lite for global reference planning with multi-agent reinforcement learning for locally adaptive decisions in incomplete or changing environments. Results in a discrete grid setting and on the EyeSim platform report feasible operation, improved success and path efficiency, and reduced collision rate in crowded and dynamic conditions, although the supplied excerpt does not establish every comparison or statistical claim.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The task is multi-agent pathfinding, in which multiple agents move through a graph or four-neighbor grid from assigned starts to assigned goals while avoiding conflicts. Agents operate at discrete time steps and may wait or move to an adjacent vertex, but each agent observes only a local neighborhood rather than the complete map, other agents’ goals, or their planned actions. The motivating applications include multi-robot formations, warehouse logistics, and intelligent vehicles, where obstacles may be unknown, moving, or frequently changed. Centralized methods that assume complete prior knowledge can become expensive or insufficiently adaptive, while purely learned policies can struggle with training cost, convergence, stability, and congestion-related collisions.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a cooperative hybrid design that combines global path feasibility with local adaptability instead of relying exclusively on either search or learned control. D* Lite generates and updates global reference paths, while a multi-agent reinforcement-learning policy makes local decisions from current observations and retained history. A switching mechanism selects between global and learned behavior according to conditions such as agent density, and loop detection can trigger reinforcement-learning actions. A freeze-prevention strategy is intended to reduce deadlock and redundant planning in dense or changing situations. The supplied excerpt does not establish theoretical optimality, nor does it provide a complete ablation study that isolates the contribution of each component.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The authors formulate partially observable MAPF on an undirected graph. Each agent starts at an assigned vertex, reaches an assigned goal, and must avoid both simultaneous occupation of one vertex and pairwise exchange collisions. At the global level, D* Lite updates a feasible reference route as the map changes; at the local level, a learned policy reacts to real-time observations and congestion. The local module uses a ResNet encoder and GRU networks so that earlier observations can be retained, and it is trained with an APPO-style parallel trajectory collection and policy update process together with grid memory. The framework detects loops to encourage learned local actions and switches between D* Lite and the learned local module according to agent density, seeking consistency between global routes and local actions.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The main evaluation uses the discrete POGEMA environment and compares the proposed CHS method with MATS-LP, DHC, PICO, and SCRIMP. The reported metrics are success rate, abbreviated SR, and EL as reported in the table; the excerpt describes EL as exploration or path length without fully defining the distinction. Tests vary obstacle density and the number of agents. At 30% obstacle density, CHS obtains success rates of 1, 0.99, 0.97, 0.99, and 0.94 for 8, 16, 32, 64, and 128 agents, with corresponding EL values of 85.04, 95.86, 105.19, 131.70, and 207.51. At 15% density, its success rates are 1, 1, 1, 1, and 0.98, with EL values of 50.34, 55.21, 61.74, 68.40, and 85.85; at 0% density, success is 1 for all listed agent counts and EL is 45.50, 52.73, 58.09, 64.07, and 69.13. The study also uses 100 randomly generated instances for each of two grid-map sizes and tests the model on EyeSim under frequent changes and large robot deployments, but the excerpt does not provide all map dimensions, EyeSim baselines, variances, or statistical tests.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The design trades between D* Lite’s incremental global planning and MARL’s reactive local flexibility. Higher obstacle density narrows potential routes and increases traffic jams, replanning, waiting, and path conflicts, so discrete steps and simulation time tend to rise while success and efficiency become harder to maintain. With fewer obstacles, routes are clearer and collisions and unnecessary waiting are less frequent; the paper also states that the gaps among discrete steps, simulation time, and completion rate narrow as tasks progress. Increasing the agent population strengthens spatial and temporal coupling; the switching and freeze-prevention logic is intended to help, but it also introduces additional control complexity and possible sensitivity to switching conditions. The paper identifies communication constraints, dynamic obstacles, and robustness under restrictive conditions as future directions.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Earlier MAPF research includes centralized search methods such as A* and Conflict-Based Search and its variants, which can produce high-quality solutions in small or static settings. Priority-based methods can reduce conflicts but may deadlock in narrow passages or when communication is limited. Incremental planners such as D* Lite update existing paths instead of planning from scratch, while distributed sampling approaches reduce dependence on centralized computation. Learning-based methods such as PRIMAL-style policies, graph-neural-network communication, and MARL can adapt from local observations, but the excerpt identifies congestion-related collisions, incomplete global coordination, large training requirements, and instability under frequent environmental changes as continuing issues.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The core problem is to preserve both global route quality and local responsiveness when several agents navigate an incomplete, partially observable, or changing environment. A centralized planner with a complete map may incur increasing computation and replanning costs as the number of agents and obstacles grows. A local MARL policy can adapt to uncertainty but may need extensive data and training time and may become unstable or collision-prone in dense traffic. The proposed framework addresses this tension by coordinating an incremental global search process with learned local control.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The environment is represented as a four-neighbor grid whose cells are either free or blocked. Each agent receives a square local observation determined by an observation radius; the observation contains nearby obstacles and agents but not other agents’ goals or planned actions. The learned policy combines a ResNet encoder, GRU memory, and grid memory to use information from earlier observations. During training, an agent that reaches its goal exits the map and is no longer included in collision checks, reflecting the stated assumption that a completed robot leaves the operating area or does not hinder others.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>Training places 64 agents simultaneously on randomly generated grid maps and runs each policy for at most 512 steps. The obstacle ratio is randomly selected between 15% and 45%, and an episode ends when an agent reaches its goal or the step limit is exceeded. Evaluation varies obstacle density and agent count, including 8 to 64 agents in one setting and up to 128 in another, with 100 random instances for each of two map sizes. The model is additionally tested on EyeSim with frequent environmental changes and large-scale robot deployments.</p></section>
+<section class="secsum"><h3>Results</h3><p>At 30% obstacle density, CHS maintains a reported success rate of at least 0.94 from 8 through 128 agents, although EL increases from 85.04 to 207.51 as the population grows. At 15% density, it reaches success rates from 1 to 0.98 across the same agent counts, with EL from 50.34 to 85.85. At 0% density, its success rate is 1 at every listed population and its EL ranges from 45.50 to 69.13. Within the supplied table, other methods are sometimes shorter in EL under particular conditions, so CHS should not be described as universally shortest. The abstract also reports lower collision rate and better path efficiency, but the excerpt does not include the full numerical evidence for those claims.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper presents CHS, a hybrid MAPF framework that uses D* Lite for global reference routes and MARL for local decisions. Switching, loop detection, and freeze prevention are designed to avoid deadlock and unnecessary replanning in dense or dynamic conditions. The POGEMA results and EyeSim tests support feasible operation and strong reported success rates in the tested settings. The supplied evidence supports practical effectiveness under those conditions, but not a general optimality guarantee.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The excerpt does not report a complete ablation of D* Lite, the learned module, switching, loop detection, and freeze prevention. It also omits full training time, hardware requirements, communication volume, and all reproducibility-critical hyperparameters. Some baselines achieve shorter EL in individual table entries, making a joint analysis of success, path length, computation, and robustness necessary. The effectiveness of the approach with continuous dynamics, sensor noise, communication delay, or realistic robot constraints is not established by the supplied evidence.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is relevant because it treats MAPF in changing and partially observed environments as a coordination problem between classical incremental search and learned local adaptation. Density-dependent switching offers an implementation pattern for robot fleets that cannot rely on a static complete map or on purely reactive policies. Its practical value is promising for grid-like logistics and multi-robot settings, while broader generality still requires additional evaluation.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This survey is recommended for MAPF researchers studying hybrids of D* Lite, partial observability, recurrent observation memory, density-aware policy switching, and congestion handling. It is also useful for readers comparing classical search and MARL on changing grid environments. Readers seeking formal guarantees, continuous-space validation, communication-constrained coordination, or detailed EyeSim evidence should consult the complete paper because those facts are not established in the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-12
+  </footer>
+</div>
+</body>
+</html>

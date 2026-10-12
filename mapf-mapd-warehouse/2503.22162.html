@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2503.22162.en.html" lang="en">English</a></nav>
+  <h1>Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps</h1>
+<p class="meta">共有探索マップに基づく協調型ハイブリッド多エージェント経路探索</p>
+  <div class="meta">Ning Liu, Sen Shen, Xiangrui Kong, Hongtao Zhang, Thomas Bräunl<br>採択先: 未取得 ・ 2025-03-28 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.22162v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.22162v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2025-03-28</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、未知または変化する環境での多エージェント経路探索（MAPF）のため、D* Liteによる大域探索とマルチエージェント強化学習（MARL）による局所判断を切り替えるハイブリッド枠組みを提案する。離散グリッド環境とEyeSimプラットフォームでの評価では、混雑・動的条件における実行可能性、成功率、衝突率、経路効率の改善が報告されるが、抜粋からは全比較条件や統計的有意性は確認できない。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複数のエージェントが離散時間でグラフまたは4近傍グリッドを移動し、それぞれの目標へ衝突なく到達するMAPFである。各エージェントは現在位置周辺の限られた観測しか持たず、他エージェントの目標や計画行動、環境全体を完全には知らない。想定される応用には、マルチロボット編隊、倉庫物流、インテリジェントビークルなどがあり、未知障害物、移動障害物、混雑、頻繁な環境変化が計画を難しくする。完全な事前情報を前提とする集中型探索は大規模化や変化に対して十分に適応できない場合があり、純粋な学習方式も訓練量、収束、方策安定性、混雑時の衝突に課題を持つ。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な新規性は、大域的な経路の実行可能性と局所的な適応性を一つの枠組みで組み合わせた点にある。D* Liteを大域的な参照経路の生成・更新に用い、MARLをリアルタイム観測に基づく局所制御に用いる。エージェント密度などの状況に応じてD* Liteと学習型の局所方策を切り替え、ループ検出とフリーズ防止戦略によって停滞やデッドロック、冗長な計画を抑えることを目指す。抜粋では、各構成要素の個別寄与を分離した完全なアブレーション結果や、既存方式に対する理論的最適性は確立されていない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>問題は、各エージェントが開始頂点から目標頂点へ移動し、各時刻に待機または隣接頂点への移動を選択する部分観測MAPFとして定式化される。同一時刻に同じ頂点を占有することと、二つのエージェントが互いの位置を交換する衝突を避けることが制約となる。大域レベルではD* Liteが地図の変化に応じて実行可能な参照経路を更新し、局所レベルでは観測履歴を利用する学習方策が混雑や障害物に応じて行動を選ぶ。局所モジュールはResNetエンコーダとGRUネットワークを用い、APPO系の並列軌跡収集・更新とグリッドメモリを組み合わせる。ループを検出した場合には強化学習側の行動を促し、エージェント密度に基づく切替によって大域計画と局所反応の一貫性を保とうとする。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は離散POGEMA環境のグリッド世界で実施され、MATS-LP、DHC、PICO、SCRIMPなどと比較された。主な指標は成功率（SR）と表で報告されるELであり、障害物密度を0%、15%、30%に設定し、エージェント数を8から64、または最大128まで変化させている。30%障害物密度では、CHSの成功率はエージェント数8、16、32、64、128に対してそれぞれ1、0.99、0.97、0.99、0.94で、対応するELは85.04、95.86、105.19、131.70、207.51だった。15%密度では成功率は1、1、1、1、0.98、ELは50.34、55.21、61.74、68.40、85.85であり、0%密度では成功率は全て1、ELは45.50、52.73、58.09、64.07、69.13だった。さらに、異なる大きさのグリッドで各100個のランダム生成インスタンスを使い、EyeSimプラットフォームでも頻繁な変化と大規模ロボット配置に対する実行可能性を確認したと報告されるが、抜粋には全ての地図寸法、EyeSimの比較値、分散、検定結果は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案方式は、D* Liteの更新可能な大域計画とMARLの局所的な柔軟性を組み合わせることで、完全情報の集中計画と反応的な学習制御の中間を狙う。障害物が多いと通路が狭くなり、交通渋滞、再計画、待機、経路衝突が増えるため、離散ステップ数やシミュレーション時間が増え、成功率と効率を維持しにくくなる。障害物が少ない場合は経路が明確になり、衝突や不要な待機が減るため、タスクの進行に伴って離散ステップ、シミュレーション時間、完了率の差が縮まると説明される。エージェントが増えると空間・時間的結合が強まり、切替とフリーズ防止は対応を助ける一方、追加の制御複雑性も生じる。将来課題として、通信制約、動的障害物、さまざまな制限条件下での頑健性が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>従来のMAPFでは、A*、Conflict-Based Search、その改良法などの集中型探索が高品質な経路を生成してきた。優先度方式は衝突を減らせる一方、狭い通路や通信制限下でデッドロックを起こす可能性がある。D* Liteのような増分探索は、環境変化に応じて既存経路を更新でき、分散型サンプリング手法は集中計算への依存を減らす。PRIMAL系、グラフニューラルネットワーク、MARLなどの学習方式は部分観測への適応を可能にするが、混雑時の衝突、全体協調、訓練コスト、環境変化による方策不安定性が課題として整理されている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>研究上の問題は、未知・部分観測・動的な環境で、複数エージェントの衝突を避けながら大域的な経路品質と局所的な反応性を同時に維持することである。完全な地図を使う集中型計画は、エージェント数や障害物の増加に伴う計算負荷と再計画負荷を受ける。局所観測に基づくMARLは適応的だが、十分な訓練データや訓練時間を必要とし、混雑や頻繁な環境変化で安定性を失う場合がある。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>環境は水平・垂直に接続された4近傍グリッドで、セルは通行可能または障害物として表される。観測は半径で定まる局所的な正方形領域で、障害物と近隣エージェントを含むが、他エージェントの目標や計画行動は含まない。局所方策はResNetエンコーダ、GRU、グリッドメモリによって観測履歴を保持し、過去情報を次の判断に利用する。目標到達エージェントは訓練上マップから退出したものとして衝突判定から除外される。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>訓練ではランダム生成グリッド上に64エージェントを同時配置し、各方策を最大512ステップ実行した。障害物率は15%から45%の範囲でランダムに選ばれ、エージェントの到達または上限ステップ到達でエピソードを終了した。評価では複数の障害物密度とエージェント数を試し、異なる大きさのグリッドについて各100のランダムインスタンスを用いた。EyeSimでは頻繁な環境変化と大規模ロボット配置に対する実行可能性を確認した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>30%障害物密度で、CHSは8エージェントから128エージェントまで0.94以上の成功率を報告したが、ELは85.04から207.51へ増加した。15%障害物密度では128エージェントでも成功率0.98、EL85.85であり、0%密度では全エージェント数で成功率1だった。提示された表の範囲では、CHSは高密度・大規模条件で一部の方式より高い成功率を示す一方、全条件で最短ELだったとは限らない。要旨は衝突率と経路効率の改善も報告するが、抜粋にはその全数値がない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、D* Liteによる大域参照経路とMARLによる局所意思決定を切り替えるCHS枠組みを提案した。ループ検出とフリーズ防止によって、混雑または変化する環境での停滞と冗長な計画を抑えることを目指す。POGEMAの結果とEyeSimでの実行から、報告された大規模・動的条件で実行可能な経路探索能力が示された。抜粋はこれらの条件での有効性を支持するが、一般的な最適性保証までは示していない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>抜粋では、CHSの各構成要素を除いたアブレーション、学習時間、計算資源、通信量、再現用の完全なハイパーパラメータが明らかにされていない。EyeSim評価のロボット数、地図条件、比較方式、定量的結果も十分には示されていない。表の一部では他方式が特定条件でより短いELを持つため、成功率、効率、計算コスト、頑健性のトレードオフを総合評価する必要がある。現実の連続動力学、センサノイズ、通信遅延への有効性は、この抜粋だけでは確立されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFを大域探索と局所学習の協調問題として扱い、部分観測と環境変化を同時に考慮する点に意義がある。特に、エージェント密度が高い場合に計画方式を固定せず切り替える設計は、倉庫ロボットや移動ロボット群のような変動環境に適用するための実装上の示唆を与える。もっとも、汎用性や実環境性能については追加検証が必要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>未知または変化するグリッド環境で、古典的探索とMARLを組み合わせる設計を調べたいMAPF研究者に適している。D* Lite、部分観測、観測履歴、密度依存の方策切替、混雑下の成功率を比較検討する読者にも有用である。完全な理論保証、連続空間での性能、通信制約下の協調、EyeSimの詳細な定量評価を求める読者は、抜粋だけで結論を出さず原論文で追加情報を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-12
+  </footer>
+</div>
+</body>
+</html>

@@ -6616,6 +6616,43 @@
       "url": "https://arxiv.org/abs/2408.14948",
       "venue": "ECAI 2024"
     },
+    "arxiv:2409.06486": {
+      "added": "2026-10-12",
+      "added_at": "2026-10-12T09:14:28.502157",
+      "arxiv_id": "2409.06486",
+      "authors": [
+        "Sándor P. Fekete",
+        "Ramin Kosfeld",
+        "Peter Kramer",
+        "Jonas Neutzner",
+        "Christian Rieck",
+        "Christian Scheffer"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-09-10",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2409.06486.html",
+      "file_en": "mapf-mapd-warehouse/2409.06486.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2409.06486v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain",
+      "title_en": "Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain",
+      "title_ja": "協調運動計画：高密度で有界な領域におけるマルチエージェント経路探索",
+      "tldr": "本論文は、単純ポリオミノ内の各セルを一体ずつ占めるラベル付きエージェントを、衝突のない並列移動によって初期配置から目標配置へ再構成するMAPFを扱う。再構成可能性の幾何学的特徴づけ、領域形状が強制するメイクスパン下界、ならびに狭いインスタンスで漸近的に最悪ケース最適なスケジュールを示す。",
+      "tldr_en": "This paper studies labeled agents occupying every cell of a simply connected polyomino and asks how to move them from distinct starts to distinct targets by parallel, collision-free motions. It characterizes when arbitrary reconfiguration is possible, identifies shape-dependent makespan obstructions, and gives asymptotically worst-case optimal schedules for narrow instances.",
+      "url": "http://arxiv.org/abs/2409.06486v1",
+      "venue": "the proceedings of the 35th International Symposium on Algorithms and Computation (ISAAC 2024)"
+    },
     "arxiv:2410.12397": {
       "added": "2026-09-23",
       "added_at": "2026-09-23T08:31:13.511277",
@@ -6910,6 +6947,42 @@
       "tldr": "マルチエージェント経路計画における焦点探索において、下限値の増加が遅いために探索空間が制限される課題に対し、最短経路探索を先行させてタイトな下限値を決定するdouble-ECBS（DECBS）を提案し、探索効率を向上させる。",
       "url": "http://arxiv.org/abs/2503.03779v2",
       "venue": "2025 IEEE/RSJ International Conference on Intelligent Robots and Systems"
+    },
+    "arxiv:2503.22162": {
+      "added": "2026-10-12",
+      "added_at": "2026-10-12T09:13:05.330642",
+      "arxiv_id": "2503.22162",
+      "authors": [
+        "Ning Liu",
+        "Sen Shen",
+        "Xiangrui Kong",
+        "Hongtao Zhang",
+        "Thomas Bräunl"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-28",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2503.22162.html",
+      "file_en": "mapf-mapd-warehouse/2503.22162.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.22162v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps",
+      "title_en": "Cooperative Hybrid Multi-Agent Pathfinding Based on Shared Exploration Maps",
+      "title_ja": "共有探索マップに基づく協調型ハイブリッド多エージェント経路探索",
+      "tldr": "本研究は、未知または変化する環境での多エージェント経路探索（MAPF）のため、D* Liteによる大域探索とマルチエージェント強化学習（MARL）による局所判断を切り替えるハイブリッド枠組みを提案する。離散グリッド環境とEyeSimプラットフォームでの評価では、混雑・動的条件における実行可能性、成功率、衝突率、経路効率の改善が報告されるが、抜粋からは全比較条件や統計的有意性は確認できない。",
+      "tldr_en": "This paper proposes a hybrid framework for multi-agent pathfinding that combines D* Lite for global reference planning with multi-agent reinforcement learning for locally adaptive decisions in incomplete or changing environments. Results in a discrete grid setting and on the EyeSim platform report feasible operation, improved success and path efficiency, and reduced collision rate in crowded and dynamic conditions, although the supplied excerpt does not establish every comparison or statistical claim.",
+      "url": "http://arxiv.org/abs/2503.22162v1",
+      "venue": ""
     },
     "arxiv:2504.15130": {
       "added": "2026-07-06",

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2409.06486.html" lang="ja">日本語</a></nav>
+  <h1>Coordinated Motion Planning: Multi-Agent Path Finding in a Densely Packed, Bounded Domain</h1>
+
+  <div class="meta">Sándor P. Fekete, Ramin Kosfeld, Peter Kramer, Jonas Neutzner, Christian Rieck, Christian Scheffer<br>Venue: the proceedings of the 35th International Symposium on Algorithms and Computation (ISAAC 2024) ・ 2024-09-10 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2409.06486v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2409.06486v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue the proceedings of the 35th International Symposium on Algorithms and Computation (ISAAC 2024)</span><span class="chip">Published 2024-09-10</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies labeled agents occupying every cell of a simply connected polyomino and asks how to move them from distinct starts to distinct targets by parallel, collision-free motions. It characterizes when arbitrary reconfiguration is possible, identifies shape-dependent makespan obstructions, and gives asymptotically worst-case optimal schedules for narrow instances.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The problem is a highly constrained form of Multi-Agent Path Finding. A bounded discrete domain is filled with one labeled agent per cell, so there is no spare cell and the agents must coordinate local exchanges rather than independently follow open paths. Each agent has a unique start and target position, and a schedule consists of parallel collision-free motions that keep every agent inside the domain. The objective is to minimize the makespan, meaning the time by which all agents have reached their assigned targets. The main geometric setting is a simple polyomino, a simply connected union of lattice cells with axis-parallel boundaries and integer coordinates.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a necessary-and-sufficient geometric characterization of universally reconfigurable polyominoes: arbitrary labeled configurations can be transformed into one another exactly when the domain has a cover by square cycles whose intersection graph is connected. The paper also introduces two shape parameters, bottleneck length and domain depth, to explain how a domain can force long schedules even when reconfiguration is possible. It gives a family of algorithms for narrow instances, where depth is small relative to the instance diameter, and claims asymptotically worst-case optimal stretch for those instances. In this sense, the work extends earlier results for solid rectangular domains and connects MAPF to permutation routing on grid-derived graphs. The supplied excerpt does not establish every exact asymptotic expression, constant, or running-time bound appearing in the full paper.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The analysis represents local mobility through cycles of cells and the dual graph of the polyomino. A connected cover by square cycles permits local adjacent swaps at cycle intersections; these swaps can be organized along a spanning tree of the dual graph to realize arbitrary permutations of the agents. The paper measures the unavoidable geometric difficulty using the instance diameter, the bottleneck of cuts separating nontrivial pieces, and the maximum distance of a cell from the boundary, called the domain depth. For narrow domains, the construction is related to permutation routing, first treating scaled polyominoes and then extending the approach to arbitrary polyominoes of limited depth. Regions are partitioned so that exchanges across cuts can be performed in parallel when they are spatially disjoint. The excerpt indicates that the proofs are constructive, but it omits enough formula details that the exact schedule lengths cannot be reconstructed reliably.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>Validation is primarily theoretical rather than empirical. The paper states structural theorems, lower-bound propositions, and constructive 提案手順c results for simple polyominoes, using makespan and stretch relative to the maximum start-to-target geodesic distance as the principal measures. It discusses adversarial configurations in which agents on opposite sides of a narrow passage must trade places, showing why universal reconfigurability does not imply a constant stretch. The work is positioned against rectangular-domain MAPF results and related permutation-routing results on grid graphs. The supplied material reports no numerical datasets, simulation protocol, hardware experiment, implementation benchmark, average-case study, or experimental baseline, so experimental superiority is not established.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The central insight is that full occupancy changes MAPF from independent path planning into coordinated permutation routing. A domain may permit every configuration to be reached while still imposing a large delay because all transfers between regions must pass through a short bottleneck. This exposes a trade-off with rectangular-domain results: constant stretch available in wide, regular domains need not survive a non-convex boundary or a narrow passage. The cycle-cover characterization gives a clean feasibility criterion, but it does not by itself provide a small makespan. The current guarantees are strongest for narrow instances and do not resolve the intermediate regime in which bottleneck and depth differ substantially relative to the diameter. The authors identify extensions to non-simple polyominoes, solid grid-graph routing, and unresolved shape regimes as future directions.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF asks for coordinated motions of multiple agents with individual destinations, usually under collision-avoidance constraints. Geometric versions can be difficult because obstacles, boundaries, and agent interactions couple all paths, while some graph-based decision variants admit much faster procedures. Prior work established constant-stretch reconfiguration methods for rectangular domains and studied related routing problems on grid graphs. This paper examines the densely packed bounded case, where every available cell is occupied and mobility is severely restricted. Its perspective is therefore closer to parallel sorting and permutation routing than to conventional sparse navigation.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>An instance consists of a simple polyomino together with two labeled configurations, one specifying the starts and the other the targets. A valid schedule is a sequence of parallel collision-free motions that transforms the start configuration into the target configuration without leaving the domain. The instance diameter is the largest geodesic distance between an agent&#x27;s start and target, and the stretch of a schedule is its makespan divided by that diameter. The excerpt does not provide all formal motion rules or the complete numerical formulas, so those details cannot be inferred beyond this definition.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Bottleneck length is defined through the shortest cut that divides the domain into nontrivial pieces, while domain depth is the maximum geodesic distance from a cell to the boundary. Universal reconfigurability is characterized by a connected intersection structure among square cycles covering the polyomino. Narrow instances are those whose depth is bounded by a constant factor relative to their diameter. The results use local swaps, dual-graph routing, spanning-tree organization, and parallel processing of disjoint subpolyominoes. Exact constants and several asymptotic expressions are absent from the supplied excerpt.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The reported evaluation consists of mathematical constructions and proofs rather than a conventional experimental campaign. The considered families include universally reconfigurable domains with narrow passages, scaled polyominoes, and arbitrary polyominoes of limited depth. The excerpt contains no dataset-generation procedure, code implementation, random-instance distribution, hardware specification, or runtime table. Consequently, it is not possible to assess empirical scalability, robustness under noise, or performance on warehouse or robot-application instances from the supplied evidence.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper gives a necessary-and-sufficient condition for universal reconfigurability based on a connected cover by square cycles. It also establishes that universally reconfigurable domains can contain instances whose makespan is much larger than the diameter because agents must exchange positions through a narrow passage. For narrow instances, it presents an efficient schedule with asymptotically worst-case optimal stretch. These claims are qualitative here because the supplied excerpt suppresses or omits portions of the exact asymptotic notation and numerical constants. The paper therefore supports structural and asymptotic conclusions, but not a specific numerical performance table.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The work provides a geometric framework for understanding dense MAPF in simply connected bounded domains. It separates two questions that are easy to conflate: whether every labeling can be realized at all, and how much time the shape may force even when realization is possible. Square-cycle connectivity governs the first question, while bottlenecks and depth govern important parts of the second. For narrow domains, the paper supplies constructive schedules that are asymptotically optimal in stretch. This extends the theory beyond rectangular domains while leaving several shape regimes open.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied text is an excerpt and does not contain the full proofs, formal movement specification, exact formulas, constants, or complete complexity analysis. It reports no simulation, physical-robot evaluation, or comparison of implemented baselines, so practical performance is not demonstrated. The narrow-instance guarantee does not settle simple domains where the gap between bottleneck and depth is unbounded relative to the diameter, and the broader intermediate regime remains challenging. Non-simple domains with holes require a different bottleneck notion, and the excerpt does not establish that the main bounded-makespan theorem extends to them.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>Dense occupancy is relevant to warehouse transport, swarm robotics, and parallel rearrangement, but it invalidates assumptions that rely on abundant free space. By tying local cyclic exchanges to global domain geometry, the paper explains both when arbitrary labeled rearrangements are possible and why certain shapes impose unavoidable delays. The shape parameters offer a language for comparing domains and for designing guarantees that depend on geometry rather than only on agent count. Although the supplied evidence does not show practical deployment results, the theoretical framework is valuable for researchers studying reconfiguration limits and routing in crowded discrete environments.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is best suited to researchers in theoretical MAPF, swarm robotics, computational geometry, grid-graph routing, and parallel sorting. It is especially relevant to readers interested in full-occupancy systems, non-convex bounded domains, feasibility characterizations, and makespan lower bounds. It should not be read as an empirical systems evaluation, because the supplied excerpt contains no application benchmark or robot experiment. Readers seeking exact constants, complete proofs, or implementation details will need the full paper rather than this excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-12
+  </footer>
+</div>
+</body>
+</html>
