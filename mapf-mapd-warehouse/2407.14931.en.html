@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2407.14931.html" lang="ja">日本語</a></nav>
+  <h1>POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Alexey Skrynnik, Anton Andreychuk, Anatolii Borzilov, Alexander Chernyavskiy, Konstantin Yakovlev, Aleksandr Panov<br>Venue: Unknown ・ 2024-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2407.14931v3" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2407.14931v3" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2024-07-20</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 3</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper introduces POGEMA, an integrated platform for developing, evaluating, and comparing learning-based, search-based, and hybrid multi-agent pathfinding methods under a common framework. Its central conclusion is that a fast partially observable environment, diverse map sources, visualization, automated benchmarking, and a standardized multi-metric protocol can make comparisons across these methodological families more systematic and fair.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is cooperative multi-agent pathfinding on grid maps, where multiple agents must reach their individual goals while avoiding static obstacles and collisions with other agents. Each agent does not necessarily receive the complete global state, but instead receives an individual ego-centric observation, and the framework can be used with different assumptions about communication, map information, and agent population. The paper places this problem in the broader growth of multi-agent reinforcement learning, which has been applied to games, traffic, robotics, and autonomous driving. It also connects MAPF to practical systems such as automated warehouses, where robots move synchronously and real deployments may additionally face kinodynamic constraints, inaccurate execution, and other physical complications.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The primary contribution is POGEMA, an umbrella suite combining a fast learning environment, an instance generator, predefined problem instances, visualization utilities, and an automated benchmarking tool. A second contribution is an evaluation protocol that derives domain-specific measures from primary outcomes such as success rate and path-related indicators. The protocol is intended to assess not only whether agents finish, but also generalization, cooperation, scalability, coordination, and single-agent pathfinding behavior. The paper further supplies a collection of MARL, search-based, and hybrid baselines and evaluates them in the same framework. The supplied excerpt does not establish the complete ranking of all methods, exact numerical scores, or statistical significance for every comparison.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>POGEMA stands for Partially-Observable Grid Environment for Multiple Agents and refers to a collection of tools for creating, debugging, and evaluating policies for several MAPF variants. At every timestep, each agent receives an individual ego-centric observation represented as a tensor. The environment integrates with PettingZoo, PyMARL, and Gymnasium, allowing existing reinforcement-learning implementations to be connected to the benchmark. Its grid representation includes static obstacles and free cells, together with agents and their goals, although the excerpt does not specify every observation channel or the complete action-space definition. Evaluation runs supported approaches on multiple map families in MAPF and LMAPF settings, then uses success, path-related measures, runtime behavior, and collision-related outcomes to construct broader evaluation views. The excerpt does not provide enough implementation detail to reconstruct every learning algorithm or every baseline configuration.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation dataset contains six map families: Mazes, Random, Warehouse, Cities, Cities-tiles, and Puzzles. Maze maps contain long one-cell-wide corridors that demand cooperation; Random maps permit control of obstacle density; and Warehouse maps test the effect of dense agent populations on throughput. Cities maps come from the MovingAI benchmark, while Cities-tiles are sliced versions intended to create more crowded scenarios; Puzzles are small handcrafted maps containing difficult cooperative patterns. The paper states that all supported baselines, twelve in total, were evaluated in both MAPF and LMAPF setups across all six datasets. Primary and derived measures include success rate, sum-of-costs, makespan, throughput, in-distribution performance, out-of-distribution performance, cooperation, scalability, coordination, and pathfinding. The excerpt does not include the complete numerical result plots, dataset sizes, confidence intervals, number of repetitions, or all experimental conditions.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>POGEMA&#x27;s main practical advantage is that it packages the environment and the evaluation infrastructure together rather than leaving researchers to assemble incompatible experimental procedures. The paper describes more than ten thousand environment steps per second as a useful efficiency target for learning environments, and it motivates procedural generation as a way to test generalization to instances not seen during training. The reported behavior differs between MAPF and LMAPF: in LMAPF, MARL approaches can compete with hybrid methods, partly because the Follower observation model is designed for that setting, and QPLEX is reported to perform best among the MARL approaches there, outperforming MAMBA in contrast to the MAPF results. Hybrid methods can suffer when their agents have only local information and must reconstruct the map, while an MCTS-based method incurs substantial computation because it runs MCTS for every agent at every step. The authors identify future directions including large-scale CTDE training, communication learning for local interactions, memory-efficient long-horizon planning without global guidance, imitation learning from centralized experts, decentralized foundation models, and coordination among heterogeneous policies.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MARL has made progress on cooperative and competitive tasks involving strategic games, sports simulators, traffic control, robot control, and autonomous driving. MAPF is a practically important cooperative problem, especially for warehouse robots, and conventional solvers include heuristic search, CBS, M*, ICTS, reductions to satisfiability or integer linear programming, and rule-based techniques. As learning-based and hybrid methods become more common, comparisons are difficult when environments, datasets, metrics, and evaluation procedures differ across studies. POGEMA is presented as a response to that reproducibility and comparability gap.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>In MAPF, agents perform synchronized atomic moves through a grid and must reach assigned goals without colliding with obstacles or one another. Partial observability, limited communication, unknown map structure, and increasing agent populations make coordination difficult. A single success measure cannot fully characterize path cost, completion time, throughput, collision avoidance, generalization, or computational scaling. The paper therefore treats the absence of a shared framework for learning and evaluation as the central methodological problem.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>POGEMA combines environment execution, procedural generation, predefined instances, visualization, and parallel benchmarking in one suite. Its map families expose different stresses: narrow corridors and handcrafted patterns test cooperation, controllable random maps support generalization studies, warehouses test density and throughput, and large or sliced city maps test structure and crowding. The protocol derives broader domain measures from primary outcomes, including out-of-distribution performance, cooperation, scalability, coordination, and single-agent pathfinding. Integration with common MARL APIs and availability through PyPI are intended to reduce adoption and extension costs.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments cover six map datasets and two problem settings, MAPF and LMAPF, using twelve supported baselines. The comparison includes MARL, planning or search-based, and hybrid approaches. For the other MARL approaches, the excerpt says that learning rate, batch size, replay-buffer size, and GRU hidden-state size were swept, with choices based on training performance on Random and Maze scenarios. It does not specify every baseline&#x27;s architecture, the exact evaluation budget, random seeds, instance counts, or runtime hardware.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper reports a broad comparison of the supported baselines rather than a single universal winner across all settings. In LMAPF, MARL approaches can compete with hybrid methods, and QPLEX is reported as the strongest MARL method, outperforming MAMBA in contrast with the MAPF outcome. The authors attribute part of the hybrid methods&#x27; mediocre performance to their lack of global information and the resulting need to reconstruct maps from local observations. The supplied excerpt does not provide the exact success rates, costs, throughput values, confidence intervals, or complete method-by-method rankings.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>POGEMA is proposed as a comprehensive platform for creating, assessing, and comparing policies and solvers for multi-agent pathfinding. Its combination of diverse maps, a standardized protocol, domain-specific metrics, visualization, API integrations, and parallel evaluation supports analysis of generalization and scalability in addition to task completion. The paper&#x27;s broader conclusion is that fair comparison requires the environment and the evaluation methodology to be introduced together, with representative baselines and reproducible reporting.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The authors identify a conceptual limitation: communication between agents is not currently disentangled in the POGEMA environment. Technical limitations include missing JAX support and missing integration with other GPU-parallelization tools. The excerpt also does not establish direct validation on physical robots, explicit kinodynamic constraints, or very large populations and long-horizon tasks, so performance in those settings cannot be inferred from the supplied evidence. These gaps motivate future work on scalable training, communication, memory efficiency, and richer policy coordination.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>MAPF results depend strongly on map topology, observation assumptions, agent density, and the selected metric. By placing learning, search, and hybrid solvers on common maps and under a shared protocol, POGEMA offers a practical basis for separating properties of proposed methods from effects caused by evaluation procedures. Its importance is greatest for studies that need to measure not only task success but also cooperation, collision avoidance, out-of-distribution robustness, throughput, and scaling.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>The paper is especially relevant to researchers working on MAPF, LMAPF, cooperative MARL, and hybrid planning-learning systems. It is also useful for researchers who need procedural instances for generalization tests, common baselines for controlled comparisons, or visualization and parallel evaluation infrastructure. It is less sufficient as a standalone basis for claims about physical robot control, fully characterized communication protocols, or deployment at very large scale, because the supplied evidence does not establish those capabilities.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-13
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2407.14931.en.html" lang="en">English</a></nav>
+  <h1>POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding</h1>
+<p class="meta">POGEMA：協調型マルチエージェント経路計画のためのベンチマーク・プラットフォーム</p>
+  <div class="meta">Alexey Skrynnik, Anton Andreychuk, Anatolii Borzilov, Alexander Chernyavskiy, Konstantin Yakovlev, Aleksandr Panov<br>採択先: 未取得 ・ 2024-07-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2407.14931v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2407.14931v3" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2024-07-20</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 3</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、学習型、探索型、ハイブリッド型のマルチエージェント経路計画（MAPF）手法を共通の枠組みで開発・評価・比較するためのPOGEMAを提案する。高速な部分観測環境、問題生成器、既定インスタンス、可視化、ベンチマーク、評価プロトコルを統合し、多面的で公平な比較を可能にすることが中心的な結論である。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、グリッド環境内で複数のエージェントが静的障害物や他エージェントとの衝突を避けながら、それぞれの目標地点へ到達する協調型MAPFである。各エージェントは必ずしも完全な大域状態を得るのではなく、個別の自己中心的な観測を受け、通信、地図情報、エージェント数などの異なる設定を扱える。背景には、MARLがゲーム、交通、ロボット制御、自動運転などで発展する一方、MAPFでは古典的探索、学習、両者を組み合わせた手法を公平に比較する統一基盤が不足していたという問題がある。論文は、MAPFが自動倉庫などの実用システムに関係し、実機では運動学的制約や実行誤差なども生じ得ると位置づけている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、POGEMAという複数のツールから成る統合的な開発・評価スイートを導入したことである。そこには高速な学習環境、問題インスタンス生成器、事前定義されたインスタンス、可視化ツール、自動ベンチマーク機能が含まれる。第二の貢献は、成功率や経路に関する指標などの基本的な結果から、一般化、協調、スケーラビリティ、調整、単一エージェントの経路計画を評価する領域固有の指標を構成するプロトコルである。第三に、MARL、探索ベース、ハイブリッドの手法を同じ枠組みで比較し、ベンチマーク上での相対的な性質を示している。ただし、提示された抜粋だけでは各手法の全順位、具体的な数値、統計的有意性は確定できない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>POGEMAはPartially-Observable Grid Environment for Multiple Agentsの略称であり、複数のMAPF課題向けに方策を作成、デバッグ、評価するための柔軟な環境と周辺ツールをまとめた名称である。各時刻に、各エージェントへ自己中心的なテンソル形式の観測を与える。環境はPettingZoo、PyMARL、Gymnasiumとの統合を提供し、既存の強化学習実装を接続しやすくしている。グリッド表現には静的障害物、自由セル、エージェント、目標が含まれるが、抜粋では観測テンソルの全チャンネルや行動空間の完全な定義は示されていない。評価では、MAPFとLMAPFの設定で複数の地図集合上に対応する手法を実行し、成功、経路、実行時間、衝突関連の結果から複数の評価観点を算出する。手法内部の学習アルゴリズムや全ベースラインの設定は、与えられた抜粋だけでは完全には確定しない。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価データセットは、Mazes、Random、Warehouse、Cities、Cities-tiles、Puzzlesという6種類の地図集合から構成される。Mazesは幅1セルの長い通路を含み協調を要求し、Randomは障害物密度を制御でき、Warehouseはエージェント密度がスループットに及ぼす影響を調べるために使われる。CitiesはMovingAIベンチマーク由来であり、Cities-tilesはそれを分割して混雑した状況を作り、Puzzlesは協調を必要とする小規模な手作り地図である。論文は、POGEMAが対応する12個のベースラインを、MAPFとLMAPFの双方について6データセットで評価したと述べる。指標には成功率、sum-of-costs、makespan、throughputに加え、分布内性能、分布外性能、協調、スケーラビリティ、調整、単一エージェントの経路計画が含まれる。抜粋には定量結果の完全な値、データセットサイズ、信頼区間、試行回数、すべての実験条件は含まれていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>POGEMAの主要な実務上の利点は、環境だけでなく評価手順、ベースライン、可視化、比較のための構成要素を同時に提供する点にある。論文は、学習環境では毎秒1万ステップを超えることが効率の有用な目安であると説明し、手続き的生成を訓練時に見ていないインスタンスへの一般化を調べる手段として位置づける。報告された挙動はMAPFとLMAPFで異なり、LMAPFではMARL手法がハイブリッド手法と競合し得るが、これは一部にはその設定向けに設計されたFollower観測モデルによると説明される。また、LMAPFのMARL手法ではQPLEXが最良の結果を示し、MAPFの場合とは異なりMAMBAを上回ったと報告される。局所情報だけを持ち地図を再構成する必要があることはハイブリッド手法の弱点となり得る一方、各エージェントの各ステップでMCTSを実行する手法は計算負荷が大きい。将来課題として、大規模CTDE学習、局所相互作用に適した通信学習、長期タスク向けのメモリ効率、中央集権ソルバーの専門家データを使う模倣学習、分散型基盤モデル、異種ポリシーの協調が挙げられる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MARLは協調・競争的な複数エージェント問題に適用され、戦略ゲーム、スポーツシミュレータ、交通制御、ロボット制御、自動運転などで発展してきた。MAPFは特に倉庫ロボットに関係する実用的な協調問題であり、従来はヒューリスティック探索、CBS、M*、ICTS、充足可能性問題や整数線形計画への帰着、ルールベース手法などが用いられてきた。学習型・ハイブリッド型手法が増える一方、環境、データセット、指標、評価手順が研究ごとに異なると比較が難しい。POGEMAはこの再現性と比較可能性の隔たりへの対応として提示されている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPFでは、エージェントがグリッド上を同期的な原子的移動で進み、障害物や他エージェントとの衝突を避けて割り当てられた目標へ到達する必要がある。部分観測、通信制約、未知の地図構造、エージェント数の増加は協調を難しくする。成功したかどうかだけでは、経路コスト、完了時間、スループット、衝突回避、一般化、計算規模を十分に表せない。そこで論文は、学習と評価の双方を支える共通フレームワークがないことを中心的な方法論上の問題として扱う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>POGEMAは環境実行、手続き的生成、既定インスタンス、可視化、並列ベンチマークを一つのスイートにまとめる。狭い通路や手作りのパターンは協調を、障害物密度を制御できるRandom地図は一般化を、Warehouse地図は密度とスループットを、CitiesおよびCities-tilesは構造や混雑への対応を調べるために使える。評価プロトコルは基本的な結果から、分布外性能、協調、スケーラビリティ、調整、単一エージェントの経路計画を派生させる。一般的なMARL APIとの統合とPyPIでの提供により、導入と拡張のコストを下げる設計が示されている。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、6種類の地図集合上でMAPFおよびLMAPFの設定を評価し、合計12個の対応ベースラインを比較した。対象にはMARL、計画・探索ベース、ハイブリッドの手法が含まれる。その他のMARL手法については、学習率、バッチサイズ、リプレイバッファサイズ、GRU隠れ状態サイズを探索し、RandomとMazesの訓練シナリオでの性能に基づいて選択したと記載されている。各手法のアーキテクチャ、評価予算、乱数種、インスタンス数、実行ハードウェアの詳細は、抜粋からは確定できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>論文は、対応するベースラインについて、単一の普遍的な勝者ではなく広範な比較を報告している。LMAPFではMARL手法がハイブリッド手法と競合し得て、MARL手法の中ではQPLEXが最も強く、MAPFでの結果とは対照的にMAMBAを上回ったと述べられる。ハイブリッド手法の中程度の性能の一因として、大域情報がなく、局所観測から地図を再構成する必要があることが挙げられている。正確な成功率、コスト、スループット、信頼区間、手法別の完全な順位は、提供された抜粋には示されていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>POGEMAは、マルチエージェント経路計画の方策とソルバーを作成、評価、比較するための包括的なプラットフォームとして提案されている。多様な地図、標準化されたプロトコル、領域固有の指標、可視化、API統合、並列評価を組み合わせ、課題達成だけでなく一般化とスケーラビリティも分析できるようにする。論文のより広い結論は、公平な比較には環境と評価方法を代表的なベースラインおよび再現可能な報告とともに導入することが重要だという点にある。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>著者が挙げる概念上の制限は、エージェント間通信がPOGEMA環境内で分離して扱われていないことである。技術上の制限には、JAXへの対応不足と、その他のGPU並列化ツールとの統合不足がある。抜粋は、実機での直接的な検証、明示的な運動学的制約、非常に大規模なエージェント集団、長期タスクを確立していないため、それらの設定での性能は判断できない。これらの空白は、スケーラブルな学習、通信、メモリ効率、より豊かなポリシー協調に関する将来研究の動機となる。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFの結果は、地図のトポロジー、観測の仮定、エージェント密度、選択する指標に強く依存し得る。POGEMAは学習型、探索型、ハイブリッド型のソルバーを共通の地図とプロトコルに置き、提案手法の性質と評価手順の影響を分けて調べるための実用的な基盤を提供する。特に、課題を達成したかだけでなく、協調、衝突回避、分布外への頑健性、スループット、規模拡大を同時に測定できる点に意義がある。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPF、LMAPF、協調型MARL、ハイブリッドな計画・学習システムを研究する人に特に適している。一般化テスト用の手続き的インスタンス、制御された比較のための共通ベースライン、可視化や並列評価の基盤を必要とする研究者にも有用である。実機ロボットの制御性能、完全に分離された通信プロトコル、非常に大規模な展開については、提示された証拠だけでは能力を確立できないため、POGEMA単独で結論を出すことはできない。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-13
+  </footer>
+</div>
+</body>
+</html>

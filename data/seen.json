@@ -6485,6 +6485,43 @@
       "url": "http://arxiv.org/abs/2405.17794v3",
       "venue": "presentation at AAAI 2025"
     },
+    "arxiv:2407.14931": {
+      "added": "2026-10-13",
+      "added_at": "2026-10-13T11:27:53.212348",
+      "arxiv_id": "2407.14931",
+      "authors": [
+        "Alexey Skrynnik",
+        "Anton Andreychuk",
+        "Anatolii Borzilov",
+        "Alexander Chernyavskiy",
+        "Konstantin Yakovlev",
+        "Aleksandr Panov"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-07-20",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2407.14931.html",
+      "file_en": "mapf-mapd-warehouse/2407.14931.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2407.14931v3",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 3,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding",
+      "title_en": "POGEMA: A Benchmark Platform for Cooperative Multi-Agent Pathfinding",
+      "title_ja": "POGEMA：協調型マルチエージェント経路計画のためのベンチマーク・プラットフォーム",
+      "tldr": "本論文は、学習型、探索型、ハイブリッド型のマルチエージェント経路計画（MAPF）手法を共通の枠組みで開発・評価・比較するためのPOGEMAを提案する。高速な部分観測環境、問題生成器、既定インスタンス、可視化、ベンチマーク、評価プロトコルを統合し、多面的で公平な比較を可能にすることが中心的な結論である。",
+      "tldr_en": "This paper introduces POGEMA, an integrated platform for developing, evaluating, and comparing learning-based, search-based, and hybrid multi-agent pathfinding methods under a common framework. Its central conclusion is that a fast partially observable environment, diverse map sources, visualization, automated benchmarking, and a standardized multi-metric protocol can make comparisons across these methodological families more systematic and fair.",
+      "url": "http://arxiv.org/abs/2407.14931v3",
+      "venue": ""
+    },
     "arxiv:2408.02960": {
       "added": "2026-09-01",
       "added_at": "2026-09-01T06:03:55.082270",
@@ -9594,6 +9631,41 @@
       "tldr_en": "This study measures how much solution quality is forfeited by classical MAPF's discrete-time and graph-based collision assumptions, using continuous-time MAPF as a counter-formulation. Continuous time and shape awareness have only modest direct effects, but they enable richer moves that improve average solution quality by at least 5% on narrow, constrained maps and 17% on open maps, with some improvements above 20%; doubling classical map resolution recovers less than 3%.",
       "url": "http://arxiv.org/abs/2610.10100v1",
       "venue": ""
+    },
+    "doi:10.1007/978-3-031-68416-6_18": {
+      "added": "2026-10-13",
+      "added_at": "2026-10-13T11:26:08.148914",
+      "arxiv_id": "2411.10558",
+      "authors": [
+        "Sheryl Paul",
+        "Anand Balakrishnan",
+        "Xin Qin",
+        "Jyotirmoy V. Deshmukh"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-11-15",
+      "doi": "10.1007/978-3-031-68416-6_18",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2411.10558.html",
+      "file_en": "mapf-mapd-warehouse/2411.10558.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2411.10558v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 3,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Multi-agent Path Finding for Timed Tasks using Evolutionary Games",
+      "title_en": "Multi-Agent Path Finding for Timed Tasks Using Evolutionary Games",
+      "title_ja": "進化ゲームを用いた時間制約タスクのためのマルチエージェント経路探索",
+      "tldr": "本論文は、不確実な環境で同質エージェントが衝突を避けながら、到達の成否だけでなく軌跡全体の時間的な質も満たすマルチエージェント経路探索を扱う。重み付きオートマトンと進化ゲーム理論に基づくMAPF-EGTを提案し、提示されたグリッド実験では、経路長、計算時間、エージェント数増加時のスケーリングについて既存手法より良い結果を報告する。",
+      "tldr_en": "This paper studies multi-agent path finding in which homogeneous agents must avoid collisions while satisfying trajectory-level objectives that include timeliness and efficiency, even when goals may not be known in advance. It combines weighted-automaton task specifications with evolutionary-game-based policy updates in MAPF-EGT, and reports shorter paths, faster computation, and better scaling with the number of agents than the evaluated alternatives.",
+      "url": "http://arxiv.org/abs/2411.10558v1",
+      "venue": "Lecture Notes in Computer Science"
     },
     "doi:10.1007/978-3-032-25029-2_15": {
       "added": "2026-08-17",

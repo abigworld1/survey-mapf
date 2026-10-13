@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Multi-agent Path Finding for Timed Tasks using Evolutionary Games | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2411.10558.html" lang="ja">日本語</a></nav>
+  <h1>Multi-agent Path Finding for Timed Tasks using Evolutionary Games</h1>
+<p class="meta">Multi-Agent Path Finding for Timed Tasks Using Evolutionary Games</p>
+  <div class="meta">Sheryl Paul, Anand Balakrishnan, Xin Qin, Jyotirmoy V. Deshmukh<br>Venue: Lecture Notes in Computer Science ・ 2024-11-15 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2411.10558v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2411.10558v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1007/978-3-031-68416-6_18" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Lecture Notes in Computer Science</span><span class="chip">Published 2024-11-15</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 3</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies multi-agent path finding in which homogeneous agents must avoid collisions while satisfying trajectory-level objectives that include timeliness and efficiency, even when goals may not be known in advance. It combines weighted-automaton task specifications with evolutionary-game-based policy updates in MAPF-EGT, and reports shorter paths, faster computation, and better scaling with the number of agents than the evaluated alternatives.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is a team of autonomous mobile agents, motivated by applications such as hospital robots, warehouse systems, package-delivery drones, surveillance, and logistics. Agents operate with uncertain transitions and must avoid collisions with other agents and obstacles while completing tasks effectively. The paper focuses on homogeneous agents pursuing homogeneous objectives, with a common policy learned centrally and applied across the team. In the described experiments, agents move in a two-dimensional grid and may not know the goal location in advance. The supplied excerpt does not establish how the method behaves with sensor noise, communication failures, dynamic obstacles, or physical robot constraints.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a weighted-automaton representation of trajectory-level objectives. Instead of expressing success only as reaching a goal before a deadline, the automaton can assign higher value to trajectories that accomplish the task more expeditiously. The second contribution is MAPF-EGT, an evolutionary-game-theory-based learning algorithm for homogeneous multi-agent teams that uses shared agent experiences and policy updates. The paper reports nearly a 30% reduction in path length in large spaces relative to the evaluated reinforcement-learning methods and at least an order-of-magnitude faster computation than deep RL. It also reports better scaling as the number of agents increases, although the excerpt does not provide the complete numerical breakdown behind these comparisons.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The multi-agent problem is formulated using stochastic games, in which each agent has states, available actions, transition dynamics, and rewards. A common weighted automaton specifies the task for every agent, and the weight accumulated along an agent trajectory represents how well that trajectory satisfies the objective. For reach-avoid tasks, the reward structure distinguishes reaching the goal from colliding with an obstacle and is designed so that, among collision-free trajectories, earlier arrival receives greater value. This is motivated by a limitation of integral-style robustness measures: an agent that reaches a goal quickly and then leaves it can receive less cumulative value than an agent that takes a longer route and remains at the goal. Agents are trained centrally under a shared policy, so experiences from multiple agents can be pooled. Evolutionary-game-based updates modify the stochastic action distribution using generated trajectories, with the intention of improving team behavior through shared and increasingly diverse experience.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments use a two-dimensional grid world. Each agent has five actions—up, down, left, right, and stay—and begins an episode at a random start location, with the requirement to reach one of the goal locations by the end of the episode. Grid sizes include 20 by 20, 50 by 50, 100 by 100, 150 by 150, and 200 by 200. The number of agents is varied across experiments; the experimental description states a range from 2 to 50, while the results discussion describes a test from 2 to 100 agents on a 100 by 100 grid, so the supplied excerpt contains two different range statements. MAPF-EGT is compared with a heuristic planning method, a Monte Carlo method, tabular Q-learning, and PPO. Manhattan distance is used as the heuristic, while the other approaches use the same reward function as the proposed method. Reported measures include time to reach the goal, distance from obstacles, clock time, total time, and computation as the number of agents grows. The implementation uses OpenAI Gym and Stable-Baselines3 PPO, and the experiments run on a laptop with a 2.0 GHz dual-core Intel Core i5 processor and 16 GB of RAM.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The main conceptual advantage is that weighted automata make the quality of an entire trajectory explicit rather than relying only on a myopic state reward. This can reduce a mismatch between what a metric measures and what a reach-avoid task requires: quick, safe completion rather than persistence near a goal. The authors interpret the strong scaling of MAPF-EGT as a consequence of additional agents generating more trajectories and therefore richer, more diverse data for learning. The approach also trades generality for a simpler learning problem by assuming homogeneous agents and objectives and by sharing one policy. Its empirical claims are limited to the reported discrete grid-world setting; the supplied excerpt does not establish collision-success rates, statistical variation, convergence guarantees, communication costs, or behavior under changing environments. The balance between centralized training, shared experience, and execution is not fully specified in the supplied material.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical multi-agent path finding commonly uses graph search and combinatorial-optimization heuristics to route agents to assigned goals without collisions. Reinforcement-learning approaches can learn behavior from state-based or user-specified rewards, but short-horizon rewards may encourage undesirable long-term behavior, including reward hacking. Automata-based specifications, temporal logic, robustness measures, and non-Markovian reward models have therefore been explored for tasks whose value depends on history and time. Weighted automata extend this direction by associating transition weights with an accepting task structure.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The problem is to synthesize policies for multiple agents that reach goals safely and efficiently under uncertain transitions. A binary success signal is insufficient when successful trajectories differ in arrival time, path length, or safety-related behavior. A useful specification must capture both whether the task is completed and how well the complete trajectory satisfies the intended temporal objective. The agents may also need to learn without prior knowledge of the goal location.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>A weighted automaton is a finite-state task model with accepting conditions and weights on transitions. The proposed reward construction gives special treatment to goal-reaching transitions and obstacle collisions, and the paper states that faster collision-free goal-reaching trajectories obtain higher automaton rewards. The policy is stochastic, with action probabilities updated from shared experience under centralized training. The supplied excerpt mentions a complexity analysis but does not preserve enough notation or parameter definitions to establish the exact complexity expression or update schedule.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The action set is up, down, left, right, and stay in a two-dimensional grid. Episodes use random initial locations and require an agent to reach a goal location, while grid size and team size are varied. Baselines include a heuristic search planner, Monte Carlo, tabular Q-learning, and PPO; the heuristic uses Manhattan distance, and the other methods use the proposed reward structure. The reported implementation uses OpenAI Gym and Stable-Baselines3, running on a 2.0 GHz dual-core Intel Core i5 laptop with 16 GB of memory.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper reports that MAPF-EGT reduces path length by nearly 30% in large spaces compared with the evaluated reinforcement-learning methods. It is reported to be at least an order of magnitude faster computationally than deep RL and to have computation time comparable to the Monte Carlo method. Q-learning is described as having training and scalability difficulties for large grids, although its short run time makes its scaling with agent count relatively steady. PPO scales poorly as the number of agents increases, whereas MAPF-EGT is reported to scale best. The excerpt does not include exact values for every grid size, repetitions, confidence intervals, or success-rate comparisons.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper presents a way to combine trajectory-level weighted-automaton objectives with evolutionary-game-based learning for multi-agent path finding. Within the reported grid-world experiments, MAPF-EGT is claimed to improve path efficiency and computation time while scaling favorably with more agents. These findings suggest that explicit temporal reward structure and shared experience can complement conventional reinforcement learning and heuristic planning.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The current formulation is restricted to discrete state and action spaces. The authors propose extending it to continuous spaces using radial-basis-function approximation for nearby states, probability-density-function updates, and Dirac-delta-based adjustments. The current study also assumes homogeneous agents and homogeneous tasks, and future work is intended to address more diverse multi-agent learning and convergence guarantees. Game-theoretic guarantees for robust strategic interactions are proposed as another future direction. The supplied excerpt does not establish formal safety guarantees or validation in continuous, physical, or dynamically changing environments.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is relevant because it reframes MAPF as a trajectory-quality problem rather than only a collision-free shortest-path problem. Its weighted-automaton formulation offers a way to encode timeliness and expeditiousness, while MAPF-EGT offers a shared-policy learning mechanism for homogeneous teams. If the reported improvements generalize beyond the tested grids, the approach could be useful for large teams with common objectives. That generalization remains unestablished by the supplied excerpt.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying timed or history-dependent MAPF objectives, automata-based reinforcement learning, reward design, and evolutionary approaches to multi-agent learning. It is especially relevant for readers interested in centralized training and shared policies for homogeneous agents. Readers seeking results for heterogeneous teams, continuous control, formal safety guarantees, or realistic communication and sensing constraints will need additional evidence beyond the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-13
+  </footer>
+</div>
+</body>
+</html>
