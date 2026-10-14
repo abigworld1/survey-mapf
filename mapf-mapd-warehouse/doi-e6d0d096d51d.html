@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sistemas multiagentes para coleta e entrega combinando algoritmos genéticos e planejamento de caminho | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="doi-e6d0d096d51d.en.html" lang="en">English</a></nav>
+  <h1>Sistemas multiagentes para coleta e entrega combinando algoritmos genéticos e planejamento de caminho</h1>
+<p class="meta">遺伝的アルゴリズムと経路計画を組み合わせたマルチエージェント収集・配送システム</p>
+  <div class="meta">A. C. Queiroz<br>採択先: 未取得 ・ None ・ source: semanticscholar</div>
+  <div class="links"><a href="https://www.semanticscholar.org/paper/ca91335e99bef615e111ad3707f225a4c3ec591b" target="_blank" rel="noopener">原典</a> ・ <a href="https://repositorio.ufjf.br/jspui/bitstream/ufjf/14167/1/anacarolinaladeiracostaqueiroz.pdf" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.34019/ufjf/di/2022/00078" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-fallback">補充候補</span><span class="chip">公開日 None</span><span class="chip keyword-match">キーワード一致 4</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(OA-PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(OA-PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、倉庫型のMulti-Agent Pickup and Delivery（MAPD）におけるタスク割当てと衝突回避経路計画を組み合わせ、遺伝的アルゴリズムと既存のMAPF手法を評価する。提示された抜粋では、提案手法は小規模・大規模の二つの環境で文献手法より良い結果を示し、特にGA-TA、PP-E、初期集団生成ヒューリスティックの組合せが有効だったと報告されている。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、自律移動ロボットが稼働する配送センターにおいて、時間の異なるタイミングで到着する収集・配送タスクを複数エージェントが処理するMAPDである。各タスクには収集位置と配送位置があり、エージェントは収集位置へ移動した後、配送位置へ移動してタスクを完了する。MAPDは、エージェントへタスクの順序を割り当てる問題と、割り当てられた仕事を衝突なく実行する経路計画問題に分けて扱われる。後者はMulti-Agent Path Finding（MAPF）として研究されており、エージェント間の衝突、経路の長さ、処理完了までの時間が重要になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主な新規性は、MAPDのタスク割当て部分に複数の遺伝的アルゴリズムを提案し、単一目的だけでなく多目的最適化としても検討した点にある。多目的版ではNSGA-IIを用い、makespanとservice timeという二つの目的を同時に最小化する。経路計画には新規にすべてを設計し直すのではなく、Prioritized Planning（PP）とConflict Based Search（CBS）という既存手法を利用し、将来の衝突を避けるPPの変種PP-Eも評価した。さらに、目的間の関係を分析し、初期集団の生成方法や複数の遺伝的アルゴリズムの比較を通じて、割当てと経路計画の組合せを検討した。抜粋だけでは、すべての提案アルゴリズムの詳細な差分や実装上の新規演算子までは確定できない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>個体はタスクの割当てと、エージェントごとのタスク順序を表すベクトルによって解を表現する。初期集団の一部または全部をランダムに作る代わりに、現在のエージェント位置からタスクの収集位置までの推定コストを用い、最も近いエージェントとタスクを順次選ぶヒューリスティックが使われる。単一目的の遺伝的アルゴリズムとしてGA-TA、GA-E、Elitist、Steady Stateが扱われ、多目的版としてNSGA-IIに基づくNSGA-M、NSGA-ST、NSGA-Oが挙げられている。選択にはトーナメント選択が用いられ、NSGA-IIでは非優越ソートとクラウディング距離によって解を扱う。得られたタスク列をもとに、PP、CBS、または将来の衝突を考慮して目標到達後に別の空き位置へ移動するPP-Eで経路を計画する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は文献で利用可能なインスタンスを用い、21×35の小規模環境と81×81の大規模環境で行われた。エージェント数、タスク数、環境規模、タスクのシステムへの到着率を変化させ、遺伝的アルゴリズムと経路計画手法の組合せを比較した。比較対象には、文献で用いられたCentralおよびTP、ならびにPP、PP-E、CBSと複数の遺伝的アルゴリズムが含まれる。評価には主としてmakespanとservice timeが使われ、計算時間が5分を超えた解は期限切れと扱われた。抜粋からは各条件の全数値、反復回数、ハードウェア、すべての統計検定結果は確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、タスク割当てと経路計画を分離した構成でも、適切な組合せによって既存の比較手法を上回り得ることを示唆する。小規模環境では、PP-EとGA-TAおよび初期化ヒューリスティックの組合せが、PPの同様の組合せより全インスタンスで良く、平均改善率は0.41%だった。また、PP-EとPPはいずれもTPより良く、平均改善率はそれぞれ5.88%と5.50%と報告されている。一方、CBSは良い解を生成するが計算コストが高く、GA-TAは比較されたGA-Eより良い結果を得た。将来課題として、より現実的な環境、別の初期集団ヒューリスティック、自由になったエージェントによるタスク交換の影響が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>倉庫や配送センターでは、オンライン商取引の拡大などを背景に、製品を移動させる自律移動ロボットの利用が進んでいる。MAPDは、時間とともに現れるタスクを複数ロボットが協調して処理する研究モデルであり、ロボットの割当てと移動の両方を扱う。関連するMAPFでは、既知の地図上で複数エージェントが互いに衝突せず目的地へ到達する必要がある。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPDでは、各タスクに収集位置と配送位置があり、エージェントはこの順序を守って移動しなければならない。タスク割当てが悪いと総完了時間や個々のサービス時間が増え、経路計画が悪いと衝突や解なしが生じる。提示された本文は、タスク到着が異なる時刻に発生し、システム内のタスクがなくなると問題が終了する設定を説明している。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>makespanは全タスクが完了するまでの全体的な時間、service timeはタスク処理に関する別の時間指標として扱われる。PPは優先順位に従ってエージェントを順番に計画し、CBSは衝突を検出して制約を分岐させる探索法である。CBSの計算量は衝突数に対して指数的になると本文で説明されている。PP-Eは、エージェントが最終目的位置に着いた後の将来の衝突を避けるため、別の空き位置への移動を可能にする。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>小規模環境では、計画手法と遺伝的アルゴリズムを変えながら、CentralとTPを含む比較が行われた。大規模環境では、GA-TA、Elitist、Steady State、NSGA-M、NSGA-ST、NSGA-Oの6手法間で比較したと抜粋に記載されている。目的間の相関を調べるため、ランダム個体と独立実行を用いた分析も行われた。利用されたすべてのパラメータや各実験の完全な構成は、提示資料だけでは確定しない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>GA-TAはGA-Eより良い結果を示したと報告されている。PP-EとPPはTPより良く、PP-Eの平均改善率は5.88%、PPは5.50%だった。PP-EとPPをGA-TAおよび初期化ヒューリスティックと組み合わせた比較では、PP-E側の平均改善率が0.41%だった。抜粋は総括的な優位性を述べるが、全インスタンスの数値や多目的手法ごとの順位を網羅していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>遺伝的アルゴリズムによるタスク割当てと既存のMAPF経路計画を組み合わせる方法は、MAPDに対する有効な構成として提示されている。特にGA-TA、PP-E、初期化ヒューリスティックの組合せが、提示された比較では良好だった。NSGA-IIによる多目的化は、makespanだけでなくservice timeも考慮する枠組みを与える。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された抜粋には、実験結果の完全な表、信頼区間、再現に必要な遺伝的アルゴリズムの全パラメータが含まれていない。したがって、報告された平均改善率以外の細かな差や、どの条件でどの手法が失敗したかは確定できない。CBSの高い計算コスト、経路計画と割当てを分離することによる制約、現実のロボット形状や動的障害物をどこまで扱えるかも、抜粋だけでは評価できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPDでは、タスク割当てと衝突回避を別々に最適化すると、局所的に良い判断が全体の処理時間を悪化させる可能性がある。本研究は、遺伝的アルゴリズムで割当てを探索し、PP、PP-E、CBSで移動を実現する実用的な分解を比較した点で、倉庫ロボットの協調計画を考える基礎になる。二つの時間目的を扱うことで、全体の終了時刻と個々のサービスのバランスを検討できる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPDやMAPFのタスク割当て、優先順位付き経路計画、CBS、遺伝的アルゴリズムを学びたい研究者に適している。倉庫ロボットの実運用性能を直接評価した研究、あるいは完全な再現手順や網羅的な理論解析を求める読者には、本文全体と実験データの追加確認が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(OA-PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-14
+  </footer>
+</div>
+</body>
+</html>

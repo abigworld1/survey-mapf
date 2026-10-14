@@ -11644,6 +11644,41 @@
       "url": "https://arxiv.org/abs/2502.08969",
       "venue": ""
     },
+    "doi:10.34019/ufjf/di/2022/00078": {
+      "added": "2026-10-14",
+      "added_at": "2026-10-14T09:09:53.373354",
+      "arxiv_id": "",
+      "authors": [
+        "A. C. Queiroz"
+      ],
+      "basis": "fulltext(oa-pdf)",
+      "citations": 0,
+      "date": "None",
+      "doi": "10.34019/ufjf/di/2022/00078",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/doi-e6d0d096d51d.html",
+      "file_en": "mapf-mapd-warehouse/doi-e6d0d096d51d.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF",
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://repositorio.ufjf.br/jspui/bitstream/ufjf/14167/1/anacarolinaladeiracostaqueiroz.pdf",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "fallback",
+      "selection_label": "補充候補",
+      "source_quality": "fulltext",
+      "title": "Sistemas multiagentes para coleta e entrega combinando algoritmos genéticos e planejamento de caminho",
+      "title_en": "Multi-Agent Pickup and Delivery Systems Combining Genetic Algorithms and Path Planning",
+      "title_ja": "遺伝的アルゴリズムと経路計画を組み合わせたマルチエージェント収集・配送システム",
+      "tldr": "本研究は、倉庫型のMulti-Agent Pickup and Delivery（MAPD）におけるタスク割当てと衝突回避経路計画を組み合わせ、遺伝的アルゴリズムと既存のMAPF手法を評価する。提示された抜粋では、提案手法は小規模・大規模の二つの環境で文献手法より良い結果を示し、特にGA-TA、PP-E、初期集団生成ヒューリスティックの組合せが有効だったと報告されている。",
+      "tldr_en": "This dissertation studies Multi-Agent Pickup and Delivery (MAPD) by combining genetic algorithms for task allocation with established multi-agent path-finding methods for collision-free execution. The supplied excerpt reports that the proposed combinations outperformed comparison techniques in small and large environments, with particularly favorable results for GA-TA, PP-E, and a heuristic population initialization.",
+      "url": "https://www.semanticscholar.org/paper/ca91335e99bef615e111ad3707f225a4c3ec591b",
+      "venue": ""
+    },
     "doi:10.4108/airo.3449": {
       "added": "2026-07-31",
       "added_at": "2026-07-31T06:27:25.367000",
