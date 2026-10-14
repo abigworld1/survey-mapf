@@ -7564,6 +7564,40 @@
       "url": "http://arxiv.org/abs/2511.07175v2",
       "venue": ""
     },
+    "arxiv:2511.09193": {
+      "added": "2026-10-15",
+      "added_at": "2026-10-15T08:41:42.859706",
+      "arxiv_id": "2511.09193",
+      "authors": [
+        "Egor Yukhnevich",
+        "Anton Andreychuk"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-11-12",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2511.09193.html",
+      "file_en": "mapf-mapd-warehouse/2511.09193.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2511.09193v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Enhancing PIBT via Multi-Action Operations",
+      "title_en": "Enhancing PIBT via Multi-Action Operations",
+      "title_ja": "マルチアクション操作によるPIBTの拡張",
+      "tldr": "本研究は、向きと回転動作を伴うオンラインLMAPF-Tで、次の1時刻だけを扱うPIBTが苦手とする回転コストを、複数時刻にまたがる限定長の操作によって補う。限定的な再訪問、操作継承、LNS、グラフ誘導を組み合わせることで、PIBTの高速性を保ちながら、提示された評価範囲で既存手法を上回る結果を報告する。",
+      "tldr_en": "This paper extends the short-horizon PIBT solver for online lifelong MAPF with time-consuming rotations by selecting bounded multi-action operations rather than only one next-step action. The reported experiments indicate that the enhanced solver preserves very fast action generation and, when combined with large neighborhood search and graph guidance, outperforms the compared methods on the considered online LMAPF-T setting.",
+      "url": "http://arxiv.org/abs/2511.09193v2",
+      "venue": ""
+    },
     "arxiv:2511.18604": {
       "added": "2026-09-20",
       "added_at": "2026-09-20T07:40:18.583878",
@@ -9630,6 +9664,39 @@
       "tldr": "本研究は、離散時間とグラフ上の衝突定義を用いる古典的MAPFが、連続時間MAPFと比べてどの程度の解品質を失うかを調べる。連続時間やエージェント形状だけの効果は小さいが、それらが多様な移動、特に非カーディナルな移動を可能にすることで、開けた空間では平均17%以上、狭く制約された地図でも少なくとも5%の改善につながり、場合によっては20%を超える改善になると報告する。",
       "tldr_en": "This study measures how much solution quality is forfeited by classical MAPF's discrete-time and graph-based collision assumptions, using continuous-time MAPF as a counter-formulation. Continuous time and shape awareness have only modest direct effects, but they enable richer moves that improve average solution quality by at least 5% on narrow, constrained maps and 17% on open maps, with some improvements above 20%; doubling classical map resolution recovers less than 3%.",
       "url": "http://arxiv.org/abs/2610.10100v1",
+      "venue": ""
+    },
+    "arxiv:2610.18186": {
+      "added": "2026-10-15",
+      "added_at": "2026-10-15T08:40:18.381654",
+      "arxiv_id": "2610.18186",
+      "authors": [
+        "Jean Seong Bjorn Choe"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-10-13",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.18186.html",
+      "file_en": "mapf-mapd-warehouse/2610.18186.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.18186v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 8,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields",
+      "title_en": "Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields",
+      "title_ja": "共有空間場を用いた大規模・生涯型マルチエージェント経路探索のための強化学習",
+      "tldr": "本稿は、大規模な生涯型マルチエージェント経路探索（LMAPF）で、変化する交通状況や多様なレイアウトに対して高速に移動判断を行う強化学習方策を提案する。共有空間場、目標条件付き経路選択、目的地割当を組み合わせ、スループットを直接報酬として学習した方策を小規模地図から未見の大規模地図へ転移し、評価されたベースラインに匹敵またはそれ以上のスループットを、1ステップ10ミリ秒未満の平均実行時間で達成したと報告する。",
+      "tldr_en": "This paper proposes a reinforcement-learning policy for lifelong multi-agent path finding (LMAPF) that makes fast movement decisions under changing traffic and across different layouts. A shared spatial field, goal-conditioned route choice, and destination allocation are trained directly with throughput, and the reported policy transfers from small training maps to unseen larger layouts while achieving throughput comparable to or higher than the evaluated baselines with per-step execution below 10 milliseconds.",
+      "url": "http://arxiv.org/abs/2610.18186v1",
       "venue": ""
     },
     "doi:10.1007/978-3-031-68416-6_18": {

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Enhancing PIBT via Multi-Action Operations | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2511.09193.en.html" lang="en">English</a></nav>
+  <h1>Enhancing PIBT via Multi-Action Operations</h1>
+<p class="meta">マルチアクション操作によるPIBTの拡張</p>
+  <div class="meta">Egor Yukhnevich, Anton Andreychuk<br>採択先: 未取得 ・ 2025-11-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2511.09193v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2511.09193v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-11-12</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、向きと回転動作を伴うオンラインLMAPF-Tで、次の1時刻だけを扱うPIBTが苦手とする回転コストを、複数時刻にまたがる限定長の操作によって補う。限定的な再訪問、操作継承、LNS、グラフ誘導を組み合わせることで、PIBTの高速性を保ちながら、提示された評価範囲で既存手法を上回る結果を報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、障害物を含む4近傍グリッド上で、各エージェントが位置と向きを持ちながら、逐次的に与えられる目標へ移動する多エージェント経路計画である。エージェントは現在の目標に到達すると、外部のタスク割当モジュールから次の目標を受け取るが、将来の目標は事前には利用できない。オンラインLMAPF-Tでは回転にも行動を要するため、次の1時刻だけを選ぶPIBTは、回転を伴わない場合より性能が低下しうる。本文抜粋では、タスク割当そのものは研究対象外であり、主にエージェントの効率的な経路生成を扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な提案は、PIBTにマルチアクション操作を導入したEPIBTである。別の経路計画器を呼び出さず、限定長の操作候補を直接扱うことで、複数時刻を考慮しつつPIBTの高速なルールベース処理を保とうとする。さらに、1ステップ中のエージェント再訪問と操作継承を加え、既に選んだ行動を状況に応じて変更したり、他のエージェントから継承された操作を再利用したりする。EPIBTをLNSとグラフ誘導に接続した構成について、著者らはオンラインLMAPF-Tで既存の最先端手法を上回ると報告する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>通常のPIBTは、目標までの距離などに基づく優先順位でエージェントを順に処理し、衝突しない次の行動を選ぶ。あるエージェントの行動が別のエージェントを押し出す必要を生じさせた場合、優先度を継承して再帰的に処理し、失敗時にはバックトラックして別の行動を試す。EPIBTでは、長さ3から5程度の限定された操作を候補として扱い、操作が失敗すれば取り消して次を試す。エージェントは衝突回避行動を見つけた後でも同じステップ内で再訪問されうるが、再訪問は計算量を抑えるため制限される。自身の候補が失敗した場合には、他のエージェントから継承した操作が割り当てられる。さらに、残った計算時間でLNSを実行し、目標への近さを表す指標が改善する解を受理し、グラフ誘導も組み合わせる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、League of Robot Runnersで使われた5マップ、random-32-32-20、brc202d、Paris-1-256、sortation、warehouseを対象に行われた。エージェント数を変えた複数インスタンスで、公開アーカイブの目標系列を用い、エージェント間の目標割当による影響を避けるため、タスクプールを循環的に割り当てた。実験は単一スレッドのIntel Xeon Gold 6338上で、各時刻1秒の計算予算を使い、通常は5000時刻、random-32-32-20では1000時刻を実行した。アブレーションではマルチアクション操作、再訪問、操作継承、操作長3・4・5を比較し、PIBT、Causal PIBT、LNSやグラフ誘導を含む構成とスループットを比較した。抜粋には全インスタンスの正確な数値、各ベースラインの実装条件、統計的検定の詳細は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>再訪問は結果を大きく改善する一方、無制限に許すと時間予算を使い切って性能を悪化させるため、制限がスループットと実行時間を安定させる。操作を長くすると実行時間が増え、複数エージェントの衝突が増えて現在の解消機構で処理できない場合があるため、全体として長さ3が有利だと説明される。ただし、sortationやwarehouseのような大規模マップで5000エージェントを扱う場合には、長い操作が時にスループットを改善する。理論的性質は、隣接ノードが単純サイクルを形成するという元のPIBTの仮定を引き継ぐため、任意のグラフでの保証ではない。著者らは将来課題として、多エージェント衝突処理の改善とLNS・グラフ誘導との統合最適化を挙げている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>古典的MAPFでは、複数エージェントが開始位置から指定目標へ衝突なく到達する必要があり、エージェント数や密度が増えると最適解探索は難しくなる。CBSやICTSなどの最適性を保証する手法は、大規模問題で実行時間と拡張性に課題があるため、高速な初期解生成器、ウィンドウ探索、anytime最適化が研究されてきた。PIBTは、次の1時刻だけを考慮しながら多数のエージェントの衝突回避行動をミリ秒単位で選べるため、低レベルプランナや行動サンプラとして広く利用されている。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>各エージェントの状態はグリッド上の位置と向きで表され、利用可能なのは現在の目標だけである。移動に加えて回転を行う行動モデルでは、向きを変えるために複数の行動を消費することがある。研究対象のオンラインLMAPF-Tは、限られた時間予算の下で、外部から継続的に与えられる目標を処理する。抜粋では、厳密な行動集合の全定義や衝突規則の全詳細は完全には提示されていない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>EPIBTの操作候補は、通常の1ステップ行動ではなく、限定長の行動列として扱われる。抜粋では、回転モデルで全方向移動を模倣するために、FWW、RFW、CFW、RRF、WWWという5種類の操作を用いたと説明される。操作長が1から5へ増えると、到達可能なセル、状態、占有セル列の候補が増え、探索負荷も高くなる。PIBTの性質を保つ理論分析は、元のPIBTと同じグラフ上の仮定に依存する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>アブレーションでは、マルチアクション操作だけでなく、再訪問と操作継承を個別に評価した。操作長3、4、5を比較し、実行時間とスループットへの影響を調べた。総合評価では、EPIBT単体と、LNSおよびグラフ誘導を組み合わせた構成を既存のPIBT系手法や他の最先端手法と比較した。抜粋からは、各マップのエージェント数の全リストや再現用コードの詳細までは確認できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>EPIBTは、抜粋で示された5マップすべてにおいてPIBTとCausal PIBTを一貫して上回ったと報告される。再訪問の導入は大きな改善をもたらしたが、無制限の再訪問は時間予算超過につながり、制限付き再訪問がより安定した。エージェント数が10000の場合でも、次の行動の計算は100ミリ秒未満だったとされる。EPIBTにLNSとグラフ誘導を加えた構成は、5マップ中3マップでスコア1.0を達成し、残りの2マップでも多くの場合に他手法を上回ったが、低エージェント数では他手法が上回る場合もあった。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、回転行動モデル向けにPIBTを拡張するEPIBTを提案した。マルチアクション操作によって、別個の経路計画アルゴリズムを使わずに短い複数時刻の依存関係を扱う。再訪問と操作継承は性能と効率をさらに改善し、LNSとグラフ誘導を組み合わせた構成は、提示されたオンラインLMAPF-T評価で既存手法を上回る性能を示したと結論づけられる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>評価は5つの競技由来マップと、固定された目標系列・タスク割当方式に基づいており、他の環境や割当器への一般化は抜粋だけでは確立されない。理論的性質は単純サイクルに関する仮定を必要とし、長い操作で生じる多エージェント衝突は現在の方法で十分に解消できないことがある。LNSとグラフ誘導を使う総合構成の厳密な数値比較や、個別コンポーネントの詳細な寄与は、提示された抜粋には完全には含まれていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>PIBTの魅力であるミリ秒級の局所的な行動選択を維持しながら、回転に時間がかかるロボット群へ適用範囲を広げようとする点が重要である。倉庫物流や輸送など、オンラインに目標が到着し、大規模なエージェント数を扱う用途に対して、軽量な低レベル計画器と解品質改善を組み合わせる設計上の示唆を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>回転行動を含むMAPF、LMAPF、MAPDや、PIBTを低レベルプランナとして利用する研究者に適している。高速なオンライン経路生成と、LNS・グラフ誘導による解品質改善の統合に関心がある読者にも有用である。最適性保証や一般グラフでの理論保証を主目的とする読者は、提示された仮定と抜粋の数値的限界を確認したうえで読むべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-15
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2610.18186.html" lang="ja">日本語</a></nav>
+  <h1>Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields</h1>
+
+  <div class="meta">Jean Seong Bjorn Choe<br>Venue: Unknown ・ 2026-10-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.18186v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2610.18186v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-10-13</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 8</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper proposes a reinforcement-learning policy for lifelong multi-agent path finding (LMAPF) that makes fast movement decisions under changing traffic and across different layouts. A shared spatial field, goal-conditioned route choice, and destination allocation are trained directly with throughput, and the reported policy transfers from small training maps to unseen larger layouts while achieving throughput comparable to or higher than the evaluated baselines with per-step execution below 10 milliseconds.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is lifelong multi-agent path finding, in which agents receive a new goal whenever they complete the current one, so operation continues rather than ending after a single set of goals. At every step, many agents must choose movements that avoid collisions, while larger populations increase the cost of updating decisions and logistics or real-time applications impose tight time budgets. Reuse across facilities or game maps also requires handling different obstacle, passage, and intersection geometries. The paper therefore treats sustained goal-completion throughput and per-step computational cost as joint practical concerns.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is a policy that computes a shared spatial field from the full map and agent state once per timestep with a convolutional network, then reuses that field for each agent’s goal-conditioned route choice. Route choice reweights a soft-distance reference distribution with learned guidance, while a sparse destination-allocation mechanism adjusts conflicts when multiple agents propose moves toward the same cell. The complete policy is trained end to end with average-reward reinforcement learning using throughput as the reward, without planner demonstrations or a separate online path planner. One policy is trained for each of a structured and an unstructured layout class on mixtures of small maps, with intended reuse on larger unseen maps and new agent populations in the same class.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>LMAPF is formulated as a continuing Markov decision process on a four-connected grid in which obstacle cells are not traversable. The state includes the map, agent positions, goal information, previous moves, elapsed-task counters, and task-stream state, while the action is a joint movement proposal for all agents. Movement follows POGEMA’s soft collision rules, which prevent agents from occupying the same cell or exchanging positions in one timestep. The reward is the number of goals completed at a timestep, so average-reward learning optimizes a sustained completion rate rather than a terminal objective.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation measures throughput and per-step execution cost on unseen layouts and also examines transfer as the agent population changes. For the structured and unstructured policies, the experiments use the terminal averaged checkpoint from each of three training seeds, average cases within each seed, and then weight the seed means equally. Baselines include non-learned PIBT, RHCR, WPPL, LLLG, and TrafficFlow, as well as SILLM, OnlineGGO, and Follower. The instances, task streams, and rollout lengths follow the released evaluation protocol of SILLM, according to the supplied excerpt.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The abstract reports that, across six layouts with 10,000 agents, the policies reach throughput comparable to or higher than the strongest evaluated baseline on each layout, with average execution below 10 milliseconds per step. This suggests that shared inference can reduce the burden of repeatedly solving online planning problems while retaining performance under layout and population changes. However, many detailed population counts, throughput values, case counts, and comparison ratios are redacted in the supplied excerpt, so the magnitude of any per-layout advantage cannot be established here. Because the policies are trained by layout class, generalization to terrain outside those classes, extreme congestion, long-range dependencies, or different collision rules remains unestablished by the provided evidence.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>LMAPF continues after a goal is completed: an agent receives another task and remains part of the traffic stream. Prior work includes windowed planning, priority inheritance and backtracking, large-neighborhood refinement, congestion-aware guide paths, and learned action preferences combined with planners. The paper positions itself against approaches that depend on future planning, planned demonstrations, or a separate planner by learning traffic guidance directly from throughput. Its target is a compact policy whose computation is shared across agents rather than a collection of independently growing parameters.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Given a fixed map and agent population, the system must choose joint movements at every timestep, avoid collisions, and maximize the long-run average number of completed goals. Since a new task is assigned after each completion, there is no terminal configuration in which all goals have been finished. Large populations, changing traffic, and different obstacle arrangements make both coordination quality and computation difficult. The desired policy must therefore preserve throughput while remaining fast and transferable.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The shared-spatial-field network is reported to contain 39,615 parameters, with six additional scalars in the route operator and allocation mechanism. Soft distances provide fixed geometric information by exponentially weighting walk lengths to a goal; they contain neither traffic information nor learned parameters. The route operator reweights this reference law at a learned temperature and obtains a first-action marginal from route continuations whose extent is bounded independently of map size. Sinkhorn-style allocation continuously adjusts competing destination demands inside the navigation policy.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>Training uses mixtures of small tiles and produces separate policies for structured and unstructured layout classes. The unstructured mixture contains random maps, dumbbell layouts, and street crops from Denver, Moscow, Boston, and Milan, while Berlin and Paris are excluded. The study evaluates transfer to larger maps outside the training pools, population changes, route-continuation depth, and retrained controls that remove destination allocation. The excerpt omits some map dimensions, population values, iteration counts, and case counts, so those experimental conditions cannot be reconstructed completely.</p></section>
+<section class="secsum"><h3>Results</h3><p>The abstract states that, on six layouts with 10,000 agents, the proposed policies obtain throughput comparable to or higher than the highest-throughput evaluated baseline on each layout. Average execution is below 10 milliseconds per step and is more than an order of magnitude faster than several established planners. The exact layout-by-layout scores, baseline gaps, some population values, and the precise speed ratios are masked in the supplied evidence and therefore cannot be asserted. Destination allocation is described as contributing more on a random map with 20 percent obstacles than on one with 10 percent obstacles, but the complete population comparison is not provided.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper presents a throughput-trained reinforcement-learning policy for LMAPF that combines a shared spatial field with goal-conditioned route selection and differentiable destination allocation. Its main conclusion is that policies trained on mixtures of small maps can be reused on larger unseen maps and new populations without planner demonstrations, an online planner, or retraining for every layout. Based on the supplied evidence, the headline performance and speed claims are supported at the abstract level, but the detailed strength of the comparisons cannot be independently determined.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The excerpt replaces several reported values with dashes, preventing reconstruction of exact agent populations, throughput scores, case counts, and speed comparisons. Training is organized by layout class, so behavior on maps far outside the training classes or on distributions that cannot be assigned reliably to a class is not established. The four-connected grid, POGEMA soft-collision model, fixed soft-distance reference, and bounded continuation depth also define important limits of applicability. Safety, robustness, and transfer to physical robots, alternative collision models, or extreme task streams are not demonstrated by the supplied material.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>In large-scale LMAPF, the cost of updating every movement decision can determine whether a system is usable in real time, making shared computation an important design choice. Directly rewarding throughput lets the policy learn collective completion behavior under congestion rather than merely imitate individual routes. If the reported transfer is reproducible, small-map training could reduce the need for facility-specific planning or data collection. The approach is therefore relevant to both scalable learned coordination and comparisons between planning and policy execution costs.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suited to researchers studying large-scale LMAPF, average-reward reinforcement learning, shared representations, and multi-agent coordination under congestion. It is especially relevant for readers comparing planner and policy runtime, map transfer, and differentiable allocation mechanisms. Readers who require exact numerical comparisons or evidence from physical deployment should consult the complete paper and appendices, because the supplied excerpt omits several conditions and detailed values.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-15
+  </footer>
+</div>
+</body>
+</html>

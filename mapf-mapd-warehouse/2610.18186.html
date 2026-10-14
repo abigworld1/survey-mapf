@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.18186.en.html" lang="en">English</a></nav>
+  <h1>Reinforcement Learning for Large-Scale Lifelong Multi-Agent Path Finding with Shared Spatial Fields</h1>
+<p class="meta">共有空間場を用いた大規模・生涯型マルチエージェント経路探索のための強化学習</p>
+  <div class="meta">Jean Seong Bjorn Choe<br>採択先: 未取得 ・ 2026-10-13 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.18186v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.18186v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-10-13</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 8</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、大規模な生涯型マルチエージェント経路探索（LMAPF）で、変化する交通状況や多様なレイアウトに対して高速に移動判断を行う強化学習方策を提案する。共有空間場、目標条件付き経路選択、目的地割当を組み合わせ、スループットを直接報酬として学習した方策を小規模地図から未見の大規模地図へ転移し、評価されたベースラインに匹敵またはそれ以上のスループットを、1ステップ10ミリ秒未満の平均実行時間で達成したと報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、エージェントが現在の目的地を達成するたびに新しい目的地を受け取り、運用が終端せずに続くLMAPFである。各時刻に多数のエージェントの衝突を避けながら移動を決める必要があり、人口が増えるほど計算量が大きくなる一方、物流やリアルタイムゲームでは判断時間が限られる。さらに、施設やゲームごとに障害物、通路、交差点の形状が異なるため、単一地図に過適応せず、異なるレイアウトとエージェント人口に再利用できる方策が求められる。論文はこの課題を、長期的な目的達成率と1ステップ当たりの計算コストを同時に重視する問題として扱う。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主な新規性は、地図全体と全エージェントの状態から畳み込みネットワークで共有空間場を1時刻1回だけ計算し、それを各エージェントの目標条件付き経路選択に再利用する方策である。経路選択はソフトな距離に基づく参照分布を学習した誘導で再重み付けし、複数エージェントが同じセルを目指す競合を、疎な目的地割当で調整する。方策全体をスループット報酬の平均報酬強化学習で端から端まで訓練し、計画法によるデモや別個のオンライン経路プランナを必要としない点も重要である。構造化レイアウト用と非構造化レイアウト用に小規模地図の混合で1方策ずつ学習し、同じクラスの未見の大規模地図と新しい人口へ再訓練なしで転移する設計を示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LMAPFは、障害物セルを通行不可とした4近傍グリッド上の継続型マルコフ意思決定過程として定式化される。状態には地図、エージェント位置、目標情報、直前の移動、タスク継続時間、タスクストリームの状態が含まれ、行動は全エージェントの同時移動提案である。移動はPOGEMAのソフト衝突規則に従い、同一セルの占有や1ステップでの位置交換を防ぐ。報酬はその時刻に完了した目標数であり、平均報酬学習は終端状態のない継続運用で持続スループットを直接最適化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、未見レイアウト上のスループットと1ステップ実行コストを測定し、エージェント人口を変えた転移も調べた。構造化および非構造化方策について、3つの訓練シードの最終平均チェックポイントを用い、ケースをシード内で平均してからシード平均を等重みで集約した。比較対象にはPIBT、RHCR、WPPL、LLLG、TrafficFlowなどの非学習計画法に加え、SILLM、OnlineGGO、Followerが含まれる。評価プロトコル、タスクストリーム、ロールアウト長は、比較対象の一つであるSILLMの公開プロトコルに合わせたとされる。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>抽象では、6レイアウトと10,000エージェントの評価で、提案方策が各レイアウトの最も高スループットな評価ベースラインに匹敵または上回り、平均実行時間が1ステップ10ミリ秒未満だったと報告される。これは、オンライン計画を毎回解く方式より計算負荷を抑えつつ、地図と人口の変化に対応できる可能性を示す。いっぽう、提示された抜粋では多くの具体的な人口、ケース数、スループット値、比較倍率が伏せられており、どのレイアウトでどの程度優位だったかは確定できない。方策はレイアウトのクラスごとに訓練されるため、未知の地形が訓練クラスから外れる場合の一般化、極端な混雑、長い経路依存、衝突規則の違いについては、この抜粋だけでは評価できない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>LMAPFでは、エージェントが目標を達成してもタスクが終わらず、次の目標を受け取って移動を継続する。従来研究には、時間窓付き計画、優先度継承とバックトラッキング、大近傍探索、混雑を考慮した誘導経路、学習した行動選好と計画法を組み合わせる方式などがある。本稿は、こうした方法が将来の計画やデモンストレーションを利用するのに対し、スループットから直接学習する高速な方策を目指す。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>固定地図とエージェント集合に対し、各時刻の状態から全エージェントの移動を決め、衝突を避けながら長期平均の目標完了数を最大化する。目標達成時には新しいタスクが割り当てられるので、全目標が完了する終端構成はない。大規模人口、変動する交通、異なる障害物配置のすべてが、計算量とスループットの両面で難しさを生む。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>共有空間場のネットワークには39,615個のパラメータがあり、経路演算子と割当にはさらに6個のスカラーがあると記載される。ソフト距離は目標までの歩行経路長を指数重み付けして得る固定の幾何情報で、交通情報や学習パラメータは含まない。経路演算子はこの参照分布を学習温度で再重み付けし、一定範囲の経路継続から最初の移動の周辺分布を求める。Sinkhorn型の割当は、競合する移動提案を連続的に調整する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>訓練データには小さなタイルの混合が使われ、構造化クラスと非構造化クラスで別々の方策が学習される。非構造化混合にはランダム地図、ダンベル型レイアウト、Denver、Moscow、Boston、Milanの街路切片が含まれ、BerlinとParisは除外された。評価では、訓練プール外の大きな地図、人口変更、経路継続深さ、目的地割当を除いた再訓練対照が扱われた。抜粋には一部の地図寸法、人口、反復数、ケース数が欠落している。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提案方策は、抽象で明示された6レイアウトと10,000エージェントの評価において、最強の評価ベースラインに対して同等以上のスループットを達成したとされる。平均実行時間は1ステップ10ミリ秒未満で、複数の既存プランナより1桁以上高速だった。より細かなレイアウト別数値、ベースラインとの差、人口の一部、速度の正確な倍率は、供給された抜粋ではマスクされているため確定できない。目的地割当は、より障害物の多い20パーセント障害物ランダム地図で、10パーセント障害物地図より大きく寄与したと説明されるが、提示された抜粋では完全な人口比較値は示されない。</p></section>
+<section class="secsum"><h3>結論</h3><p>論文は、共有空間場と目標条件付き経路選択を組み合わせた、スループット直接最適化型の強化学習LMAPF方策を提示する。小地図の混合で学習したクラス別方策を大きな未見地図と新しい人口へ転用し、計画法や模倣データなしで高速な判断を行うことが中心的な結論である。供給された証拠に基づけば、性能と速度の主張は抽象レベルでは支持されるが、詳細な比較の強さは判断できない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>抜粋は、評価値の一部をダッシュで置き換えており、正確な人口、スループット、ケース数、速度倍率を再現できない。方策は構造化と非構造化というクラス単位で訓練されるため、クラス分類や訓練分布から大きく外れた地図への挙動は未確立である。ソフト衝突規則、4近傍グリッド、固定されたソフト距離参照、有限の経路継続範囲も適用範囲を制約する。現実のロボット、異なる衝突モデル、極端なタスク分布での安全性や転移性能は、この資料からは確認できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>大規模LMAPFでは、毎ステップの計画コストが運用可能性を左右するため、共有計算を人口に依存しにくい形で再利用する設計は実用上重要である。スループットを直接報酬にすることで、個々の経路の模倣ではなく、混雑下の集団的な完了率を学習対象にできる。小規模訓練から未見の大規模地図へ転移できるという主張が再現されれば、施設ごとの再計画やデータ作成の負担を軽減しうる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模LMAPF、平均報酬強化学習、共有表現、混雑下のマルチエージェント制御に関心のある研究者に適している。特に、計画法と学習方策の実行コスト、地図転移、微分可能な割当を比較したい人に有用である。ただし、詳細な数値検証や現実環境での安全性を重視する読者は、完全な論文と付録で欠落した条件を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-15
+  </footer>
+</div>
+</body>
+</html>
