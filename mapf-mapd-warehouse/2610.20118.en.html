@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2610.20118.html" lang="ja">日本語</a></nav>
+  <h1>The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control</h1>
+
+  <div class="meta">Sabino Roselli, Alvin Combrink, Ze Zhang<br>Venue: Unknown ・ 2026-10-14 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.20118v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2610.20118v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-10-14</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv PDF)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv PDF).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> A continuous-time MAPF schedule can be optimal on paper yet fail under realistic closed-loop control because it leaves almost no room for delay or tracking error. The study shows that temporal separation between agents can substantially improve execution reliability and tracking at a moderate schedule-cost increase, while spatial footprint inflation has a different and weaker effect in the tested settings.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies a two-layer fleet-coordination architecture in which a high-level MAPF scheduler assigns timed, conflict-free paths and a low-level controller attempts to execute them. Continuous-time optimal planning can obtain lower sum-of-costs than discrete-time planning by scheduling agents with nearly zero temporal or spatial separation and by using highly connected graph abstractions. Such schedules are vulnerable when the assumptions used by the scheduler—constant speed, instantaneous acceleration and deceleration, and no time spent turning—do not match the motion realized by the controller. Delays and tracking errors can change the order in which agents reach shared locations, causing local avoidance behavior to disrupt the rest of the schedule. The central question is how much schedule optimality must be exchanged for reliable execution in a controller-in-the-loop system.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The authors integrate AOC-CBS, an anytime-optimal continuous-time MAPF solver, into a fleet framework whose agents track timed paths with model predictive control. They study two ways of buying back executability: a temporal margin requiring a minimum time gap between agents at shared locations, and spatial inflation of the agent footprint. The evaluation relates planned sum-of-costs, closed-loop execution success, and deviation from the scheduled position across constrained and open MovingAI environments and several graph abstractions. The resulting characterization argues that continuous-time MAPF should be evaluated with a controller in the loop, rather than by schedule quality alone. The supplied excerpt does not establish a comprehensive quantitative comparison against all prior solvers or all relevant baselines.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>Scheduling uses AOC-CBS, which is based on continuous-time OC-CBS and Conflict-Based Search. It produces an incumbent solution early and progressively refines it during the runtime budget, eventually converging toward an optimal solution when it can. The scheduler is constrained to enforce a specified conflict-time margin, and a separate parameter changes the radius used for spatial collision reasoning. For each agent, the controller solves a finite-horizon MPC problem that combines reference tracking, static-obstacle avoidance, and collision avoidance with other agents. The controller uses a motion model with bounded velocity, angular velocity, and their rates of change, while the numerical integration step is 0.2 seconds. A desired speed and a resampled reference trajectory are generated from the agent’s current situation before the MPC action is computed.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The experiments use the MovingAI maps maze-32-32-2 and empty-16-16, with start-goal pairs from random scenario 1. The maze is a constrained environment with narrow corridors, whereas the empty map provides substantial room for local conflict resolution. Each map is converted into graph inputs using a 4-connected grid, an 8-connected grid that also permits diagonal edges, and a sampled roadmap, producing different connectivity and turning possibilities. The tested instances contain 21 to 40 agents, and results are generally aggregated over five seeds. A scheduler success is an AOC-CBS solution returned within a 60-second budget; an MPC success requires every agent to reach its goal without collision and without being more than 30 seconds late at any node. The excerpt does not provide every instance count or every condition in the full experimental matrix.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>With no temporal margin and no spatial inflation, schedule-level optimality is a poor predictor of execution under the tested MPC: only 50 to 55 percent of runs complete on empty-16-16, compared with 20 to 23 percent on maze-32-32-2, and mean deviation is 0.95 to 1.02 meters versus 2.78 to 3.51 meters. On the 4-connected maze, increasing the temporal margin from 2 to 5 raises execution success by 28 to 41 percentage points and increases sum-of-costs by approximately 17 to 21 percent. Increasing the margin to 10 continues to help, but the cost increase reaches 37 to 57 percent for a much smaller additional success benefit, while the open map benefits less from further increases. Spatial inflation from radius 0.35 to 0.7 costs at most 1.6 percent in planned sum-of-costs, leaves schedule deviation essentially unchanged, and has a limited, nonuniform effect on execution success; only 6 of 72 paired comparisons were significant after correction. Increased radius could worsen results on the maze because lateness, rather than collision clearance alone, dominates the failure budget. Thus, temporal and spatial margins behave more like substitutes than compounding complements, and the appropriate control depends on the environment and the controller’s available maneuvering room rather than solely on the MAPF solver.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical discrete-time MAPF commonly assumes that every edge takes one time unit and that graph-separated agents do not conflict. Modern solvers can plan for hundreds or thousands of agents, but typical evaluation emphasizes finding a schedule within a time budget and completing the assigned tasks. Continuous-time solvers can exploit exact timing and richer graph connectivity, potentially reducing schedule cost. However, a schedule that is valid under an idealized motion model need not remain executable when a feedback controller must handle acceleration limits, turning behavior, delays, and interactions with other agents. This motivates treating executability as a separate property of a MAPF solution.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The workspace is two-dimensional and is abstracted into a finite, strongly connected, weighted, directed graph. Each agent has a start and goal location, and the scheduler supplies a timed path intended to avoid conflicts. The actual agent follows that reference through a controller subject to motion constraints and must also avoid static obstacles and other agents. If an agent falls behind, the ordering on which later schedule decisions depend can be invalidated, potentially producing a blocking stall. The paper therefore asks how temporal and spatial clearance can absorb execution error without making planning prohibitively expensive.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Cells are scaled to size 2 in the reported setup. Four-connected graphs primarily require 90- or 180-degree turns, while eight-connected graphs add diagonal edges and 45-degree turning opportunities. The controller limits velocity to the interval from -0.1 to 1.5, bounds the absolute angular velocity by 0.5, the absolute velocity rate by 1, and the absolute angular-velocity rate by 3. The MPC objective has reference-tracking, obstacle-avoidance, and fleet-collision-avoidance components. The spatial study changes the radius from 0.35 to 0.7, while the temporal study tests margins including 2, 5, 10, 15, 20, and 30 in the reported maze analysis.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experimental sweep combines two maps, several graph constructions, agent populations from 21 through 40, five seeds, and separate or combined changes to time margin and agent radius. To reduce repeated computation, larger-margin runs are performed only for instances that did not fully succeed at a smaller margin; this means later solve rates are measured on progressively smaller and harder subsets. The scheduler success rate is distinct from the MPC execution success rate: the former concerns returning a schedule within 60 seconds, while the latter concerns collision-free, timely completion by all agents among scheduler-solved instances. Runs were conducted on an AMD Ryzen 9 9950X3D 16-core processor with 126 GB of RAM under Ubuntu 26.04 LTS. The authors state that the framework, AOC-CBS and MPC implementation, instance generation, and experiment code are publicly available at the repository URL given in the evidence.</p></section>
+<section class="secsum"><h3>Results</h3><p>The unconstrained baseline completes only about half of the open-map runs and about one-fifth of the maze runs. On the 4-connected maze, moving from temporal margin 2 to 5 improves success by 28 to 41 percentage points at an approximate 17 to 21 percent sum-of-cost increase. Margin 10 reduces deviation further, but the planned-cost increase grows to 37 to 57 percent and the marginal success return becomes much smaller. Radius inflation from 0.35 to 0.7 adds no more than 1.6 percent to planned sum-of-costs, yet leaves deviation nearly unchanged; only 6 of 72 paired comparisons are significant after correction. At margin 10 on the maze’s 4-connected grid, AOC-CBS solves 92 of 100 instances, while the reported solve rates on the progressively selected subsets are 71 percent of 35 instances at margin 15, 40 percent of 20 at margin 20, and 23 percent of 13 at margin 30.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The study concludes that continuous-time schedule optimality alone is insufficient evidence of practical executability under closed-loop control. A temporal margin provides room for agents to absorb delay and remain close to the planned schedule, especially in constrained environments. Spatial inflation is inexpensive in planned cost and can provide clearance, but it does not generally correct schedule drift or lateness in the tested conditions. The best operating point is therefore a frontier with a pronounced knee: beyond a moderate temporal margin, cost and scheduling difficulty grow faster than execution benefit. The authors propose future execution-management layers that can reorder agents online, allowing the original schedule to carry less slack while retaining practical executability.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The evidence covers only two MovingAI maps, a particular range of agent counts, one reported MPC design, selected graph abstractions, and a fixed lateness threshold. It does not establish generalization to other robot dynamics, sensing errors, communication delays, hardware platforms, environments, or controller designs. AOC-CBS is nondeterministic under the time budget: repeated identical runs differ in success rate 20 percent of the time and have a median cost difference of 0.5 percent; when it does not converge, a cost difference can be negative. Since larger margins are evaluated only on instances that failed at smaller margins, their solve rates are subject to subset selection and should not be read as a simple matched comparison. The supplied excerpt also does not specify complete confidence intervals, all statistical procedures, or direct comparisons with alternative MAPF solvers.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The paper makes a concrete case for reporting execution reliability alongside MAPF schedule cost. Temporal slack is treated not merely as a formal collision constraint but as a resource that gives a feedback controller time to absorb delay and preserve the intended ordering. The distinction between temporal and spatial margins helps separate two failure mechanisms: loss of schedule timing and insufficient physical clearance. For researchers working on dense traffic, narrow corridors, or continuous-time coordination, the results provide a practical evaluation lens for deciding where a fleet should operate on the optimality-reliability frontier.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suited to researchers in continuous-time MAPF, robust multi-agent planning, multi-robot coordination, and the integration of planning with model predictive control. It is especially relevant to readers who use MovingAI-style benchmarks and want to measure whether planned schedules survive closed-loop execution. Readers seeking evidence on physical-robot deployment or broad superiority claims should treat those claims as unestablished by the supplied excerpt. It can also serve as a starting point for studies of online execution management and adaptive slack allocation.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv PDF) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-16
+  </footer>
+</div>
+</body>
+</html>

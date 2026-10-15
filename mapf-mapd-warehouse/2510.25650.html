@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Collision avoidance and path finding in a robotic mobile fulfillment system using multi-objective meta-heuristics | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2510.25650.en.html" lang="en">English</a></nav>
+  <h1>Collision avoidance and path finding in a robotic mobile fulfillment system using multi-objective meta-heuristics</h1>
+<p class="meta">多目的メタヒューリスティクスを用いたロボット移動フルフィルメントシステムにおける衝突回避と経路探索</p>
+  <div class="meta">Ahmad Kokhahi, Mary Kurz<br>採択先: 未取得 ・ 2025-10-29 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2510.25650v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2510.25650v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-10-29</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、ロボット移動フルフィルメントシステム（RMFS）で稼働するAGVについて、衝突回避とタスク割当を、走行時間だけでなくエネルギー消費も含めて多目的に扱う。提案した修正版A*、エネルギーを考慮する優先規則、NSGA-IIおよびALNSによるタスク割当は、提示された計算実験においてベンチマークより良いパレート解評価を示したと報告される。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、倉庫内でポッドを搬送し、作業ステーションと保管場所の間を移動する複数AGVの運用である。RMFSでは、AGV同士の正面衝突、交差衝突、同一地点への滞留に伴う衝突を避けながら、複数の搬送タスクをAGVへ割り当てる必要がある。従来のMAPF研究が衝突数や移動時間を重視してきたのに対し、本論文はAGVの負荷状態に依存するエネルギー消費を運用評価へ加える。研究対象は仮想的なRMFSであり、実倉庫での導入結果を直接示すものではない。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、走行時間とエネルギー消費を考慮して衝突時の優先順位を決める新しい衝突回避方策を提案する。第二に、タスク割当について、エネルギー、走行時間、衝突リスク、距離を同時に扱うNSGA-IIベースの手法と、多目的化したALNSを提示する。第三に、タスク数をAGV間で均衡させるARCオペレータを導入した点を、NSGA-IIとALNSの性能差に関係する要素として説明する。著者らは、AGVの衝突解決におけるエネルギー利用を扱った先行研究は見当たらないと述べるが、提示された抜粋だけではその文献調査の網羅性を独立に確認できない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>問題は、AGV、位置、作業ステーション、タスク位置、積載状態、時間、空間時間ネットワーク上の移動を表す数学モデルとして定式化される。目的関数は、全AGVの総走行時間、AGV間の最大走行時間、総エネルギー消費、最大エネルギー消費の四つである。経路探索では、開始位置から目的地までの距離だけでなく時間を含む状態を探索する修正版A*を使い、経路上の衝突には待機、後退、迂回に相当する処理と優先規則を適用する。タスク割当では、NSGA-IIとALNSを用いてパレート解集合を探索し、ALNSは近傍生成、オペレータ重み更新、受理判定などを多目的設定に合わせて変更する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、13個のシナリオについて、提案優先規則とベンチマーク優先規則の経路結果を比較する形で行われる。タスク割当についても、5、8、10台のAGVを含むシナリオが提示され、提案版とベンチマーク版のNSGA-IIおよびALNSを比較する。主な指標は、目的空間でパレート前線が占める領域を測るハイパーボリューム（HV）と、一方の解集合が他方の解集合をどの程度支配するかを表す被覆サイズ（CSS）である。抜粋にはHVおよびCSSの結果表が含まれるが、全データ、乱数設定、反復回数、計算時間、統計的検定、実機または実倉庫での検証は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、提案した優先規則が13シナリオの平均HVでベンチマークをわずかに上回ったと読めるため、衝突処理にエネルギーと時間を含めることがパレート品質を改善し得ることを示す。タスク割当では、提案版ALNSと提案版NSGA-IIが既存版より広く支配的であり、結論ではNSGA-IIがALNSより良好だったと説明される。もっとも、HVの差が実運用上どれほど意味を持つか、エネルギー削減が充電回数、スループット、費用へどう波及するかは、抜粋の計算結果だけでは確定しない。現在のモデルは動的な注文到着、電池容量、充電方策を十分に扱わず、将来課題としてこれらを含むリアルタイム最適化が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>EC物流の拡大により、注文を迅速に処理する倉庫運用の重要性が高まっている。RMFSは、作業者が商品を探しに移動する方式と異なり、AGVがポッドを作業ステーションへ搬送することで、経路を動的に調整できる。したがって、経路計画、衝突回避、タスク割当は、運用レベルの主要な意思決定問題となる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>複数AGVが同時に移動すると、正面、交差、滞留型の衝突や、狭い通路内でのデッドロックが発生し得る。単に最短距離や総時間を最小化すると、AGVの積載状態によるエネルギー差を無視する可能性がある。本論文は、衝突解決とタスク割当を統合的に考え、時間とエネルギーの総量および最大値を抑えることを問題として扱う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>数学モデルでは、AGVの位置、時間、積載状態、タスク処理順序、タスクへの割当、ポッドの取得と返却を表現する。四目的は総走行時間、最大走行時間、総エネルギー、最大エネルギーであり、すべてを多目的最適化の対象とする。修正版A*は位置と時刻の組を候補状態として評価し、衝突による損失時間を経路の時刻へ反映する。狭い通路で新たなAGVとの衝突が生じる場合はデッドロックとして扱い、優先規則で解消を試みる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>経路・優先規則の実験では、タスク数とAGV台数が異なる13シナリオについて平均値を比較した。タスク割当の実験では、5、8、10台のAGVを含む条件で、提案版とベンチマーク版のALNSおよびNSGA-IIを評価した。評価にはHVとCSSを用い、パレート前線の広がりと解集合間の支配関係を測った。正確な地図寸法、各処理時間、エネルギー係数、実験の反復条件は、提供された抜粋では判別できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>優先規則のHVは、提示された各条件で提案版がベンチマーク版を上回っている。タスク割当のCSS結果は、提案手法が対応する既存手法を強く支配する関係を示す一方、CSS表の全行・列の意味は抜粋の欠落により完全には再構成できない。論文の結論では、NSGA-IIがALNSより良く、ARCオペレータによるタスク数の均衡が理由の一つとされる。実際の時間、エネルギー、スループットの改善量や有意差は、提示証拠からは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、RMFSのMAPFにエネルギー消費を組み込むことで、衝突回避とタスク割当をより運用的な多目的問題として扱った。修正版A*とエネルギー指向の優先規則、NSGA-IIおよびALNSによる割当は、仮想シナリオでベンチマークを上回るパレート評価を示したとされる。特に、著者らはNSGA-IIとARCオペレータの有効性を強調している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提供された本文は数値や実験条件の一部が欠落しており、再現に必要な倉庫寸法、エネルギーモデル、ハイパーパラメータをすべて確認できない。評価は計算上の仮想RMFSに基づき、動的な注文、電池制約、充電待ち、通信遅延、実機の挙動を明示的には検証していない。優先規則が混雑度の高い大規模環境や予測不能な到着へどう対応するかも不明である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFの評価軸を衝突数と時間からエネルギーまで拡張し、衝突解決そのもののエネルギー影響を考慮する点に意義がある。AGVの移動時間、負荷状態、タスク配分を同じ多目的枠組みで検討するため、倉庫の運用効率と電池運用を接続する視点を提供する。ただし、現場導入の効果は追加の実証が必要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>RMFS、MAPF、AGV経路計画、倉庫タスク割当を研究する読者に適している。多目的メタヒューリスティクス、NSGA-II、ALNS、エネルギーを考慮した衝突回避の組合せを概観したい場合にも有用である。実システムの性能保証や厳密な再現結果を求める読者は、完全な本文と追加実験を確認すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-16
+  </footer>
+</div>
+</body>
+</html>

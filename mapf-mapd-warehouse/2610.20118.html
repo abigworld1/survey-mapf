@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.20118.en.html" lang="en">English</a></nav>
+  <h1>The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control</h1>
+<p class="meta">実行可能性のコスト：閉ループ制御下の連続時間マルチエージェント経路探索における時間マージン</p>
+  <div class="meta">Sabino Roselli, Alvin Combrink, Ze Zhang<br>採択先: 未取得 ・ 2026-10-14 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.20118v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.20118v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-10-14</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv PDF)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv PDF)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 連続時間MAPFでスケジュールの和コストを最小化しても、現実的なモデル予測制御の下では実行に失敗し得る。本研究は、共有地点での時間間隔を確保する時間マージンが、比較的小さなスケジュールコスト増で実行成功率と追従性を改善し、空間的なエージェント半径拡大とは異なる効果を持つことを示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有空間内を移動する複数ロボットに対して、上位のMAPFスケジューラが衝突のない時間付き経路を作り、下位の制御器がそれを追従する二層構成である。連続時間の最適スケジュールは、エージェント間の時間的・空間的分離をほとんど設けず、高い接続性を持つグラフを利用することで、離散時間の計画より低いコストを得られる場合がある。しかし、瞬時の加減速や一定速度などの計画上の仮定が実際の運動と一致しないと、遅延や追従誤差によってスケジュールの順序が崩れる。論文の中心的な問いは、スケジュールの最適性と、閉ループ制御下で最後まで実行できる信頼性との間にどのようなトレードオフがあるかである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、AOC-CBSという連続時間MAPFソルバを、各エージェントをモデル予測制御で動かすフリート協調フレームワークに組み込んだ。第二に、時間マージン、すなわち共有地点を通過するエージェント間の最小時間間隔と、エージェントの空間的フットプリント拡大を、実行可能性を買い戻す二つの手段として比較した。第三に、MovingAIの異なる環境とグラフ抽象化を用いて、計画コスト、実行成功率、スケジュールからの位置偏差の関係を評価した。これにより、計画段階だけでなく制御器をループ内に置いて連続時間MAPFを評価すべきだという実験的な論点を提示している。提示された抜粋だけでは、既存研究に対するすべての定量的な優位性や、他のソルバとの包括的比較が確立されているわけではない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>スケジューラには、Conflict-Based Searchを基礎とするanytime-optimalな連続時間ソルバAOC-CBSを用いる。このソルバは実行途中で暫定解を返し、時間とともに解を改善して最終的に最適解へ収束する設計である。計画側では、共有地点での衝突を避ける通常の制約に加え、エージェント間に指定した時間マージンを要求する。また、エージェント半径を拡大して、空間的なクリアランスを計画上確保する。制御側では、各エージェントが現在の状態と参照軌道から有限ホライズンのMPC問題を解き、参照追従、障害物回避、他エージェントとの衝突回避を同時に扱う。計画は一定速度、瞬時の加減速、旋回時間なしを仮定する一方、制御器は速度・角速度・それらの変化率に制約を持つ動力学モデルを用い、時間刻み0.2秒で数値積分される。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価にはMovingAIのmaze-32-32-2とempty-16-16を用い、それぞれのrandom scenario 1から開始・目標ペアを選んだ。前者は狭い通路を含む制約の強い環境、後者は開けた環境として選ばれ、エージェント数は21から40である。地図からは、上下左右のみを接続する4近傍グリッド、斜め移動も許す8近傍グリッド、さらにサンプルされたロードマップという異なるグラフ構造を作る。AOC-CBSのスケジューラ予算は60秒で、MPCの実行成功は、全エージェントが衝突せず目標に到達し、いずれのノードでも30秒を超える遅延を示さないインスタンスとして定義された。報告された集計は通常、21から40エージェント、5シードにわたるものであり、実験条件の全組合せや完全なデータ数については抜粋だけでは確定できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>マージンなしでは、最適スケジュールを得ることが実行成功を保証しない。empty-16-16の完遂率はグラフ抽象化に応じて50から55パーセント、maze-32-32-2では20から23パーセントであり、平均位置偏差もそれぞれ0.95から1.02メートル、2.78から3.51メートルだった。maze-32-32-2で時間マージンを2から5へ増やすと、4近傍グリッドの成功率は28から41ポイント上昇する一方、和コストは約17から21パーセント増えた。マージン10ではさらに助けになるが、和コストの増加は37から57パーセントとなり、成功率の追加的な改善に対して割高になる。空間的な半径拡大は計画コストをほぼ増やさず、追従偏差をあまり変えないが、遅延が主な失敗要因である条件では時間マージンほど成功率を改善せず、maze-32-32-2では結果を悪化させる場合もあった。二つのマージンは相補的に効果を積み上げるというより代替的であり、必要な調整つまみはソルバより環境と制御器の余裕に依存する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>古典的な離散時間MAPFでは、各辺の通過時間を1単位とし、グラフ上で適切に分離されたエージェントは衝突しないと扱う。現代のMAPFソルバは大規模なエージェント集合に対して計画できるが、通常の評価は制限時間内の計画成功やタスク完了に重点を置く。連続時間計画はより細かな通過時刻を利用できる反面、ほとんど余裕のないスケジュールを作りやすい。ロボットの実際の運動を考慮すると、上位計画の衝突回避性と下位制御での実行可能性は別の性質になる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>研究対象は、2次元の障害物環境を有限の強連結な重み付き有向グラフに抽象化し、各エージェントを開始ノードから目標ノードへ移動させる問題である。スケジューラは時間付きの衝突回避経路を作るが、実際のエージェントは遅延、旋回、加減速、他エージェント回避の影響を受ける。計画が想定したノード通過順序が実行中に崩れると、局所的な回避が後続エージェントを止める可能性がある。論文は、このずれを計画側の余裕でどの程度抑えられるかを問う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>地図セルの大きさは2に設定され、4近傍接続では主に90度または180度の旋回、8近傍接続では45度旋回と異なる長さの対角辺が可能になる。MPCの車両モデルでは、速度は負0.1から1.5、角速度の絶対値は0.5以下、速度変化率の絶対値は1以下、角速度変化率の絶対値は3以下と抜粋に記載されている。計画と制御のインターフェースでは、現在状態から参照軌道を再サンプリングし、制御器が障害物と他エージェントを避けながら追従する。実験では空間半径を0.35から0.7へ変化させ、時間マージンと分けて効果を調べた。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は二つのMovingAI地図、複数のグラフ抽象化、21から40エージェント、5シードを組み合わせて行われた。時間マージンと半径は個別および組み合わせて掃引されたが、計算を抑えるため、ある条件で完全成功したインスタンスについて大きなマージンの再実行を省く手順が取られた。スケジューラ成功率は60秒以内にAOC-CBSが解を返した割合、MPC成功率はその中で衝突と30秒超の遅延なしに全エージェントが到達した割合である。実験はAMD Ryzen 9 9950X3D、126GB RAM、Ubuntu 26.04 LTS上で行われ、実装と実験コードの公開先も示されている。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>マージンなしの実行成功率は、開けたempty-16-16でも約半数にとどまり、狭いmaze-32-32-2では約2割だった。maze-32-32-2の4近傍グリッドでは、時間マージン2から5への増加が成功率を28から41ポイント改善し、和コスト増は約17から21パーセントだった。マージン10は追従偏差をさらに減らすが、和コスト増37から57パーセントに対して改善幅は小さい。半径0.35から0.7への空間拡大は和コスト増が最大1.6パーセントである一方、偏差はほぼ変わらず、72件の対応比較のうち補正後に有意だったものは6件だった。</p></section>
+<section class="secsum"><h3>結論</h3><p>連続時間MAPFのスケジュール最適性だけでは、閉ループ制御下での実行可能性を十分に表せない。時間マージンは、特に狭い環境で、スケジュールに依存する通過順序を保つための制御上の余裕を与える。最適性と信頼性の間には明確な折れ曲がりがあり、過度に大きなマージンは計画コストと解決困難性を急速に増やす。今後の方向として、実行中にエージェント順序を変更する管理層と、より少ない余裕で実行可能性を保つ方法が提案されている。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された抜粋は、二つの地図、特定のエージェント数範囲、特定のMPCモデルと遅延閾値に基づく結果であり、他の動力学、センサ誤差、通信遅延、実機ハードウェアへの一般化を確立していない。AOC-CBSは予算内で非決定的で、同一実行の20パーセントで成功率が異なり、収束しない場合にはコスト差が負になることもある。より大きなマージンの結果は、失敗した難しい部分集合だけで評価されるため、単純な条件間比較には選択バイアスがある。抜粋だけでは、すべての統計検定、信頼区間、ベースラインソルバとの直接比較、実機での検証結果は確定できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、MAPFの評価指標にスケジュールのコストだけでなく、制御器を通した実行成功率と追従偏差を含める必要性を具体化する。時間的余裕は、単に衝突を避けるための理論的制約ではなく、遅延を吸収して予定を維持する資源として解釈できる。空間的余裕と時間的余裕が異なる失敗モードに作用することは、環境に応じたロバスト性設計を考える上で有用である。特に、狭い通路や高密度な交通を扱うMAPF研究者に、最適性の報告と実行可能性の報告を分離しない評価視点を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>連続時間MAPF、ロバストMAPF、マルチロボット協調、モデル予測制御と経路計画の統合に関心がある研究者に適している。MovingAI系ベンチマークで、計画コストと閉ループ実行の関係を調べたい人にも向く。実機展開や異なるロボット動力学への一般化を求める読者は、提示された抜粋だけではその妥当性が確立されていない点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv PDF) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-16
+  </footer>
+</div>
+</body>
+</html>

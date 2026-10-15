@@ -7505,6 +7505,40 @@
       "url": "https://arxiv.org/abs/2510.19072",
       "venue": ""
     },
+    "arxiv:2510.25650": {
+      "added": "2026-10-16",
+      "added_at": "2026-10-16T08:35:15.623649",
+      "arxiv_id": "2510.25650",
+      "authors": [
+        "Ahmad Kokhahi",
+        "Mary Kurz"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-10-29",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2510.25650.html",
+      "file_en": "mapf-mapd-warehouse/2510.25650.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2510.25650v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Collision avoidance and path finding in a robotic mobile fulfillment system using multi-objective meta-heuristics",
+      "title_en": "Collision Avoidance and Path Finding in a Robotic Mobile Fulfillment System Using Multi-Objective Meta-Heuristics",
+      "title_ja": "多目的メタヒューリスティクスを用いたロボット移動フルフィルメントシステムにおける衝突回避と経路探索",
+      "tldr": "本論文は、ロボット移動フルフィルメントシステム（RMFS）で稼働するAGVについて、衝突回避とタスク割当を、走行時間だけでなくエネルギー消費も含めて多目的に扱う。提案した修正版A*、エネルギーを考慮する優先規則、NSGA-IIおよびALNSによるタスク割当は、提示された計算実験においてベンチマークより良いパレート解評価を示したと報告される。",
+      "tldr_en": "This paper treats collision avoidance and task assignment for automated guided vehicles in a robotic mobile fulfillment system as multi-objective problems involving travel time and energy consumption. It proposes a modified A* routing procedure, an energy-aware collision-priority rule, and NSGA-II and ALNS task-assignment methods; the reported computational experiments show better Pareto-front indicators than the stated benchmarks.",
+      "url": "http://arxiv.org/abs/2510.25650v1",
+      "venue": ""
+    },
     "arxiv:2511.07071": {
       "added": "2026-09-21",
       "added_at": "2026-09-21T07:57:56.253026",
@@ -9697,6 +9731,41 @@
       "tldr": "本稿は、大規模な生涯型マルチエージェント経路探索（LMAPF）で、変化する交通状況や多様なレイアウトに対して高速に移動判断を行う強化学習方策を提案する。共有空間場、目標条件付き経路選択、目的地割当を組み合わせ、スループットを直接報酬として学習した方策を小規模地図から未見の大規模地図へ転移し、評価されたベースラインに匹敵またはそれ以上のスループットを、1ステップ10ミリ秒未満の平均実行時間で達成したと報告する。",
       "tldr_en": "This paper proposes a reinforcement-learning policy for lifelong multi-agent path finding (LMAPF) that makes fast movement decisions under changing traffic and across different layouts. A shared spatial field, goal-conditioned route choice, and destination allocation are trained directly with throughput, and the reported policy transfers from small training maps to unseen larger layouts while achieving throughput comparable to or higher than the evaluated baselines with per-step execution below 10 milliseconds.",
       "url": "http://arxiv.org/abs/2610.18186v1",
+      "venue": ""
+    },
+    "arxiv:2610.20118": {
+      "added": "2026-10-16",
+      "added_at": "2026-10-16T08:33:52.535754",
+      "arxiv_id": "2610.20118",
+      "authors": [
+        "Sabino Roselli",
+        "Alvin Combrink",
+        "Ze Zhang"
+      ],
+      "basis": "fulltext(arxiv-pdf)",
+      "citations": 0,
+      "date": "2026-10-14",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.20118.html",
+      "file_en": "mapf-mapd-warehouse/2610.20118.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.20118v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control",
+      "title_en": "The Cost of Executability: Temporal Margins for Continuous-Time Multi-Agent Path Finding under Closed-Loop Control",
+      "title_ja": "実行可能性のコスト：閉ループ制御下の連続時間マルチエージェント経路探索における時間マージン",
+      "tldr": "連続時間MAPFでスケジュールの和コストを最小化しても、現実的なモデル予測制御の下では実行に失敗し得る。本研究は、共有地点での時間間隔を確保する時間マージンが、比較的小さなスケジュールコスト増で実行成功率と追従性を改善し、空間的なエージェント半径拡大とは異なる効果を持つことを示す。",
+      "tldr_en": "A continuous-time MAPF schedule can be optimal on paper yet fail under realistic closed-loop control because it leaves almost no room for delay or tracking error. The study shows that temporal separation between agents can substantially improve execution reliability and tracking at a moderate schedule-cost increase, while spatial footprint inflation has a different and weaker effect in the tested settings.",
+      "url": "http://arxiv.org/abs/2610.20118v1",
       "venue": ""
     },
     "doi:10.1007/978-3-031-68416-6_18": {
