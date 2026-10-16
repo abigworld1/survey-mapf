@@ -10905,6 +10905,40 @@
       "url": "https://arxiv.org/abs/2403.20300",
       "venue": "ICAPS 2024"
     },
+    "doi:10.1609/icaps.v36i1.42829": {
+      "added": "2026-10-17",
+      "added_at": "2026-10-17T08:16:49.658701",
+      "arxiv_id": "2509.08157",
+      "authors": [
+        "Viraj Parimi",
+        "Brian C. Williams"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-09",
+      "doi": "10.1609/icaps.v36i1.42829",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2509.08157.html",
+      "file_en": "mapf-mapd-warehouse/2509.08157.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.08157v3",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation",
+      "title_en": "Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation",
+      "title_ja": "反復的リスク配分によるリスク制約付きマルチエージェント視覚ナビゲーション",
+      "tldr": "本論文は、視覚環境で複数エージェントを移動させる際、高リスクのグラフ辺を事前に一律削除する代わりに、チーム全体のリスク予算を探索中に再配分する枠組みを提案する。報告された実験では、提案法は厳しい予算では安全な迂回路を選び、予算が緩むと短い経路を利用しながら、ベースラインより高い成功率を示す。",
+      "tldr_en": "This paper addresses multi-agent navigation from visual observations by treating risk as a shared global resource instead of permanently deleting risky graph edges. Its iterative allocation layer exchanges local risk budgets during Conflict-Based Search, producing the reported higher success rates and shorter travel under relaxed budgets while retaining conservative behavior under tight budgets.",
+      "url": "http://arxiv.org/abs/2509.08157v3",
+      "venue": "Proceedings of the International Conference on Automated Planning and Scheduling, 36(1):200-209, 2026"
+    },
     "doi:10.1609/icaps.v36i1.42842": {
       "added": "2026-09-19",
       "added_at": "2026-09-19T08:00:55.217897",

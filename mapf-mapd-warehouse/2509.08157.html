@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2509.08157.en.html" lang="en">English</a></nav>
+  <h1>Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation</h1>
+<p class="meta">反復的リスク配分によるリスク制約付きマルチエージェント視覚ナビゲーション</p>
+  <div class="meta">Viraj Parimi, Brian C. Williams<br>採択先: Proceedings of the International Conference on Automated Planning and Scheduling, 36(1):200-209, 2026 ・ 2025-09-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.08157v3" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.08157v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v36i1.42829" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Proceedings of the International Conference on Automated Planning and Scheduling, 36(1):200-209, 2026</span><span class="chip">公開日 2025-09-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、視覚環境で複数エージェントを移動させる際、高リスクのグラフ辺を事前に一律削除する代わりに、チーム全体のリスク予算を探索中に再配分する枠組みを提案する。報告された実験では、提案法は厳しい予算では安全な迂回路を選び、予算が緩むと短い経路を利用しながら、ベースラインより高い成功率を示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、複数エージェントが視覚的に豊かな環境でそれぞれの目標へ向かい、チーム全体の累積リスクをユーザー指定のグローバル上限以下に保つマルチエージェント経路探索である。各エージェントには開始地点と目標地点があり、高次元の視覚観測を用いて移動する一方、エージェント間の時空間衝突も解決しなければならない。単に個別の安全経路を見つけるだけでなく、衝突を避け、移動ステップを抑え、合計リスクを制約内に収めることが求められる。低レベルの視覚制御にはGoal-Conditioned Reinforcement Learning（GCRL）を用い、高レベルの計画にはConflict-Based Search（CBS）を用いる構成が前提となる。評価対象には二次元の障害物課題と、Habitat-Sim上の屋内視覚環境が含まれる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、論文がDelta-MAPFと呼ぶリスク制約付きMAPFの定式化と、標準的なCBSにIterative Risk Allocation（IRA）層を統合したことである。高リスクの辺をCBSの前に削除する従来の二値的な安全化と異なり、提案法は辺を残したまま、探索中にエージェントごとの局所リスク予算を変更する。論文では、実行不能性を素早く修復する貪欲な余剰・不足方式と、リスクを価格付き資源として扱う市場着想方式を調べる。これにより、固定された保守的経路だけでなく、グローバル予算に応じて安全性と効率を調整できる。提供された抜粋はこの設計と実験上の効果を示すが、新しい厳密な最適性定理までは確立していない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>低レベルの移動は、視覚観測との相互作用から学習した目標条件付き方策が実行する。学習済みのウェイポイントグラフ上で、CBSの各制約木ノードは、時空間制約、現在の単一エージェント経路、総コスト目的、局所リスク予算ベクトル、各経路の妥当性を保持する。最初にリスクを無視した初期経路と初期配分を計算し、その後、リスク制約付きRBA*で、現在の制約と予算を満たさないエージェントの経路を再探索する。ノードが現在の予算では実行不能になった場合、IRAは共有予算を離散的に再配分し、その分岐で探索を続ける。再配分に失敗した分岐は枝刈りされ、衝突が残る場合はCBSと同様の分割制約を生成する。全経路が衝突なしで、合計リスクがグローバル上限内に入ったときに共同計画を返し、そのウェイポイントを目標条件付き方策が実行する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、Fengらの中央障害物二次元課題と、Habitat-Sim上の四つのReplicaCAD屋内シーンを用いる。視覚タスクでは、四方向から得た一人称RGB観測を連結したパノラマ表現を入力し、行動空間は二次元課題と同じものを使う。五つの環境、エージェント数、難易度の条件について、各条件で開始・目標対を50個サンプリングし、合計1500問題を作成したと記載されている。指標は、衝突せずリスク制約も満たした実行の成功率、成功例に条件付けた平均ステップ数、累積リスクである。比較対象には制約付き探索、Lagrangian、Biobjective Searchなどのベースラインが含まれ、初期配分のアブレーションと、ROS2・Gazebo・Crazyflieを用いたシミュレーションおよび実機統合も報告される。正確なベースライン設定とすべての数値は、提供された抜粋には含まれていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>グローバル予算が厳しい場合、提案法はエージェントを広く安全な迂回路へ協調させ、予算が緩むと利用可能なリスクを使って短い経路を選び、移動時間を減らす。市場着想方式は、エージェント数が増えて密な相互作用が生じる場合に、価格を介して貪欲方式より配分を調整しやすいと報告される。貪欲方式はチーム全体の余剰リスクを利用できる一方、密な衝突を伴う相互作用の調整には苦労する。単一のグローバル予算は扱いやすい操作ノブだが、特定のエージェントへリスクが偏ることも許し得るため、予算を厳しくしてより保守的で均衡した解を促せる。提供された抜粋だけでは、計算時間、厳密な保証、視覚誤認識、通信遅延、急速に変化する障害物、学習分布外の方策挙動については確立されていない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>従来のMAPFには、高品質な解を得やすい一方でスケールしにくいCBSと、解の最適性を緩和してスケーラビリティを得るPriority-Based Searchなどがある。CBSは生涯計画や情報誘導型計画などにも拡張されており、GCRLは複雑な観測から多様な目標に対応するナビゲーション方策を学習できる。制約付き強化学習、Control Barrier Functions、Safe Multi-Agent Reinforcement Learningは安全性を扱う有力な道具だが、本論文は低レベル行動よりも高レベル経路計画でのリスク配分に焦点を置く。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>高リスクと判定されたグラフ辺を探索前に削除する方法は安全性を確保しやすいが、チーム全体のリスクが許容範囲内なら実行可能な任務まで不可能にし得る。固定された局所予算では、一方のエージェントに余剰があっても、別のエージェントへ融通できない。したがって、衝突を解消しながら、共有リスクを動的に配分し、グローバル上限を超えずに有用な高リスク経路を利用することが課題になる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>IRAはCBSの制約木ノードに局所リスク配分状態を追加し、現在の配分で実行不能になったときに再配分を試みる。RBA*は、ノードの制約とエージェントの現在のリスク予算を満たす単一エージェント経路を探索する。余剰・不足方式は利用可能な予算を不足エージェントへ移し、市場着想方式は価格で共有資源の利用を誘導する。局所予算は動的に変化するが、その合計はユーザー指定のグローバル上限に従う。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は中央障害物二次元マップと、Habitat-Sim上の四つのReplicaCADシーンで行われる。環境、エージェント数、難易度、開始・目標地点の距離を変え、合計1500問題を評価したと報告される。成功率、成功時の平均ステップ数、累積リスクを測定し、通常はルートで均一な初期配分を使い、別の初期化とのアブレーションも行う。提案方式は制約付き探索、Lagrangian、Biobjective Searchなどと比較され、複数CrazyflieをROS2、Gazebo、実機で動かす統合も試される。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>動的配分法は、グローバルリスク上限を守りながら、ベースラインより高い成功率を達成したと報告される。視覚タスクでは、EQUIRISとWALRISが厳しい予算でも高く、またはほぼ完全な成功率を保つと説明されるが、正確な割合は抜粋にない。予算を緩めると、5エージェントと10エージェントの双方で平均ステップ数が単調に減少し、迂回路から短い経路へ移ることが示される。WALRISは10エージェントでも高い成功率を維持し、密な相互作用で貪欲方式よりスケールしやすいとされる。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、共有リスク予算をCBS探索中に再配分することで、視覚MAPFにおける静的な高リスク辺削除の保守性を緩和する。エージェント間で局所予算を融通し、任務達成や短時間移動に役立つ場合だけリスクを受け入れながら、チーム全体の上限を維持する。二次元環境、写実的な視覚環境、複数ドローン統合の報告は、安全性と効率を調整でき、エージェント数にも対応できる可能性を示す。ただし、抜粋だけから評価環境外での普遍的な優越性や保証を結論づけることはできない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提供された抜粋には、IRA版CBSの完全な計算量解析、完全性や最適性の証明、再配分が成功する十分条件が示されていない。視覚認識の不確実性、学習分布外での方策失敗、通信制約、動的障害物への影響も明らかでない。市場方式の価格更新則、ベースラインの調整、実行時間、実機試験の規模、現実環境での失敗例についても情報が不足している。正確な成功率、ステップ数、リスク値がないため、改善幅と統計的信頼性は抜粋だけでは独立に評価できない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>災害対応、広域点検、環境モニタリングでは、危険な区域をすべて拒否すると、許容可能な総リスクで実行できる任務まで失敗し得る。本研究は、チーム全体のリスクを計画上の資源として扱い、安全性と効率を一つの予算で調整するシステム上の考え方を示す。学習された視覚制御と、記号的な衝突解決・リスク管理を分離しつつ接続する点は、実運用の安全方針を経路選択へ反映するうえで重要である。特に、すべてのエージェントに同じ保守性を要求するよりも、任務全体のリスクを重視したい設定に適している。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>視覚ナビゲーション、リスク認識MAPF、CBS拡張、マルチエージェント強化学習、学習型グラフ計画に関心のある研究者に適している。固定された安全マージンを共有可能で調整可能なリスク予算へ置き換えたい読者にとって有用である。形式的保証、厳密なベンチマーク比較、現実の不確実性下での安全性評価を必要とする読者は、抜粋にない条件を完全な論文と補足資料で確認する必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-17
+  </footer>
+</div>
+</body>
+</html>

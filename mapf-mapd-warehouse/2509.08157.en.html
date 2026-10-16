@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2509.08157.html" lang="ja">日本語</a></nav>
+  <h1>Risk-Bounded Multi-Agent Visual Navigation via Iterative Risk Allocation</h1>
+
+  <div class="meta">Viraj Parimi, Brian C. Williams<br>Venue: Proceedings of the International Conference on Automated Planning and Scheduling, 36(1):200-209, 2026 ・ 2025-09-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.08157v3" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2509.08157v3" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/icaps.v36i1.42829" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Proceedings of the International Conference on Automated Planning and Scheduling, 36(1):200-209, 2026</span><span class="chip">Published 2025-09-09</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper addresses multi-agent navigation from visual observations by treating risk as a shared global resource instead of permanently deleting risky graph edges. Its iterative allocation layer exchanges local risk budgets during Conflict-Based Search, producing the reported higher success rates and shorter travel under relaxed budgets while retaining conservative behavior under tight budgets.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is multi-agent path finding in visually rich environments. Each agent has a start and a goal, receives high-dimensional visual observations, and must reach its goal while the accumulated risk over the team remains within a user-specified global bound. The system must also resolve spatio-temporal conflicts between agents and keep paths efficient, rather than merely finding individually safe routes. The paper combines Goal-Conditioned Reinforcement Learning, which abstracts visual control and supports graph construction, with a high-level planner based on Conflict-Based Search. The evaluation ranges from a two-dimensional obstacle task to indoor scenes rendered in Habitat-Sim from first-person RGB observations.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is a risk-bounded MAPF formulation, called Delta-MAPF in the paper, together with an Iterative Risk Allocation layer integrated into a standard CBS planner. Unlike approaches that remove high-risk edges before CBS, the proposed planner retains those edges and redistributes per-agent risk budgets while search is under way. The paper studies two allocation strategies: a greedy surplus-deficit scheme intended to repair infeasibility quickly, and a market-inspired scheme that treats risk as a priced resource. This makes the safety-efficiency trade-off adjustable through one global budget instead of fixing every agent to a permanently conservative or aggressive policy. The supplied evidence supports this design and its empirical effects, but does not establish a new formal optimality theorem.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The low-level controller is a goal-conditioned policy learned from visual interaction. On the learned waypoint graph, each high-level CBS constraint-tree node stores spatio-temporal constraints, current single-agent paths, a sum-of-costs objective, a vector of local risk budgets, and indicators of which agents currently have valid paths. The planner first computes unconstrained initial paths and an initial allocation, then uses a risk-constrained RBA* planner to find valid paths for agents whose current paths do not satisfy their constraints and risk budgets. If a node becomes infeasible, the IRA layer attempts a discrete reallocation of the shared budget and continues search in the resulting branch; failure to reallocate causes that branch to be pruned. Remaining collisions are handled with CBS-style disjoint split constraints. A solution is returned only when all paths are collision-free and their aggregate risk respects the global limit, after which the underlying goal-conditioned policy executes the generated waypoints.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation covers the Central Obstacle two-dimensional navigation task and visually rich indoor environments based on four ReplicaCAD scenes in Habitat-Sim. Visual agents receive first-person RGB observations from the four cardinal directions concatenated into a panoramic representation, while the action space follows the two-dimensional setting. Across five environments, agent-count settings, and difficulty levels, the paper states that it generated 50 sampled start-goal problems per condition, for 1500 distinct problems in total. The reported metrics are success rate, defined as collision-free and risk-compliant execution; average steps conditioned on success; and cumulative risk. Comparisons include constrained search, Lagrangian, biobjective, and related baselines, while an initialization ablation and integration with ROS2, Gazebo, and Crazyflie drones in simulation and hardware are also reported. Exact baseline configurations and all numerical values are not included in the supplied excerpt.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The qualitative behavior is central to the reported result. With a tight global budget, the planner coordinates agents through wider, safer detours; as the budget is relaxed, it spends some available risk to use shorter routes and reduce travel time. The market-inspired strategy is reported to negotiate dense interactions more effectively as team size grows, whereas the greedy strategy can exploit a larger pool of surplus risk but has more difficulty coordinating tight interactions. A single global budget is convenient and gives the user a direct control knob, but it can also permit an uneven distribution in which one agent accepts more risk than another; tightening the bound encourages more conservative and balanced behavior. The supplied text does not establish how the method behaves under severe perception errors, communication delays, rapidly changing obstacles, or distribution shift in the learned visual policy, and it does not provide enough detail to judge runtime, formal guarantees, or the precise conditions under which reallocation succeeds.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Classical MAPF methods include Conflict-Based Search, which can produce high-quality solutions but may scale poorly, and prioritized methods such as Priority-Based Search, which trade solution quality for scalability. CBS has also been extended to lifelong planning, information-guided planning, and related settings. Goal-Conditioned Reinforcement Learning is useful for learning a navigation policy that handles many goals from complex observations, making it a natural component for visual environments. Constrained reinforcement learning, Control Barrier Functions, and Safe Multi-Agent Reinforcement Learning provide important safety tools, but the paper distinguishes them from its focus on allocating risk at the high-level path-planning layer. The proposed framework therefore connects learned visual control with explicit multi-agent search and a team-level risk resource.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A common safety strategy is to delete graph edges whose risk exceeds a threshold before running MAPF search. That binary preprocessing is conservative: a mission may be feasible when the team’s total risk is acceptable even though some useful edges are individually high risk. Fixed local budgets create a related inefficiency because one agent may have unused risk while another cannot find a path within its assigned share. The problem is therefore to resolve multi-agent conflicts while dynamically distributing a shared risk budget, without exceeding the global bound and without discarding all risky but potentially useful routes.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>IRA augments each CBS constraint-tree node with a local risk-allocation state. RBA* searches for single-agent paths satisfying both the node’s constraints and the agent’s current risk budget. The greedy surplus-deficit strategy transfers available budget to agents that need it, while the market-inspired strategy uses prices to guide consumption of the shared resource. The allocation is dynamic, but the total of local budgets is governed by the user-specified global bound. This separates visual waypoint following from high-level conflict resolution and risk management, so the goal-conditioned policy executes the selected plan after search.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The experiments use the Central Obstacle two-dimensional map and four ReplicaCAD scenes in Habitat-Sim, with first-person RGB observations assembled into panoramic inputs for the visual tasks. The paper reports five environments in total and 50 sampled start-goal instances per environment, agent-count setting, and difficulty combination, yielding 1500 problems. It evaluates success rate, successful-run average steps, and cumulative risk, and normally starts from a uniform root allocation; a supplementary ablation compares alternative initializations. The proposed allocation strategies are compared with constrained-search, Lagrangian, biobjective, and related baselines, and the planner is also integrated into a ROS2 stack for multiple Crazyflie drones in Gazebo and hardware. The supplied evidence does not specify every experimental condition or the complete numerical results.</p></section>
+<section class="secsum"><h3>Results</h3><p>The paper reports that dynamic allocation achieves higher success rates than the baselines while enforcing the global risk bound. EQUIRIS and WALRIS are described as maintaining near-perfect or otherwise highly robust success behavior at tight budgets in the visual task, although the exact percentages are not given in the excerpt. Average steps decrease monotonically as the available budget increases for both five-agent and ten-agent settings, indicating that agents use relaxed budgets to replace detours with shorter routes. WALRIS is reported to scale better in dense interactions and to retain high success rates with ten agents, while the greedy strategy benefits from larger surplus pools but coordinates tight interactions less effectively. The evidence establishes these qualitative and comparative claims, but not their exact effect sizes.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper presents a way to reduce the conservatism of static graph pruning in safe visual MAPF. By pooling risk across agents and reallocating local budgets during CBS search, the planner can selectively accept risk when doing so helps complete a mission or shorten travel, while maintaining a global safety limit. Results in two-dimensional and photorealistic environments, together with a multi-drone integration demonstration, are reported as evidence of an adjustable and scalable safety-efficiency trade-off. The supplied excerpt supports the conclusion that the approach is promising, but it does not by itself establish universal superiority or guarantees outside the evaluated settings.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The excerpt does not provide the full complexity analysis, a proof of completeness or optimality for the IRA variant, or sufficient conditions guaranteeing successful reallocation. It is also unclear how perception uncertainty, policy failures outside the training distribution, communication constraints, and dynamic obstacles affect safety. Details about the market price-update rule, baseline tuning, runtime, hardware scale, and real-world failure cases are incomplete. Because the exact success, step, and risk values are absent, the magnitude and statistical reliability of the reported improvements cannot be independently assessed from the supplied evidence alone.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is relevant to disaster response, large-scale inspection, and environmental monitoring, where rejecting every risky region can make an otherwise acceptable mission impossible. Its main systems idea is to expose team-level risk as a controllable planning resource and let the planner trade that resource for efficiency. This creates a direct interface between an operator’s safety policy and multi-agent route selection while preserving a separation between learned visual control and symbolic conflict resolution. The idea is particularly important for settings in which total mission risk matters more than identical per-agent conservatism.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers working on visual navigation, risk-aware MAPF, CBS extensions, multi-agent reinforcement learning, and learned graph planning. It is especially useful for readers interested in replacing fixed safety margins with a shared, tunable risk budget. Readers who require formal guarantees, precise benchmark comparisons, or evidence under real-world uncertainty should consult the complete paper and supplementary material, because those details are not established by the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-17
+  </footer>
+</div>
+</body>
+</html>
