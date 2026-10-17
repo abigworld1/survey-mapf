@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2508.20095.en.html" lang="en">English</a></nav>
+  <h1>Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning</h1>
+<p class="meta">大規模かつ安全なマルチロボット運動計画のための離散誘導拡散</p>
+  <div class="meta">Jinhao Liang, Sven Koenig, Ferdinando Fioretto<br>採択先: 未取得 ・ 2025-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.20095v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.20095v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-08-27</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、離散MAPFの拡張性と、連続空間における制約付き拡散生成の軌道品質を組み合わせるDiscrete-Guided Diffusion（DGD）を提案する。MAPFから得た時空間構造で拡散生成を誘導し、局所的な制約修復を加えることで、複雑な環境で最大100台のロボットに拡張でき、高い成功率と計画効率を達成したと報告する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有された連続的な平面空間で、複数ロボットを指定された開始位置から目標位置まで移動させるマルチロボット運動計画（MRMP）である。各ロボットは静的障害物や他ロボットと衝突せず、一次運動学的な速度制約を満たす軌道を必要とする。離散マルチエージェント経路探索（MAPF）は比較的スケールしやすいが、粗い格子表現では軌道品質が低下し、連続空間でのロボット間距離を直接保証できない。連続最適化は滑らかで高品質な軌道を生成しやすい一方、ロボットや障害物の増加に伴う非凸性と高次元性のため、拡張が難しい。本論文は、離散解を連続軌道そのものではなく構造的な手掛かりとして利用することで、この緊張関係に対処する。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な貢献は、離散MAPFソルバと制約付き生成拡散モデルを統合したDGDというハイブリッド枠組みである。DGDは、元の非凸MRMPを、凸な配置領域を持つ扱いやすい部分問題へ分解し、MAPF解から抽出した時空間依存関係を連続軌道生成の指針として使う。さらに、制約違反が検出されたときに起動する軽量な修復機構を導入し、繰り返し全体投影を行うコストを抑えながら軌道の実行可能性を保つことを目指す。提供された抜粋だけでは、完全な定理の記述、拡散モデルの正確なアーキテクチャ、比較手法の正式名称までは確定できない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DGDはまず、非凸な連続問題を複数の局所領域に分け、各部分問題を全体問題より低次元にする。MAPFは最終的な連続軌道を決めるのではなく、各ロボットが各部分問題でどこからどこへ移動するか、またロボット間の時空間的な依存関係を示すスケルトンを与える。この構造と制約付き最適化による誘導を条件として、拡散モデルが複数ロボットの相互作用を含む連続軌道を生成する。拡散過程では、違反が検出された場合に投影型または制約認識型のガイダンスを適用し、障害物回避、ロボット間分離、速度上限を満たす方向へ軌道を修正する。修復過程にはラグランジュ緩和も用いられ、高コストな大域的投影を避ける設計とされている。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、実行可能性・効率・軌道品質を測る通常規模の設定と、拡張性を測る大規模設定に分けて行われた。通常規模では、異なる障害物密度を持つランダム環境basicおよびdenseと、現実環境を模した構造化環境roomおよびshelfの4種類を用い、ロボット数3、6、9、12、15、18について各マップ種別25インスタンスを評価した。拡張性の設定では、100個を超える異種障害物を含む大規模マップで最大100台のロボットを扱った。指標は成功率、実行時間、経路長、加速度であり、DGDを三つの拡散ベースラインと比較した。ただし、抜粋にはベースライン名、ハードウェア、乱数化手順、学習データ、すべての追加条件は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>報告結果は、DGDが難しい環境で高い成功率を維持し、多くの列挙された設定で競合手法より効率的であることを示している。提示された数値では、basic、dense、room、shelfにおける6、12、18台のケースで、DGDの成功率は76〜100%であり、roomの列挙された全ケースでは100%、shelfの18台ケースでは84%であった。例えばdenseの18台ケースは成功率76%、47.8秒、経路長1.37、roomの18台ケースは100%、219.0秒、1.55と報告されているが、DGDがすべての指標やケースで最良とは限らず、比較結果全体も抜粋にはない。局所凸領域間の明示的な一貫性制約がないため、境界付近で速度の急変や軌道の不連続が生じる可能性があり、滑らかさと物理的リアリズムが課題として残る。さらに、実機検証、具体的な動的障害物評価、統計的有意性、すべての保証に関する完全な形式証明は、抜粋からは確立できない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MRMPには、サンプリングベース、連続最適化ベース、離散MAPFベースの方法がある。サンプリング法は確率的完全性を持ち得るが、密なサンプリングを要し、連続的な動力学・運動学制約の扱いが難しい。最適化法は滑らかな軌道を生成できる一方、非凸性と自由度の増加によって解くことが難しくなる。MAPFは離散化によってこの複雑性の一部を避けるが、粗い格子は幾何学的・時間的な忠実度を制限し、細かい格子は状態空間を急速に拡大させる。近年の拡散モデルは連続空間で多様かつ高品質な軌道を生成するが、特にロボット間相互作用を含む複数ロボット軌道全体の実行可能性を保証することは依然として難しい。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>離散MAPF解を連続運動へ変換するには、衝突回避を保ちながら各移動を時間パラメータ付きの区間にし、一次速度制約を満たす必要がある。粗い格子は非現実的な動きや実行不能なタイミングを生み、細かい格子は離散問題自体を高価にする。MAPFは通常、頂点衝突と辺衝突を解消するが、それだけでは移動中のロボット間の連続空間での分離を保証しない。そこでDGDは、MAPFを完成した軌道計画ではなく、連続生成のための構造的事前情報として扱う。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>各ロボットは半径を持つ円盤としてモデル化され、軌道は離散時間における2次元位置列で表される。中心的な制約は、静的障害物の回避、他ロボットとの十分な分離、時間刻みで決まる速度上限である。DGDは局所凸部分問題、MAPF由来の時空間スケルトン、拡散生成、条件付き制約修復を組み合わせる。修復は違反が検出された場合に適用され、各段階で高次元全体を投影するコストを抑えることを狙う。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>通常規模のベンチマークにはbasic、dense、room、shelfの4種類の環境、6種類のロボット数、各マップ種別25インスタンスが含まれる。別の拡張性実験では、100個を超える異種障害物を含むマップで最大100台のロボットを評価した。成功率は900秒の制限時間内に衝突なく解けたケースの割合であり、実行時間は計算コスト、経路長と加速度は軌道品質を表す。DGDは三つの拡散ベースラインと比較されたが、提示された抜粋ではそれらの名称、ハードウェア、乱数シード、学習データの構成、完全なアブレーション条件は明らかでない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提示された通常規模の数値では、basicにおけるDGDの6、12、18台の成功率はそれぞれ100%、96%、96%である。denseでは100%、100%、76%、roomでは100%、100%、100%、shelfでは100%、100%、84%であった。18台ケースの実行時間は、basic 65.7秒、dense 47.8秒、room 219.0秒、shelf 324.8秒であり、対応する経路長はそれぞれ1.33、1.37、1.55、1.38と報告されている。抜粋は最大100台までの拡張性と高い成功率を主張するが、100台設定の個別数値や比較手法との完全な結果は示していない。</p></section>
+<section class="secsum"><h3>結論</h3><p>DGDは、MAPFの離散的な時空間構造を連続拡散生成のガイドとして使い、拡張性と高品質な連続軌道の両立を目指す。問題分解は大規模MRMPの計算負担を減らし、制約認識型修復は衝突回避と運動学的実行可能性を維持することを意図している。通常規模の比較と大規模設定に基づき、著者らはDGDが多数ロボットを含む複雑なMRMPに有望だと結論づけている。ただし、すべての実装上および理論上の詳細が再現できるほどの情報は、提供された抜粋には含まれていない。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>分解によって生じる隣接凸領域の境界では、部分問題間の一貫性が明示的に課されないため、不連続や急な速度変化が起こり得る。著者らは、より柔軟な分割と、隣接領域間の相互作用を明示的に扱うことを将来課題として挙げている。提供された抜粋だけでは、厳密な動力学を持つ実機での性能、未知環境への一般化、学習コスト、詳細な失敗分布は確定できない。これらは、ベンチマーク手法としての評価と、実運用可能な運動計画器としての評価を区別するうえで重要である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の意義は、離散計画のスケール性を維持しながら、連続空間の軌道生成と実行可能性修復を取り入れようとした点にある。MAPFを最終軌道への厳しい拘束ではなく時空間的な事前情報として利用することで、問題全体を極端に細かい格子へ符号化する必要を減らせる可能性がある。最大100台までの評価は、倉庫ロボット群、協調ドローン、その他の大規模チームを研究する読者にとって特に関心を引く。一方、領域間の滑らかさと実環境への展開に関する未解決点は、今後の重要な研究課題である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPF、連続MRMP、拡散モデルによる運動計画、制約付き生成モデルを研究する読者に適している。離散的な構造誘導と連続的な複数ロボット軌道生成の役割分担を比較したい人や、チーム規模の増加に伴う成功率と実行時間を調べたい人にも有用である。実運用に関心のある読者は、提供された抜粋では実機検証、詳細な動力学的実行可能性、あらゆる失敗モードでの挙動が確立されていないことに注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-18
+  </footer>
+</div>
+</body>
+</html>

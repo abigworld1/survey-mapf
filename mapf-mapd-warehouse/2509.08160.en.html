@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Diffusion-Guided Multi-Arm Motion Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2509.08160.html" lang="ja">日本語</a></nav>
+  <h1>Diffusion-Guided Multi-Arm Motion Planning</h1>
+
+  <div class="meta">Viraj Parimi, Brian C. Williams<br>Venue: Proceedings of The 9th Conference on Robot Learning, Proceedings of Machine Learning Research 305:4684-4696, 2025 ・ 2025-09-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.08160v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2509.08160v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Proceedings of The 9th Conference on Robot Learning, Proceedings of Machine Learning Research 305:4684-4696, 2025</span><span class="chip">Published 2025-09-09</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper presents DG-MAP, a multi-arm planner that decomposes coordination into independent single-arm generation and pairwise collision resolution. By combining conditional diffusion models with MAPF-inspired search and receding-horizon execution, it reports strong scalability using only single- and dual-arm training data, including high success rates for teams of up to eight arms.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies continuous motion planning for multiple robot manipulators sharing a workspace. Each arm must reach a target end-effector pose while avoiding self-collisions, static obstacles, and collisions with every other arm. Planning all arms jointly produces a high-dimensional coupled configuration space, making sampling-based methods vulnerable to the curse of dimensionality. Optimization-based planners can refine trajectories efficiently but may get trapped in local minima, while learned multi-arm planners may require large datasets containing increasingly complex interactions. The central challenge is therefore to coordinate many arms without requiring a training distribution that explicitly covers every higher-order interaction.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The first contribution is a conditional denoising diffusion model specialized for generating feasible single-arm trajectories or action sequences. The second is a distinct dual-arm diffusion model that learns how an ego arm can react to a conflicting arm during pairwise collision resolution. The third is DG-MAP, a framework that places these specialized models inside a MAPF-inspired decomposition and search procedure. This combination aims to reuse simple interaction data while scaling planning to larger teams. The paper also provides empirical comparisons with learning-based baselines trained with either limited pairwise data or richer multi-arm interaction data.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>DG-MAP operates as a closed-loop, receding-horizon controller. At each planning cycle, each arm first uses the single-arm diffusion model to generate a sequence of delta joint actions from the current observation. The proposed search procedure combines the individual plans and checks them for collisions, caching pairwise collision-check results. When a conflict is detected, the procedure can rebranch its search or invoke repair; repair extracts paired observations for the ego arm and the conflicting arm and uses the dual-arm model to generate actions intended to avoid the collision. A candidate without conflicts is returned when found, while timeout or an empty search frontier causes the planner to return the best plan found. The selected actions are executed for multiple steps, the state is updated, and planning is repeated, allowing the system to react to moving arms without replanning after every single action.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The main evaluation uses static single-goal-reaching tasks in the PyBullet simulator. The supplied excerpt states that the test set contains 18,000 unique scenarios, with varying team sizes and difficulty levels based on the maximum intersection of the arms&#x27; hemispherical workspaces. A trial is successful when all arms reach their target end-effector poses within position and orientation tolerances, and each attempt is limited to 400 simulation steps. DG-MAP is compared with Baseline-LD, trained on single- and dual-arm interactions, and Baseline-ED, trained with additional three- and four-arm interactions. The evaluation reports success rates and average completion steps, and an additional 100-trial pick-and-place experiment tests a task beyond simple goal reaching. The excerpt does not provide every per-team-size and per-difficulty value or every data-generation detail.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported results show that DG-MAP substantially outperforms Baseline-LD across all stated task difficulties and team sizes. Baseline-LD reaches an average success rate of 41.2% with three arms, then deteriorates quickly as more arms are added, falling below 10% or sometimes achieving no successes on medium and hard tasks beyond four arms. DG-MAP is reported to maintain average success rates above 90% across all corresponding settings, despite using only single- and dual-arm interaction data. It also remains competitive with Baseline-ED, which has access to richer higher-order interaction data, and obtains an 89% success rate in the pick-and-place task. These results support the value of pairwise structured resolution, but they do not establish performance on physical hardware, under sensor noise, or in every form of tightly coupled simultaneous interaction. The excerpt also does not quantify the full computational-time distribution, failure modes, or the sensitivity to search and horizon parameters.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-Agent Path Finding is a discrete abstraction in which multiple agents move through a graph while avoiding conflicts. Important MAPF strategies decompose the problem into single-agent planning plus coordination or conflict resolution, including prioritized planning and conflict-based search. Multi-arm motion planning is a continuous analogue with joint-space and collision constraints. Diffusion models learn to reverse a gradual noise-adding process and can represent complex, multimodal trajectory distributions, which has motivated their use in robotic planning and control.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Each manipulator has a fixed base pose, a specified number of degrees of freedom, and a configuration space that excludes self-collision and collision with static obstacles. The desired solution is a simultaneous continuous path for all arms from their initial configurations to goal end-effector poses. At every time, each arm must remain collision-free and no pair of distinct arms may collide. Goal satisfaction is defined using position and orientation tolerances, although the supplied excerpt does not establish their numerical values. The final completion time may be shared across the system and is reached when all arms satisfy their goals.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The single-arm model is trained from expert trajectories generated by single-arm BiRRT plans. The dual-arm model is trained from dual-arm BiRRT demonstrations and predicts delta joint-action sequences for the ego arm, while reorganizing observations to explicitly represent the ego arm and its conflicting partner. Both models use a diffusion objective that predicts noise conditioned on observations and the diffusion timestep. DG-MAP then alternates between single-arm generation, collision checking, search branching or repair, execution, and replanning. A pairwise collision cache avoids repeating some collision checks during search.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The principal experiments use PyBullet single-goal-reaching tasks with several team sizes and three interaction difficulties: easy, medium, and hard. Difficulty is determined by the maximum overlap of arms&#x27; hemispherical workspaces, so harder cases require more coordination. Baseline-LD uses only single- and dual-arm interactions, whereas Baseline-ED additionally uses three- and four-arm interaction data. The paper also evaluates a multi-arm pick-and-place cycle in which arms move objects from the ground to a central bin. The excerpt leaves the exact arm degree of freedom, some tolerance values, and the complete condition-by-condition result tables unspecified.</p></section>
+<section class="secsum"><h3>Results</h3><p>DG-MAP is reported to preserve high performance for up to eight arms while training only on single- and dual-arm interaction data. Against Baseline-LD, its average success rate is above 90% in all reported team-size and difficulty settings, whereas the limited-data baseline degrades sharply as the team grows. In the 100-trial pick-and-place evaluation, Baseline-LD succeeds in 37.5% of trials, Baseline-ED in 71.4%, and DG-MAP in 89.0%; the corresponding average step counts are 4479, 6018, and 5390. These are the explicit numerical results in the supplied evidence, and missing per-condition values should not be inferred.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper introduces DG-MAP as a structured multi-arm planner that combines MAPF-inspired decomposition with separate single-arm and dual-arm conditional diffusion models. Its central claim is that pairwise collision resolution can extend knowledge learned from simple interactions to larger teams without explicitly training on all higher-order interactions. The reported simulated goal-reaching and pick-and-place results support improved scalability, data efficiency, and practical usefulness relative to the stated learning-based baselines. The evidence establishes promising simulation results rather than universal superiority across environments or hardware.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The supplied evidence focuses on simulation and static goal-reaching settings, so it does not establish real-robot performance or robustness to perception and actuation noise. Pairwise repair may be insufficient or computationally demanding when many arms participate in tightly coupled, simultaneous conflicts. The excerpt does not give complete architectural specifications, inference costs, search-time distributions, failure categorization, or sensitivity analyses. Consequently, the reported success rates should not be assumed to transfer directly to unseen environments, dynamic obstacles, or tasks with different dynamics.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work addresses a key obstacle in multi-arm robotics: the joint growth of state-space complexity and training-data requirements as the number of arms increases. Rather than learning one monolithic policy for every team size and interaction order, it separates ordinary motion generation from local pairwise conflict handling. This offers a practical way to combine the expressive generation of diffusion models with the explicit structure of MAPF-style planning. The reported pick-and-place result also connects the approach to shared-workspace manipulation beyond a narrowly defined navigation benchmark.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is useful for researchers studying MAPF-inspired decompositions for continuous robot motion planning. It is particularly relevant to readers interested in diffusion policies, BiRRT expert demonstrations, pairwise collision resolution, and closed-loop receding-horizon control. It can also serve as a reference point for comparing data efficiency against learned planners trained on richer multi-arm interactions. Readers seeking real-hardware validation, detailed computational complexity, or exhaustive failure analysis will need evidence beyond the supplied excerpt.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-18
+  </footer>
+</div>
+</body>
+</html>

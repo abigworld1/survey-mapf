@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Diffusion-Guided Multi-Arm Motion Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2509.08160.en.html" lang="en">English</a></nav>
+  <h1>Diffusion-Guided Multi-Arm Motion Planning</h1>
+<p class="meta">拡散モデルで誘導する多腕モーションプランニング</p>
+  <div class="meta">Viraj Parimi, Brian C. Williams<br>採択先: Proceedings of The 9th Conference on Robot Learning, Proceedings of Machine Learning Research 305:4684-4696, 2025 ・ 2025-09-09 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2509.08160v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2509.08160v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Proceedings of The 9th Conference on Robot Learning, Proceedings of Machine Learning Research 305:4684-4696, 2025</span><span class="chip">公開日 2025-09-09</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、共有空間で動く複数ロボットアームの衝突回避計画を、単腕生成と腕ペア間の衝突解決に分解するDG-MAPを提案する。単腕・二腕データだけで学習した拡散モデルとMAPF風の探索を組み合わせ、最大8本のアームを含む評価で高い成功率とデータ効率を示したと報告している。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、固定された基部を持つ複数のマニピュレータが、静的障害物と互いの衝突を避けながら、それぞれの目標エンドエフェクタ姿勢へ到達する連続時間の計画問題である。すべてのアームを同時に扱うと、結合された関節空間が高次元になり、サンプリング型計画法では次元の呪いが生じる。最適化型手法は軌道を効率よく改善できる一方、局所解に陥りやすい。学習型手法も大規模な多腕相互作用データを必要とする場合があり、アーム数が増えるほどスケーラビリティが問題になる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、単腕の実行可能な軌道を生成する条件付きノイズ除去拡散モデルを用いる。第二に、衝突する二本のアームの相互作用を表現し、ペア単位の衝突を解決する専用の二腕拡散モデルを導入する。第三に、これらをMAPFのような分解と探索に組み込み、単腕・二腕相互作用だけの学習から、より多くのアームを扱う枠組みを構成する。従来の学習型ベースラインとの比較を通じ、限定データでのスケーラビリティと実用タスクへの適用性を検証した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>DG-MAPは閉ループの再計画制御器として動作し、現在状態から各アームの短いデルタ関節動作列を生成する。まず各アームが単腕拡散モデルで独立に計画し、組み合わせた計画を衝突検査する。衝突が見つかると、探索中の分岐変更または修復を行い、修復では衝突する二本のアームの観測をペアとして二腕拡散モデルに入力し、当事者側の衝突を避ける動作列を生成する。衝突検査結果はペア単位でキャッシュされ、衝突のない候補が得られるまで探索するか、時間切れまたは候補枯渇時に最良の計画を返す。動作を複数ステップ実行して状態を更新し、その後に再計画することで、移動する他アームへの適応と計画効率を両立する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価はPyBullet上の静的な単一目標到達タスクを中心に行い、アーム数を変えた18,000個の固有シナリオを用いる。各アームには自由度が設定され、成功は全アームが位置・姿勢の許容範囲内に到達すること、試行上限は400シミュレーションステップである。比較対象は、単腕・二腕データだけで学習したBaseline-LDと、三腕・四腕相互作用を含む拡張データで学習したBaseline-EDである。成功率と完了に要したステップ数を比較し、さらに複数アームのピック・アンド・プレースを100試行で評価した。抜粋にはBaseline-EDの全チームサイズ・難易度別の数値や、すべてのデータ生成条件の詳細は示されていない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、DG-MAPが限定データのBaseline-LDを全難易度・チームサイズで大きく上回り、平均成功率をすべての設定で90%以上に保ったと報告している。Baseline-LDは3アームで平均41.2%にとどまり、アーム数が増えると急速に低下し、4本を超える中難度・高難度では10%未満または成功なしになる場合があった。DG-MAPは、より豊富な三腕・四腕データを使うBaseline-EDに対しても競争力を示し、ピック・アンド・プレースでは成功率89%を得た。一方、ペア単位の衝突モデルと探索に依存するため、複雑な同時相互作用、探索時間、観測誤差、実機での動力学への適応性は残された論点である。抜粋は、失敗事例の分類、計算時間の分布、実機検証、厳密な停止条件の影響を確定させる情報を含まない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数エージェントの経路計画を個別経路の計画と衝突解決に分ける離散的な抽象化であり、優先順位付き計画や衝突に基づく探索が知られている。多腕計画では、各アームの連続的な構成空間と衝突制約を同時に扱う必要がある。拡散モデルは、ノイズを加えたデータから反復的にノイズを除去し、複雑で多峰的な軌道分布を生成する学習モデルとして利用できる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>各アームは固定基部、自由度、自己および静的障害物に対する衝突のない構成空間を持つ。求めるものは、全アームの初期状態から目標状態までの同時連続経路であり、各時刻に自己衝突、障害物衝突、アーム間衝突がない必要がある。目標エンドエフェクタ姿勢には位置と姿勢の許容誤差があるが、抜粋ではその具体値が欠落している。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>単腕モデルは単腕BiRRTの専門家軌道から学習し、二腕モデルは二腕BiRRTの専門家軌道から学習する。二腕モデルの行動空間はエゴアームのデルタ関節動作列のままだが、観測はエゴアームと衝突相手の相互作用を明示するよう再構成される。モデルは観測と拡散時刻を条件に、正解動作へ加えられたノイズを予測する。DG-MAPは単腕生成、衝突検査、分岐変更・修復、再計画を反復する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>主実験はPyBulletの単一目標到達シナリオで、アームの作業空間の重なりに基づき容易・中程度・困難な相互作用に分類される。限定データのBaseline-LDは単腕・二腕相互作用、拡張データのBaseline-EDはさらに三腕・四腕相互作用を使う。追加実験では、複数アームが地面上の物体を中央の容器へ運ぶピック・アンド・プレースを扱う。抜粋では、アームの正確な自由度数や、全条件における個別の成功率表は完全には確定できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>DG-MAPは単腕・二腕データだけで、最大8アームの評価において高い成功率を維持したと報告されている。Baseline-LDとの比較では、DG-MAPの平均成功率は全設定で90%を超え、Baseline-LDはアーム数の増加に伴って低下した。ピック・アンド・プレースでは、Baseline-LDが37.5%、Baseline-EDが71.4%、DG-MAPが89.0%の成功率で、平均ステップ数はそれぞれ4479、6018、5390だった。これらの数値は抜粋に明示された結果であり、未提示の条件別数値を推測すべきではない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、MAPF風の構造化分解と単腕・二腕の条件付き拡散モデルを統合するDG-MAPを提示した。ペアワイズな衝突解決を使うことで、学習時に高次の多腕相互作用を網羅しなくても、より多数のアームを計画できる可能性を示す。シミュレーション上の目標到達とピック・アンド・プレースの結果は、手法の有効性と実用性を支持している。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>証拠抜粋は主に静的環境とシミュレーションを扱っており、実機での再現性やセンサノイズへの頑健性を確立していない。二腕モデルとペアワイズ衝突処理が、多数のアームによる同時かつ強く結合した干渉で常に十分とは限らない。学習データ、モデル構造、推論時間、探索停止条件の詳細も抜粋だけでは不明である。したがって、報告された成功率を他の環境やタスクへ直接一般化することはできない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>多腕ロボットでは、アーム数の増加に伴う結合状態空間と相互作用データの増大が実用上の大きな障壁になる。DG-MAPは、連続制御の柔軟な生成能力を保ちつつ、計画と衝突解決を構造化してデータ需要を抑える方向を示す。単腕・二腕の知識を多腕協調へ再利用する設計は、ピック・アンド・プレースなど共有作業空間を必要とする応用にとって重要である。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFの分解原理を連続ロボットモーションプランニングへ応用したい研究者に適している。拡散ポリシー、BiRRT由来の専門家データ、ペアワイズ衝突解決、閉ループ再計画を組み合わせる設計を調べたい人にも有用である。多腕の学習型計画で、データ量とアーム数へのスケーリングのトレードオフを比較したい読者に勧められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-18
+  </footer>
+</div>
+</body>
+</html>

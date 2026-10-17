@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2508.20095.html" lang="ja">日本語</a></nav>
+  <h1>Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning</h1>
+
+  <div class="meta">Jinhao Liang, Sven Koenig, Ferdinando Fioretto<br>Venue: Unknown ・ 2025-08-27 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.20095v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2508.20095v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2025-08-27</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper presents Discrete-Guided Diffusion (DGD), a framework that combines the scalability of discrete MAPF with the trajectory quality of continuous constrained diffusion generation. MAPF supplies a spatiotemporal structure, while local convex subproblems and lightweight constraint repair support collision-free planning reported to scale to 100 robots in complex environments.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The target problem is multi-robot motion planning (MRMP) in a shared continuous planar workspace. Multiple robots must move from assigned start positions to goal positions while avoiding static obstacles and one another and respecting a first-order kinematic speed bound. Discrete multi-agent path finding (MAPF) scales comparatively well, but its coarse grid representation can produce low-quality trajectories and does not directly enforce continuous-space separation. Continuous optimization can produce smooth, high-quality paths, but its nonconvexity and high dimensionality make it difficult to scale as the number of robots and obstacles grows. The paper addresses this tension by using a discrete solution as structure rather than as the final continuous trajectory.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main contribution is DGD, a hybrid framework integrating a discrete MAPF solver with constrained generative diffusion models. It decomposes the original nonconvex MRMP problem into tractable subproblems with convex configuration regions, and uses the spatiotemporal dependencies extracted from MAPF solutions to guide continuous trajectory generation. It also introduces a lightweight repair mechanism that is activated when constraint violations are detected, aiming to preserve trajectory feasibility without the cost of repeated global projections. The supplied excerpt does not establish the complete formal theorem statements, the exact diffusion architecture, or the official names of all comparison methods.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>DGD first partitions the nonconvex continuous problem into multiple local regions, reducing each subproblem to a lower-dimensional space. MAPF is used to produce a spatiotemporal skeleton: for each robot and subproblem, it provides structural information about local starts, goals, and the temporal dependencies among robots. A diffusion model then generates continuous trajectories conditioned on this structure and on constrained-optimization guidance, allowing it to model interactions among robots without forcing the whole problem onto a very fine grid. During diffusion, a projected or constraint-aware guidance step repairs generated trajectories when violations occur, targeting obstacle avoidance, inter-robot separation, and the speed limit. The repair process is described as lightweight and is further simplified through Lagrangian relaxation, avoiding expensive global projection operations.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The evaluation has one setting for feasibility, efficiency, and quality and another for scalability. The first uses four map types: random basic and dense maps with different obstacle densities, plus structured room and shelf layouts; it tests 3, 6, 9, 12, 15, and 18 robots over 25 instances for each map type. The scalability setting uses a large map with more than 100 heterogeneous obstacles and supports scenarios with up to 100 robots. The reported metrics are success rate, running time, path length, and acceleration, and DGD is compared with three state-of-the-art diffusion-based baselines. However, the excerpt does not provide the baseline names, hardware, randomization protocol, training data, or all additional experimental conditions.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The reported results indicate that DGD maintains high success rates in difficult environments and is more efficient than competing methods in many of the listed settings. In the supplied numerical results, DGD obtains success rates from 76% to 100% for the listed 6-, 12-, and 18-robot cases across basic, dense, room, and shelf maps; it reaches 100% for all listed room cases and 84% in the 18-robot shelf case. For example, the 18-robot dense case is reported as 76% success, 47.8 seconds, and a path-length value of 1.37, while the 18-robot room case is reported as 100%, 219.0 seconds, and 1.55. DGD is not necessarily best on every individual metric or case, and the excerpt does not supply the complete comparison data. A remaining weakness is discontinuity or sharp velocity change near boundaries between adjacent convex regions because explicit consistency constraints across subproblems are absent. The excerpt also does not establish real-robot validation, a concrete dynamic-obstacle evaluation, statistical significance, or a complete formal proof of all claimed guarantees.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MRMP research includes sampling-based, optimization-based, and discrete MAPF-based approaches. Sampling methods can be probabilistically complete, but they may require dense sampling and have difficulty enforcing continuous kinodynamic constraints. Optimization methods can produce smooth paths but become difficult to solve as nonconvexity and the number of degrees of freedom increase. MAPF avoids some of this complexity through discretization, yet coarse grids limit geometric and temporal fidelity while fine grids cause rapid state-space growth. Recent diffusion models generate diverse, high-quality continuous trajectories, but ensuring feasibility over an entire multi-robot trajectory, especially under inter-robot interactions, remains difficult.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A discrete MAPF solution must be converted into continuous motion while preserving collision avoidance, time parameterization, and the first-order speed constraint. Coarse cells can lead to unrealistic motion or infeasible timing, whereas finer cells make the discrete problem expensive. MAPF normally resolves vertex and edge conflicts, but those conditions do not by themselves guarantee continuous-space separation between moving robots. DGD therefore treats MAPF as a structural prior for continuous generation rather than as a complete trajectory plan.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Each robot is modeled as a disk with a radius, and its trajectory is represented as a sequence of two-dimensional positions at discrete time steps. The central constraints are avoidance of static obstacles, sufficient separation from other robots, and a speed bound determined by the time step. DGD combines local convex subproblems, a MAPF-derived spatiotemporal skeleton, diffusion-based generation, and conditional constraint repair. Repair is applied when violations are detected, with the intended benefit of reducing the cost of projecting the entire high-dimensional problem at every step.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The standard benchmark contains basic, dense, room, and shelf environments, six robot-count settings, and 25 configurations for each map type. The separate scalability experiment uses a map containing more than 100 heterogeneous obstacles and evaluates up to 100 robots. Success rate means the proportion of cases solved without collisions within a 900-second time limit; running time measures computational cost, while path length and acceleration characterize trajectory quality. DGD is compared with three diffusion-based baselines, but the supplied excerpt does not identify them or specify hardware, random seeds, training-set construction, or the full ablation protocol.</p></section>
+<section class="secsum"><h3>Results</h3><p>For the listed standard cases, DGD&#x27;s success rates for 6, 12, and 18 robots are respectively 100%, 96%, and 96% on basic maps; 100%, 100%, and 76% on dense maps; 100%, 100%, and 100% on room maps; and 100%, 100%, and 84% on shelf maps. Its reported running times for the 18-robot cases are 65.7 seconds on basic, 47.8 seconds on dense, 219.0 seconds on room, and 324.8 seconds on shelf. The corresponding listed path-length values are 1.33, 1.37, 1.55, and 1.38. The excerpt claims scalability and high success rates up to 100 robots, but it does not give the individual 100-robot results or the complete set of baseline comparisons.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>DGD uses the discrete spatiotemporal structure of MAPF to guide continuous diffusion generation, seeking to combine scalability with higher-quality continuous trajectories. Its decomposition strategy reduces the burden of large-scale MRMP, while constraint-aware repair is intended to maintain collision-free and kinematically feasible solutions. Based on the standard comparisons and the large-scale setting, the authors conclude that DGD is a promising approach for complex MRMP with many robots. The conclusion is supported by the supplied results, but the excerpt does not establish every implementation or theoretical detail needed to reproduce all claims.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The decomposition can create discontinuities or sharp velocity changes at boundaries between neighboring convex regions because cross-region consistency is not explicitly enforced. The authors identify more flexible partitions and explicit interactions between adjacent regions as future directions. From the supplied excerpt, the performance of real robots under strict dynamics, generalization to unseen environments, training cost, and detailed failure distributions remain unestablished. These gaps matter when interpreting the method as a deployable motion planner rather than as a benchmark algorithm.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it attempts to retain the scaling advantages of discrete planning while adding continuous-space trajectory generation and feasibility repair. Treating MAPF as a spatiotemporal prior may reduce the need to encode the entire problem in an extremely fine grid. The reported evaluation up to 100 robots is particularly relevant to researchers studying warehouse fleets, coordinated drones, and other large teams. At the same time, the unresolved cross-region smoothness and deployment questions define important directions for follow-up work.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is suitable for researchers studying MAPF, continuous MRMP, diffusion-based motion planning, and constrained generative models. It is especially relevant to readers comparing discrete structural guidance with continuous multi-robot trajectory generation, or examining success rate and runtime at increasing team sizes. Readers interested in deployment should interpret the results cautiously because the supplied excerpt does not establish real-robot validation, detailed dynamic feasibility, or the behavior of the method under all failure modes.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-18
+  </footer>
+</div>
+</body>
+</html>

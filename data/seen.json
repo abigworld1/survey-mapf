@@ -7381,6 +7381,75 @@
       "url": "http://arxiv.org/abs/2508.16410v3",
       "venue": ""
     },
+    "arxiv:2508.20095": {
+      "added": "2026-10-18",
+      "added_at": "2026-10-18T07:53:55.646925",
+      "arxiv_id": "2508.20095",
+      "authors": [
+        "Jinhao Liang",
+        "Sven Koenig",
+        "Ferdinando Fioretto"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-27",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2508.20095.html",
+      "file_en": "mapf-mapd-warehouse/2508.20095.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.20095v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning",
+      "title_en": "Discrete-Guided Diffusion for Scalable and Safe Multi-Robot Motion Planning",
+      "title_ja": "大規模かつ安全なマルチロボット運動計画のための離散誘導拡散",
+      "tldr": "本論文は、離散MAPFの拡張性と、連続空間における制約付き拡散生成の軌道品質を組み合わせるDiscrete-Guided Diffusion（DGD）を提案する。MAPFから得た時空間構造で拡散生成を誘導し、局所的な制約修復を加えることで、複雑な環境で最大100台のロボットに拡張でき、高い成功率と計画効率を達成したと報告する。",
+      "tldr_en": "This paper presents Discrete-Guided Diffusion (DGD), a framework that combines the scalability of discrete MAPF with the trajectory quality of continuous constrained diffusion generation. MAPF supplies a spatiotemporal structure, while local convex subproblems and lightweight constraint repair support collision-free planning reported to scale to 100 robots in complex environments.",
+      "url": "http://arxiv.org/abs/2508.20095v1",
+      "venue": ""
+    },
+    "arxiv:2509.08160": {
+      "added": "2026-10-18",
+      "added_at": "2026-10-18T07:52:38.591311",
+      "arxiv_id": "2509.08160",
+      "authors": [
+        "Viraj Parimi",
+        "Brian C. Williams"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-09-09",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2509.08160.html",
+      "file_en": "mapf-mapd-warehouse/2509.08160.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2509.08160v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Diffusion-Guided Multi-Arm Motion Planning",
+      "title_en": "Diffusion-Guided Multi-Arm Motion Planning",
+      "title_ja": "拡散モデルで誘導する多腕モーションプランニング",
+      "tldr": "本論文は、共有空間で動く複数ロボットアームの衝突回避計画を、単腕生成と腕ペア間の衝突解決に分解するDG-MAPを提案する。単腕・二腕データだけで学習した拡散モデルとMAPF風の探索を組み合わせ、最大8本のアームを含む評価で高い成功率とデータ効率を示したと報告している。",
+      "tldr_en": "This paper presents DG-MAP, a multi-arm planner that decomposes coordination into independent single-arm generation and pairwise collision resolution. By combining conditional diffusion models with MAPF-inspired search and receding-horizon execution, it reports strong scalability using only single- and dual-arm training data, including high success rates for teams of up to eight arms.",
+      "url": "http://arxiv.org/abs/2509.08160v1",
+      "venue": "Proceedings of The 9th Conference on Robot Learning, Proceedings of Machine Learning Research 305:4684-4696, 2025"
+    },
     "arxiv:2509.23778": {
       "added": "2026-06-30",
       "added_at": "2026-06-30T06:00:01.000000",
