@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Structural Origins of Cubic Complexity in Pebble Motion | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2503.20550.en.html" lang="en">English</a></nav>
+  <h1>Structural Origins of Cubic Complexity in Pebble Motion</h1>
+<p class="meta">ペブル移動における三次複雑性の構造的起源</p>
+  <div class="meta">Tomoki Nakamigawa, Tadashi Sakuma<br>採択先: 未取得 ・ 2025-03-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2503.20550v7" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2503.20550v7" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-03-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、グラフ上でラベル付きペブルを隣接する空頂点へ移動させるペブル移動問題について、木上の任意の実行可能なインスタンスを二次対数オーダーの手数で解けることを示す。さらに一般グラフへ手法を拡張し、三次オーダーの複雑性が生じ得る構造を、長いサイクル上に多数の次数二の頂点が存在する場合へ厳しく限定する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、有限無向単純グラフを盤面とし、頂点上に配置されたラベル付きペブルを、隣接する未占有頂点へ一つずつ移動して初期配置から目標配置へ変換する問題である。ペブル同士は同じ頂点を共有できず、各移動は隣接性と空き頂点の存在によって制約される。この問題は十五パズル、グラフ再構成、マルチエージェント経路探索と密接に関係する。中心的な問いは、実行可能性だけでなく、最短解の移動回数がグラフ構造によってどこまで大きくなり得るかを理解することである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、木上の実行可能なペブル移動問題について、長年未解決だった三次オーダーの上界を二次対数オーダーへ改善する出力感応型アルゴリズムを与える。これは既知の二次下界との差を対数因子だけに縮め、木では古典的な三次現象が起こらないことを示す。第二に、木のアルゴリズムを幅優先全域木へ適用する一般グラフ向けの枠組みを示し、正方格子のような例で劣三次の解長を得る。第三に、三次オーダーがなお現れ得るための構造条件を導き、次数二の頂点、長いサイクル、各頂点を含む最短サイクルという要素の組合せに原因を絞り込む。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>木の盤面を、サイズを調整した部分木と、イストムスの長さを管理した部分問題へ再帰的に分解する。空頂点が十分多い場合や、イストムスの大きさが制限される場合には、ペブルを部分木へ集め、局所的に配置を合わせてから全体を再構成する基底手続きを使う。部分木を作る構造補題と、部分問題のデータを保持する二分木型の管理構造によって、分解・集約のコストを制御する。一般グラフでは幅優先全域木上で同様の操作を行い、追加の辺やサイクルが移動経路を提供することを利用する。さらに直径、最短サイクル長、次数二の頂点の配置を解析し、出力長と計算時間をインスタンスの構造に応じて精密化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>理論的検証の中心は、木上の解の存在、出力移動列の長さ、アルゴリズムの計算時間を示す補題と定理である。一般グラフについては、幅優先全域木への適用から、広いクラスのインスタンスで三次未満の解列を生成できることを導く。正方格子の古典的な例では、頂点数の二分の三乗オーダーに相当する上界を回復する。数値データセット、実装ベンチマーク、比較実験の詳細は、提供された抜粋には示されていないため、実測上の優位性や平均性能はこの資料から確認できない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、ペブル移動の難しさがグラフ全体の大きさだけで決まらず、空間的なボトルネックの形状に強く依存することを示す。木では長い経路状のイストムスが調整コストを生むが、三次オーダーに達することはなく、空頂点が少なすぎると実行不能になる場合もある。一般グラフではサイクルが迂回路を与える一方、長いサイクル上に多数の次数二頂点があると、迂回路自体が高コストな協調を要求し得る。構造条件は三次現象の必要条件に近い説明を与えるが、提示された抜粋だけでは、それらが十分条件であるか、すべての該当例が三次になるかは確定しない。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>ペブル移動問題のアルゴリズム研究は、古典的な十五パズルやグラフ再構成の研究とともに発展してきた。単一の空頂点を持つ場合の実行可能性は先行研究で特徴づけられ、一般の無向グラフについても多項式時間の実行可能性判定が知られている。ペブル移動はMAPFのサブルーチンとして利用され、メモリ割当て、倉庫ロボット、交通制御、ゲームAIなどのモデル化にも関係する。先行研究では一般に三次オーダーの解長が知られていたが、どの構造がその原因なのかは明確でなかった。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>入力は、頂点数Nの有限無向グラフ、そこに置かれたラベル付きペブル、空いている頂点、初期配置、目標配置からなる。許される一手は、ペブルを隣接する未占有頂点へ移すことであり、指定された配置が到達可能な場合に移動列を求める。既知の一般上界はNの三次オーダーで、木については二次オーダーの下界が知られている。本論文の問題は、木の最短解長の漸近的な上界を決定し、一般グラフで三次の振舞いを生む構造を説明することである。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>木上の主結果は、任意の実行可能なインスタンスに対して二次対数オーダーの解列を構成できるというものである。アルゴリズムは出力感応型であり、解列を実際に生成する時間も出力長と整合する形で評価される。一般グラフでは幅優先全域木を選び、木の保証を利用して劣三次の解を得る。三次オーダーが可能なのは、次数二の頂点が線形個数存在し、それらが線形長のサイクル上にあり、各頂点に対応するサイクルがその頂点を含む最短サイクルであるという、強い制約の下に限られる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>本資料で示されている検証は、主として解析的な証明とアルゴリズムの構成である。木の分解、部分問題の解法、全体配置への再集約を通じて、解長と計算時間の漸近評価を導く。正方格子は一般グラフへの適用例として扱われ、頂点数の二分の三乗オーダーの解長が得られると説明される。具体的なグラフサイズ、乱択または実データのベンチマーク、他実装との測定比較は抜粋にない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>木上では、N頂点の実行可能なインスタンスに二次対数オーダーの解が存在し、効率的に計算できる。これは二次下界と合わせて、木における最適解長の不確実性を対数因子の範囲まで縮める。一般グラフでは幅優先全域木を用いることで、広いクラスに対して三次未満の解列を生成でき、正方格子では頂点数の二分の三乗オーダーを回復する。三次オーダーの可能性は、長いサイクル上の多数の次数二頂点という限定的な構造に結び付けられる。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、古典的な三次上界がすべてのグラフや木に一様に現れるわけではないことを示す。木では二次対数オーダーの解法により、三次現象が構造的に排除される。一般グラフの解析は、効率的な解列を得られる形状と、三次の困難さが残り得る形状を区別する。これにより、ペブル移動とそれを利用するMAPF手法を、グラフの局所構造に基づいて評価する視点が与えられる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提示された抜粋では、本文中の多くの数式、定数、入力パラメータの正確な定義が欠落している。したがって、計算時間の厳密な式、空頂点数に対するすべての閾値、実装上の定数因子は確認できない。三次条件が必要条件としてどこまで鋭いか、また構造条件から三次の下界を構成できるかも、抜粋だけでは確定しない。実験データや実運用でのMAPF性能も報告されていないため、理論保証を経験的な優位性へ直接一般化することはできない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>ペブル移動は、衝突を避けながら多数のエージェントを再配置する抽象モデルであり、MAPFアルゴリズムの基礎部品として重要である。本論文は、単に新しい上界を与えるだけでなく、困難さを生む構造を次数二の通路とサイクルの関係として説明する。木や格子のような典型的な盤面が一般最悪例より容易である理由を、漸近解析によって裏付ける。これは、グラフ構造を利用したMAPFソルバの設計や、問題インスタンスの難易度予測に示唆を与える。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>ペブル移動問題、MAPF、グラフ再構成の理論的な計算量に関心がある研究者に適している。木構造、サイクル、カット頂点、イストムスを用いた分解証明や、出力感応型アルゴリズムを学びたい読者にも向く。実験的なMAPF性能比較や具体的な実装評価を求める読者には、完全な本文と追加の実験資料が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-19
+  </footer>
+</div>
+</body>
+</html>

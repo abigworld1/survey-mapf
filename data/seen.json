@@ -6985,6 +6985,40 @@
       "url": "http://arxiv.org/abs/2503.03779v2",
       "venue": "2025 IEEE/RSJ International Conference on Intelligent Robots and Systems"
     },
+    "arxiv:2503.20550": {
+      "added": "2026-10-19",
+      "added_at": "2026-10-19T07:46:39.215749",
+      "arxiv_id": "2503.20550",
+      "authors": [
+        "Tomoki Nakamigawa",
+        "Tadashi Sakuma"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-03-26",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2503.20550.html",
+      "file_en": "mapf-mapd-warehouse/2503.20550.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2503.20550v7",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Structural Origins of Cubic Complexity in Pebble Motion",
+      "title_en": "Structural Origins of Cubic Complexity in Pebble Motion",
+      "title_ja": "ペブル移動における三次複雑性の構造的起源",
+      "tldr": "本論文は、グラフ上でラベル付きペブルを隣接する空頂点へ移動させるペブル移動問題について、木上の任意の実行可能なインスタンスを二次対数オーダーの手数で解けることを示す。さらに一般グラフへ手法を拡張し、三次オーダーの複雑性が生じ得る構造を、長いサイクル上に多数の次数二の頂点が存在する場合へ厳しく限定する。",
+      "tldr_en": "This paper studies labeled pebble motion on graphs, where pebbles move to adjacent unoccupied vertices, and explains when very long solution sequences can occur. It proves that every feasible instance on an N-vertex tree has a solution of order N squared times log N, and restricts possible cubic behavior on general graphs to highly specific cycle-and-corridor structures.",
+      "url": "http://arxiv.org/abs/2503.20550v7",
+      "venue": ""
+    },
     "arxiv:2503.22162": {
       "added": "2026-10-12",
       "added_at": "2026-10-12T09:13:05.330642",
@@ -10870,6 +10904,41 @@
       "tldr": "本研究は、密集した倉庫グリッドで、目標を持つブロックを他のブロックや障害物に妨げられず再配置するブロック再配置問題（BRaP）を形式化する。五つの探索手法を比較し、BR-LaCAMと経路の阻害を抑えるヒューリスティック手法が、大規模グリッドでも高い成功率と短い初期解探索時間を示した。",
       "url": "https://arxiv.org/abs/2509.01022",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence 2026"
+    },
+    "doi:10.1609/aaai.v40i35.40213": {
+      "added": "2026-10-19",
+      "added_at": "2026-10-19T07:45:26.495602",
+      "arxiv_id": "2508.04849",
+      "authors": [
+        "Yifan Su",
+        "Rishi Veerapaneni",
+        "Jiaoyang Li"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-08-06",
+      "doi": "10.1609/aaai.v40i35.40213",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2508.04849.html",
+      "file_en": "mapf-mapd-warehouse/2508.04849.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2508.04849v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs",
+      "title_en": "BTPG-max: Achieving Locally Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs",
+      "title_ja": "BTPG-max：双方向時間計画グラフにおける局所最大双方向ペアの達成",
+      "tldr": "本論文は、遅延を伴う実行時の不要な待機や衝突を減らすため、Bidirectional Temporal Plan Graph（BTPG）により多くの双方向ペアを導入するBTPG-maxを提案する。非デッドロック・サイクルを考慮した局所最大の構築法により、従来法BTPG-oより多くの双方向ペアを見つけ、実験ではanytime性能と遅延下の実行性能を改善した。",
+      "tldr_en": "This paper proposes BTPG-max, a method for adding as many safe bidirectional pairs as possible to a Bidirectional Temporal Plan Graph, so that agents can adapt their passage order when execution delays occur. By identifying reachable non-deadlock cycles, the method constructs a locally maximal BTPG and empirically finds more pairs, improves anytime behavior, and improves execution under the reported delay simulation.",
+      "url": "http://arxiv.org/abs/2508.04849v1",
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence 2025"
     },
     "doi:10.1609/aaai.v40i35.40238": {
       "added": "2026-08-16",

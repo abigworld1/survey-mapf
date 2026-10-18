@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2508.04849.html" lang="ja">日本語</a></nav>
+  <h1>BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs</h1>
+<p class="meta">BTPG-max: Achieving Locally Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs</p>
+  <div class="meta">Yifan Su, Rishi Veerapaneni, Jiaoyang Li<br>Venue: Proceedings of the AAAI Conference on Artificial Intelligence 2025 ・ 2025-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.04849v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2508.04849v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v40i35.40213" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Proceedings of the AAAI Conference on Artificial Intelligence 2025</span><span class="chip">Published 2025-08-06</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 2</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper proposes BTPG-max, a method for adding as many safe bidirectional pairs as possible to a Bidirectional Temporal Plan Graph, so that agents can adapt their passage order when execution delays occur. By identifying reachable non-deadlock cycles, the method constructs a locally maximal BTPG and empirically finds more pairs, improves anytime behavior, and improves execution under the reported delay simulation.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is Multi-Agent Path Finding (MAPF), where multiple agents must move collision-free through a shared graph from given starts to given goals. A conventional MAPF solution assigns paths whose execution requires each agent to be at particular locations at particular timesteps. That requirement is unrealistic for physical robots because hardware, communication, kinematic constraints, and wheel slippage can cause delays. A Temporal Plan Graph converts the time-dependent solution into precedence dependencies, while a Bidirectional Temporal Plan Graph relaxes some inter-agent precedence constraints into bidirectional pairs, allowing either agent to pass first when doing so is safe.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is BTPG-max, which addresses non-deadlock cycle types that the earlier BTPG-o method can miss. The paper develops a characterization of possible non-deadlock cycles in a BTPG and uses it to distinguish cycles that can actually cause a reachable deadlock from cycles that cannot. Based on this analysis, BTPG-max adds bidirectional pairs whenever the additional reverse dependency does not introduce a reachable deadlock cycle. The resulting construction is locally maximal: after the algorithm finishes, no further bidirectional pair can be added under its construction criterion. Empirically, the method finds substantially more pairs and offers better anytime behavior, although pair count does not always translate directly into the largest execution-time improvement.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The input is a collision-free MAPF solution, which is first converted into a TPG. The algorithm then examines type-2 edges one at a time and tests whether an edge can be converted into a bidirectional pair by adding the opposite direction. As in BTPG-o, a conversion is accepted only if it does not create a deadlock. The key difference is the deadlock test: BTPG-max performs a depth-first search rooted at the edge under consideration and checks only reachable deadlock cycles, using the paper’s reachability analysis and cycle conditions rather than a limited set of hand-crafted exclusions. A vertex is considered unreachable not only when it lies after a deadlock, but also when it depends through type-1 or type-2 edges on another unreachable vertex. The experiments also compare processing with and without grouping because grouping changes the efficiency and outcome of the construction.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The authors use the optimal MAPF solver CBSH2-RTC to produce a solution for each instance, convert that solution into a TPG, and then compare BTPG-o with BTPG-max both with and without grouping. All BTPG construction methods have a ten-minute cutoff. The evaluation covers six benchmark maps, with five to eight agent-count settings per map and ten random instances for each setting. The execution study contains 3,900 simulations, with each instance run using ten random seeds. The delay model is the same as in the cited BTPG-o study: at each non-delayed timestep, 10% of the agents have a 30% chance of being delayed by five timesteps. The reported measures include discovered bidirectional pairs, average and median execution-time improvement, anytime behavior during construction, and pairs actually used in reverse during simulation; the excerpt does not provide every per-map value or the complete improvement formula.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>Without grouping, BTPG-max finds more bidirectional pairs than BTPG-o on every reported map and has higher mean improvement. Grouping substantially improves both methods, increasing the number of pairs found and the overall improvement. However, the total number of pairs and execution improvement are not equivalent objectives: with grouping, BTPG-max finds more pairs than BTPG-o on the warehouse map, while BTPG-o has the larger mean improvement there. The paper attributes this discrepancy to edge order and pair utilization. Consequently, a construction may contain more pairs but use fewer of them in simulated execution, so grouping, edge order, and the distinction between discovered and used pairs are important trade-offs. The authors identify online use during execution, better anytime behavior, parallelization, more sophisticated grouping, and incorporation of prior delay knowledge as future directions.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>TPG was introduced as a post-processing representation of a MAPF solution for delay-aware execution. Its type-1 edges express within-agent precedence, while type-2 edges express an inter-agent ordering at a conflict location where both paths need to pass. A conventional TPG preserves the original order even when a delay makes that order inconvenient. BTPG relaxes selected type-2 constraints into bidirectional pairs, so the other agent may pass first when the resulting choice is safe. This approach is orthogonal to methods that plan delay-robust MAPF solutions directly, including methods that assume explicit delay bounds or delay probabilities, and to approaches that reduce waiting or type-2 edges during planning.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>A MAPF path set alone does not specify a safe and useful response when agents deviate from their planned timings. If agents keep following fixed temporal orders despite delays, they may wait unnecessarily, collide, or enter deadlock. Adding reverse dependencies indiscriminately is also unsafe because combinations of dependencies can create cycles that lead to deadlock. The problem is therefore to maximize execution flexibility by finding as many safe bidirectional pairs as possible while preserving deadlock avoidance. BTPG-o improves on a basic BTPG construction but still misses some cycle types that are not deadlocking.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The algorithm’s safety test is based on reachable deadlock cycles rather than on every syntactic cycle in the graph. Its depth-first search traverses normal type-2 edges and existing bidirectional pairs under conditions intended to preserve the state required for a reachable deadlock. Reachability is propagated through dependency edges, so vertices that depend on an already unreachable vertex are also excluded from future execution. This analysis supports the local-maximality claim: each candidate is tested against the relevant deadlock conditions, and accepted candidates remain in the constructed BTPG.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The study uses CBSH2-RTC with a two-minute limit to determine the maximum agent count tested on each map, then applies BTPG construction with a ten-minute cutoff. It compares BTPG-o, BTPG-max without grouping, and BTPG-max with grouping, and also reports comparisons involving grouping for BTPG-o. The execution simulator uses the specified stochastic five-timestep delays and records both construction-time and execution-time outcomes. The supplied excerpt names the six-map evaluation and its sampling structure but does not list all map names or all raw measurements.</p></section>
+<section class="secsum"><h3>Results</h3><p>With grouping, BTPG-max consistently finds three to five times as many bidirectional pairs as BTPG-o across all six maps. It has better median improvement on four of the six maps, not all six, showing that pair count is not a sufficient performance metric. Without grouping, it is reported to be strictly better than BTPG-o in pairs found, mean improvement, and anytime performance. The anytime comparison indicates that BTPG-max finds more pairs faster and reaches a higher final count, with most of its pairs found during the first pass over type-2 edges and relatively few added later.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>BTPG-max provides a locally maximal construction procedure for bidirectional temporal plan graphs. Its theoretical basis is the identification of non-deadlock cycles and the corresponding test for reachable deadlock cycles. The reported experiments support the claim that it exposes more bidirectional execution choices than BTPG-o and can improve delay-aware execution, especially when combined with grouping. The evidence supports these conclusions for the stated benchmark maps, solver, cutoff settings, and delay model.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>Local maximality does not mean global optimality for execution time, nor does it guarantee the greatest possible improvement under every delay pattern. The usefulness of a discovered pair depends on whether it is actually reversed during execution, and the result depends on edge order and grouping. The evaluation uses six benchmark maps and one specified stochastic delay model; the excerpt does not establish generalization to other map families, robot dynamics, communication regimes, or real hardware. The method is described as a pre-execution post-processing technique, while online operation remains future work. The supplied text also omits the complete proof details, full pseudocode context, complete numerical tables, and some implementation specifics.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work targets a practical gap between idealized MAPF timing and the irregular execution of real multi-robot systems. It shows that additional flexibility can be obtained by post-processing an existing MAPF solution rather than replacing the planner, while still checking for deadlock. Because the method is described as orthogonal to several delay-robust planning approaches, it could be layered on top of solutions that already account for delay bounds, probabilities, waiting, or type-2 structure. Its distinction between the number of available pairs and the number actually used also highlights an important evaluation issue for flexible execution policies.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is recommended for researchers working on MAPF execution, TPG or BTPG representations, delay-aware coordination, deadlock analysis, and anytime planning or post-processing. It is especially relevant to readers interested in converting fixed passage orders into safe bidirectional choices. Readers seeking exact reproduction should consult the complete paper because the supplied excerpt does not establish every theorem detail, formula, map identity, raw measurement, or implementation condition.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-19
+  </footer>
+</div>
+</body>
+</html>

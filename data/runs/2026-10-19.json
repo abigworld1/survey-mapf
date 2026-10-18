@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-19",
+  "dry_run": false,
+  "engine": "copilot-cli:default",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2508.04849.html",
+          "file_en": "mapf-mapd-warehouse/2508.04849.en.html",
+          "id": "2508.04849",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2025-08-06",
+          "reading_value": 4,
+          "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+          "relevance": 2,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs",
+          "venue": "Proceedings of the AAAI Conference on Artificial Intelligence 2025"
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2503.20550.html",
+          "file_en": "mapf-mapd-warehouse/2503.20550.en.html",
+          "id": "2503.20550",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2025-03-26",
+          "reading_value": 4,
+          "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Structural Origins of Cubic Complexity in Pebble Motion",
+          "venue": ""
+        }
+      ],
+      "already_added": 0,
+      "candidates_total": 424,
+      "fresh_total": 253,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 31,
+      "shortfall": 0,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": {
+          "count": 0,
+          "reused_recent": true
+        },
+        "arxiv/recent/q1": {
+          "count": 200,
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "candidate_cache/important": {
+          "count": 0
+        },
+        "candidate_cache/recent": {
+          "count": 0
+        },
+        "openalex/important/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/important/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/recent/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/important/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/recent/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-10-19T07:43:57+09:00"
+}

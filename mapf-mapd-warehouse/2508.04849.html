@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2508.04849.en.html" lang="en">English</a></nav>
+  <h1>BTPG-max: Achieving Local Maximal Bidirectional Pairs for Bidirectional Temporal Plan Graphs</h1>
+<p class="meta">BTPG-max：双方向時間計画グラフにおける局所最大双方向ペアの達成</p>
+  <div class="meta">Yifan Su, Rishi Veerapaneni, Jiaoyang Li<br>採択先: Proceedings of the AAAI Conference on Artificial Intelligence 2025 ・ 2025-08-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2508.04849v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2508.04849v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.1609/aaai.v40i35.40213" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Proceedings of the AAAI Conference on Artificial Intelligence 2025</span><span class="chip">公開日 2025-08-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、遅延を伴う実行時の不要な待機や衝突を減らすため、Bidirectional Temporal Plan Graph（BTPG）により多くの双方向ペアを導入するBTPG-maxを提案する。非デッドロック・サイクルを考慮した局所最大の構築法により、従来法BTPG-oより多くの双方向ペアを見つけ、実験ではanytime性能と遅延下の実行性能を改善した。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、共有グラフ上で複数エージェントが衝突せずに目的地へ移動するMulti-Agent Path Finding（MAPF）である。通常のMAPF解は、各エージェントが特定の時刻に特定の場所へ到達することを要求するが、実ロボットでは運動学的制約、車輪のスリップ、通信やハードウェアの問題による遅延が生じる。Temporal Plan Graph（TPG）は、時間に依存する経路解を、経路が空間的に交差する箇所を中心としたエージェント間の順序依存関係へ変換する。BTPGは一部の順序依存を双方向ペアに緩和し、遅延時に本来後のエージェントが先に通過できる選択肢を与える。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>主な新規性は、既存のBTPG-oが見逃していた非デッドロック・サイクルも検出し、追加可能な双方向ペアがない局所最大のBTPGを構築するBTPG-maxである。理論面では、BTPGにおける可能な非デッドロック・サイクルを定式化し、どのサイクルが実行可能なデッドロックを引き起こすかを判定する基盤を与える。アルゴリズム面では、到達可能なデッドロック・サイクルだけを調べることで、型2エッジを双方向ペアへ変換できるかを評価する。実証面では、従来法より多くのペアを発見し、探索途中のanytime性能と遅延下の実行性能を改善できることを示す。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まずMAPFソルバが生成した衝突回避経路をTPGへ変換し、型2エッジを一つずつ検査する。検査中の型2エッジに反対向きのエッジを追加してもデッドロックが生じない場合、そのエッジを双方向ペアへ変換する点はBTPG-oと共通している。BTPG-maxの違いは、手作業で定めた限定的な規則ではなく、到達可能性を考慮した深さ優先探索でデッドロック・サイクルを検出することである。到達不能な頂点とは、デッドロック後に到達できない頂点だけでなく、型1・型2依存によってそのような頂点に依存する頂点も含む。さらに、エッジをまとめて扱うgroupingの有無を別構成として評価し、処理順序が結果に及ぼす影響も調べる。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、最適MAPFソルバCBSH2-RTCを使って各インスタンスの解を生成し、それをTPGへ変換した後、BTPG-oとBTPG-maxを比較した。BTPG構築法には10分の時間上限を設け、6種類のベンチマークマップ、各マップ5〜8種類のエージェント数、各エージェント数10個のランダムインスタンスを用いた。遅延実行のシミュレーションは合計3,900回で、各インスタンスを10個の乱数シードで実行した。遅延条件は、各非遅延タイムステップでエージェントの10%が30%の確率で5タイムステップ遅れるという、先行研究と同じ設定である。評価指標は発見した双方向ペア数、平均および中央値の実行時間改善、探索途中のanytime性能、実際に使用された双方向ペアである。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>BTPG-maxは、groupingなしの比較では全マップでBTPG-oより多くの双方向ペアを見つけ、平均改善も高かった。groupingを加えると、BTPG-oとBTPG-maxの双方で発見ペア数と全体的な改善が大きく向上した。もっとも、双方向ペアの総数と実行時間の改善は必ずしも一致せず、grouping付きBTPG-maxがより多くのペアを得ても、別の手法の方が平均改善で上回るマップがあった。これは、どのペアが実行中に実際に反転使用されるか、および型2エッジを調べる順序に依存する。したがって、ペア数の最大化は実行時間短縮の完全な代理指標ではなく、groupingや順序設計との組合せで評価する必要がある。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>TPGは、MAPF解を実行前に処理して、エージェント内の移動順序とエージェント間の通過順序を依存関係として表す手法である。経路が交差しない場合は主に同一エージェント内の型1エッジが現れ、交差地点で一方を先に通す必要がある場合に型2エッジが現れる。BTPGは、型2の固定順序を双方向ペアへ緩和し、遅延時に待機を減らす選択肢を提供する。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>固定された通過順序を実行時に厳密に守らせるTPGでは、一つの遅延が他エージェントの待機を連鎖させ、場合によっては衝突やデッドロックにつながる。BTPGは柔軟性を高めるが、反対向きの依存関係を無制限に追加すると、実行時にデッドロックを起こす可能性がある。したがって、デッドロックを避けながら追加できる双方向ペアをできるだけ多く発見することが問題となる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>BTPG-maxは型2エッジの反転候補ごとに、追加された双方向関係が到達可能なデッドロック・サイクルを作るかを検査する。深さ優先探索では、通常の型2エッジと既存の双方向ペアを、サイクルが成立し得る状態に合わせてたどる。デッドロック後に到達不能となる頂点を依存関係に沿って伝播させることで、見かけ上のサイクルと実際に危険なサイクルを区別する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>CBSH2-RTCで生成したMAPF解を対象に、BTPG-o、BTPG-maxのgroupingなし構成、groupingあり構成を比較した。各BTPG手法の構築には10分のカットオフを設け、実行シミュレーションでは指定された確率的な5タイムステップ遅延を使用した。論文抜粋には、6マップの個別名称や全ての数値結果、実行時間の絶対値は完全には示されていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>BTPG-maxは6マップすべてで、grouping付きBTPG-oに対して3〜5倍の双方向ペアを一貫して発見した。ただし、中央値の改善で上回ったのは6マップ中4マップであり、ペア数が多いほど常に改善が大きいわけではなかった。groupingなしではBTPG-maxがBTPG-oより、ペア数、平均改善、anytime性能のすべてで優れていたと報告されている。</p></section>
+<section class="secsum"><h3>結論</h3><p>BTPG-maxは、非デッドロック・サイクルの分析に基づいて局所最大の双方向ペア集合を構築する。実験結果は、従来法より多くの実行上の選択肢を作り、遅延環境での実行性能を高められることを支持する。groupingは双方の手法を大きく改善する重要な要素である。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>局所最大性は、追加できる双方向ペアがないことを意味するが、全体として実行時間を最小化する大域最適性を意味しない。実行性能は、ペアの発見順序、実際に反転使用されるペア、groupingに依存する。評価は抜粋で示された6マップと特定の遅延モデルに基づいており、他の環境、遅延分布、オンライン実行での一般性はこの資料だけでは確立されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFの経路計画だけでなく、遅延を含む現実のロボット実行を考慮するには、時間を固定しすぎない安全な依存関係が必要である。BTPG-maxは、既存のMAPF解を捨てずに実行前の後処理として柔軟性を増やせるため、遅延に頑健な運用の一手段となる。遅延モデルを事前に仮定する別のロバストMAPF手法とも直交し、その上に適用できると著者らは位置づけている。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>MAPFの実行時遅延、TPG/BTPG、衝突回避の依存関係、またはロボット群のanytime実行性能に関心がある研究者に適している。特に、局所的な安全性判定と双方向の通過選択を研究したい人に有用である。抜粋には完全な証明、全アルゴリズム詳細、全データ表が含まれていないため、厳密な再現や細部の検証には原論文全体が必要である。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-19
+  </footer>
+</div>
+</body>
+</html>
