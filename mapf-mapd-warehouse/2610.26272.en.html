@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bidirectionality is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2610.26272.html" lang="ja">日本語</a></nav>
+  <h1>Bidirectionality is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding</h1>
+<p class="meta">Bidirectionality Is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding</p>
+  <div class="meta">Masashi Aono<br>Venue: Unknown ・ 2026-10-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.26272v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2610.26272v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-10-19</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper studies exact-arrival multi-agent path finding on ranked directed acyclic graphs when every cell must locally output its bit of a valid joint path-support mask. It shows that even with each agent’s individual reachability cache and a small number of global one-bit flags, a machine restricted to only one temporal orientation cannot solve certain feasible query families at fixed depth without paying in communication, rounds, or other resources.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The setting is exact-arrival multi-agent path finding: every agent has a pinned departure place and time and a pinned arrival place and time, and the agents are coupled by vertex conflicts. The output is distributed rather than centrally decoded, so each cell must emit whether it belongs to a valid joint path-support mask. The machine is cellular and nonuniform: topology and slot information may be compiled into per-cell transition rules, each cell has finite state for the fixed topology, communication follows a fixed local fabric, computation proceeds in synchronous rounds, and the output round is independent of the query. The central difficulty is that a branch can be legal for an agent in isolation but become invalid because a different agent makes a later conflicting choice.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The main result gives an explicit two-agent, twelve-cell, depth-three topology on which no forward-only machine with no global channel is correct for two feasible queries, regardless of how many local rounds it uses. Reversing time yields the corresponding obstruction for backward-only machines, and taking the disjoint union of the two constructions rules out renouncing either orientation across the composite family. The paper then places multiple selector copies side by side and derives a bandwidth-round trade-off for forward-only machines: at constant depth, the information reaching target cones plus the information carried by global one-bit flags must scale with the number of copies. Matching-order upper bounds are described using a backward-capable machine and a flag-streaming construction.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The machine receives, at each cell, its own cavity bit, meaning the maximum individual path-support available to that agent. This concession makes the single-agent problem trivial in zero rounds, so the lower bound must come from inter-agent conflicts rather than from missing individual reachability information. In the crossed-conflict selector, the query changes a forcing bit on the other agent while leaving the target cell’s own local cache unchanged; one branch is fully compatible with a joint support in one query and the other branch is fully compatible in the other query. Locality and cone invariance imply that the target sees the same relevant state in both cases, while the forced-output property requires different output bits, producing a contradiction. For repeated copies, transcript counting measures how much query information can reach target cones and how much can be carried through the global flags.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The finite gadget lemmas and the pair-invariance contradictions are checked in Lean 4. The semantic bridge from the machine to the path-support task, the cone lemma, and the counting argument are presented as paper proofs. The single-agent consequence is also said to be confirmed by exhaustive enumeration. The paper reports no benchmarks, standard MAPF datasets, baseline algorithm comparisons, runtime measurements, success-rate measurements, or other conventional empirical evaluation.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The theorem should not be read as saying that every forward-only algorithm fails on every instance. Because the topology is known offline, a forward-only machine with enough time and suitable global signaling can gather endpoint and cavity bits, enumerate candidate joint masks, check local path, pin, and conflict conditions, and eventually make every cell output the retained valid candidate. A flooding machine also solves every instance in a number of rounds equal to the diameter of the local fabric, so the architecture class is not inherently too weak. The result instead says that one-directional local causality cannot handle the stated query families at the claimed constant-depth and narrow-channel resource regime without another payment, such as longer runs, wider channels, external advice, sequential enumeration, or shared memory. The excerpt does not establish hardware-level performance or a universal optimal upper bound for bidirectional machines; it indicates that the exact-arrival, free-arrival, and deadline variants are not separated by the proofs described.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Exact-arrival routing differs from ordinary reachability because both ends of every agent’s schedule are pinned. A cell that looks harmless when considering only its own agent may be ruled out by a collision with another agent whose endpoints constrain its available choices. This makes endpoint information and cross-agent conflict information jointly relevant even when individual reachability has already been supplied.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The paper asks whether a cellular machine can produce a valid joint path-support mask for every feasible query while using only local communication in one temporal direction. The topology is fixed and known, the state is factored over cells, communication is synchronous, and the output time cannot depend on the query. The studied task is not deciding only global feasibility, selecting one centrally decoded path, or computing an exact maximal joint support; it is distributed production of any valid support mask.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>A cavity is the maximum individual path-support for one agent, and giving every cell its cavity bit eliminates the easy single-agent direction argument. The multi-agent construction keeps the target’s own cavity fixed while changing a query-dependent condition on the collision partner, so the correct target output changes without a corresponding local causal change. In the replicated family, the forward-only lower bound is expressed as J_R+kR≥p, where J_R measures information reaching target cones, k is the number of one-bit global flags, R is the number of rounds, and p is the number of copies; in the stated family J_R is zero. A backward-only machine handles that family in constant rounds, while streaming one-bit flags requires on the order of the number of copies divided by the number of flags, plus a constant overhead.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The evidence is primarily theorem-level rather than benchmark-level. It includes machine-checked finite lemmas, a checked finite enumeration for the single-agent consequence, and paper proofs for the semantic and counting components. A later section is described as containing finite enumerations and simulations, but the supplied excerpt does not provide their datasets, exact conditions, numerical outputs, or comparison baselines. Accordingly, no empirical performance claim beyond the stated finite verification should be inferred.</p></section>
+<section class="secsum"><h3>Results</h3><p>On the twelve-cell, two-agent, depth-three gadget, a forward-only machine with no global flags fails on two feasible queries for every number of rounds. The time-reversed gadget gives the analogous failure for backward-only machines, and the composite family requires both orientations at the architecture level. For repeated copies at constant depth, the forward-only information requirement grows with the number of copies, while a backward-only construction solves the family in constant rounds and a flag-streaming construction uses roughly the copy count divided by the flag count, plus constant overhead. The paper characterizes this as tight in order, not as a conventional runtime benchmark.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>An early commitment in exact-arrival routing can be invalidated by a later decision made by another agent. Supplying complete individual reachability caches and allowing a few global aggregate bits removes two obvious objections but does not remove the multi-agent obstruction. The paper therefore identifies bidirectional local propagation as necessary for the explicit constant-depth families, unless the design instead pays with communication bandwidth, rounds, external advice, enumeration, or shared memory. The necessity is an architectural and resource statement, not a claim that one-way machines lack all expressive power.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The conclusions rely on a narrow model: ranked directed acyclic graphs, vertex conflicts, feasible queries, fixed local wiring, synchronous rounds, and nonuniform transition rules compiled from the known topology. The supplied text does not establish results for edge conflicts, capacities, kinematics, dynamic topologies, or a complete general-topology upper bound for bidirectional machines. It indicates that the proofs do not separate exact-arrival from free-arrival or deadline variants, rather than proving a broader equivalence of all such models. It also explicitly says that the literature search is a first pass over bibliographic records and abstracts rather than an exhaustive priority survey. Since no benchmarks are reported, the paper does not show how the lower bound predicts practical performance on standard MAPF instances.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work isolates a specific information-flow obstruction in distributed MAPF: preprocessing each agent’s individual options does not resolve dependencies created by collisions with other agents. For cellular or hardware-inspired solvers, it provides a way to account for the choice between bidirectional wiring and alternative resources such as global bandwidth, execution time, or shared memory. The small, parameterized, and partly formally checked families may be useful as future stress tests, although the paper does not itself exercise them as a benchmark suite.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is most relevant to researchers in MAPF under exact timing constraints, distributed computation, cellular automata, causal-cone lower bounds, and communication complexity. It is useful for readers designing local hardware or analyzing what global signaling can buy under narrow bandwidth. It is not a substitute for an empirical survey of MAPF solvers, because the supplied paper reports no standard datasets, baseline comparisons, or conventional performance evaluation.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-21
+  </footer>
+</div>
+</body>
+</html>

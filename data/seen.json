@@ -9871,6 +9871,72 @@
       "url": "http://arxiv.org/abs/2610.20118v1",
       "venue": ""
     },
+    "arxiv:2610.25991": {
+      "added": "2026-10-21",
+      "added_at": "2026-10-21T08:38:17.097288",
+      "arxiv_id": "2610.25991",
+      "authors": [
+        "Fumimaro Suzuki",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-10-19",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.25991.html",
+      "file_en": "mapf-mapd-warehouse/2610.25991.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.25991v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Map-Distribution Mixture-of-Experts for Multi-Agent Pathfinding",
+      "title_en": "Map-Distribution Mixture-of-Experts for Multi-Agent Pathfinding",
+      "title_ja": "マルチエージェント経路探索のための地図分布 Mixture-of-Experts",
+      "tldr": "本研究は、異なる地図分布に特化した複数のニューラル MAPF 方策を、各エージェントの局所状況に応じてルータが適応的に融合する手法を提案する。MoE は事前学習方策や既存手法を概ね改善する一方、同じパラメータ規模で適切に訓練した単一のモノリシック方策にはなお及ばない。",
+      "tldr_en": "This paper studies a Mixture-of-Experts design for neural multi-agent pathfinding in which experts specialize in different map distributions and a learned router fuses their action outputs according to each agent’s local situation. The approach generally improves pretrained policies and can outperform leading baselines, but a properly trained monolithic model with a matched parameter budget still performs better on average.",
+      "url": "http://arxiv.org/abs/2610.25991v1",
+      "venue": ""
+    },
+    "arxiv:2610.26272": {
+      "added": "2026-10-21",
+      "added_at": "2026-10-21T08:39:40.510236",
+      "arxiv_id": "2610.26272",
+      "authors": [
+        "Masashi Aono"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-10-19",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.26272.html",
+      "file_en": "mapf-mapd-warehouse/2610.26272.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.26272v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Bidirectionality is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding",
+      "title_en": "Bidirectionality Is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding",
+      "title_ja": "厳密到着型マルチエージェント経路探索のセルラーマシンには双方向性が必要",
+      "tldr": "本論文は、出発時刻と到着時刻が固定された多エージェント経路探索を、セルごとの有限状態機械として分散的に解く場合を研究する。個々の経路支持情報と少数の大域一ビットフラグを与えても、特定の問い合わせ族を正しく処理するには、時間の正方向または逆方向の一方だけに限定された局所通信では不十分であり、双方向性、通信量、ラウンド数、または別の資源の支払いが必要だと示す。",
+      "tldr_en": "This paper studies exact-arrival multi-agent path finding on ranked directed acyclic graphs when every cell must locally output its bit of a valid joint path-support mask. It shows that even with each agent’s individual reachability cache and a small number of global one-bit flags, a machine restricted to only one temporal orientation cannot solve certain feasible query families at fixed depth without paying in communication, rounds, or other resources.",
+      "url": "http://arxiv.org/abs/2610.26272v1",
+      "venue": ""
+    },
     "doi:10.1007/978-3-031-68416-6_18": {
       "added": "2026-10-13",
       "added_at": "2026-10-13T11:26:08.148914",

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Map-Distribution Mixture-of-Experts for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.25991.en.html" lang="en">English</a></nav>
+  <h1>Map-Distribution Mixture-of-Experts for Multi-Agent Pathfinding</h1>
+<p class="meta">マルチエージェント経路探索のための地図分布 Mixture-of-Experts</p>
+  <div class="meta">Fumimaro Suzuki, Keisuke Okumura<br>採択先: 未取得 ・ 2026-10-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.25991v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.25991v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-10-19</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、異なる地図分布に特化した複数のニューラル MAPF 方策を、各エージェントの局所状況に応じてルータが適応的に融合する手法を提案する。MoE は事前学習方策や既存手法を概ね改善する一方、同じパラメータ規模で適切に訓練した単一のモノリシック方策にはなお及ばない。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、四近傍グリッド上で複数エージェントがそれぞれの始点から目標頂点へ移動する MAPF である。各時刻にエージェントは現在位置に留まるか隣接頂点へ移動し、頂点衝突と、反対方向に同じ辺を通過する辺衝突を避けなければならない。本研究では、各エージェントが局所観測と他エージェントとの相互作用から、留まる動作を含む五つの行動の確率分布を出力するニューラル方策を扱う。従来の多くの研究が一つのモノリシック方策に全状況を処理させるのに対し、本研究は地図分布を単位とする専門家の組合せに焦点を当てる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一の貢献は、Maze、Warehouse、Room、Random という異なる地図分布に対して個別に専門化した方策を作り、学習されたルータでその出力を融合する、地図分布 MoE の枠組みである。第二に、この枠組みを既存の GNN ベース方策 MAGAT と、新たに設計した軽量な ReCAT の二つに適用し、特定の方策アーキテクチャに依存しない方向性として検証した。第三に、事前学習済みモデルから教師あり微調整と強化学習微調整を順に行う、専門家構築の再現可能な訓練手順を示した。実験は MoE の有効性を示すだけでなく、同一パラメータ予算では単一モデルが優れるという条件付きの結論も明らかにする。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、混合データで事前学習した基盤方策から出発し、各対象地図分布の教師データで教師あり微調整を行う。その後、各専門家を Group Relative Policy Optimisation による強化学習でさらに調整し、異なる地図分布に適した出力を形成する。ルータは、各専門家が同じエージェントの局所状況に対して生成した行動ロジットを受け取り、状況依存の重みで融合した方策を作る。主な設定では、まず専門家を準備し、その後に専門家を固定したまま教師ありでルータを学習するが、ルータと専門家を共同で強化学習微調整する選択肢も評価する。ReCAT は空間解像度を保つ特徴抽出、エージェント間相互作用を扱う再帰的なアクショントークン精錬、初期トークンと最終トークンからの行動ロジット生成を組み合わせた軽量方策である。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は POGEMA ツールキットを用い、単一の NVIDIA H200 GPU 上で MAGAT と ReCAT の両方について行われた。事前学習データは Random を20%、Maze を80%含み、幅と高さが17から21セルで、16、32、48エージェントのインスタンスからなるが、抜粋では各データセットの正確な件数、学習率、重み減衰などの一部数値が欠落している。専門家の教師あり微調整には Maze、Warehouse、Room、Random のデータを使い、評価ではこれらに加えて Sortation、Stripes、Empty を含む地図分布を扱い、分布内と分布外の挙動を比較した。成功率、正規化された SoC、SoC の信頼区間を用い、事前学習済みモデル、MoE、同程度のパラメータ数を持つ微調整済み単一モデル、HMAGAT、MAPF-GPT-DDG などを比較したが、抜粋は全ての数値を確定できる形では提示していない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、地図分布専門家の MoE が二つの方策アーキテクチャで事前学習方策を概ね改善し、既存の主要手法を上回る場合があることを示す。特に ReCAT-MoE は、分布内だけでなく分布外の設定でも、比較的コンパクトな構成で強い性能を示したと報告されている。しかし、同じパラメータ予算で十分に訓練されたモノリシック方策は、平均的には MoE より優れており、MoE の導入が常に有利とはいえない。専門家を固定してルータだけを教師あり学習する設定は、専門家も同時に更新する設定より概ね大きな改善を得ており、その後に両者を強化学習で微調整する構成が評価した方式の中で最も大きな改善を示した。著者らは、事前定義した地図分布ごとの専門家を明示的に作る制約、推論時に通常は全専門家を評価する計算負荷、暗黙的な専門化や自動的な地図分布生成を今後の課題として挙げる。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPF は、大規模なマルチエージェント学習の協調能力を検証する問題であり、倉庫物流のような集団自動化とも関係する。学習方策を探索と組み合わせることで、特定の問題領域では純粋な探索型ソルバを上回る可能性も報告されている。MoE は複数の専門家をルータで組み合わせる一般的な機械学習の考え方で、言語モデルやロボット制御では専門的技能を統合する方法として利用されてきた。本研究は、この考え方をニューラル MAPF の地図分布の違いに適用する。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPF の各エージェントは四連結グリッド上で、現在位置に留まるか隣接位置へ移動し、目標に到達して以後そこに留まる。二つのエージェントが同時に同じ頂点を占有すること、また同じ辺を反対向きに通過することは禁止される。計画全体の長さは makespan、全エージェントの移動時間の合計は Sum-of-Costs として評価される。ニューラル方策は局所観測から五つの行動の確率を出力するため、異なる地図構造に対する汎化と、密な相互作用の処理が主要な課題となる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>専門家は、混合地図で事前学習した方策を地図分布ごとに教師あり微調整し、続いて強化学習で調整することで作られる。MoE のルータは各専門家の行動ロジットをエージェント単位の局所状況に応じて融合し、固定的な専門家選択ではなくロールアウト中の適応的な組合せを実現する。学習時には、目標到達後の待機行動が教師信号を弱める可能性に対応するため、一部の待機ラベルを損失からマスクする。ReCAT は再帰的なアクショントークン精錬を用いる軽量な新方策であり、MAGAT とともに MoE の一般性を調べる対象となる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では MAGAT と ReCAT の事前学習モデル、地図分布 MoE、同程度のパラメータ規模で教師あり学習と強化学習を行った単一モデルを比較した。さらに HMAGAT と MAPF-GPT-DDG という既存手法も比較対象に含め、Maze、Warehouse、Room、Random、Sortation、Stripes、Empty の地図分布を評価した。評価軸は成功率と正規化 SoC であり、分布内と分布外の設定、専門家ロジットを均等に融合する場合、複数のルータ・専門家訓練方式を調べた。抜粋では、個々の試行回数、完全な数値表、すべてのハイパーパラメータは確定できない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>MoE は、MAGAT と ReCAT の双方で、事前学習済み方策からの改善を概ね示し、既存の主要手法を上回る場合があった。ReCAT-MoE は分布内および分布外の双方で強い性能を示したと説明されている。専門家を固定してルータを教師あり学習し、その後にルータと専門家を強化学習で調整する訓練方式が、評価した方式の中で最大の改善を得た。同時に、同一パラメータ予算のモノリシック方策は平均的に MoE を上回り、とくに分布外の Stripes が MoE の弱さに寄与したと報告されるが、抜粋には正確な成功率や SoC の値は十分に含まれていない。</p></section>
+<section class="secsum"><h3>結論</h3><p>地図分布に特化した専門家を適応的に融合する MoE は、ニューラル MAPF における有望なメタレベル設計である。二つの異なる方策アーキテクチャで、事前学習方策を改善し、強い既存手法に対抗できることが示された。しかし、現在の証拠は MoE が単一の高性能モデルを一般に置き換えることを示しておらず、パラメータを公平に合わせるとモノリシックモデルが優位である。したがって、MoE の価値は、専門化、計算量、分布外汎化の関係を考慮して判断する必要がある。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本手法は Maze、Warehouse、Room、Random などの事前定義された地図分布ごとに専門家を明示的に構築する必要があり、未知の分布へ自動的に専門化する仕組みではない。通常の構成では各エージェントについて全専門家を評価するため、典型的な疎な MoE より推論オーバーヘッドが大きくなり得る。同一パラメータ規模のモノリシック方策に平均性能で劣ることは、専門家分割とルーティングのコストが十分に回収されない可能性を示す。抜粋だけでは、全ベンチマークの数値、統計的有意性、広範な実環境での頑健性は確立されていない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、個別の方策アーキテクチャを改良するだけでなく、複数の専門家をどのように準備し、実行時に組み合わせるかという直交した設計問題を提示する。地図の構造に応じて局所的に出力を融合する考え方は、MAPF の分布シフトと多様な運用環境を扱うための一つの道筋を与える。さらに、MoE が有効な場面と単一モデルが優位な場面を同時に示すことで、単純な性能向上の主張ではなく、パラメータ効率、専門化、推論費用を含む比較を促す。倉庫物流などの大規模な協調自動化を想定する研究者にとって、設計上のトレードオフを検討する材料となる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>ニューラル MAPF、マルチエージェント強化学習、地図分布シフト、方策アンサンブルを研究する読者に適している。MAGAT のような GNN 方策と、再帰的なトークン精錬を用いる ReCAT の双方に関心がある人にも有用である。MoE を導入する際の専門家訓練、ルータ学習、推論コスト、単一モデルとの公平な比較を検討したい研究者に勧められる。完全な実験数値や詳細な再現条件が必要な読者は、提示された抜粋だけでは不足する点に注意すべきである。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-21
+  </footer>
+</div>
+</body>
+</html>

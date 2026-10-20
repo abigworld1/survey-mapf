@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bidirectionality is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.26272.en.html" lang="en">English</a></nav>
+  <h1>Bidirectionality is Necessary in Cellular Machines for Exact-Arrival Multi-Agent Path Finding</h1>
+<p class="meta">厳密到着型マルチエージェント経路探索のセルラーマシンには双方向性が必要</p>
+  <div class="meta">Masashi Aono<br>採択先: 未取得 ・ 2026-10-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.26272v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.26272v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-10-19</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、出発時刻と到着時刻が固定された多エージェント経路探索を、セルごとの有限状態機械として分散的に解く場合を研究する。個々の経路支持情報と少数の大域一ビットフラグを与えても、特定の問い合わせ族を正しく処理するには、時間の正方向または逆方向の一方だけに限定された局所通信では不十分であり、双方向性、通信量、ラウンド数、または別の資源の支払いが必要だと示す。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、ランク付き有向非巡回グラフ上で、各エージェントの出発位置・出発時刻・到着位置・到着時刻が指定される厳密到着型の多エージェント経路探索である。各セルは、中央で経路を復号するのではなく、自分が有効な共同経路支持マスクに含まれるかどうかを出力する。セルラーマシンはトポロジーとスロット写像を事前に知り、セルごとに状態を持ち、固定された局所配線上で同期通信するが、問い合わせに応じて出力ラウンドを変えることはできない。問題の核心は、あるセルについて単独では合法な選択が、後の時刻に別エージェントと衝突するため、共同解では不適切になることである。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>第一に、二つのエージェントと十二セルからなる深さ三の構成に対し、大域チャネルを持たない正方向専用機械は、任意のラウンド数でも二つの実行可能な問い合わせを同時には正しく処理できないことを示す。時間反転した構成により、逆方向専用機械にも対応する下界を与える。第二に、構成を複数個並べることで、正方向専用機械について、目標側の局所円錐に届く問い合わせ情報量と大域一ビットフラグの総量に関するトレードオフを示し、一定の深さでは必要な情報量がコピー数に比例することを述べる。第三に、逆方向通信やフラグ逐次送信による上界を示し、単一方向性を捨てる代わりに長い実行時間や広い大域チャネルを支払う逃げ道を整理する。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>各セルには、自身のエージェントについての最大個別経路支持であるキャビティのビットを実行時入力として与える。この入力により単一エージェント問題はゼロラウンドで解けるため、主張はエージェント間衝突に依存する。交差する衝突選択器では、問い合わせに応じて一方の枝だけが完全な共同経路支持になり、対象セルの正しい出力が変化する一方、その対象の局所的な観測は一定になるように配置する。局所性と因果円錐の不変性から対象の出力が変わらないことを導き、強制出力との矛盾を作る。複数コピーでは、対象へ届かない情報を大域フラグで送る場合のトランスクリプト数を数え、必要な帯域を下界化する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>有限なガジェットの補題とペア不変性に基づく矛盾はLean 4で検査されている。意味論との接続、因果円錐の補題、情報量の数え上げは論文中の証明である。単一エージェントの帰結は全探索で確認されたと記載されている。論文はベンチマークを報告しておらず、標準MAPFデータセット、既存アルゴリズムとの比較、実行時間や成功率などの実験的指標も提示していない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>結果は、すべての経路探索アルゴリズムが単方向通信で失敗するという意味ではない。トポロジーが既知で、ラウンド数と状態資源を十分に許せば、正方向だけでも情報を集約し、候補マスクを列挙して検査する機械を構成できるため、主張は特定のトポロジー上で問い合わせ族全体を一定の資源条件で処理することに関するものである。したがって本論文の結論は、双方向伝播を採用するか、長い実行時間、大域帯域、外部助言、逐次列挙、共有メモリなどを支払う必要があるという資源会計として理解すべきである。抜粋は、実機のタイル配置や一般トポロジーでのより鋭い双方向上界を確立しておらず、容量・運動学・辺衝突を含むモデルも今後の課題としている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>厳密到着型の経路探索では、各エージェントの経路が個別には合法でも、他エージェントとの時空間上の衝突によって共同解として不適切になり得る。局所通信だけで各セルが自分の出力ビットを決める場合、正しい判断に必要な情報が時間的にも別エージェント上にも存在し得る。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>固定された局所配線、同期ラウンド、セルごとに分解された状態、問い合わせに依存しない出力ラウンドを持つ機械を考える。問題は、実行可能なすべての問い合わせに対して、各セルが有効な共同経路支持マスクの自分のビットを出力できるかである。抜粋は、非実行可能な問い合わせや、特定の実装環境での性能については確立していない。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>キャビティは、単一エージェントが取り得る最大の経路支持であり、これを各セルに与えると単一エージェントの方向性下界は消える。主たる下界は、対象セルのキャビティを変えずに衝突相手側の問い合わせビットだけを変え、対象の正しい出力を反転させる構成に依存する。複数コピーでは、正方向専用機械について、目標の因果円錐に届く情報量を表す量をJ_R、大域フラグ数をk、ラウンド数をRとすると、J_R+kR≥pという制約が示され、ここではJ_R=0である。逆方向機械はこの族を一定ラウンドで解き、フラグ逐次送信機械はおおむねコピー数をフラグ数で割ったラウンドと定数オーバーヘッドを要する。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>報告された検証は、有限ガジェットの形式化、補題のLean 4によるチェック、有限な単一エージェント事例の全探索である。数値ベンチマーク、標準データセット、ベースライン比較、学習や実行時間の測定は報告されていない。後半の一節には有限列挙とシミュレーションが含まれるとされるが、抜粋だけではその条件や数値結果を確定できない。したがって、有限検証を超える経験的性能主張は導けない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>十二セル・二エージェント・深さ三の構成では、フラグなしの正方向専用機械は、ラウンド数によらず二つの実行可能な問い合わせを正しく処理できない。時間反転した構成は逆方向専用機械に同じ障害を与え、両方の構成を直和すると、どちらか一方の時間方向を全体で捨てることができない。複数コピーでは、正方向専用機械に必要な情報量がコピー数に比例し、逆方向機械は一定ラウンド、フラグ逐次送信機械はコピー数をフラグ数で割った程度のラウンドで解けるとされる。これは通常の実行時間ベンチマークではなく、情報資源のオーダーが一致するという結果である。</p></section>
+<section class="secsum"><h3>結論</h3><p>厳密到着では、早い時刻のセルの判断が、後の時刻に別エージェントが何をするかで決まることがある。個別キャビティと少数の大域フラグを与えても、局所因果を一方向に制限した機械には、明示的な構成上の情報障害が残る。双方向性は表現力そのものの必要条件ではなく、一定深さ・一定帯域・問い合わせ族全体で解くための有力な資源要件として現れる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>主張は、ランク付き有向非巡回グラフ、頂点衝突、実行可能な問い合わせ、固定トポロジーを知る非一様セルラーマシンという狭いモデルに依存する。抜粋は、厳密到着型と自由到着型または締切型との間に分離があることを示しておらず、一般トポロジーにおける最適な双方向上界も与えていない。関連研究の調査は抄録と書誌記録を中心とする第一段階であり、網羅的な優先権主張ではない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、局所分散型MAPFで、個々の到達可能性を前計算してもエージェント間の衝突依存性が消えないことを明確にする。ハードウェアやセルラーネットワークを設計する際、双方向配線を追加するか、帯域・ラウンド・共有記憶を増やすかを比較するための理論的な資源下界を与える。小さくパラメータ化され、部分的に形式検証された構成は、将来の分散MAPF機械のベンチマーク候補になり得るが、論文自身はその用途を実施していない。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>セルラーネットワーク、分散計算、MAPFの厳密到着制約、因果円錐、通信下界に関心のある研究者に向いている。標準ベンチマークでのアルゴリズム性能や実装比較を探している読者には、実験結果がないため直接の代替にはならない。形式手法に関心がある読者には、有限補題をLean 4で検査する構成が参考になる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-21
+  </footer>
+</div>
+</body>
+</html>
