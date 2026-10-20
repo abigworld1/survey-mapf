@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-20",
+  "dry_run": false,
+  "engine": "copilot-cli:default",
+  "fields": [
+    {
+      "added": [],
+      "already_added": 0,
+      "candidates_total": 363,
+      "fresh_total": 235,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 3,
+      "shortfall": 2,
+      "skipped": [
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-87b33e0e4a1a",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2026-10-13",
+          "reasons": [
+            "本文未取得（アブストラクトのみ）"
+          ],
+          "relevance": 5,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Efficient Any-Angle Bounded-Suboptimal Multi-Agent Path Finding via Analytic Conflict Resolution",
+          "venue": "Preprints.org"
+        },
+        {
+          "basis": "abstract",
+          "citations": 0,
+          "id": "doi-0426e114be08",
+          "matched_keywords": [
+            "Multi-Agent Pathfinding"
+          ],
+          "published": "2026-10-11",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 3,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Improving Suboptimal Reduction-Based Approaches for Multi-agent Pathfinding",
+          "venue": "Lecture notes in computer science"
+        },
+        {
+          "basis": "abstract",
+          "citations": 1247,
+          "id": "doi-8c62c898a76f",
+          "matched_keywords": [
+            "Multi-Agent Pathfinding"
+          ],
+          "published": "2014-12-01",
+          "reasons": [
+            "本文もアブストラクトも取得できない"
+          ],
+          "relevance": 3,
+          "selection": "fallback",
+          "selection_label": "補充候補",
+          "source": "openalex",
+          "source_quality": "abstract",
+          "title": "Conflict-based search for optimal multi-agent pathfinding",
+          "venue": "Artificial Intelligence"
+        }
+      ],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": {
+          "count": 0,
+          "reused_recent": true
+        },
+        "arxiv/recent/q1": {
+          "count": 139,
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "candidate_cache/important": {
+          "count": 0
+        },
+        "candidate_cache/recent": {
+          "count": 0
+        },
+        "openalex/important/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/important/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "count": 25,
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "count": 25,
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/recent/q3": {
+          "count": 25,
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "count": 25,
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/important/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/recent/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-10-20T09:05:21+09:00"
+}
