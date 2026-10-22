@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Policy Search in Code Space for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2610.25946.en.html" lang="en">English</a></nav>
+  <h1>Policy Search in Code Space for Multi-Agent Pathfinding</h1>
+<p class="meta">マルチエージェント経路探索のためのコード空間における方策探索</p>
+  <div class="meta">Matthias Eder, Pantelis Emmanouil, Vivek Farias, Fabian Fischer, Adam Jozefiak, Tianyi Peng, Thomas Ulz, Raphael Watschinger, Fangyu Wu, Andrew Zheng<br>採択先: 未取得 ・ 2026-10-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.25946v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2610.25946v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2610.25946" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-10-19</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本研究は、コーディングエージェントに調整方策のソースコードそのものを反復的に探索させ、高スループットな生涯マルチエージェント経路探索（LMAPF）アルゴリズムを発見する方法を示す。二つの事例で人手設計の解を上回り、倉庫向け方策については、明示された仮定の下で衝突回避と有限時間の進捗が保証される。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、タスクが継続的に到着する生涯マルチエージェント経路探索である。複数のロボットは共有空間でタスク割当てと経路調整を同時に行い、衝突を避けながら、厳しい実時間制約の下でスループットを最大化する必要がある。問題設定には、2次元グリッドだけでなく、連続的なロボット形状、キネマティックなレーン制約、非同期動作を含む産業倉庫も含まれる。従来の主な方法は、専門家がルールやプランナを設計する方法と、シミュレーションを通じてニューラル方策を学習する方法である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な提案は、パラメータやニューラル重みではなく、調整方策の実装そのものをコード空間で探索するPolicy Search in Code Space（PSCS）である。コーディングエージェントが自然言語で与えられた目的と制約に従い、既存実装を変更しながら候補アルゴリズムを評価するワークフローを示した。LoRR 2024では既存プランナを改良して地図依存のヒューリスティクスを発見し、倉庫事例では既存の分類に収まらない新しいクラスのルーティングアルゴリズムを合成した。さらに倉庫アルゴリズムについて、明示された仮定の下で衝突がなく、取り下げや置換を受けない受理済み目標を有限時間で完了することを示した。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>探索は、環境、運用制約、性能目標、初期アルゴリズムまたは参照実装を人間が指定して開始する。エージェントは候補となるアルゴリズム変更を提案し、ソースコードを編集し、閉ループシミュレーションで実行し、実行トレースとプロファイラログからボトルネックを診断するという四段階のループを反復する。固定された専用の進化的探索ハーネスではなく、自然言語による比較的最小限の誘導で探索を進める点が特徴である。人間は目的と制約を設定し、探索中に方向付けを行い、最終結果の妥当性を確認するため、実証された手順は完全自律ではない。倉庫では、混雑と移動時間の予測に基づいて注文を割り当て、現在の占有者が出発を約束した場合には不要な迂回を避ける。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は二つのケーススタディで行われた。第一は、819個の通行可能セルを共有するLoRR 2024の5インスタンスであり、1ステップ1.0秒の実行予算と32GBのメモリ上限を守りながら、単一方策でタスク割当てと経路計画を行った。第二は、連続3次元車体形状、キネマティックなレーン制約、非同期動作を含むKNAPP産業倉庫の高忠実度シミュレーションで、注文はおよそ毎時1,800件到着する。比較対象は、LoRRのより強い競技エントリをローカルに再現したものと、調整済みの専有プロダクション解である。提示された抜粋は、全実験の乱数条件、分散、信頼区間、完全なベースライン設定を示していないため、報告値を超える統計的有意性は確立しない。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LoRRでは、発見されたPLATMが5インスタンスすべてで上位二つの競技エントリを上回り、極端な混雑では最大35.0%のスループット向上を示した。倉庫では、CGARがWAREHOUSE-01で専有ベースラインより58.9%高いスループットを達成し、6施設を単一の未調整設定で動作した。PLATMは新しいレイアウトで再調整すると、全フリート密度で競技ベンチマークから3.9%以内となり、CGARはパラメータ調整なしの未見合成レイアウトで1ロボット毎時16.98注文を維持した。もっとも、探索は人間参加型で、モデルの版や誘導方法への依存、評価コスト、監査しにくい密結合なコードが課題である。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは複数エージェントの衝突のない軌道を求め、LMAPFではエージェントが仕事を終えるたびに新しいタスクを受け取る。大規模環境では最適探索器は多数のエージェントに拡張しにくいため、実用上は高速な近似プランナや交通ルールが使われる。既存研究には、優先度継承、非同期実行、ウィンドウ化、近傍探索、交通誘導グラフ、強化学習や模倣学習がある。コード生成によるアルゴリズム発見は進展していたが、現実的なLMAPFへ適用できるかは未解決だった。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>環境は有限な有向構成グラフと離散的な時計刻みで表され、頂点は位置や向きを含む構成、辺は正の所要時間を持つ実行可能な移動である。エージェントは頂点で待機できるが、辺の走行は中断できず、頂点、辺、または物理的形状に基づく衝突規則を満たす必要がある。タスクは順序付きの用事から成り、各用事には許容目標構成と連続サービス時間がある。方策はアイドルエージェントへのタスク割当てと、各エージェントの待機または出発辺を選び、割当て、運動学、衝突、実時間の制約下で期待スループットを最大化する。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>コード空間探索は、固定されたプランナの重みを調整するだけでなく、プランナとスケジューラの実装構造を変更する。シミュレーションの実行結果だけでなく、実行トレースとプロファイラログを診断材料として使うため、性能低下や実行上のボトルネックをコード変更へ結び付けられる。倉庫の衝突規則は連続的な掃引体積を扱い、古典的な頂点衝突や交換衝突より広いモデルを表現する。得られる方策は通常のソースコードであり、実行時にニューラル推論を必要としないため、形式検証の対象にできる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>LoRR実験ではRANDOM-01からRANDOM-05までの5インスタンスを用い、単一方策がタスク割当てと経路計画を行った。PLATMの合成には42.3時間の壁時計時間と約700ドルのAPI利用費を要した。倉庫実験では6施設と未見の合成レイアウトを評価し、CGARの開発には177.8時間と約4,800ドルを要した。提示された抜粋は、全施設の個別スコア、候補改訂数、シミュレーションの乱数種、アブレーション、信頼区間を明らかにしていない。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>LoRRの最密インスタンスでは、発見方策がより強いローカル再現競技エントリを35.0%上回った。5つのLoRRインスタンス全体では、PLATMが上位二つの競技エントリを上回ったと報告されている。WAREHOUSE-01では、CGARが調整済み専有解に対して58.9%のスループット向上を示した。CGARは未見レイアウトで1ロボット毎時16.98注文を維持し、同程度の規模の運用施設で観測された効率に一致したと報告される。</p></section>
+<section class="secsum"><h3>結論</h3><p>提示された二事例は、コーディングエージェントによるコード空間探索が複雑なLMAPFの実用的なアルゴリズム設計手段になり得ることを示す。得られた方策は高い性能だけでなく、ソースコードとしての透明性と、少なくとも倉庫方策では形式的な進捗検証可能性を持つ。したがって本研究は、専門家設計とブラックボックス学習の間に、計算による探索と解析可能性を組み合わせた選択肢を提示する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>探索は人間が目的や制約を設定する有機的な人間参加型プロセスであり、完全自律の再現性は確立されていない。密結合したヒューリスティクスが蓄積し、開発者による監査や変更を難しくする可能性がある。評価シミュレーションは高コストで、時間的並列化、重要度サンプリング、効率的な代理シミュレータが将来の研究課題として挙げられている。衝突回避と有限時間完了の保証は、倉庫方策について明示された仮定の下に限られる。また、固定的なエージェント基盤が特定モデル版の限界に過適合するかどうかは未解決である。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究の重要性は、MAPFの探索対象を固定アルゴリズムのパラメータから実装全体へ広げた点にある。これは、複雑なタスク割当て、経路計画、混雑管理、低遅延実行を自動化しつつ、成果物を人間が検査できるコードとして残す方向を示す。産業システムで必要な性能、安全性、説明可能性を一つの探索過程で扱う可能性がある。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>LMAPF、倉庫ロボティクス、マルチロボットのタスク割当て、スケジューリングと経路計画の統合に関心がある研究者に向く。自動プログラム合成、コーディングエージェント、アルゴリズム発見、ロボット方策の形式検証を研究する読者にも有用である。特に、学習方策の性能だけでなく、実装の監査可能性と証明可能な進捗を重視する人に薦められる。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-22
+  </footer>
+</div>
+</body>
+</html>

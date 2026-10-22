@@ -6884,6 +6884,44 @@
       "url": "http://arxiv.org/abs/2501.17661v1",
       "venue": "the 2025 IEEE International Conference on Robotics and Automation (ICRA), May 19-23, 2025, Atlanta, USA"
     },
+    "arxiv:2501.19218": {
+      "added": "2026-10-22",
+      "added_at": "2026-10-22T09:01:26.584195",
+      "arxiv_id": "2501.19218",
+      "authors": [
+        "Sreenivasan Ganti",
+        "Visnu Srinivasan",
+        "Pallavi Ramicetty",
+        "Shravan Mohan",
+        "Milind Savagaonkar",
+        "Shubhashis Sengupta"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2025-01-31",
+      "doi": "",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2501.19218.html",
+      "file_en": "mapf-mapd-warehouse/2501.19218.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2501.19218v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "A parallelizable variant of HCA*",
+      "title_en": "A Parallelizable Variant of HCA*",
+      "title_ja": "並列化可能なHCA*の変種",
+      "tldr": "本稿は、MAPFにおける優先順位依存のHCA*を、衝突しない経路集合を交差グラフの独立集合として選びながら反復的に確定する、並列化可能なヒューリスティックへ拡張する。提示されたシミュレーションでは、HCA*に対して多くの場合にコストと計算時間の両面で有利な結果が観測され、計算時間はおよそ最大4倍の高速化を示唆するが、最適性や全条件での優越性は確立されていない。",
+      "tldr_en": "This paper presents a parallelizable heuristic variant of Hierarchical Cooperative A* for multi-agent path finding. It repeatedly fixes mutually non-colliding shortest paths selected through an intersection graph; the supplied simulation evidence reports lower or equal cost in many cases and suggests roughly up to a fourfold computation-time speedup over HCA*, but it does not establish optimality or universal superiority.",
+      "url": "http://arxiv.org/abs/2501.19218v1",
+      "venue": ""
+    },
     "arxiv:2502.06440": {
       "added": "2026-09-13",
       "added_at": "2026-09-13T17:12:09.381786",
@@ -13115,6 +13153,47 @@
       "tldr": "本稿は、実行前には未知だが実行中は固定された障害物を含む環境で、空間的に相関した観測を利用するMAPFを扱う。提案手法MAGICは、観測から共有された通行可能性の信念を更新し、迂回のリスクを反映したコストで既存のMAPFプランナを誘導することで、実行時の総コストを既存手法より低減したと報告する。",
       "tldr_en": "This paper studies MAPF when obstacle discrepancies are initially unknown but remain fixed during execution, and when local observations reveal information about nearby unobserved locations. It proposes MAGIC, which maintains a shared spatial belief about traversability and converts it into detour-aware costs for standard MAPF planners; the abstract reports lower executed cost than existing approaches on 96.3% of instances.",
       "url": "http://arxiv.org/abs/2609.40269v1",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2610.25946": {
+      "added": "2026-10-22",
+      "added_at": "2026-10-22T09:00:02.429240",
+      "arxiv_id": "2610.25946",
+      "authors": [
+        "Matthias Eder",
+        "Pantelis Emmanouil",
+        "Vivek Farias",
+        "Fabian Fischer",
+        "Adam Jozefiak",
+        "Tianyi Peng",
+        "Thomas Ulz",
+        "Raphael Watschinger",
+        "Fangyu Wu",
+        "Andrew Zheng"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-10-19",
+      "doi": "10.48550/arxiv.2610.25946",
+      "engine": "copilot-cli:default",
+      "file": "mapf-mapd-warehouse/2610.25946.html",
+      "file_en": "mapf-mapd-warehouse/2610.25946.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2610.25946v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Policy Search in Code Space for Multi-Agent Pathfinding",
+      "title_en": "Policy Search in Code Space for Multi-Agent Pathfinding",
+      "title_ja": "マルチエージェント経路探索のためのコード空間における方策探索",
+      "tldr": "本研究は、コーディングエージェントに調整方策のソースコードそのものを反復的に探索させ、高スループットな生涯マルチエージェント経路探索（LMAPF）アルゴリズムを発見する方法を示す。二つの事例で人手設計の解を上回り、倉庫向け方策については、明示された仮定の下で衝突回避と有限時間の進捗が保証される。",
+      "tldr_en": "This paper proposes searching directly over coordination-policy source code with coding agents rather than only hand-designing heuristics or training opaque neural policies. Across two case studies, the workflow produced policies that exceeded strong engineered baselines and, in the warehouse case, came with collision-free and finite-progress guarantees under stated assumptions.",
+      "url": "http://arxiv.org/abs/2610.25946v2",
       "venue": ""
     },
     "doi:10.65109/kpwj5508": {

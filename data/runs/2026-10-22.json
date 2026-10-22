@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-22",
+  "dry_run": false,
+  "engine": "copilot-cli:default",
+  "fields": [
+    {
+      "added": [
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2610.25946.html",
+          "file_en": "mapf-mapd-warehouse/2610.25946.en.html",
+          "id": "2610.25946",
+          "matched_keywords": [
+            "Multi-Agent Pathfinding"
+          ],
+          "published": "2026-10-19",
+          "reading_value": 4,
+          "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+          "relevance": 4,
+          "selection": "important",
+          "selection_label": "重要論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "Policy Search in Code Space for Multi-Agent Pathfinding",
+          "venue": ""
+        },
+        {
+          "basis": "fulltext(arxiv)",
+          "citations": 0,
+          "file": "mapf-mapd-warehouse/2501.19218.html",
+          "file_en": "mapf-mapd-warehouse/2501.19218.en.html",
+          "id": "2501.19218",
+          "matched_keywords": [
+            "Multi-Agent Path Finding",
+            "MAPF"
+          ],
+          "published": "2025-01-31",
+          "reading_value": 4,
+          "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+          "relevance": 2,
+          "selection": "recent",
+          "selection_label": "新着論文",
+          "source": "arxiv",
+          "source_quality": "fulltext",
+          "title": "A parallelizable variant of HCA*",
+          "venue": ""
+        }
+      ],
+      "already_added": 0,
+      "candidates_total": 292,
+      "fresh_total": 107,
+      "k": 2,
+      "label": "自動倉庫におけるマルチエージェント計画・タスク形成最適化",
+      "picked_initial": 2,
+      "quota": {
+        "important": 1,
+        "recent": 1
+      },
+      "relevant_total": 47,
+      "shortfall": 0,
+      "skipped": [],
+      "slug": "mapf-mapd-warehouse",
+      "source_counts": {
+        "arxiv/important": {
+          "count": 0,
+          "reused_recent": true
+        },
+        "arxiv/recent/q1": {
+          "count": 200,
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "candidate_cache/important": {
+          "count": 0
+        },
+        "candidate_cache/recent": {
+          "count": 0
+        },
+        "openalex/important/q1": {
+          "error": "JSONDecodeError('Unterminated string starting at: line 1 column 84124 (char 84123)')",
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/important/q2": {
+          "error": "<HTTPError 504: 'Gateway Timeout'>",
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/important/q3": {
+          "error": "JSONDecodeError('Unterminated string starting at: line 1 column 162966 (char 162965)')",
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q4": {
+          "error": "<HTTPError 504: 'Gateway Timeout'>",
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/important/q5": {
+          "count": 25,
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/important/q6": {
+          "count": 25,
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "openalex/recent/q1": {
+          "error": "JSONDecodeError('Unterminated string starting at: line 1 column 99857 (char 99856)')",
+          "query": "Multi-Agent Path Finding"
+        },
+        "openalex/recent/q2": {
+          "error": "JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 49761 (char 49760)')",
+          "query": "Multi-Agent Pathfinding"
+        },
+        "openalex/recent/q3": {
+          "error": "JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 116249 (char 116248)')",
+          "query": "Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q4": {
+          "error": "JSONDecodeError('Expecting value: line 1 column 117817 (char 117816)')",
+          "query": "Multi-Task Multi-Agent Pickup and Delivery"
+        },
+        "openalex/recent/q5": {
+          "error": "<HTTPError 504: 'Gateway Timeout'>",
+          "query": "Lifelong Multi-Agent Path Finding"
+        },
+        "openalex/recent/q6": {
+          "error": "<HTTPError 504: 'Gateway Timeout'>",
+          "query": "Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/important/q1": {
+          "error": "<HTTPError 429: ''>",
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        },
+        "semanticscholar/recent/q1": {
+          "count": 53,
+          "query": "Multi-Agent Path Finding + Multi-Agent Pathfinding + Multi-Agent Pickup and Delivery + Multi-Task Multi-Agent Pickup and Delivery + Lifelong Multi-Agent Path Finding + Online Multi-Agent Path Finding"
+        }
+      }
+    }
+  ],
+  "generated_at": "2026-10-22T08:56:39+09:00"
+}

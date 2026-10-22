@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Policy Search in Code Space for Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2610.25946.html" lang="ja">日本語</a></nav>
+  <h1>Policy Search in Code Space for Multi-Agent Pathfinding</h1>
+
+  <div class="meta">Matthias Eder, Pantelis Emmanouil, Vivek Farias, Fabian Fischer, Adam Jozefiak, Tianyi Peng, Thomas Ulz, Raphael Watschinger, Fangyu Wu, Andrew Zheng<br>Venue: Unknown ・ 2026-10-19 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2610.25946v2" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2610.25946v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2610.25946" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-10-19</span><span class="chip keyword-match">Keyword matches 1</span><span class="chip">Citations 0</span><span class="chip">Relevance 4</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper proposes searching directly over coordination-policy source code with coding agents rather than only hand-designing heuristics or training opaque neural policies. Across two case studies, the workflow produced policies that exceeded strong engineered baselines and, in the warehouse case, came with collision-free and finite-progress guarantees under stated assumptions.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>The paper studies lifelong multi-agent pathfinding, in which tasks arrive continuously and a fleet must combine task assignment with collision-free routing in shared space. The operational goal is high throughput under strict real-time and memory constraints, while avoiding congestion, deadlocks, invalid assignments, and geometric conflicts. The setting ranges from a two-dimensional competition grid to high-fidelity industrial warehouses with continuous three-dimensional robot geometry, lane constraints, and asynchronous motion. The authors contrast two common approaches: expert-designed planners and dispatch rules, and learning-based policies trained through simulated interaction. The supplied excerpt does not establish every implementation detail of either comparison family, but it does establish that the proposed workflow targets demanding, realistic LMAPF rather than only small stylized instances.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The central contribution is Policy Search in Code Space, or PSCS: the search space is the source-code implementation of a coordination policy, not merely heuristic parameters or neural weights. A coding agent proposes 提案手順c changes, implements them, evaluates them in simulation, and diagnoses failures using execution traces and profiler logs. The paper demonstrates this process in two regimes: refining an established planner on the League of Robot Runners benchmark and synthesizing a new routing algorithm for industrial warehouses. In the first case, the resulting policy discovers map-specific heuristics; in the second, it is described as a new class of multi-agent routing algorithm. The paper also establishes, under its stated assumptions, that the warehouse policy is collision-free and completes every accepted goal that is neither withdrawn nor replaced in finite time.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>The search begins with a human specification of the environment, operational constraints, performance objective, and an initial algorithm or reference implementation. The coding agent then follows a repeated four-stage loop: proposing 提案手順c edits, modifying the source code, evaluating the candidate in closed-loop simulation, and diagnosing bottlenecks from execution traces and profiler information. Unlike a rigid specialized evolutionary harness, the process uses natural-language prompting with relatively little fixed steering as the search progresses. Humans set the objectives and constraints, guide the work, and inspect the validity of the final results, so the demonstrated workflow is human-directed rather than fully autonomous. In the warehouse policy, dispatch decisions use predicted lane congestion and trip duration, while routing avoids unnecessary detours when the current occupant has committed to depart; the excerpt does not provide a complete formal pseudocode specification.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The first case study evaluates five challenging instances, RANDOM-01 through RANDOM-05, from the 2024 League of Robot Runners competition. They use a common two-dimensional grid with 819 traversable cells, and the policy must jointly perform assignment and path planning while respecting a one-second per-step execution budget and a 32 GB memory ceiling. The second case study uses high-fidelity simulations of operational KNAPP warehouses, with continuous three-dimensional vehicle geometry, kinematic lane constraints, asynchronous execution, and an exogenous stream of approximately 1,800 orders per hour. Comparisons are made with the stronger locally reproduced competition entry in the first case and with a calibrated proprietary production solution in the second. The excerpt does not report all randomization details, variance estimates, confidence intervals, or complete per-instance baseline configurations, so it does not by itself establish statistical significance beyond the stated results.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>On the LoRR benchmark, the discovered PLATM policy is reported to outperform the stronger locally reproduced competition entry by up to 35.0% in mean throughput, with the largest gain on the densest instance. The discussion further states that PLATM exceeds the top two competition entries across all five instances. In the warehouse setting, CGAR is reported to improve throughput by 58.9% over the proprietary production baseline on WAREHOUSE-01 and to operate across six facilities using one uncalibrated configuration. Generalization is also reported: recalibrated PLATM comes within 3.9% of the competition benchmark across fleet densities on newly generated layouts, while CGAR achieves 16.98 orders per hour per robot on an unseen synthetic layout without parameter adjustment. The authors emphasize important trade-offs: search is expensive, the process involved human-in-the-loop steering, and successive fixes can create monolithic, tightly coupled code that is difficult to audit or modify.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Multi-agent pathfinding seeks collision-free trajectories for a team of agents, while lifelong MAPF continuously supplies new tasks as agents complete previous ones. Exact methods such as conflict-based search do not scale comfortably to hundreds of agents, so large deployments commonly use fast, suboptimal planners designed and tuned by experts. Related rule-based approaches include priority inheritance, asynchronous variants, windowed planning, neighborhood search, and traffic-guidance graphs. Other work learns neural policies through reinforcement or imitation learning, and language models have also been considered as online planners, although sequentially emitting moves does not scale well beyond small stylized problems. Automated program synthesis has shown promise for discovering algorithms and discrete heuristics, but its applicability to realistic LMAPF with task assignment, spatial planning, and low-latency execution remained an open question.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The abstract model contains agents, a finite directed configuration graph, and a discrete planning horizon. Vertices represent configurations such as position and orientation, while directed edges represent feasible motions with strictly positive traversal durations. Agents may wait at vertices, but edge traversal is non-preemptive; a conflict map specifies which vertices, edges, or physical configurations cannot be occupied simultaneously. Tasks arrive into an available pool through an exogenous stochastic process, and each task contains an ordered sequence of errands with admissible goal configurations and required service durations. A policy assigns available tasks to idle agents and selects waiting or outgoing-edge actions, subject to assignment, kinematic, collision, and real-time constraints, with the primary objective of maximizing expected completed-task throughput.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>PSCS changes the planner and scheduler implementation itself, rather than only tuning costs on a fixed planning architecture. Candidate evaluation is closed-loop, and execution traces plus profiler logs provide evidence for diagnosing congestion and runtime bottlenecks. The conflict representation is general enough to describe classical vertex and swap conflicts as well as footprint conflicts for continuous warehouse layouts. In the warehouse case, the policy combines congestion-aware dispatch with routing behavior that respects departure commitments. Because the resulting policy is ordinary source code rather than a neural controller queried at runtime, it has no neural inference latency and can be subjected to formal verification under suitable assumptions.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>The LoRR search used five shared-grid instances and optimized cumulative throughput while enforcing collision avoidance, valid assignments, a one-second step budget, and a 32 GB memory limit. The paper reports that PLATM synthesis took 42.3 wall-clock hours and approximately 700 dollars in API usage. The warehouse study evaluated six operational facilities and an unseen synthetic layout; CGAR required 177.8 active development hours and approximately 4,800 dollars. The supplied excerpt does not give the complete number of candidate revisions, simulator seeds, ablation studies, confidence intervals, or all individual facility scores. Coding agents performed the implementation, testing, and diagnosis, while the authors selected objectives and constraints and reviewed the final outputs.</p></section>
+<section class="secsum"><h3>Results</h3><p>On the densest LoRR instance, the discovered policy exceeded the stronger locally reproduced competition entry by 35.0%. Across the five LoRR instances, the discussion reports that PLATM surpassed the top two competition entries. On WAREHOUSE-01, CGAR delivered a reported 58.9% throughput increase over the calibrated proprietary production baseline. Without parameter adjustment, CGAR sustained 16.98 orders per hour per robot on the unseen WAREHOUSE-00 layout, matching the operational efficiency observed on production facilities of comparable scale. These numbers support the claims made in the excerpt, but they do not establish universal superiority under conditions that were not reported.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The two case studies support the conclusion that coding-agent-driven search over policy implementations can be a competitive way to design complex LMAPF algorithms. The approach combines automated computational exploration with explicit, inspectable source code instead of choosing between manual engineering and opaque learning alone. The warehouse case additionally demonstrates that a discovered policy can have an analytical progress certificate under stated assumptions. Thus, the paper presents PSCS as a promising engineering methodology, while not claiming that the supplied excerpt resolves its reproducibility, cost, or model-dependence questions.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The demonstrated searches were organic and human-directed, so the evidence does not establish performance from a fully autonomous fixed search harness. Search and simulation costs are substantial, and faster evaluation through temporal parallelization, importance sampling, or surrogate simulators is identified as future work. The codebase may accumulate tightly coupled heuristics as agents address successive edge cases, making later auditing and modification difficult. The safety and completion guarantees apply only under the assumptions used in the warehouse analysis, and the excerpt does not specify how robust those assumptions are to all physical deployment conditions. It also remains open whether a static agentic scaffold would overfit to the limitations of a particular coding-agent model release.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>The work is important because it expands automated MAPF design from parameter optimization to the structure and implementation of the planner and scheduler. It offers a route toward jointly handling assignment, routing, congestion, and low-latency execution while retaining a source artifact that humans can inspect and formally analyze. The reported gains suggest that this direction can matter in both benchmark competition and industrially motivated simulation. Its broader value is methodological: it links agentic software engineering, program synthesis, combinatorial optimization, and verifiable robotic coordination.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>This paper is well suited to researchers in lifelong MAPF, warehouse robotics, multi-robot task allocation, and integrated scheduling and routing. It is also relevant to readers studying automated program synthesis, coding agents, algorithm discovery, and formal verification of robotic controllers. Practitioners interested in throughput under realistic geometric and asynchronous constraints may find the two case studies especially useful. Readers seeking a fully autonomous, statistically comprehensive benchmark study should treat the supplied excerpt as insufficient evidence for that stronger claim.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: copilot-cli:default ・ Generated: 2026-10-22
+  </footer>
+</div>
+</body>
+</html>

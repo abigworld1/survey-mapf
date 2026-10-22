@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A parallelizable variant of HCA* | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2501.19218.en.html" lang="en">English</a></nav>
+  <h1>A parallelizable variant of HCA*</h1>
+<p class="meta">並列化可能なHCA*の変種</p>
+  <div class="meta">Sreenivasan Ganti, Visnu Srinivasan, Pallavi Ramicetty, Shravan Mohan, Milind Savagaonkar, Shubhashis Sengupta<br>採択先: 未取得 ・ 2025-01-31 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2501.19218v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2501.19218v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2025-01-31</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本稿は、MAPFにおける優先順位依存のHCA*を、衝突しない経路集合を交差グラフの独立集合として選びながら反復的に確定する、並列化可能なヒューリスティックへ拡張する。提示されたシミュレーションでは、HCA*に対して多くの場合にコストと計算時間の両面で有利な結果が観測され、計算時間はおよそ最大4倍の高速化を示唆するが、最適性や全条件での優越性は確立されていない。</div>
+<section class="qa"><h2>どんなもの？</h2><p>対象は、障害物を含むマンハッタン格子上で、複数のエージェントを指定された始点から目標へ衝突なく移動させる通常のMAPFである。エージェントは均質で、辺の移動時間は一定、格子点で整数時間だけ待機でき、目標到着後はその場に留まると仮定される。衝突には、同時刻の同一地点への到達だけでなく、同じ辺を反対向きに横切る交換衝突も含まれる。目的関数は待機を含む経路長の総和であり、最大経路長であるメイクスパンも評価対象となる。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>中心的な新規性は、全エージェントの単独最短経路から交差グラフを構成し、その独立集合に属する経路を同時に確定するHCA*の変種を示した点にある。各反復では、未確定エージェントが確定済み経路を避ける空間時間A*を独立に実行できるため、経路探索を大規模に並列化できる。交差グラフの構築も、地図を領域に分けてエージェントが担当領域を調べることで並列化する。さらに、利用者がHCA*の優先順位を手作業で与えなくてよい。本文の抜粋は、独立集合近似法の具体的な実装名や近似保証を確定していない。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>最初に、すべてのエージェントが他のエージェントを無視してA*で最短経路を求める。各エージェントを頂点とし、対応する二つの経路が衝突する場合に辺を張った交差グラフを作る。グラフから最大独立集合問題の近似アルゴリズムを用いて独立集合を抽出し、その集合に属する経路を衝突なしの経路として固定する。残りのエージェントは、予約表で表された固定済み経路を動的障害物として避ける空間時間A*で再計画する。この処理を未確定エージェントがなくなるまで繰り返し、並列計算による利得から通信遅延を差し引いて評価する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価では、障害物生成確率0.1および0.2のランダムマップ、Berlinマップ、warehouseマップの4種類が用いられた。Berlinマップとwarehouseマップは計算を容易にするため元のサイズから縮小されたが、抜粋では縮小後の具体的な寸法は判読できない。各報告条件で、提案法とHCA*の双方が制限時間内に経路を見つけた100インスタンスについて結果を集計した。エージェント数は64で、地図の各辺を8分割して領域を構成し、通信速度は10 MBpsと仮定された。比較対象はHCA*であり、CBSとの比較や最適解との差の測定は本稿の範囲外である。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案法の主な利点は、優先順位を事前に決めずに複数の経路をまとめて確定できることと、エージェント単位の探索を並列実行できることである。一方、独立集合の計算、衝突判定、サーバとの同期には追加の処理と通信が必要であり、並列性は無料ではない。評価は両手法が制限時間内に解を見つけたインスタンスに限定されるため、失敗率や未解決例を含む一般的な優越性は抜粋から判断できない。また、HCA*のように不完全なヒューリスティックであり、提案解が最適であること、任意の入力で必ず解が得られること、あるいは全マップ規模で同じ高速化が得られることは示されていない。著者らは将来、WHCA*への適用を提案しており、特定エージェントを最初の独立集合に含める変更案に言及している。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFはロボット倉庫のように多数のロボットを扱う応用で重要性が高く、衝突回避のため計算量上の難しさを持つ。CBSのような厳密法は一般に計算負荷が高く、HCA*のようなヒューリスティックは高速である一方、通常は最適解を保証しない。WHCA*はHCA*を基礎とし、有限の時間窓内だけ衝突を避けて再計画する手法として紹介されている。提示された抜粋では、ランダムマップ上のWHCA*が約98%のインスタンスを解いたという既存研究の記述はあるが、本稿の実験はHCA*に限られる。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>エージェントごとに始点と目標が与えられ、待機を含む経路長の総和を小さくしながら、頂点衝突と交換衝突を避ける必要がある。従来のHCA*は、エージェントを順番に計画し、後続エージェントが予約表を避けるため、入力された優先順位に依存する。優先順位によっては解を見つけられる場合と見つけられない場合があり、逐次処理も計算時間の制約になる。本稿は、これらの依存を緩和しつつ、実用的なヒューリスティックとして低コストと短い計算時間を目指す。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>空間時間A*は予約表を含む3次元の状態空間でA*を行い、既に確定したエージェントとの時間依存衝突を避ける。提案法では、衝突しない単独経路の集合が交差グラフの独立集合に対応するため、複数経路を同時に固定できる。交差グラフは地図を矩形ストリップなどの領域に分割し、エージェントが各領域の衝突を調べる構成で並列化される。計算時間の評価には、経路探索とグラフ処理だけでなく通信の遅延も含める。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>シミュレーションは、ランダム障害物マップ2種類、Berlinマップ、warehouseマップで実施された。各マップで、論文中の生成手順により、任意の優先順位でもHCA*が解を返すよう構成された問題インスタンスが作られた。エージェント数は64、領域分割は各辺8分割、通信速度は10 MBpsである。報告された集計は、両アルゴリズムが制限時間内に解いた100インスタンスに基づく。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>提案法の提案法対HCA*のコスト比について、平均値と中央値は1以下であり、多くのインスタンスで同等以下のコストになったと報告されている。メイクスパン比についても同様の統計が提示されているが、抜粋では個々の数値やマップ別の内訳は示されていない。計算時間については、平均値と中央値からおよそ最大4倍の高速化が示唆される。最適解との差、CBSとの直接比較、すべてのインスタンスを含む成功率については、提示された証拠だけでは確定できない。</p></section>
+<section class="secsum"><h3>結論</h3><p>本稿は、HCA*の優先順位付き逐次計画を、独立集合に基づく反復的な経路固定へ置き換える並列化可能な変種を提案した。エージェントごとのA*、交差グラフの構築、確定済み経路を避ける空間時間A*が中核である。シミュレーションは、通信コストを考慮してもHCA*に対するコスト面と計算時間面の実用的な利点を示す。ただし、結論は提示されたベンチマークと比較条件の範囲に限られる。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>実験は、両手法が制限時間内に成功したインスタンスだけを対象にしており、困難な失敗例を含む完全な性能像ではない。CBSとの比較を行っていないため、得られたコストの最適性や最適解への距離は評価されていない。最大独立集合近似の具体的な品質、サーバ同期の実装詳細、ハードウェア構成、抜粋で欠落した各種寸法や数値も確認できない。したがって、報告された最大約4倍という速度向上を他の環境へそのまま一般化することはできない。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>MAPFでは、ロボット数の増加に伴って逐次的な優先順位計画がボトルネックになり得る。本稿は、衝突関係をグラフとして明示し、互いに干渉しないエージェントを一括処理することで、アルゴリズム構造そのものから並列性を得る。これは分散エージェントと中央サーバの協調、通信コスト、経路品質を同時に考える実装上の視点を提供する。HCA*を基盤とするWHCA*などへの拡張可能性も示唆される。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>HCA*、WHCA*、優先順位付きMAPF、空間時間A*、交差グラフによる衝突管理に関心のある読者に適している。特に、厳密最適性よりも実行時間と並列化可能性を重視する倉庫ロボットや大規模エージェント計画の研究者に有用である。なお、最適解保証、詳細な近似保証、広範な失敗率分析を必要とする読者は、本文全体や追加実験で補う必要がある。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: copilot-cli:default ・ 生成日: 2026-10-22
+  </footer>
+</div>
+</body>
+</html>
