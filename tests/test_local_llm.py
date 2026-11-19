@@ -64,6 +64,8 @@ class LocalLLMTests(unittest.TestCase):
         self.assertEqual(payload["model"], "plamo-3-translate")
         self.assertEqual(payload["messages"], [{"role": "user", "content": "An English sentence."}])
         self.assertEqual(payload["chat_template_kwargs"], {"source_lang": "en", "target_lang": "ja"})
+        with self.assertRaisesRegex(LocalLLMError, "論文を統合・要約できるモデル"):
+            llm.check_article_model()
         with self.assertRaisesRegex(LocalLLMError, "translation-only"):
             llm.generate("Provide an answer.", "A question.")
         self.assertEqual(urlopen.call_count, 1)

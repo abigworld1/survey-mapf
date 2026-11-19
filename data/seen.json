@@ -9988,7 +9988,7 @@
       "citations": 0,
       "date": "2026-11-18",
       "doi": "",
-      "engine": "local-llm:plamo-3-translate",
+      "engine": "codex-review+plamo-3-translate",
       "file": "mapf-mapd-warehouse/2611.23911.html",
       "file_en": "mapf-mapd-warehouse/2611.23911.en.html",
       "matched_keywords": [
@@ -10005,8 +10005,8 @@
       "title": "Scalable Iterative Multi-Agent Path Finding under Turn Constraints",
       "title_en": "Scalable Iterative Multi-Agent Path Finding under Turn Constraints",
       "title_ja": "ターン制約下におけるスケーラブルな反復型マルチエージェント経路探索",
-      "tldr": "各エージェントの初期構成は、開始ノードと初期向きからなるタプルによって定義される。さらに、各エージェントには特定の目標ノードが割り当てられており、終端向きは不要である。元のPIBTフレームワークを向きを考慮した設定へと拡張することで、提案手法は、単一タイムステップの優先度継承プランニングの計算効率を維持しつつ、ターンアクションによって生じる主要な困難に対処する。",
-      "tldr_en": "The initial configuration of each agent is defined by the tuple , which consists of its starting node and initial orientation . Each agent is further assigned a specific goal node , and no terminal orientation is required. By extending the original PIBT framework to an orientation-aware setting, the proposed method preserves the computational efficiency of single-timestep priority-inheritance planning while addressing the key difficulties introduced by turn actions.",
+      "tldr": "Taoらは、前進する前にその場で旋回する移動ロボットに向けて、優先度継承とバックトラックに基づく経路探索手法PIBTを拡張した。移動先セルの予約と、その時点で実行できる動作を分けることで、高速な一ステップ計画を維持する。シミュレーションと3台の実機実験では、従来のPIBTより効率よく目標に到達できた。",
+      "tldr_en": "Tao and colleagues extend Priority Inheritance with Backtracking (PIBT) to robots that must turn in place before moving. By distinguishing a request for a neighboring cell from the action a robot can execute immediately, their solver retains fast one-step planning and improves execution in benchmark simulations and a small physical demonstration.",
       "url": "http://arxiv.org/abs/2611.23911v1",
       "venue": ""
     },
@@ -10027,7 +10027,7 @@
       "citations": 0,
       "date": "2026-11-18",
       "doi": "",
-      "engine": "local-llm:plamo-3-translate",
+      "engine": "codex-review+plamo-3-translate",
       "file": "mapf-mapd-warehouse/2611.24108.html",
       "file_en": "mapf-mapd-warehouse/2611.24108.en.html",
       "matched_keywords": [
@@ -10044,8 +10044,8 @@
       "title": "Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents",
       "title_en": "Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents",
       "title_ja": "未割り当てエージェントを伴うマルチエージェント経路探索のための非対称分解",
-      "tldr": "しかし、多くの実運用モバイルロボットシステムでは、すべてのプランニングエピソードにおいて、すべてのロボットにサービスタスクが割り当てられるわけではない。一部のロボットは、搬送、ピック＆プレース、あるいは実験室作業を行うために出発点から指定された目標地点まで移動する必要がある一方、タスク目標を持たないものの、共有ワークスペースを占有し続けるロボットも存在する。我々は非対称分解を確立し、CBSを用いて割り当て済みエージェントを探索し、最小コストフローオラクルを用いて未割り当てエージェントをルーティングし、さらにフロー競合分岐を通じてルーティング失敗を割り当て済みエージェントの制約へと変換するFOCBSを提案した。",
-      "tldr_en": "In many deployed mobile robot systems, however, not every robot is assigned a service task in every planning episode. Some robots must travel from their starts to designated targets to perform transportation, pick-and-place, or laboratory operations, while others have no task targets but still occupy the shared workspace. We established an asymmetric decomposition and proposed FOCBS, which searches over assigned agents with CBS, routes unassigned agents with a min-cost flow oracle, and converts routing failures into assigned-agent constraints through flow-conflict branching.",
+      "tldr": "Jinらは、作業を割り当てられたロボットと、行き先を持たない待機ロボットが同じ空間を使う場合の経路計画を扱う。提案手法FOCBSは、作業ロボットの経路を探索し、通行を妨げる待機ロボットだけを必要な分だけ退避させる。実験室では、待機ロボットを駐車場所へ送る方式と比べて、全台の総移動距離を40.8%減らした。",
+      "tldr_en": "Jin and colleagues study fleets with both robots on tasks and robots that have no current destination. Their FOCBS solver searches the paths of tasked robots and uses minimum-cost flow to move idle robots only as needed. Laboratory tests reported 40.8% less total fleet travel than a parking-based baseline.",
       "url": "http://arxiv.org/abs/2611.24108v1",
       "venue": ""
     },

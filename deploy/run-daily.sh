@@ -36,7 +36,7 @@ if [[ "$baseline" != "$(git rev-parse HEAD)" ]]; then
   exec /bin/bash deploy/run-daily.sh
 fi
 
-"$python" -c 'from pipeline.local_llm import LocalLLM; LocalLLM().check_model()'
+"$python" -c 'from pipeline.local_llm import LocalLLM; LocalLLM().check_article_model()'
 status=0
 "$python" -m pipeline.run || status=$?
 

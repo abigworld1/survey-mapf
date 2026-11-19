@@ -52,6 +52,14 @@ class LocalLLM:
         if self.model not in models:
             raise LocalLLMError(f"Configured local model is not available: {self.model}")
 
+    def check_article_model(self):
+        if self.translation_only:
+            raise LocalLLMError(
+                "日次公開には論文を統合・要約できるモデルが必要です。"
+                "LLM_MODEL と LLM_BASE_URL に Gemma 4 などを設定してください。"
+            )
+        self.check_model()
+
     def generate(self, system, user, max_tokens=None):
         if self.translation_only:
             raise LocalLLMError("PLaMo Translate is translation-only. Set LLM_MODEL to an instruction model for questions.")
