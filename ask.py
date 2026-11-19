@@ -104,7 +104,7 @@ def _git_has_staged_changes():
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Ask Copilot CLI a follow-up question and push the updated paper HTML")
+    ap = argparse.ArgumentParser(description="Ask ローカルLLM a follow-up question and push the updated paper HTML")
     ap.add_argument("--paper", required=True, help="論文タイトル")
     ap.add_argument("--question", action="append", required=True, help="質問。複数指定可")
     ap.add_argument("--field", choices=[DEFAULT_FIELD], default=DEFAULT_FIELD, help="分野スラッグ")
@@ -112,7 +112,7 @@ def main(argv=None):
     ap.add_argument("--message", help="commit message")
     ap.add_argument("--arxiv-id", help="本文取得に使うarXiv IDを明示指定する")
     ap.add_argument("--pdf-url", help="本文取得に使うPDF URLを明示指定する")
-    ap.add_argument("--context-chars", type=int, default=24000, help="Copilot CLIに渡す元論文本文の最大文字数")
+    ap.add_argument("--context-chars", type=int, default=24000, help="ローカルLLMに渡す元論文本文の最大文字数")
     ap.add_argument("--replace-followups", action="store_true", help="既存の追加質問を消してから追記する")
     ap.add_argument(
         "--allow-html-fallback",

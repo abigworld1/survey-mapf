@@ -4,7 +4,7 @@
   取得(sources) -> 名寄せ(dedup) -> 既出除外(seen) -> 要約(LLM) -> HTML生成 -> seen更新
 
 実行（repo ルートから）:
-  python -m pipeline.run            # 実運用（Copilot CLIで要約）
+  python -m pipeline.run            # 実運用（ローカルLLMで要約）
   python -m pipeline.run --offline  # ネット未使用・サンプル＋スタブで動作確認
   python -m pipeline.run --stub     # 論文は取得するが要約はスタブ
   python -m pipeline.run --dry-run  # 候補・本文だけを確認（LLM/生成/seen更新なし）
@@ -35,6 +35,7 @@ from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .copilot import CopilotError
+from .local_llm import LocalLLMError
 from .util import atomic_write, slugify
 from .venue import enrich_venue
 
@@ -1005,7 +1006,7 @@ def main(argv=None):
                 )
                 summary = bilingual["ja"]
                 summary_en = bilingual["en"]
-            except CopilotError as exc:
+            except (CopilotError, LocalLLMError) as exc:
                 run_failed = True
                 field_report["skipped"].append({"title": p.title, "reasons": [str(exc)]})
                 print(f"      [stop] {exc}")

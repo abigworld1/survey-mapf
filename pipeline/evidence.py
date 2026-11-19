@@ -51,7 +51,8 @@ def _priority(heading):
 
 
 def build_evidence(paper, sections, max_chars=None):
-    budget = max(4000, min(int(max_chars or os.environ.get("COPILOT_CONTEXT_CHARS", "24000")), 32000))
+    default_chars = os.environ.get("LLM_CONTEXT_CHARS") or os.environ.get("COPILOT_CONTEXT_CHARS", "24000")
+    budget = max(4000, min(int(max_chars or default_chars), 32000))
     prefix = (
         f"Title: {paper.title[:1000]}\nAuthors: {', '.join(paper.authors[:12])[:1000]}\n"
         f"Source URL: {(paper.url or paper.pdf_url)[:1000]}\n"

@@ -59,7 +59,7 @@ def validate_history(root=ROOT, baseline=None):
                 raise ValueError(f"Missing/incomplete article: {rel}")
             if key in baseline.get(field, {}):
                 continue
-            if field != ACTIVE_FIELD or not info.get("engine", "").startswith("copilot-cli:"):
+            if field != ACTIVE_FIELD or not info.get("engine", "").startswith(("copilot-cli:", "local-llm:")):
                 raise ValueError(f"Unexpected field or unverified/stub article: {rel}")
             if not info.get("basis", "").startswith("fulltext") or len(info.get("tldr", "")) < 40:
                 raise ValueError(f"Insufficient source/summary: {rel}")
@@ -164,13 +164,13 @@ def push(source, root=ROOT, branch="main", retry_delay=5):
     if any(not generated_path(rel) for rel in files):
         raise ValueError("Unexpected file in commit manifest")
     validate_history(root)
+    if git("diff", "--cached", "--name-only", root=root).stdout.strip():
+        raise ValueError("Unrelated staged changes must be committed separately")
     if files:
         git("add", "--", *files, root=root)
     if git("diff", "--cached", "--quiet", root=root, check=False).returncode:
         day = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date()
-        git("-c", "user.name=github-actions[bot]", "-c",
-            "user.email=41898282+github-actions[bot]@users.noreply.github.com",
-            "commit", "-m", f"daily: MAPF survey {day}", root=root)
+        git("commit", "-m", f"daily: MAPF survey {day}", root=root)
     for attempt in range(3):
         fetched = git("fetch", "origin", branch, root=root, check=False)
         if fetched.returncode == 0:
@@ -178,7 +178,7 @@ def push(source, root=ROOT, branch="main", retry_delay=5):
             if rebased.returncode:
                 conflicts = git("diff", "--name-only", "--diff-filter=U", root=root, check=False).stdout
                 git("rebase", "--abort", root=root, check=False)
-                raise RuntimeError("Git rebase conflict; recovery artifact preserved. Resolve without rerunning Copilot: " + safe_diagnostic(conflicts))
+                raise RuntimeError("Git rebase conflict; recovery artifact preserved. Resolve without rerunning inference: " + safe_diagnostic(conflicts))
             published = git("push", "origin", f"HEAD:refs/heads/{branch}", root=root, check=False)
             if published.returncode == 0:
                 print("Verified history persisted to GitHub")

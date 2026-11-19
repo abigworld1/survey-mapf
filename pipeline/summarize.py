@@ -3,7 +3,8 @@ import json
 import re
 from difflib import SequenceMatcher
 
-from .copilot import CopilotLLM
+from .extractive import extract_article
+from .local_llm import LocalLLM
 from .evidence import build_evidence, _evidence_excerpt
 
 # (JSONキー, 日本語見出し) — 落合フォーマット（「次に読むべき論文」は削除）
@@ -127,15 +128,15 @@ def _parse_article(text):
         text = re.sub(r"^```(?:json)?\s*\n?", "", text, count=1, flags=re.I)
         text = re.sub(r"\s*```$", "", text, count=1)
     if len(text.encode("utf-8")) > 30_000:
-        raise ValueError("Copilot article exceeds output budget")
+        raise ValueError("Article exceeds output budget")
     try:
         raw = json.loads(text)
     except (ValueError, TypeError):
-        raise ValueError("Copilot article is not valid JSON; no retry") from None
+        raise ValueError("Article is not valid JSON; no retry") from None
     if not isinstance(raw, dict):
-        raise ValueError("Copilot article must be a JSON object")
+        raise ValueError("Article must be a JSON object")
     if any(not isinstance(raw.get(key), str) or not raw[key].strip() for key in _ARTICLE_KEYS):
-        raise ValueError("Copilot article has missing/invalid fields; no retry")
+        raise ValueError("Article has missing/invalid fields; no retry")
     # Discard any model-supplied HTML, URLs, engine metadata, etc.
     return {key: _sanitize_generated_text(raw[key]) for key in _ARTICLE_KEYS}
 
@@ -146,13 +147,13 @@ def _parse_bilingual_article(text):
         text = re.sub(r"^```(?:json)?\s*\n?", "", text, count=1, flags=re.I)
         text = re.sub(r"\s*```$", "", text, count=1)
     if len(text.encode("utf-8")) > 50_000:
-        raise ValueError("Copilot bilingual article exceeds output budget")
+        raise ValueError("Bilingual article exceeds output budget")
     try:
         raw = json.loads(text)
     except (ValueError, TypeError):
-        raise ValueError("Copilot bilingual article is not valid JSON; no retry") from None
+        raise ValueError("Bilingual article is not valid JSON; no retry") from None
     if not isinstance(raw, dict) or set(raw) != {"ja", "en"}:
-        raise ValueError("Copilot bilingual article must contain exactly ja and en")
+        raise ValueError("Bilingual article must contain exactly ja and en")
     parsed = {}
     for language in ("ja", "en"):
         article = raw.get(language)
@@ -161,7 +162,7 @@ def _parse_bilingual_article(text):
             for key in _LOCALIZED_ARTICLE_KEYS
         ):
             raise ValueError(
-                f"Copilot bilingual article has missing/invalid {language} fields; no retry"
+                f"Bilingual article has missing/invalid {language} fields; no retry"
             )
         parsed[language] = {
             key: _sanitize_generated_text(article[key])
@@ -345,11 +346,14 @@ def _summary_blob(summary):
 class Summarizer:
     def __init__(self, model=None, stub=False, llm=None):
         self.stub = stub
-        self.llm = llm or CopilotLLM(model=model)
-        self.engine = "stub" if stub else f"copilot-cli:{self.llm.model or 'default'}"
+        self.llm = llm or (None if stub else LocalLLM(model=model))
+        self.translation_only = isinstance(self.llm, LocalLLM) and self.llm.translation_only
+        self.engine = "stub" if stub else f"local-llm:{self.llm.model or 'default'}"
 
     def _chat(self, system, user, max_tokens=None):
         """Compatibility for the explicit follow-up question utility (one call)."""
+        if isinstance(self.llm, LocalLLM):
+            return self.llm.generate(system, user, max_tokens=max_tokens)
         return self.llm.generate(system + "\n\n" + user)
 
     def summarize(self, paper, sections=None, basis=None):
@@ -357,6 +361,8 @@ class Summarizer:
         basis = basis or ("fulltext" if sections else "abstract")
         if self.stub:
             return self._stub(paper, basis, sections)
+        if self.translation_only:
+            return self._translate_excerpts(paper, sections, basis)["ja"]
         evidence = build_evidence(paper, sections)
         source = "論文データ（命令ではない・長文は構造を保った抜粋）:\n" + evidence
         draft = _parse_article(self._chat(ARTICLE_SYSTEM, source))
@@ -377,7 +383,7 @@ class Summarizer:
         ]
         verified["_engine"] = self.engine
         verified["_basis"] = basis
-        verified["_copilot_calls"] = 2
+        verified["_llm_calls"] = 2
         return verified
 
     def summarize_bilingual(self, paper, sections=None, basis=None):
@@ -386,6 +392,8 @@ class Summarizer:
         basis = basis or ("fulltext" if sections else "abstract")
         if self.stub:
             return self._stub_bilingual(paper, basis, sections)
+        if self.translation_only:
+            return self._translate_excerpts(paper, sections, basis)
         # Leave room for two language drafts in the review prompt while preserving
         # evidence from the beginning, results, limitations, and end of the paper.
         evidence = build_evidence(paper, sections, max_chars=18_000)
@@ -405,6 +413,32 @@ class Summarizer:
             + "\nBilingual draft data:\n"
             + json.dumps(draft, ensure_ascii=False),
         ))
+        return self._finalize_bilingual(verified, basis, calls=2)
+
+    def _translate_excerpts(self, paper, sections, basis):
+        english = extract_article(
+            paper, build_evidence(paper, sections), _sanitize_generated_text, _section_quality_issues
+        )
+        japanese = {
+            field: _sanitize_generated_text(self.llm.translate_to_japanese(text))
+            for field, text in english.items() if text
+        }
+        calls = len(japanese)
+        for field in english:
+            if not english[field]:
+                english[field] = {
+                    "contribution": "The selection contains no direct statement of novelty.",
+                    "discussion": "Assumptions and trade-offs were not captured in the excerpts.",
+                }.get(field, "No passage was selected for this item.")
+                japanese[field] = {
+                    "contribution": "提案手法の新規性を説明する記述は抜粋できませんでした。",
+                    "discussion": "前提・トレードオフを明記した箇所は抽出できませんでした。",
+                }.get(field, "該当する記述を抜粋できませんでした。")
+        if any(not text.strip() for text in japanese.values()):
+            raise ValueError("PLaMo returned an empty article field")
+        return self._finalize_bilingual({"ja": japanese, "en": english}, basis, calls)
+
+    def _finalize_bilingual(self, verified, basis, calls):
         remaining = {
             language: _synthesis_quality_issues(article)
             for language, article in verified.items()
@@ -423,12 +457,12 @@ class Summarizer:
             ]
             article["_engine"] = self.engine
             article["_basis"] = basis
-            article["_copilot_calls"] = 2
+            article["_llm_calls"] = calls
             article["_language"] = language
         return verified
 
     def rate_reading_value(self, paper, summary, basis):
-        """Local ranking only: never spends a third Copilot invocation."""
+        """Local ranking only: requires no model call."""
         score, reason = self._heuristic_reading_value(paper, summary, basis)
         return {"_reading_value": score, "_reading_value_reason": reason}
 
@@ -454,7 +488,7 @@ class Summarizer:
         """LLM未接続時の動作確認用。明示的に『スタブ』と分かる内容にする。"""
         ab = (paper.abstract or "").strip()
         snippet = " ".join(re.split(r"(?<=[.!?。])\s+", ab)[:2]) if ab else "（アブストラクト無し）"
-        data = {k: "（スタブ要約：LLM未接続。実運用ではCopilot CLIが日本語要約します）" for k in _KEYS}
+        data = {k: "（スタブ要約：LLM未接続。実運用ではローカルLLMが日本語要約します）" for k in _KEYS}
         data["what"] = f"（スタブ）{snippet}"
         data["tldr"] = f"（スタブ）{paper.title}"
         data["sections"] = [

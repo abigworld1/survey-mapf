@@ -116,7 +116,7 @@ class PublishTests(unittest.TestCase):
 
     def test_real_commit_push_persists_article_to_local_remote(self):
         remote = self.setup_remote()
-        self.add_article()
+        self.add_article(engine="local-llm:gemma")
         publish.stage(self.artifact, self.root)
         publish.push(self.artifact, self.root, retry_delay=0)
         result = subprocess.run(["git", "--git-dir", str(remote), "show", "main:data/seen.json"],
