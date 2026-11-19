@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Scalable Iterative Multi-Agent Path Finding under Turn Constraints | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.23911.en.html" lang="en">English</a></nav>
+  <h1>Scalable Iterative Multi-Agent Path Finding under Turn Constraints</h1>
+<p class="meta">ターン制約下におけるスケーラブルな反復型マルチエージェント経路探索</p>
+  <div class="meta">Zheyu Tao, Chunlong Yu, Yicheng Hu<br>採択先: 未取得 ・ 2026-11-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.23911v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.23911v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-11-18</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 各エージェントの初期構成は、開始ノードと初期向きからなるタプルによって定義される。さらに、各エージェントには特定の目標ノードが割り当てられており、終端向きは不要である。元のPIBTフレームワークを向きを考慮した設定へと拡張することで、提案手法は、単一タイムステップの優先度継承プランニングの計算効率を維持しつつ、ターンアクションによって生じる主要な困難に対処する。</div>
+<section class="qa"><h2>どんなもの？</h2><p>各エージェントの初期構成は、開始ノードと初期向きからなるタプルによって定義される。また、各エージェントには特定の目標ノードが割り当てられており、終端向きは不要である。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>提案手法の新規性を説明する記述は抜粋できませんでした。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>まず、元のPIBTフレームワークを概説し、ターン制約下においてその直接的なノード空状態の仮定がなぜ成立しなくなるのかを説明する。次に、再帰的な優先度継承手順やターンを考慮したアクション更新関数を含む、PIBTの動作メカニズムを紹介する。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>の較正値に基づき、第2セットではPETおよびSPDについてアブレーションスタディを行い、成功率と解の品質に及ぼす影響を評価する。第3セットでは、提案するPIBTアルゴリズムを2つのベースライン手法と、成功率、計算効率、および解の品質の観点から比較する。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>今後の研究では、まず提案手法の理論的基盤の強化に注力する。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>マルチエージェント経路探索（MAPF）は、複数のロボットを協調させるための広く用いられている離散的なフレームワークである（Stern et al., 2019）。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>本研究に関連する既存研究は、大きく2つの研究方向に分類できる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>各マップおよび5から100まで5刻みの各エージェント数について、ベンチマーク2で提供されている、開始地点とゴール地点が異なる25種類のランダムシナリオを用いる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>広大なマップや多数のエージェントを扱う大規模なインスタンスでは、前処理時間がそれに伴い増加します。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>結果から、PIBTは不要な回転を抑制するだけでなく、繰り返しの押し出しや迂回も軽減し、現実的な製造シナリオにおいてロボットのより効率的な動線を実現することが示された。</p></section>
+<section class="secsum"><h3>結論</h3><p>従来のPIBTフレームワークを向きを考慮した設定へと拡張することで、提案手法は、単一タイムステップの優先度継承プランニングの計算効率を維持しつつ、ターンアクションによって生じる主要な課題に対処する。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>他の処理が定数時間で完了すると仮定すると、提案アルゴリズムの時間計算量は となる。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>結果から、PIBTは高い成功率と優れた拡張性を実現していることがわかる。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>該当する記述を抜粋できませんでした。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:plamo-3-translate ・ 生成日: 2026-11-19
+  </footer>
+</div>
+</body>
+</html>

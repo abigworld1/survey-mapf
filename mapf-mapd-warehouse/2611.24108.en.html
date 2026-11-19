@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2611.24108.html" lang="ja">日本語</a></nav>
+  <h1>Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents</h1>
+
+  <div class="meta">Xi Jin, Chen Qian, Renjun Zhang, Guowei Wu, Xiaobo Li, Jun Jiang, Weiwei Shang<br>Venue: Unknown ・ 2026-11-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.24108v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2611.24108v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">Influential paper</span><span class="chip venue">Venue Unknown</span><span class="chip">Published 2026-11-18</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> In many deployed mobile robot systems, however, not every robot is assigned a service task in every planning episode. Some robots must travel from their starts to designated targets to perform transportation, pick-and-place, or laboratory operations, while others have no task targets but still occupy the shared workspace. We established an asymmetric decomposition and proposed FOCBS, which searches over assigned agents with CBS, routes unassigned agents with a min-cost flow oracle, and converts routing failures into assigned-agent constraints through flow-conflict branching.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>In many deployed mobile robot systems, however, not every robot is assigned a service task in every planning episode. Some robots must travel from their starts to designated targets to perform transportation, pick-and-place, or laboratory operations, while others have no task targets but still occupy the shared workspace.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The selection contains no direct statement of novelty.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>FOCBS first resolves conflicts among assigned agents with standard CBS splits. The compatible-node invariant ensures that best-first search never expands a node with key greater than before returning a solution.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>IV-A 3 Metrics and Platform We report success rate, median runtime over solved instances (interpreted jointly with success rate), , and . The scalability and fixed-density experiments use a 60-s limit; the BZ-SSP ablation below uses a 120-s limit to retain enough jointly solved warehouse pairs.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>Assumptions and trade-offs were not captured in the excerpts.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>IV-A Experimental Settings IV-A 1 Instances Fig. 6 shows the four standard MAPF maps used in the scalability experiment [ 31 ] (an open grid, random obstacles, bottleneck rooms, and warehouse aisles) and the smaller open grid and custom warehouse used in the fixed-density experiment.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>No passage was selected for this item.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>If none exist, it returns min-cut blockers to generate new CBS constraints.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>IV-A 2 Methods The scalability experiment compares FOCBS with CBS-UA and the fast yielding baselines PIBT, MACGA, and LaCAM [ 30 , 24 , 26 , 25 ] .</p></section>
+<section class="secsum"><h3>Results</h3><p>The scalability experiment increases unassigned-agent load, and the fixed-density experiment varies the proportions of assigned agents and unassigned agents.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>We established an asymmetric decomposition and proposed FOCBS, which searches over assigned agents with CBS, routes unassigned agents with a min-cost flow oracle, and converts routing failures into assigned-agent constraints through flow-conflict branching.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>No passage was selected for this item.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>Benchmark results show that FOCBS scales well with the number of unassigned agents at fixed assigned-agent load, and ablation studies confirm the benefits of flow-conflict branching, BZ-SSP, and start-avoiding tie-breaking.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>No passage was selected for this item.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: local-llm:plamo-3-translate ・ Generated: 2026-11-19
+  </footer>
+</div>
+</body>
+</html>
