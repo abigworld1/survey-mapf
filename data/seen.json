@@ -9988,7 +9988,7 @@
       "citations": 0,
       "date": "2026-11-18",
       "doi": "",
-      "engine": "codex-review+plamo-3-translate",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
       "file": "mapf-mapd-warehouse/2611.23911.html",
       "file_en": "mapf-mapd-warehouse/2611.23911.en.html",
       "matched_keywords": [
@@ -10004,9 +10004,9 @@
       "source_quality": "fulltext",
       "title": "Scalable Iterative Multi-Agent Path Finding under Turn Constraints",
       "title_en": "Scalable Iterative Multi-Agent Path Finding under Turn Constraints",
-      "title_ja": "ターン制約下におけるスケーラブルな反復型マルチエージェント経路探索",
-      "tldr": "Taoらは、前進する前にその場で旋回する移動ロボットに向けて、優先度継承とバックトラックに基づく経路探索手法PIBTを拡張した。移動先セルの予約と、その時点で実行できる動作を分けることで、高速な一ステップ計画を維持する。シミュレーションと3台の実機実験では、従来のPIBTより効率よく目標に到達できた。",
-      "tldr_en": "Tao and colleagues extend Priority Inheritance with Backtracking (PIBT) to robots that must turn in place before moving. By distinguishing a request for a neighboring cell from the action a robot can execute immediately, their solver retains fast one-step planning and improves execution in benchmark simulations and a small physical demonstration.",
+      "title_ja": "回転制約下におけるスケーラブルな反復型マルチエージェント経路計画",
+      "tldr": "本論文は、ロボットの回転動作という現実的な制約を考慮しつつ、大規模なマルチエージェント経路計画（MAPF）を高速かつ効率的に行うための新しいフレームワーク「PIBT-T*」を提案しています。",
+      "tldr_en": "This paper proposes PIBT-T*, an efficient priority-inheritance-based framework for large-scale multi-agent path finding that incorporates realistic robot rotation constraints.",
       "url": "http://arxiv.org/abs/2611.23911v1",
       "venue": ""
     },
@@ -10027,7 +10027,7 @@
       "citations": 0,
       "date": "2026-11-18",
       "doi": "",
-      "engine": "codex-review+plamo-3-translate",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
       "file": "mapf-mapd-warehouse/2611.24108.html",
       "file_en": "mapf-mapd-warehouse/2611.24108.en.html",
       "matched_keywords": [
@@ -10043,9 +10043,9 @@
       "source_quality": "fulltext",
       "title": "Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents",
       "title_en": "Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents",
-      "title_ja": "未割り当てエージェントを伴うマルチエージェント経路探索のための非対称分解",
-      "tldr": "Jinらは、作業を割り当てられたロボットと、行き先を持たない待機ロボットが同じ空間を使う場合の経路計画を扱う。提案手法FOCBSは、作業ロボットの経路を探索し、通行を妨げる待機ロボットだけを必要な分だけ退避させる。実験室では、待機ロボットを駐車場所へ送る方式と比べて、全台の総移動距離を40.8%減らした。",
-      "tldr_en": "Jin and colleagues study fleets with both robots on tasks and robots that have no current destination. Their FOCBS solver searches the paths of tasked robots and uses minimum-cost flow to move idle robots only as needed. Laboratory tests reported 40.8% less total fleet travel than a parking-based baseline.",
+      "title_ja": "未割り当てエージェントが存在するマルチエージェント経路計画のための非対称分解",
+      "tldr": "本論文は、タスクのないロボットが作業中のロボットを妨害したり、逆に駐車場への移動が不要な移動を強いたりする問題を解決するため、割り当て済みエージェントのCBSと未割り当てエージェントの最小費用流を組み合わせたFOCBSアルゴリズムを提案しています。",
+      "tldr_en": "The paper proposes FOCBS, an algorithm that solves multi-agent path finding with unassigned agents by combining Conflict-Based Search for assigned agents with a min-cost flow oracle for unassigned agents.",
       "url": "http://arxiv.org/abs/2611.24108v1",
       "venue": ""
     },

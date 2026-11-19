@@ -1,7 +1,7 @@
 {
   "date": "2026-11-19",
   "dry_run": false,
-  "engine": "codex-review+plamo-3-translate",
+  "engine": "local-llm:gemma-4-26b-a4b-it",
   "fields": [
     {
       "added": [
