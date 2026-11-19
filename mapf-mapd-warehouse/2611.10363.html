@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LSRP*: Scalable and Anytime Planning for Multi-Agent Path Finding with Asynchronous Actions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.10363.en.html" lang="en">English</a></nav>
+  <h1>LSRP*: Scalable and Anytime Planning for Multi-Agent Path Finding with Asynchronous Actions</h1>
+<p class="meta">LSRP*: 非同期アクションを伴うマルチエージェント経路探索のためのスケーラブルかつAnytimeなプランニング</p>
+  <div class="meta">Dachuan Liu, Shuai Zhou, Shizhe Zhao, Zhongqiang Ren<br>採択先: Symposium on Combinatorial Search 2026 ・ 2026-11-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.10363v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.10363v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.10363" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Symposium on Combinatorial Search 2026</span><span class="chip">公開日 2026-11-07</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 3</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、エージェントの動作が同期していない環境（MAPF-AA）において、高いスケーラビリティと実行時間に応じて解の品質を向上させるAnytime性能を両立させた新しいプランナーLSRP*を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路探索（MAPF）の多くは、すべてのエージェントが同じ時間ステップで同期して動くことを前提としていますが、実世界の物流や自動倉庫では、エージェントごとに移動時間が異なる非同期な動作が一般的です。既存の非同期MAPF（MAPF-AA）向けアルゴリズムであるLSRPは、数百規模のエージェントを扱える高いスケーラビリティを持つ一方で、解の品質が保証されない「無界な劣最適性」という課題がありました。本研究は、このスケーラビリティを維持しつつ、実行時間に応じて解を改善し続ける手法の確立を目的としています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、LSRPを拡張してAnytime性能を備えたLSRP*を開発したことです。LSRP*は、初期解を得た後も計算予算が尽きるまで解の品質を向上させ続けることができ、LSRPと比較して最大25%多いエージェント数を扱えるようになります。また、LSRPが生成する解のコストを最大40%削減できることも示されています。さらに、LSRP*の理論的な特性を分析し、最適解への収束性を証明しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LSRP*は、ルールベースのプッシング（pushing）メカニズムを拡張した探索アルゴリズムを採用しています。具体的には、現在のイベント（エージェントの開始または終了）に基づいて、次に起こるイベントを決定する「アクションツリー」を用いた階層的な探索を行います。また、探索の効率化のために「支配関係（Dominance）」の概念を導入し、より良い解の可能性がないノードを枝刈りします。さらに、狭い通路でのすれ違い問題を解決するために、エージェントの移動順序を入れ替える「LSRP*-SWAP」というルールを追加しています。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、標準的なMAPFベンチマークから選ばれた4つの異なる構造を持つマップ（den312d, random32, room64, warehouse）を使用し、最大1000体のエージェントを用いて評価を行いました。比較対象として、既存のLSRP、最適解を求めるCBS-AA、および優先度付き計画法（SIPPベース）を用いています。評価指標には、解の成功率と、最適解に対する解のコスト比（SOC ratio）が用いられました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LSRP*は、特に複雑な構造を持つマップにおいて、既存手法よりも高いスケーラビリティと解の品質向上能力を示すことが確認されました。一方で、エージェント数が増大し、計算時間が制限される状況下では、解の改善（refinement）が十分に追いつかないというトレードオフが存在します。また、本手法は点エージェントを対象としており、複数のセルを占有する大型エージェントへの拡張は今後の課題として挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、グラフ上の頂点とエッジを用いてエージェントの移動をモデル化し、衝突を避けながら総コストを最小化する問題です。従来のMAPFは、すべてのエージェントが一定の時間単位で動く「同期型」を前提としてきましたが、これは実用的な環境では制約が強すぎることがあります。そのため、エージェントごとに移動時間が異なる「非同期型（Asynchronous Actions）」のモデルが重要視されています。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>非同期MAPF（MAPF-AA）では、エージェント a がエッジ (u, v) を移動するのに要する時間 d_a,u,v が、他のエージェントやエッジによって異なる可能性があります。このため、すべてのエージェントの動作が同期しておらず、各エージェントが異なるタイミングで新しいアクションを開始します。この条件下で、衝突を避けつつ、全エージェントの総移動コスト（SOC）を最小化する経路を見つけることが課題となります。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>LSRP*の核となる技術は、イベント駆動型の探索と、非同期環境における支配関係の定義です。エージェントの到着時刻や出発時刻に基づき、ある状態が別の状態に対して「支配されている」かを判定することで、探索空間を効果的に削減します。また、LSRP*-SWAPでは、狭い通路でのデッドロックを回避するために、エージェントの移動順序を動的に変更するルールを導入しています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験はApple M4チップを搭載したMacBook Airで行われ、30秒および60秒の実行時間制限を設けて実施されました。結果として、LSRP*-SWAPはランダムな障害物があるマップ（Random32）や倉庫のような複雑なマップ（Warehouse）において、他の手法を圧倒するスケーラビリティを示しました。また、最適解が計算可能なケースでは、実行時間を増やすことで最適解に数パーセント以内の精度で到達できることが示されました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>LSRP*は、LSRPと比較して最大25%多くのエージェントを処理でき、解のコストを最大40%削減することに成功しました。また、LSRP*-SWAPは、LSRP-SWAPと比較して解のコストを約35%削減し、最適解の25%以内の範囲に収まることが示されました。特に、グラフ内に多くのサイクルが存在する疎なマップ（Room64, Den312d）では、非常に高いスケーラビリティを発揮しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、非同期アクションを伴うMAPFにおいて、高いスケーラビリティとAnytime性能を両立するLSRP*を提案しました。実験により、LSRP*が大規模なエージェント数（最大1000体）に対しても有効であり、計算資源に応じて解を継続的に改善できることが実証されました。これは、実世界の非同期なロボット制御における強力なプランニング手法となることが期待されます。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本研究の主な限界は、エージェントが単一の頂点のみを占有する「点エージェント」を想定している点です。また、計算予算が極めて短い場合や、エージェント数が非常に多く、マップが極めて混雑している場合には、Anytimeとしての改善が限定的になる可能性があります。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、従来の同期型MAPFの制約を打破し、より現実的な非同期環境における大規模なマルチエージェントの経路計画を可能にする点で、非常に重要です。特に、物流ロボットのような、個々の動作時間が異なるシステムへの適用可能性を示した点は、実用上の価値が高いと言えます。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模なエージェント数を扱う物流・倉庫ロボットの経路計画アルゴリズムを研究している専門家、および非同期な動作モデルを扱うマルチエージェントシステムの設計者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-20
+  </footer>
+</div>
+</body>
+</html>

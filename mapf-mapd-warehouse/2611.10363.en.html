@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LSRP*: Scalable and Anytime Planning for Multi-Agent Path Finding with Asynchronous Actions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2611.10363.html" lang="ja">日本語</a></nav>
+  <h1>LSRP*: Scalable and Anytime Planning for Multi-Agent Path Finding with Asynchronous Actions</h1>
+
+  <div class="meta">Dachuan Liu, Shuai Zhou, Shizhe Zhao, Zhongqiang Ren<br>Venue: Symposium on Combinatorial Search 2026 ・ 2026-11-07 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.10363v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2611.10363v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.10363" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Symposium on Combinatorial Search 2026</span><span class="chip">Published 2026-11-07</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 3</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper introduces LSRP*, an anytime planner for Multi-Agent Path Finding with Asynchronous Actions (MAPF-AA) that maintains high scalability while continuously improving solution quality as runtime allows.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-Agent Path Finding (MAPF) aims to find collision-free paths for multiple agents while minimizing total costs. Most existing MAPF algorithms assume synchronized actions, where all agents move in discrete, uniform time steps. However, in real-world applications like automated warehouses, agents often have different movement durations, necessitating a model with asynchronous actions (MAPF-AA). While the previous LSRP algorithm addressed scalability for MAPF-AA, it suffered from unbounded sub-optimality, meaning it could not guarantee solution quality or improve it with extra computation time.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The authors propose LSRP*, an anytime variant of the LSRP algorithm designed to improve solution quality iteratively. LSRP* demonstrates superior scalability, handling up to 25% more agents than the original LSRP. It also significantly improves solution quality, reducing costs by up to 40% compared to LSRP. Furthermore, the paper provides a theoretical analysis of the algorithm&#x27;s properties, including the soundness of its dominance rules and its ability to reach optimal solutions under certain conditions.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>LSRP* utilizes a rule-based search mechanism based on an action tree and event-driven transitions. Instead of searching a massive joint state space, it explores successors by determining the next event (the earliest completion time among active agents) and assigning new actions to idle agents. To ensure efficiency, the method employs a dominance-based pruning technique to discard states that cannot lead to better solutions. Additionally, the authors introduce LSRP*-SWAP, which incorporates a specific rule to handle head-on conflicts in narrow corridors by allowing agents to swap their intended movement order.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The researchers evaluated LSRP* and its variant LSRP*-SWAP on four distinct benchmark maps: den312d (irregular open/narrow), random32 (grid with random obstacles), room64 (rooms connected by doors), and warehouse (aisles and open areas). The experiments were conducted with up to 1000 agents on an Apple M4 MacBook Air. The performance was compared against three baselines: the original LSRP, an optimal CBS-AA solver, and a prioritized planning approach using SIPP.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results indicate that LSRP* is highly effective in sparse maps with many cycles, such as Room64, where it achieves high success rates. In cluttered environments like the Warehouse map, LSRP*-SWAP shows significant advantages in both scalability and cost reduction. However, the anytime refinement process is limited by the available runtime; as the number of agents increases, the gap between the initial and final solutions narrows because the computation budget is exhausted before significant improvement can occur. The current model is also limited to point agents, leaving the extension to large agents as future work.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF is an NP-hard problem where agents must navigate a graph from start to goal locations without colliding. Standard MAPF assumes all agents move simultaneously in unit time steps. However, MAPF-AA relaxes this, allowing different agents to take different amounts of time to traverse the same edge, which is a more realistic representation of physical robot movement.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The core problem addressed is finding a conflict-free joint path for a set of agents in a graph where edge traversal durations depend on the agent and the edge. The goal is to minimize the Sum of Costs (SOC). Because actions are asynchronous, the search must manage a continuous or event-based timeline rather than discrete, synchronized steps.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The technical core involves defining a dominance relation for asynchronous states to prune the search tree. A state is considered dominated if another state exists that reaches the same joint vertex at an earlier or equal time for all agents. The paper also introduces a &#x27;retiming&#x27; lemma, which proves that any solution through a dominated state can be retimed to be no worse than the original, ensuring that the pruning does not lose optimal solutions.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>Experiments were performed using a 30-second and 60-second time limit per instance. The study used various agent counts to test scalability. Results showed that LSRP*-SWAP could solve instances with up to 1000 agents, whereas optimal solvers like CBS-AA failed at much lower agent counts. The study also analyzed the impact of the &#x27;re-init&#x27; technique on the anytime refinement process.</p></section>
+<section class="secsum"><h3>Results</h3><p>LSRP* can handle 25% more agents than LSRP and reduces solution costs by up to 40%. LSRP*-SWAP specifically was shown to find solutions up to 40% cheaper than LSRP-SWAP and stays within 25% of the optimal cost in many instances. In sparse maps, LSRP* reaches near-optimal solutions within the given time budget.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>LSRP* is a scalable and anytime planner for MAPF-AA that bridges the gap between high-speed rule-based planning and high-quality search-based planning. It successfully handles large-scale asynchronous multi-agent systems, providing a significant improvement over previous unbounded sub-optimal methods.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The paper does not establish the performance of LSRP* for large agents that occupy multiple cells. Additionally, the effectiveness of the anytime refinement is highly dependent on the ratio of the runtime budget to the complexity of the map.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>This work is important for the field of multi-robot coordination, as it provides a practical algorithm that can be applied to real-world asynchronous systems where optimality is desired but scalability is paramount.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>Researchers working on large-scale multi-agent path finding, developers of warehouse automation systems, and experts in asynchronous motion planning.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: local-llm:gemma-4-26b-a4b-it ・ Generated: 2026-11-20
+  </footer>
+</div>
+</body>
+</html>
