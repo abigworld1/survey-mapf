@@ -13270,6 +13270,40 @@
       "url": "http://arxiv.org/abs/2610.25946v2",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2611.07528": {
+      "added": "2026-11-21",
+      "added_at": "2026-11-21T06:24:32.385505",
+      "arxiv_id": "2611.07528",
+      "authors": [
+        "Stephen Chang",
+        "Daniel Harabor"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-05",
+      "doi": "10.48550/arxiv.2611.07528",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.07528.html",
+      "file_en": "mapf-mapd-warehouse/2611.07528.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.07528v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Goal-Branching LaCAM: Temporary Goals as Search Branches in Dense Multi-Agent Pathfinding",
+      "title_en": "Goal-Branching LaCAM: Temporary Goals as Search Branches in Dense Multi-Agent Pathfinding",
+      "title_ja": "Goal-Branching LaCAM: 高密度マルチエージェント経路計画における一時的な目標を用いた探索枝分かれ",
+      "tldr": "高密度で廊下が多いマルチエージェント経路計画（MAPF）において、デッドロックを解消するためにエージェントに一時的な目標を与えて探索の枝を増やす「Goal-Branching」を提案し、解の発見速度と成功率を大幅に向上させました。",
+      "tldr_en": "Goal-Branching enhances LaCAM for dense multi-agent pathfinding by introducing temporary goals for blocking agents as new search branches, significantly improving success rates and solution speed in corridor-heavy environments.",
+      "url": "http://arxiv.org/abs/2611.07528v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2611.10363": {
       "added": "2026-11-20",
       "added_at": "2026-11-20T06:26:52.120742",

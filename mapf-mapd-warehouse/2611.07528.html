@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Goal-Branching LaCAM: Temporary Goals as Search Branches in Dense Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.07528.en.html" lang="en">English</a></nav>
+  <h1>Goal-Branching LaCAM: Temporary Goals as Search Branches in Dense Multi-Agent Pathfinding</h1>
+<p class="meta">Goal-Branching LaCAM: 高密度マルチエージェント経路計画における一時的な目標を用いた探索枝分かれ</p>
+  <div class="meta">Stephen Chang, Daniel Harabor<br>採択先: 未取得 ・ 2026-11-05 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.07528v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.07528v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.07528" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-11-05</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 高密度で廊下が多いマルチエージェント経路計画（MAPF）において、デッドロックを解消するためにエージェントに一時的な目標を与えて探索の枝を増やす「Goal-Branching」を提案し、解の発見速度と成功率を大幅に向上させました。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）において、エージェントが密集し、廊下や行き止まりが多い環境では、エージェント同士が互いに進路を塞ぎ合うデッドロックが発生しやすいという問題があります。既存の高速なソルバーであるLaCAMは、PIBTという手法を用いて後継状態を生成しますが、デッドロックを解消するために必要な「目標から離れた方向への協調的な動き」を生成することが困難です。その結果、高密度な環境では探索が停滞し、解を見つけるのに膨大な時間がかかるか、あるいは解を見つけられないことがあります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、LaCAMの探索プロセスに「Goal-Branching」という新しいメカニズムを導入したことです。これは、PIBTがデッドロック（ジャム）に陥った際、妨げとなっているエージェントに一時的な目標を与え、それを新たな探索の枝として追加する手法です。これにより、既存のLaCAMが制約を一つずつ追加して非効率的に探索していたプロセスを、より直接的に回避策を探索できるようにしました。また、この手法が完全性（Completeness）を維持することを理論的に証明しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>Goal-Branchingは、LaCAMの探索中にPIBTが既に探索済みの構成を返した場合（ジャムが発生した場合）に発動します。妨げとなっているエージェントに対し、ランダムまたは廊下を考慮したルールに基づいて一時的な目標を設定し、それぞれの目標を独立した探索の枝として追加します。各枝は、その一時的な目標の下でPIBTを実行し、得られた構成を現在のノードの新しい後継者として追加します。これにより、探索ツリーに「目標から離れた動き」を促すインフォームドな枝が挿入されます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、MovingAIベンチマークのマップ（廊下のある迷路、部屋、オープンなマップ）を使用し、エージェント密度を60%から95%まで変化させて評価しました。評価指標として、成功率、初解までの時間、解のコスト（最短経路の合計に対する比率）を用いました。比較対象として、LaCAM*およびLaCAM3を使用しています。結果として、高密度な迷路・部屋マップにおいて、Goal-BranchingはLaCAM*の44%に対し89%という高い成功率を達成しました。また、解を見つけられたケースでは、LaCAM*よりも10〜14倍、条件によっては200倍近く高速に初解を見つけました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法の利点は、高密度な環境での堅牢性と、オープンなマップでは既存手法と同等の性能を維持できる汎用性にあります。一方で、解のコスト（経路の長さ）がLaCAM*と比較して15〜22%増加するというトレードオフが存在します。これは、一時的な目標が必ずしも最短経路に寄与しないためです。また、廊下ルールは解のコストを下げますが、計算時間は増加する傾向にあります。今後の課題として、解のコストを抑えるためのより高度な目標選択ルールや、PIBTの移動優先度（hindranceなど）との組み合わせが挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、共有グラフ上で衝突を避けながら全エージェントを始点から終点へ移動させる問題であり、自動倉庫などの応用が期待されています。LaCAMは、PIBTによる構成生成と、制約を追加しながら探索する手法を組み合わせた、完全性を備えたスケーラブルなソルバーです。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>高密度な環境では、エージェントが互いに道を塞ぎ合い、PIBTの貪欲な一歩ずつの動きではデッドロックを解消できなくなります。LaCAMは制約を一つずつ追加して探索を試みますが、これは非常に非効率なプロセスとなります。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>Goal-Branchingは、ジャムが発生した際に一時的な目標を「探索の枝」として扱うことで、制約の逐次的な追加をスキップします。これにより、複数のエージェントが協調して動く必要がある状況を、より効率的に探索ツリーに組み込むことが可能です。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>3つのマップ（maze-32-32-2, maze-32-32-4, room-32-32-4）と3つのオープンマップを使用。密度を60%から95%まで変化させ、5つのランダムシードを用いて125回の試行を各条件で行いました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>高密度なボトルネックマップにおいて、Goal-BranchingはLaCAM*の2倍以上の成功率を記録しました。また、解のコストは15-22%増加しましたが、オープンなマップではLaCAM*と同等以下のコストで、速度も同等かそれ以上でした。</p></section>
+<section class="secsum"><h3>結論</h3><p>Goal-Branchingは、高密度なMAPF問題において、LaCAMの完全性を維持しつつ、解の発見速度と成功率を劇的に向上させる強力な拡張手法であることを示しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>解のコストがわずかに増加すること、および廊下ルールにおいて「押し手（pusher）」の向こう側にあるポケットを見つけられないといった局所的な最適性の欠如が挙げられます。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>ロボットが密集する動的な環境において、デッドロックを迅速に回避し、タスクを完遂させるための実用的なアルゴリズムを提供します。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>高密度な環境でのマルチエージェント経路計画、およびデッドロック回避が重要なロボット制御システム。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-21
+  </footer>
+</div>
+</body>
+</html>
