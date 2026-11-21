@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Local Visibility Roadmaps in Continous Multi-agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.04944.en.html" lang="en">English</a></nav>
+  <h1>Local Visibility Roadmaps in Continous Multi-agent Path Finding</h1>
+<p class="meta">連続的なマルチエージェント経路計画におけるローカル可視性ロードマップ</p>
+  <div class="meta">Kristýna Janovská, Pavel Surynek<br>採択先: Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026 ・ 2026-11-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.04944v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.04944v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.5220/0014248800004052" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026</span><span class="chip">公開日 2026-11-03</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、連続的な時間と空間においてエージェントが滑らかな曲線で移動する「滑らかな連続マルチエージェント経路計画（SC-MAPF）」に対し、可視性ロードマップを活用した新しい提案手順R-CBSを提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路計画（MAPF）は、離散的なグラフ上での移動を前提とすることが多かったが、現実のロボット（UAVや倉庫ロボットなど）の動きには連続的な時間と空間、および滑らかな軌道が必要である。本研究では、エージェントが障害物や他のエージェントを回避しながら、連続的な環境内を滑らかな曲線で移動するSC-MAPF問題を対象としている。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、高レベルの衝突回避にはConflict-Based Search (CBS) の枠組みを用い、低レベルの単一エージェント経路計画に「可視性ロードマップ（Visibility Roadmap）」を導入した新しいアルゴリズム「VR-CBS」を提案した点である。これにより、従来のサンプリングベースの手法（RRT*を用いたCE-CBSなど）と比較して、計算時間の短縮と経路品質の向上を両立させている。また、生成された経路をB-spline曲線で平滑化することで、実ロボットに適した軌道を生成する手法を提示している。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法VR-CBSは二段階の構造を持つ。高レベルでは、衝突が発生した際に、衝突に関与するエージェントのいずれかに回避行動を強いる制約を課すCBS形式の探索を行う。低レベルでは、各エージェントに対して、静的障害物と他のエージェント（制約によって追加された仮想的な障害物として扱う）に基づいた個別の可視性ロードマップを構築する。このロードマップ上をA*アルゴリズムで探索し、得られた折れ線経路をB-spline曲線を用いて平滑化することで、滑らかな軌道を得る。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>提案手法の有効性を検証するため、既存のアルゴリズムであるCE-CBS、RRT*を用いた手法、およびSMT-CCBS（SATソルバを用いた手法）と比較実験を行った。評価指標には、全エージェントの経路コストの総和（SOC）を用いた。実験では、障害物がないマップ、迷路、エージェントの入れ替えが必要な環境、および狭い通路を含むDAOグリッドマップの連続環境化データセットを用いた。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の成果は、VR-CBSがCE-CBSよりも経路品質（SOC）において優れ、かつサンプリングを行わないため計算時間も短縮できることを示している。また、狭い通路でのエージェントのすれ違いも可能であることが確認された。今後の課題として、エージェントの速度や旋回性能といった運動学的特性に合わせた曲線パラメータの組合せ最適化や、ユーザーの要求に基づいたより安全な衝突回避の最適化が挙げられている。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、共有環境内で複数のエージェントを衝突させずに目的地へ導く問題である。近年の研究では、離散的なグラフモデルから、連続的な時間・空間、さらには運動学的制約を考慮したモデルへと進化している。特に、急な旋回による速度低下を避けるための「滑らかな動き」の実現は、実世界のロボット運用において極めて重要である。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>SC-MAPF（Smooth Continuous MAPF）では、エージェントは連続的な時間と空間において、滑らかな多項式曲線に沿って移動する。衝突は、エージェントの体が特定の時間・空間で重なることで定義され、これを解決するには、特定の曲線を通行禁止にするなどの回避策が必要となる。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>VR-CBSは、衝突を空間ドメインで解決する。衝突が発生すると、その衝突箇所を「静的な障害物」と見なしてエージェントの可視性ロードマップを更新し、A*で再計画を行う。これにより、サンプリングに頼らずに、幾何学的に効率的な経路探索が可能となる。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、3つの異なるシナリオ（障害物なし、迷路、入れ替え）を用いたCE-CBSとの比較と、8つのインスタンスを用いたSMT-CCBSとの比較で行われた。評価にはSOC（Sum of Costs）が用いられ、VR-CBSはすべてのケースでCE-CBSより短い経路を実現した。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験結果により、VR-CBSはCE-CBSよりも経路コスト（SOC）が低く、かつ計算時間が短いことが示された。また、SMT-CCBSとの比較においても、VR-CBSは優れた性能を示し、狭い通路内でのエージェントのすれ違いなどの複雑なナビゲーションにも成功した。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、可視性ロードマップとCBSを組み合わせた新しい連続MAPF提案手順VR-CBSを提案し、その有効性を実証した。提案手法は、経路の滑らかさと計算効率、経路品質の面で既存手法を上回る結果を示した。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本論文の範囲内では、曲線パラメータの最適化が運動学的制約（速度や旋回半径）に完全に適合しているかについての詳細な検討は行われていない。また、安全性に関するユーザーの要求に基づく最適化についても、今後の課題として残されている。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、UAVスウォームや倉庫ロボットなどの実世界のマルチロボットシステムの効率的な運用において、滑らかな軌道生成と衝突回避を統合的に解決する重要な基盤技術を提供する。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチロボットの軌道計画、連続的な環境における衝突回避、および実ロボットへの適用を目的とした経路生成アルゴリズムを研究している専門家。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-22
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Local Visibility Roadmaps in Continous Multi-agent Path Finding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2611.04944.html" lang="ja">日本語</a></nav>
+  <h1>Local Visibility Roadmaps in Continous Multi-agent Path Finding</h1>
+<p class="meta">Local Visibility Roadmaps in Continuous Multi-agent Path Finding</p>
+  <div class="meta">Kristýna Janovská, Pavel Surynek<br>Venue: Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026 ・ 2026-11-03 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.04944v1" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2611.04944v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.5220/0014248800004052" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026</span><span class="chip">Published 2026-11-03</span><span class="chip keyword-match">Keyword matches 2</span><span class="chip">Citations 0</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> This paper proposes VR-CBS, a new algorithm for smooth continuous multi-agent path finding (SC-MAPF) that utilizes local visibility roadmaps to achieve efficient and smooth trajectories.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-agent path finding (MAPF) is essential for navigating multiple agents in shared environments without collisions. While traditional MAPF often relies on discrete graph-based models, real-world applications like UAV swarms and warehouse robots require continuous time and space, as well as smooth trajectories to accommodate kinematic constraints and maintain speed during turns.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The authors introduce Visibility Roadmap Conflict-Based Search (VR-CBS), which integrates a high-level CBS-based conflict resolution framework with a low-level single-agent path planner using visibility roadmaps. Unlike previous sampling-based approaches like CE-CBS that use RRT*, VR-CBS uses A* on visibility roadmaps, leading to improved path quality (lower Sum of Costs) and reduced computational time. Additionally, the method incorporates B-spline smoothing to ensure trajectories are suitable for real robots.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>VR-CBS operates on two levels. At the high level, it employs a CBS-like search to resolve agent collisions by imposing constraints. At the low level, for each agent, a visibility roadmap is constructed considering static obstacles and current collision constraints (treated as new static obstacles). The algorithm performs A* search on these roadmaps to find optimal paths, which are subsequently smoothed using B-spline curves to eliminate sharp turns and ensure smoothness.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The performance of VR-CBS was evaluated against CE-CBS (which uses RRT* for low-level planning) and SMT-CCBS (a SAT-based solver for continuous time). Experiments were conducted on various scenarios, including obstacle-free maps, mazes, and environments requiring agents to swap positions. The evaluation used the Sum of Costs (SOC) metric to measure path quality and compared execution times across different map instances.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results demonstrate that VR-CBS outperforms CE-CBS in both path quality and computational efficiency, largely because it avoids the stochastic nature of sampling. The algorithm also successfully navigates narrow corridors. However, the authors note that the current approach does not yet optimize curve parameters for specific kinematic properties like maximum turn rate, and future work will address safety-aware optimization and kinematic integration.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>Smooth Continuous MAPF (SC-MAPF) involves planning paths in a metric space where agents move along smooth polynomial curves in continuous time. A conflict occurs when the bodies of two agents overlap at a specific time and location. Resolving these conflicts requires finding alternative trajectories that avoid the conflicting space-time regions.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>The core problem is to find a set of collision-free, smooth trajectories for multiple agents in a continuous environment. This requires balancing the need for efficient global coordination (to avoid deadlocks) with the need for local smoothness and kinematic feasibility.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>The key technical innovation is the use of per-agent visibility roadmaps that are dynamically updated. When a conflict is detected, the conflicting region is added to the agent&#x27;s roadmap as a new obstacle, and the roadmap is updated via local line-of-sight checks, allowing for efficient re-planning using A*.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>Experiments were performed on three types of scenarios to compare VR-CBS with CE-CBS: an obstacle-free map, a maze, and a &#x27;switch&#x27; scenario. Furthermore, VR-CBS was tested against SMT-CCBS on 8 instances from the DAO grid map dataset, which were converted into continuous environments. The tests included varying numbers of agents from 1 to 10.</p></section>
+<section class="secsum"><h3>Results</h3><p>Experimental results show that VR-CBS achieves a lower Sum of Costs (SOC) than both CE-CBS and SMT-CCBS across all tested instances. For example, in the &#x27;switch&#x27; scenario, VR-CBS achieved a lower SOC than CE-CBS. The algorithm also demonstrated the ability to navigate through narrow corridors effectively.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>The paper concludes that VR-CBS is a highly effective algorithm for SC-MAPF, providing smoother and shorter paths more quickly than existing sampling-based or SAT-based continuous MAPF methods.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The study does not explicitly address the combinatorial optimization of B-spline parameters to perfectly match an agent&#x27;s specific kinematic constraints, such as velocity or acceleration limits. Additionally, the integration of user-defined safety requirements into the optimization process is identified as a future direction.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>This work is significant for the field of multi-robot motion planning, providing a bridge between high-level discrete coordination and low-level continuous trajectory generation for real-world robotic systems.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>Researchers working on multi-agent coordination, continuous motion planning, and the application of MAPF to real-world robotic platforms.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: local-llm:gemma-4-26b-a4b-it ・ Generated: 2026-11-22
+  </footer>
+</div>
+</body>
+</html>

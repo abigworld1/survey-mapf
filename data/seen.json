@@ -13340,6 +13340,40 @@
       "url": "http://arxiv.org/abs/2611.10363v1",
       "venue": "Symposium on Combinatorial Search 2026"
     },
+    "doi:10.5220/0014248800004052": {
+      "added": "2026-11-22",
+      "added_at": "2026-11-22T06:22:13.610517",
+      "arxiv_id": "2611.04944",
+      "authors": [
+        "Kristýna Janovská",
+        "Pavel Surynek"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-03",
+      "doi": "10.5220/0014248800004052",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.04944.html",
+      "file_en": "mapf-mapd-warehouse/2611.04944.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.04944v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Local Visibility Roadmaps in Continous Multi-agent Path Finding",
+      "title_en": "Local Visibility Roadmaps in Continuous Multi-agent Path Finding",
+      "title_ja": "連続的なマルチエージェント経路計画におけるローカル可視性ロードマップ",
+      "tldr": "本論文は、連続的な時間と空間においてエージェントが滑らかな曲線で移動する「滑らかな連続マルチエージェント経路計画（SC-MAPF）」に対し、可視性ロードマップを活用した新しい提案手順R-CBSを提案しています。",
+      "tldr_en": "This paper proposes VR-CBS, a new algorithm for smooth continuous multi-agent path finding (SC-MAPF) that utilizes local visibility roadmaps to achieve efficient and smooth trajectories.",
+      "url": "http://arxiv.org/abs/2611.04944v1",
+      "venue": "Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026"
+    },
     "doi:10.65109/kpwj5508": {
       "added": "2026-08-02",
       "added_at": "2026-08-02T06:16:15.374441",
