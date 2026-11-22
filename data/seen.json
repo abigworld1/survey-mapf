@@ -6344,6 +6344,42 @@
       "url": "http://arxiv.org/abs/2401.05860v2",
       "venue": "AAMAS 2024"
     },
+    "arxiv:2403.07559": {
+      "added": "2026-11-23",
+      "added_at": "2026-11-23T06:22:21.306831",
+      "arxiv_id": "2403.07559",
+      "authors": [
+        "Huijie Tang",
+        "Federico Berto",
+        "Jinkyoo Park"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-03-12",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2403.07559.html",
+      "file_en": "mapf-mapd-warehouse/2403.07559.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2403.07559v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding",
+      "title_en": "Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding",
+      "title_ja": "マルチエージェント経路計画のための優先順位付けされたハイブリッド方策のアンサンブル (EPH)",
+      "tldr": "EPHは、選択的通信ブロックと3つの高度な推論戦略（ハイブリッド専門家ガイダンス、Q値に基づく優先順位付け、アンサンブル法）を組み合わせることで、複雑な構造を持つ環境におけるマルチエージェント経路計画（MAPF）の性能を向上させる新しい手法です。",
+      "tldr_en": "EPH improves Multi-Agent Pathfinding (MAPF) in complex, structured environments by combining enhanced selective communication with three advanced inference strategies: hybrid expert guidance, Q-value-based conflict prioritization, and solution ensembling.",
+      "url": "http://arxiv.org/abs/2403.07559v2",
+      "venue": "2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024)"
+    },
     "arxiv:2403.13421": {
       "added": "2026-07-12",
       "added_at": "2026-07-12T06:01:03.059794",

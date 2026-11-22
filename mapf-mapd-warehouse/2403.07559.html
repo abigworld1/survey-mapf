@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2403.07559.en.html" lang="en">English</a></nav>
+  <h1>Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding</h1>
+<p class="meta">マルチエージェント経路計画のための優先順位付けされたハイブリッド方策のアンサンブル (EPH)</p>
+  <div class="meta">Huijie Tang, Federico Berto, Jinkyoo Park<br>採択先: 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024) ・ 2024-03-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2403.07559v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2403.07559v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024)</span><span class="chip">公開日 2024-03-12</span><span class="chip keyword-match">キーワード一致 3</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> EPHは、選択的通信ブロックと3つの高度な推論戦略（ハイブリッド専門家ガイダンス、Q値に基づく優先順位付け、アンサンブル法）を組み合わせることで、複雑な構造を持つ環境におけるマルチエージェント経路計画（MAPF）の性能を向上させる新しい手法です。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら目的地に到達する経路を見つける問題であり、NP困難な組合せ最適化問題です。既存の強化学習（MARL）ベースの手法は、エージェント間の通信を用いて協調性を高めますが、障害物密度が高く、エージェント数が多い構造的な環境では依然として課題が残っています。特に、エージェントが目的地に到達した後にその場に留まる設定では、エージェント自体が障害物となるため、問題の複雑さが増大します。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、通信能力の強化と推論時の高度な戦略を統合した「Ensembling Prioritized Hybrid Policies (EPH)」の提案です。具体的には、グラフ畳み込みを用いた選択的通信ブロックを導入し、エージェント間の情報共有を最適化しました。また、推論フェーズにおいて、単一エージェントの専門家ガイダンス、Q値に基づく衝突・デッドロック解決、および複数の解を統合するアンサンブル手法という3つの革新的な戦略を導入しました。これにより、既存の最先端のニューラルMAPFソルバーに対して競争力のある性能を実現しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>EPHは、Q学習ベースのMARLフレームワークとして構築されており、Double Dueling Deep Q Networks (D3QN) を用いて学習を行います。通信メカニズムには、DCCの手法を適応させたグラフ畳み込みベースの選択的通信ブロックを採用しています。推論時には、まず、衝突のない領域をナビゲートするためにニューラル方策と単一エージェントの専門家ガイダンスをハイブリッド化します。次に、Q値に基づいて衝突やデッドロックを優先的に解決する戦略を用います。最後に、並列して実行される複数のソルバーから最適な解を効率的に収集するために、アンサンブル法を適用します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験は、複雑な構造を持つ「den312d」および「warehouse」という2つのベンチマークマップを用いて行われました。評価指標には、エピソード長（EL）と成功率（SR）が用いられています。比較対象として、CBS、DHC、DCC、PRIMALなどの既存の探索型およびニューラル型ソルバーが設定されました。実験の結果、EPHは複雑な環境において、最先端のニューラルMAPF手法に対して競争力のある性能を示すことが確認されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>EPHは、既存のニューラルソルバーと比較して、構造化された環境での性能において優位性を示しました。しかし、DCCと比較すると実行時間がわずかに長くなるというトレードオフが存在します。また、ハイブリッド専門家ガイダンスの戦略（単一エージェントのガイダンスか、あるいは他の手法か）によって、マップの特性に応じて性能への寄与度が異なることが示唆されています。今後の展望として、Actor-Criticなどの他の強化学習アルゴリズムの適用や、低レベルソルバーとのより高度なハイブリッド化が挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、倉庫ロボット、航空、デジタルゲームなどの分野で重要な応用が期待されています。従来の探索ベースの手法（CBSなど）は、エージェント数が増えると計算コストが指数関数的に増大する問題があります。一方、MARLベースの手法はスケーラビリティに優れていますが、部分観測環境下での協調やデッドロックの回避が課題となっています。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>エージェント数や障害物密度が増加する構造的な環境において、既存のMARLベースのMAPFソルバーは、デッドロックの発生や協調の失敗により、成功率が著しく低下するという問題があります。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>グラフ畳み込みを用いた選択的通信、D3QNによる学習、Q値に基づく優先順位付け、ハイブリッド専門家ガイダンス、およびアンサンブル推論が主要な技術要素です。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>den312dおよびwarehouseマップにおける、エピソード長と成功率の評価。D3QNとカリキュラム学習を用いた学習プロセス。既存のニューラル・探索型ソルバーとの比較実験。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>EPHは、複雑なマップにおいて、既存の最先端ニューラル手法と同等以上の成功率を達成し、特に高密度な環境での堅牢性を示しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>EPHは、通信の強化と推論時の多層的な戦略（ハイブリッド、優先順位付け、アンサンブル）を組み合わせることで、MAPFにおける強力な解決策を提示しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>DCCと比較して実行時間がわずかに長いこと、およびハイブリッド戦略の有効性が環境に依存すること。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>複雑な実世界環境（倉庫など）におけるマルチエージェントの自律的な経路計画の実現に向けた重要な進展です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチエージェント強化学習、ロボットの経路計画、および複雑な環境下での協調制御を研究する研究者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-23
+  </footer>
+</div>
+</body>
+</html>

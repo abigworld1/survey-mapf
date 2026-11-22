@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← All papers in this topic</a> ・ <a href="../index.html">Paper Survey home</a> ・ <a href="2403.07559.html" lang="ja">日本語</a></nav>
+  <h1>Ensembling Prioritized Hybrid Policies for Multi-agent Pathfinding</h1>
+
+  <div class="meta">Huijie Tang, Federico Berto, Jinkyoo Park<br>Venue: 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024) ・ 2024-03-12 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2403.07559v2" target="_blank" rel="noopener">Original</a> ・ <a href="https://arxiv.org/pdf/2403.07559v2" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">Recent paper</span><span class="chip venue">Venue 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024)</span><span class="chip">Published 2024-03-12</span><span class="chip keyword-match">Keyword matches 3</span><span class="chip">Citations 0</span><span class="chip">Relevance 5</span><span class="chip basis-fulltext">full text (arXiv)</span><span class="chip reading-value">Reading value 4/5</span><div class="rating-reason">Provisional rating estimated from citation count, full-text availability, and summary depth.</div></div>
+  <div class="source-notice fulltext">Full text retrieved: this summary is based on full text (arXiv).</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>In short:</strong> EPH improves Multi-Agent Pathfinding (MAPF) in complex, structured environments by combining enhanced selective communication with three advanced inference strategies: hybrid expert guidance, Q-value-based conflict prioritization, and solution ensembling.</div>
+<section class="qa"><h2>What is this paper about?</h2><p>Multi-Agent Pathfinding (MAPF) is the task of finding collision-free paths for multiple agents in a map with obstacles, aiming to minimize costs like makespan. While classical search-based solvers like Conflict-Based Search (CBS) are effective, they struggle to scale as the number of agents increases due to exponential complexity. Multi-Agent Reinforcement Learning (MARL) approaches offer scalability but face significant challenges in structured environments with high obstacle density and high agent counts, particularly when agents remain at their targets and act as obstacles.</p></section>
+<section class="qa"><h2>What is new compared with prior work?</h2><p>The authors propose Ensembling Prioritized Hybrid Policies (EPH), a novel MARL-based MAPF solver. The primary contribution is the integration of a selective communication block using graph convolutions to enrich agent coordination. Furthermore, the work introduces three distinct inference-time strategies: hybridizing neural policies with single-agent expert guidance, using Q-values to prioritize conflict and deadlock resolution, and employing an ensemble method to select the best solution from multiple parallel solvers. This approach allows EPH to achieve competitive performance against state-of-the-art neural MAPF methods in complex environments.</p></section>
+<section class="qa"><h2>What is the key technical idea?</h2><p>EPH is formulated as a Q-learning problem and trained using the Double Dueling Deep Q Network (D3QN) algorithm with prioritized experience replay and curriculum learning. The architecture includes a graph convolution-based selective communication block to facilitate information exchange among agents. During the inference phase, the method employs three specific strategies: first, it hybridizes the neural policy with single-agent expert guidance for navigating conflict-free zones; second, it utilizes Q-values to prioritize the resolution of conflicts and deadlocks; third, it uses an ensemble method to sample the best solution from multiple parallel solvers to leverage their diverse strengths.</p></section>
+<section class="qa"><h2>How was it validated?</h2><p>The performance of EPH was empirically evaluated in complex, structured 2D grid-world environments, specifically using the &#x27;den312d&#x27; and &#x27;warehouse&#x27; benchmark maps. The evaluation metrics used are Episode Length (EL) and Success Rate (SR). The method was compared against several state-of-the-art baselines, including classical heuristic solvers (CBS, ODrM*) and neural MARL-based solvers (PRIMAL, DHC, DCC, SACHA, SCRIMP). The results demonstrate that EPH maintains high success rates and competitive episode lengths across various agent counts and obstacle densities.</p></section>
+<section class="qa"><h2>What are the limitations and open questions?</h2><p>The results indicate that EPH is highly effective in structured environments, outperforming several neural baselines. However, the authors note that EPH incurs a slightly higher runtime compared to the DCC method. The ablation study reveals that the effectiveness of the hybrid expert guidance depends on the specific environment and agent density. The authors suggest that future work could involve training with on-policy algorithms or developing more sophisticated hybridization techniques with low-level solvers to further avoid deadlocks in highly structured settings.</p></section>
+
+<h2 class="secs-title">Detailed section summary</h2>
+<section class="secsum"><h3>Background</h3><p>MAPF is a critical problem in robotics, aviation, and gaming. While centralized search-based algorithms provide optimal or bounded-suboptimal solutions, they often fail to scale to large-scale problems. MARL-based approaches have emerged as a scalable alternative, utilizing partial observations and communication to manage agent coordination.</p></section>
+<section class="secsum"><h3>Limitations of prior work</h3><p>Existing MARL-based MAPF solvers struggle to maintain high success rates in structured environments characterized by high obstacle density and high agent counts, often leading to deadlocks or collisions.</p></section>
+<section class="secsum"><h3>Technical highlights</h3><p>Key technical elements include Graph Convolutional communication, Double Dueling Deep Q Networks (D3QN), Q-value-based conflict prioritization, hybrid expert guidance, and ensemble-based inference.</p></section>
+<section class="secsum"><h3>Experiments</h3><p>Experiments were conducted on &#x27;den312d&#x27; and &#x27;warehouse&#x27; maps with varying agent counts (4 to 64) and obstacle densities. Training involved curriculum learning starting from a single agent. Performance was measured via Success Rate and Episode Length.</p></section>
+<section class="secsum"><h3>Results</h3><p>EPH demonstrated competitive performance against state-of-the-art neural MAPF solvers, showing high success rates even in complex, high-density scenarios where other neural methods failed.</p></section>
+<section class="secsum"><h3>Conclusion</h3><p>EPH successfully addresses the limitations of current MARL-MAPF solvers by enhancing communication and introducing robust inference-time strategies, making it highly effective for complex, structured multi-agent environments.</p></section>
+<section class="secsum"><h3>Limitations and open problems</h3><p>The method exhibits a slightly higher computational runtime compared to the DCC baseline, and the impact of hybrid guidance varies by environment.</p></section>
+<section class="secsum"><h3>Why it matters to MAPF researchers</h3><p>This work provides a robust framework for scalable and reliable multi-agent coordination in complex, real-world-like structured environments.</p></section>
+<section class="secsum"><h3>Who should read this paper</h3><p>Researchers working on Multi-Agent Reinforcement Learning, autonomous robot path planning, and combinatorial optimization.</p></section>
+
+
+  <footer>
+    ⚠ This page is <strong>automatically generated and summarized by AI</strong> and may contain errors. Always consult the original paper for authoritative details.<br>
+    Evidence: full text (arXiv) ・ Summary engine: local-llm:gemma-4-26b-a4b-it ・ Generated: 2026-11-23
+  </footer>
+</div>
+</body>
+</html>
