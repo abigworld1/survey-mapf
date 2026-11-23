@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Even Loose Proximity Constraints Make Makespan-optimal Unlabeled Multi-agent Pathfinding Hard | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.21277.en.html" lang="en">English</a></nav>
+  <h1>Even Loose Proximity Constraints Make Makespan-optimal Unlabeled Multi-agent Pathfinding Hard</h1>
+<p class="meta">緩やかな近接制約であっても、Makespan最適化を伴う非ラベル付きマルチエージェント経路計画問題は困難である</p>
+  <div class="meta">Takahiro Suzuki, Keisuke Okumura<br>採択先: 未取得 ・ 2026-11-16 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.21277v2" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.21277v2" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.21277" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-11-16</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、エージェント間の通信範囲に基づく近接制約を持つ非ラベル付きマルチエージェント経路計画問題（rCUMAPF）において、中間的な近接範囲 r の場合に、Makespan（完了時間）を最適化する問題がNP困難であることを証明しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）のバリエーションとして、エージェントが常に一定の近接範囲 r 内で連結なグラフを形成していなければならない「r-連結非ラベル付きマルチエージェント経路計画問題（rCUMAPF）」を扱います。標準的なMAPFは衝突回避のみを目的としますが、実世界のアプリケーション（自律型プラトーニングや自己再構成など）では、エージェント間の通信維持やセンサー範囲内の維持といった近接制約が重要となります。既存研究では、近接範囲が r=1 の場合や、グラフの直径に相当するほど十分に大きい場合には計算量が判明していますが、その中間的なケースについては未解明でした。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、近接範囲 r がグラフの頂点数 |V| に対して r = O(|V|^1-varepsilon)（0 &lt; varepsilon &lt;= 1 は定数）を満たす場合、Makespanが2以下の解を見つける問題がNP困難であることを示した点にあります。これにより、これまで不明であった中間的な近接範囲における計算複雑性のギャップを埋める成果を上げました。また、この結果から、ラベル付きの rCUMAPF も同様の条件下でNP困難であることを導き出しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>証明には、3-SAT問題からの多項式時間還元を用います。具体的には、変数ガジェット、節ガジェット、接続ガジェット、および出現ガジェットを用いて、与えられた論理式が充足可能であることと、指定されたMakespan内で rCUMAPFの解が存在することが同値になるようなグラフ構造を構築します。この構築により、問題のサイズが論理式のサイズに対して多項式時間で生成されることを示し、NP困難性を証明しています。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>本論文は、理論的な計算複雑性の解析に基づいています。検証は、構築されたグラフの性質（最大次数が3であること、初期・目標構成がr-連結であること、グラフサイズが多項式であることなど）の数学的な証明を通じて行われています。これにより、提案された還元が正当であることを示しています。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究は、計算複雑性の分類において大きな進展をもたらしましたが、いくつかの未解決の課題も残しています。具体的には、計算が可能なケースと困難なケースの間の境界となる、特定の r の値における複雑性は依然として不明です。また、本論文の還元手法は、指数関数時間ではないが多項式時間でもない「準指数時間アルゴリズム」の存在を否定するものではないため、将来的な研究課題として挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>マルチエージェント経路計画（MAPF）は、複数のエージェントが衝突を避けながら目的地へ移動する経路を求める問題です。近年、ロボットの協調作業や災害現場での探索などの需要から、エージェント間の通信範囲を維持するための「近接制約」を課したモデルが注目されています。特に、エージェントが区別されない「非ラベル付き」設定は、エージェントの入れ替えが可能な場合に計算効率が高まることが知られています。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>rCUMAPFにおいて、エージェントが常に距離 r 以内の近接性を保ちつつ、最短の完了時間（Makespan）で目的地へ到達する経路を見つける問題の複雑性を明らかにすることです。特に、近接範囲 r が極端な値（1または非常に大きい値）ではない中間的な範囲において、この問題が効率的に解けるのか、あるいはNP困難なのかを問うています。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>3-SAT問題の変数と節を、グラフ内の特定のガジェット構造にマッピングします。エージェントの移動が、論理式の変数の真偽値の割り当てを反映するように設計されており、近接制約が論理的な整合性を強制する役割を果たします。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>本論文は理論的な複雑性解析に特化しており、具体的な数値を用いた実験データは提供されていません。代わりに、グラフの構造的特性（最大次数、頂点数、エッジ数）に関する理論的な評価を行っています。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>定理1により、特定の条件下（r = O(|V|^1-varepsilon)）において、Makespanが2以下のrCUMAPFはNP困難であることが示されました。これにより、近接制約が緩和されていても、Makespanの最適化は依然として非常に困難な問題であることが証明されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>近接制約を持つ非ラベル付きMAPFは、制約が「緩やか」であっても、Makespanの最適化という観点では計算量的に非常に困難な問題であることが明らかになりました。これは、実用的な経路計画アルゴリズムを設計する上で、近接制約の存在が極めて重要な考慮事項であることを示唆しています。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本研究の証明は、Makespanが2という非常に短い時間枠における困難性に焦点を当てており、より長いMakespanにおける複雑性の詳細については言及していません。また、特定の r の範囲における境界条件については完全な解明には至っていません。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、自律型プラトーニングやロボットの集団移動といった、実世界の制約を伴うマルチエージェントシステムの理論的基盤を強化するものです。計算量の下限を示すことで、実用的な近似アルゴリズムやヒューリスティクスの開発の必要性を理論的に裏付けています。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチエージェント経路計画（MAPF）の理論的研究者、計算複雑性を専門とする研究者、および協調ロボットシステムの制御理論を扱うエンジニア。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-23
+  </footer>
+</div>
+</body>
+</html>

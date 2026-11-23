@@ -13376,6 +13376,40 @@
       "url": "http://arxiv.org/abs/2611.10363v1",
       "venue": "Symposium on Combinatorial Search 2026"
     },
+    "doi:10.48550/arxiv.2611.21277": {
+      "added": "2026-11-23",
+      "added_at": "2026-11-23T14:13:51.360029",
+      "arxiv_id": "2611.21277",
+      "authors": [
+        "Takahiro Suzuki",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-16",
+      "doi": "10.48550/arxiv.2611.21277",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.21277.html",
+      "file_en": "mapf-mapd-warehouse/2611.21277.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.21277v2",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Even Loose Proximity Constraints Make Makespan-optimal Unlabeled Multi-agent Pathfinding Hard",
+      "title_en": "Even Loose Proximity Constraints Make Makespan-optimal Unlabeled Multi-agent Pathfinding Hard",
+      "title_ja": "緩やかな近接制約であっても、Makespan最適化を伴う非ラベル付きマルチエージェント経路計画問題は困難である",
+      "tldr": "本論文は、エージェント間の通信範囲に基づく近接制約を持つ非ラベル付きマルチエージェント経路計画問題（rCUMAPF）において、中間的な近接範囲 r の場合に、Makespan（完了時間）を最適化する問題がNP困難であることを証明しています。",
+      "tldr_en": "This paper proves that finding a makespan-optimal solution for Unlabeled Multi-agent Pathfinding with proximity constraints (rCUMAPF) is NP-hard, even when the proximity range r is relatively large.",
+      "url": "http://arxiv.org/abs/2611.21277v2",
+      "venue": ""
+    },
     "doi:10.5220/0014248800004052": {
       "added": "2026-11-22",
       "added_at": "2026-11-22T06:22:13.610517",
