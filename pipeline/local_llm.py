@@ -12,6 +12,10 @@ class LocalLLMError(RuntimeError):
     pass
 
 
+class LocalLLMOutputError(LocalLLMError):
+    pass
+
+
 class LocalLLM:
     def __init__(self, model=None):
         self.model = model or os.environ.get("LLM_MODEL") or DEFAULT_MODEL
@@ -60,17 +64,22 @@ class LocalLLM:
             )
         self.check_model()
 
-    def generate(self, system, user, max_tokens=None):
+    def generate(self, system, user, max_tokens=None, response_schema=None):
         if self.translation_only:
             raise LocalLLMError("PLaMo Translate is translation-only. Set LLM_MODEL to an instruction model for questions.")
-        return self._complete({
+        payload = {
             "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
             "max_tokens": max_tokens or 8192,
             "temperature": 0.2,
-        })
+        }
+        if response_schema is not None:
+            payload["response_format"] = {"type": "json_schema", "json_schema": {
+                "name": "survey_article", "strict": True, "schema": response_schema,
+            }}
+        return self._complete(payload)
 
     def translate_to_japanese(self, text):
         return self._complete({
@@ -88,7 +97,7 @@ class LocalLLM:
         except (KeyError, IndexError, TypeError):
             raise LocalLLMError("Local LLM returned an invalid chat response") from None
         if choice.get("finish_reason") == "length":
-            raise LocalLLMError("Local LLM reached the output token limit")
+            raise LocalLLMOutputError("Local LLM reached the output token limit")
         if not isinstance(content, str) or not content.strip():
-            raise LocalLLMError("Local LLM returned empty content")
+            raise LocalLLMOutputError("Local LLM returned empty content")
         return content

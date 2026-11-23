@@ -108,11 +108,14 @@ class DailyPipelineTests(unittest.TestCase):
         record = next(iter(load_seen(self.seen)[FIELD].values()))
         self.assertTrue((self.root / record["file"]).read_text().strip().endswith("</html>"))
 
-    def test_bad_json_is_not_retried_across_entire_candidate_queue(self):
-        self.llm.generate.return_value = "broken json"
-        self.assertEqual(run.main([]), 2)
-        self.assertEqual(self.llm.generate.call_count, 2)
-        self.assertFalse(load_seen(self.seen)[FIELD])
+    def test_invalid_json_uses_same_paper_retry_then_fallback(self):
+        valid = json.dumps(bilingual_article())
+        self.llm.generate.side_effect = ["broken json", "still broken", "broken json",
+                                          valid, valid, valid, valid]
+        self.assertEqual(run.main([]), 0)
+        self.assertEqual(self.llm.generate.call_count, 7)
+        self.assertEqual(self.fetch.call_count, 3)
+        self.assertEqual(len(load_seen(self.seen)[FIELD]), 2)
 
     def test_fetch_failure_and_abstract_only_try_later_candidates_without_llm(self):
         self.fetch.side_effect = [RuntimeError("HTML/PDF network failure"), ([], "abstract"),
@@ -123,9 +126,9 @@ class DailyPipelineTests(unittest.TestCase):
         self.assertEqual(self.llm.generate.call_count, 4)
         self.assertEqual(len(load_seen(self.seen)[FIELD]), 2)
 
-    def test_no_eligible_papers_is_valid_zero(self):
+    def test_no_eligible_papers_reports_shortfall(self):
         self.gather.return_value = ([], {})
-        self.assertEqual(run.main([]), 0)
+        self.assertEqual(run.main([]), 2)
         self.llm.generate.assert_not_called()
 
     def test_all_sources_failed_is_visible(self):
@@ -137,7 +140,7 @@ class DailyPipelineTests(unittest.TestCase):
         self.gather.return_value = ([Paper(source="arxiv", title=t) for t in (
             "Robotic Warehouse Control", "Multi-Agent Task Allocation", "Retrieval-Augmented Generation",
             "Multi-Agent Reinforcement Learning", "Generic Path Planning")], {})
-        self.assertEqual(run.main([]), 0)
+        self.assertEqual(run.main([]), 2)
         self.fetch.assert_not_called()
         self.llm.generate.assert_not_called()
 
@@ -147,7 +150,7 @@ class DailyPipelineTests(unittest.TestCase):
             p = self.root / FIELD / f"2609.{i:05d}.html"
             p.parent.mkdir(exist_ok=True)
             p.write_text("<html>old</html>")
-        self.assertEqual(run.main([]), 0)
+        self.assertEqual(run.main([]), 2)
         self.llm.generate.assert_not_called()
 
 

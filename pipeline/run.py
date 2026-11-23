@@ -35,7 +35,7 @@ from .schema import Paper, normalize_title
 from .sources import arxiv as arxiv_src
 from .summarize import Summarizer
 from .copilot import CopilotError
-from .local_llm import LocalLLMError
+from .local_llm import LocalLLMError, LocalLLMOutputError
 from .util import atomic_write, slugify
 from .venue import enrich_venue
 
@@ -903,13 +903,12 @@ def main(argv=None):
         if not papers and any(isinstance(v, dict) and v.get("error") for v in {**recent_counts, **important_counts}.values()):
             run_failed = True
         produced_for_sub = 0
-        attempted_summaries = 0
         fulltext_attempts = 0
         for p in candidate_queue:
             if produced >= args.limit:
                 print("  [stop] 総論文数上限に到達")
                 break
-            if produced_for_sub >= remaining_k or attempted_summaries >= remaining_k:
+            if produced_for_sub >= remaining_k:
                 break
             if paper_is_seen(p, seen_aliases):
                 continue
@@ -999,13 +998,19 @@ def main(argv=None):
                 produced_for_sub += 1
                 seen_aliases.update(paper_aliases(p))
                 continue
-            attempted_summaries += 1
             try:
                 bilingual = summarizer.summarize_bilingual(
                     p, sections=fsections, basis=basis
                 )
                 summary = bilingual["ja"]
                 summary_en = bilingual["en"]
+            except (ValueError, LocalLLMOutputError) as exc:
+                reasons = [f"LLM要約失敗: {exc}"]
+                field_report["skipped"].append(
+                    _report_paper(p, pid, kind, relevance_score, basis, {"reasons": reasons})
+                )
+                print(f"      [skip] {reasons[0]}")
+                continue
             except (CopilotError, LocalLLMError) as exc:
                 run_failed = True
                 field_report["skipped"].append({"title": p.title, "reasons": [str(exc)]})
@@ -1029,7 +1034,6 @@ def main(argv=None):
                 )
             ]
             if post_issues:
-                run_failed = True
                 field_report["skipped"].append(
                     _report_paper(p, pid, kind, relevance_score, basis, {"reasons": post_issues})
                 )
@@ -1186,7 +1190,9 @@ def main(argv=None):
         labels = ", ".join(
             f"{field.get('slug')}={field.get('shortfall')}本不足" for field in shortfalls
         )
-        print(f"[warn] 最大2本に届かない日も関連性・品質を優先: {labels}")
+        print(f"[warn] 日次目標未達: {labels}")
+        if not (args.dry_run or args.offline) and produced < args.limit:
+            run_failed = True
     return 2 if run_failed else 0
 
 

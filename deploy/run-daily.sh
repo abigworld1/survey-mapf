@@ -36,13 +36,24 @@ if [[ "$baseline" != "$(git rev-parse HEAD)" ]]; then
   exec /bin/bash deploy/run-daily.sh
 fi
 
-"$python" -c 'from pipeline.local_llm import LocalLLM; LocalLLM().check_article_model()'
-status=0
-"$python" -m pipeline.run || status=$?
-
-# Publish completed checkpoints even when a later article fails.
 artifact="$(mktemp -d)"
 trap 'rm -r -- "$artifact"' EXIT
-"$python" -m pipeline.publish stage "$artifact"
-"$python" -m pipeline.publish push "$artifact"
-exit "$status"
+day="$(date +%F)"
+for attempt in 1 2 3; do
+  status=0
+  if "$python" -c 'from pipeline.local_llm import LocalLLM; LocalLLM().check_article_model()'; then
+    "$python" -m pipeline.run || status=$?
+
+    # Persist successes before retrying so the next attempt only fills vacancies.
+    "$python" -m pipeline.publish stage "$artifact/$attempt"
+    "$python" -m pipeline.publish push "$artifact/$attempt"
+  else
+    status=2
+  fi
+  if (( status != 2 || attempt == 3 )); then
+    exit "$status"
+  fi
+  echo "Daily target incomplete (attempt $attempt/3); retrying in 10 minutes"
+  sleep 600
+  [[ "$(date +%F)" == "$day" ]] || exit "$status"
+done
