@@ -6280,6 +6280,42 @@
       "url": "http://arxiv.org/abs/2308.11234v5",
       "venue": ""
     },
+    "arxiv:2312.15908": {
+      "added": "2026-11-24",
+      "added_at": "2026-11-24T06:29:57.911015",
+      "arxiv_id": "2312.15908",
+      "authors": [
+        "Alexey Skrynnik",
+        "Anton Andreychuk",
+        "Konstantin Yakovlev",
+        "Aleksandr Panov"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2023-12-26",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2312.15908.html",
+      "file_en": "mapf-mapd-warehouse/2312.15908.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2312.15908v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Decentralized Monte Carlo Tree Search for Partially Observable Multi-agent Pathfinding",
+      "title_en": "Decentralized Monte Carlo Tree Search for Partially Observable Multi-agent Pathfinding",
+      "title_ja": "部分観測多エージェント経路計画のための分散型モンテカルロ木探索",
+      "tldr": "本論文は、エージェントが周囲の状況を限定的にしか観測できず、通信も制限されている環境下での「ライフロングMAPF（継続的経路計画）」問題を解決するため、軽量な学習済み方策を用いた分散型モンテカルロ木探索（MCTS）手法を提案しています。",
+      "tldr_en": "This paper proposes a decentralized Monte Carlo Tree Search (MCTS) method integrated with a lightweight learned policy to solve the Lifelong Multi-Agent Pathfinding (MAPF) problem in partially observable environments.",
+      "url": "http://arxiv.org/abs/2312.15908v1",
+      "venue": "AAAI-2024 conference"
+    },
     "arxiv:2312.16767": {
       "added": "2026-09-07",
       "added_at": "2026-09-07T06:04:14.282657",
@@ -13443,6 +13479,44 @@
       "tldr_en": "This paper proposes VR-CBS, a new algorithm for smooth continuous multi-agent path finding (SC-MAPF) that utilizes local visibility roadmaps to achieve efficient and smooth trajectories.",
       "url": "http://arxiv.org/abs/2611.04944v1",
       "venue": "Proceedings of the 18th International Conference on Agents and Artificial Intelligence - Volume 2: ICAART; ISBN 978-989-758-796-2; ISSN 2184-433X, SciTePress, pages 1264-1274. 2026"
+    },
+    "doi:10.65109/eusz5805": {
+      "added": "2026-11-24",
+      "added_at": "2026-11-24T06:13:54.923138",
+      "arxiv_id": "2402.15546",
+      "authors": [
+        "Huijie Tang",
+        "Federico Berto",
+        "Zihan Ma",
+        "Chuanbo Hua",
+        "Kyuree Ahn",
+        "Jinkyoo Park"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 12,
+      "date": "2024-02-23",
+      "doi": "10.65109/eusz5805",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2402.15546.html",
+      "file_en": "mapf-mapd-warehouse/2402.15546.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2402.15546v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "HiMAP: Learning Heuristics-Informed Policies for Large-Scale Multi-Agent Pathfinding",
+      "title_en": "HiMAP: Learning Heuristics-Informed Policies for Large-Scale Multi-Agent Pathfinding",
+      "title_ja": "HiMAP: 大規模マルチエージェント経路計画のためのヒューリスティック情報に基づく方策学習",
+      "tldr": "HiMAPは、小規模な問題で得られたヒューリスティックなエキスパートの経路を模倣学習することで、大規模なマルチエージェント経路計画（MAPF）を効率的に解く新しい手法です。",
+      "tldr_en": "HiMAP is a scalable approach for large-scale multi-agent pathfinding that uses imitation learning with heuristic guidance to achieve competitive performance.",
+      "url": "http://arxiv.org/abs/2402.15546v1",
+      "venue": "Adaptive Agents and Multi-Agents Systems"
     },
     "doi:10.65109/kpwj5508": {
       "added": "2026-08-02",

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HiMAP: Learning Heuristics-Informed Policies for Large-Scale Multi-Agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2402.15546.en.html" lang="en">English</a></nav>
+  <h1>HiMAP: Learning Heuristics-Informed Policies for Large-Scale Multi-Agent Pathfinding</h1>
+<p class="meta">HiMAP: 大規模マルチエージェント経路計画のためのヒューリスティック情報に基づく方策学習</p>
+  <div class="meta">Huijie Tang, Federico Berto, Zihan Ma, Chuanbo Hua, Kyuree Ahn, Jinkyoo Park<br>採択先: Adaptive Agents and Multi-Agents Systems ・ 2024-02-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2402.15546v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2402.15546v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.65109/eusz5805" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip venue">採択先 Adaptive Agents and Multi-Agents Systems</span><span class="chip">公開日 2024-02-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 12</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> HiMAPは、小規模な問題で得られたヒューリスティックなエキスパートの経路を模倣学習することで、大規模なマルチエージェント経路計画（MAPF）を効率的に解く新しい手法です。</div>
+<section class="qa"><h2>どんなもの？</h2><p>マルチエージェント経路計画（MAPF）は、多数の自律エージェントが衝突せずに目的地に到達する経路を見つける問題であり、倉庫ロボットや航空管制などの分野で重要視されています。従来の集中型アルゴリズムはエージェント数の増加に伴いスケーラビリティが低下し、強化学習（RL）ベースの手法は実装が複雑で学習に時間がかかり、収束が不安定になるという課題があります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、ヒューリスティックなエキスパートの決定を模倣する、純粋な模倣学習（IL）に基づく新しいスケーラブルなアプローチであるHiMAPを提案したことです。小規模な問題から得られたエキスパートの解を利用するシンプルな学習スキームを導入し、推論時の性能を向上させるための複数の推論技術を提案しました。これにより、模倣学習のみを用いたMAPF手法の可能性を示しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>HiMAPは、各エージェントの観測情報を入力として、エキスパートの行動確率分布を模倣するようにニューラルネットワークを訓練します。ネットワーク構造はPRIMALを採用し、価値出力やブロッキング出力ヘッドを排除した構成となっています。推論時には、再訪問防止（Preventing Re-Visit）、完了したエージェントを障害物として扱う（Treating Completed Agents as Obstacles）、およびソフトマックス温度適応（Softmax Temperature Adaptation）という3つの技術を用いて性能を向上させます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、EECBSを用いて生成された1000のシナリオファイル（エージェント数4〜64）を用いて評価を行いました。結果として、提案手法は模倣学習のみを用いたMAPFの分野において、成功率とスケーラビリティの両面で競争力のある結果を示しました。また、アブレーション解析により、提案した推論技術が成功率の向上に寄与していることが確認されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、単一エージェントの最短経路のみを使用する既存の模倣学習手法とは異なり、衝突のないエキスパートの経路を使用している点が優れています。しかし、現時点では最先端の学習ベースの手法を上回るまでには至っていません。将来的な課題として、より大規模なデータセットの使用や、ドメイン知識とのハイブリッド化、エージェント間の通信学習などが挙げられます。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数のエージェントが衝突を避けながら、総移動時間（makespan）や総コスト（flowtime）を最小化するように経路を決定する問題です。従来の解決策には、整数線形計画法（ILP）やSATへの帰着、あるいは衝突ベース探索（CBS）などの探索ベースの手法がありますが、大規模化への対応が課題となっています。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>大規模なMAPF問題では、エージェントが増えるにつれて計算量が爆発的に増加し、従来の集中型アルゴリズムではスケーラビリティを確保することが困難になります。また、強化学習を用いたアプローチは、複雑な実装、長い訓練時間、不安定な収束といった実用上の制約を抱えています。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>HiMAPは、各エージェントの観測情報を4つのチャネルで構成される入力として受け取ります。推論時には、エージェントが過去5ステップ以内に訪れた場所への再訪問を禁止する履歴管理や、目的地に到達したエージェントを動かせない障害物として扱う処理が含まれます。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験は、サイズと障害物密度が異なる2種類のランダムな正方形マップ（計200枚）を用いて行われました。各マップに対して、エージェント数が4、8、16、32、64の5つのシナリオを作成し、合計1000のシナリオで評価を行っています。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>HiMAPは、提案された推論技術を組み合わせることで、模倣学習のみの手法としては高い成功率を達成しました。アブレーション実験の結果、再訪問防止や完了エージェントの障害物化などの技術が、モデルの性能向上に不可欠であることが示されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>HiMAPは、ヒューリスティックなエキスパートの経路を利用することで、RLベースの手法よりも低コストかつ容易に訓練可能なMAPF解法を実現しました。模倣学習のみを用いたアプローチであっても、適切な推論技術を組み合わせることで、大規模な環境においても高い成功率を達成できる可能性を示しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>現在のHiMAPは、最先端の学習ベースの手法を凌駕する性能には達していません。また、訓練に使用したデータセットの規模が限定的であるため、より大規模なデータによる改善の余地が残されています。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、複雑な強化学習の枠組みを簡略化し、模倣学習と推論技術の組み合わせによって、MAPFにおけるスケーラビリティと学習の容易さを両立できることを示した点で重要です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模なマルチエージェント環境における効率的な経路計画アルゴリズムを研究している者や、強化学習の不安定な収束を回避したい実務家に適しています。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-24
+  </footer>
+</div>
+</body>
+</html>

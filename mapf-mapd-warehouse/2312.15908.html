@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Decentralized Monte Carlo Tree Search for Partially Observable Multi-agent Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2312.15908.en.html" lang="en">English</a></nav>
+  <h1>Decentralized Monte Carlo Tree Search for Partially Observable Multi-agent Pathfinding</h1>
+<p class="meta">部分観測多エージェント経路計画のための分散型モンテカルロ木探索</p>
+  <div class="meta">Alexey Skrynnik, Anton Andreychuk, Konstantin Yakovlev, Aleksandr Panov<br>採択先: AAAI-2024 conference ・ 2023-12-26 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2312.15908v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2312.15908v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip venue">採択先 AAAI-2024 conference</span><span class="chip">公開日 2023-12-26</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、エージェントが周囲の状況を限定的にしか観測できず、通信も制限されている環境下での「ライフロングMAPF（継続的経路計画）」問題を解決するため、軽量な学習済み方策を用いた分散型モンテカルロ木探索（MCTS）手法を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来の多エージェント経路計画（MAPF）は、全エージェントの位置や目標が事前に判明している中央集権的な設定を前提としていました。しかし、現実のアプリケーション（自動倉庫や交通システムなど）では、エージェントは自身の周囲のみを観測し、通信も限定的であるという「部分観測」の状況が一般的です。本研究では、新しい目標が次々と割り当てられる「ライフロングMAPF」という、より動的で複雑な設定に焦点を当てています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、AlphaZeroの成功例に触発された、分散型かつ部分観測環境に対応した新しいMCTS手法の提案です。提案手法は、各エージェントが自身の観測に基づいて「固有のマルコフ決定過程（IMDP）」を再構築し、学習済みの軽量なニューラルネットワーク方策を用いて木探索を行う点に新規性があります。また、既存の最先端手法（Primal2やSCRIMP）と比較して、大幅に少ないパラメータ数でありながら、多くのケースでこれらを上回る性能を示すことを明らかにしました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法「MATS-LP」は、2つの主要な要素で構成されています。第一に、MCTSを用いてエージェントが環境の将来状態を推論し、目標到達の可能性を最大化しつつ衝突やデッドロックを回避する最適な行動を選択します。第二に、PPO（Proximal Policy Optimization）アルゴリズムで事前学習された軽量なニューラルネットワーク方策をMCTSのシミュレーションステップ内で利用します。各エージェントは自身の局所的な観測範囲（Field-of-View）に基づき、自身のIMDPを構築して探索を行い、最終的な行動を決定します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、ランダムな障害物配置を持つマップと、迷路のような複雑な構造を持つマップの2種類で行われました。比較対象として、ライフロングMAPF向けに設計されたPrimal2およびSCRIMP（ローカル版）が用いられています。実験の結果、MATS-LPは様々な障害物密度において、既存の学習型MAPFソルバーを上回るスループット（単位時間あたりの目標達成数）を達成しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、エージェント間の明示的な通信を必要とせず、分散的に動作する点が強みです。また、パラメータ数が非常に少ない（約16万パラメータ）ため、単一のGPUで1時間以内に学習が完了するという計算効率の高さも示されています。今後の課題として、MCTS自体を用いてシミュレーション方策を学習するような、より高度に学習化されたMCTSの開発が挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、グラフ上のエージェントが衝突を避けながら各々の目標地点へ到達する経路を求める問題です。ライフロングMAPFでは、一つの目標を達成した後に次の目標が与えられるため、継続的な計画が求められます。従来の学習型手法には、通信能力に依存するものや、パラメータ数が膨大なものがありました。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>部分観測環境下でのMAPFでは、エージェントは他のエージェントの正確な位置や将来の動きを完全には把握できません。この情報の欠如は、狭い通路でのデッドロックや、ボトルネック地点での混雑を引き起こす原因となります。中央集権的な制御が困難な大規模・動的な環境において、いかに効率的に衝突を回避し、目標を達成するかが課題です。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>エージェントは自身の観測に基づき、自分自身に最適化された「固有のマルコフ決定過程（IMDP）」を構築します。MCTSの選択にはPUCT（Probabilistic Upper Confidence Bound applied to the Tree）アルゴリズムが用いられ、探索と活用のバランスを制御します。シミュレーションには、PPOで学習された軽量なアクター・クリティックモデルが組み込まれています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、4接続のグリッドマップを使用し、エージェントの視野（FoV）を5x5に設定しました。マップはランダム生成のものと、Primal2の生成器を用いた迷路状のものの計90枚（各50枚/50枚）を使用しています。エピソード長は1000ステップに設定され、40個のランダムマップに対して評価が行われました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験結果は、MATS-LPがPrimal2およびSCRIMPのいずれに対しても、多くのシナリオで高いスループットを示すことを示しています。特に、障害物密度が高い複雑な環境においても、既存手法を上回る性能を維持していることが確認されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>本論文は、分散型かつ部分観測なライフロングMAPFにおいて、学習済み方策を組み込んだMCTSが極めて有効であることを示しました。提案手法は、通信なしで高い汎化性能を持ち、計算コストを抑えつつ最先端の性能を達成しています。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本論文の抜粋からは、特定の条件下での失敗モードや、エージェント数が増大した際の計算量のスケーラビリティに関する詳細な限界についての記述は明示されていません。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、通信リソースが限られた実世界のロボット群の制御や、大規模な自動倉庫の運用において、より自律的で効率的な経路計画を実現するための重要な知見を提供します。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>分散型マルチエージェントシステム、部分観測マルコフ決定過程（POMDP）、および強化学習を用いた経路計画の研究者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-24
+  </footer>
+</div>
+</body>
+</html>
