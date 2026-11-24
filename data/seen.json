@@ -10047,6 +10047,42 @@
       "url": "http://arxiv.org/abs/2610.26272v1",
       "venue": ""
     },
+    "arxiv:2611.02090": {
+      "added": "2026-11-25",
+      "added_at": "2026-11-25T06:33:10.095578",
+      "arxiv_id": "2611.02090",
+      "authors": [
+        "Ethan Schneider",
+        "Jingkai Chen",
+        "Seth Hutchinson",
+        "Sonia Chernova"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-01",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.02090.html",
+      "file_en": "mapf-mapd-warehouse/2611.02090.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pickup and Delivery",
+        "MAPD"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.02090v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Local Solution Repair for Multi-Agent Pickup and Delivery",
+      "title_en": "Local Solution Repair for Multi-Agent Pickup and Delivery",
+      "title_ja": "マルチエージェント・ピックアップ＆デリバリーにおける局所解修復手法",
+      "tldr": "本論文は、既存のMAPD（Multi-Agent Pickup and Delivery）計画における非効率な動作を、実行時に局所的に検出し、再計画することでスループットを向上させる「局所解修復（LSR）」手法を提案しています。",
+      "tldr_en": "This paper introduces Local Solution Repair (LSR), a runtime approach that detects and repairs suboptimal agent behaviors in MAPD solutions to improve system throughput with minimal computational overhead.",
+      "url": "http://arxiv.org/abs/2611.02090v1",
+      "venue": ""
+    },
     "arxiv:2611.23911": {
       "added": "2026-11-19",
       "added_at": "2026-11-19T13:12:59.697406",
@@ -10119,6 +10155,44 @@
       "tldr": "本論文は、タスクのないロボットが作業中のロボットを妨害したり、逆に駐車場への移動が不要な移動を強いたりする問題を解決するため、割り当て済みエージェントのCBSと未割り当てエージェントの最小費用流を組み合わせたFOCBSアルゴリズムを提案しています。",
       "tldr_en": "The paper proposes FOCBS, an algorithm that solves multi-agent path finding with unassigned agents by combining Conflict-Based Search for assigned agents with a min-cost flow oracle for unassigned agents.",
       "url": "http://arxiv.org/abs/2611.24108v1",
+      "venue": ""
+    },
+    "arxiv:2611.30874": {
+      "added": "2026-11-25",
+      "added_at": "2026-11-25T06:18:09.077755",
+      "arxiv_id": "2611.30874",
+      "authors": [
+        "Federico Signorile",
+        "Raffaele Carli",
+        "Alessandro Bertogli",
+        "Roberto Olmi",
+        "Sven Koenig",
+        "Mariagrazia Dotoli"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-23",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.30874.html",
+      "file_en": "mapf-mapd-warehouse/2611.30874.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.30874v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Bridging Continuous-Time MAPF and Industrial AGV Fleet Coordination with Lazy Priority-Based Search",
+      "title_en": "Bridging Continuous-Time MAPF and Industrial AGV Fleet Coordination with Lazy Priority-Based Search",
+      "title_ja": "連続時間MAPFと産業用AGVフリート調整の架け橋：Lazy Priority-Based Searchによるアプローチ",
+      "tldr": "本論文は、産業用AGV（自動搬送車）のフリート調整において、優先度に基づく連続時間MAPFの計算コストを削減するために、ノードの具体化を遅延させる新しいアルゴリズム「Lazy-CPBS」を提案しています。",
+      "tldr_en": "The paper introduces Lazy-CPBS, a novel algorithm that improves the scalability of continuous-time multi-agent path finding (MAPF) for industrial AGV fleets by delaying node materialization during search.",
+      "url": "http://arxiv.org/abs/2611.30874v1",
       "venue": ""
     },
     "doi:10.1007/978-3-031-68416-6_18": {

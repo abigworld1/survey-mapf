@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bridging Continuous-Time MAPF and Industrial AGV Fleet Coordination with Lazy Priority-Based Search | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.30874.en.html" lang="en">English</a></nav>
+  <h1>Bridging Continuous-Time MAPF and Industrial AGV Fleet Coordination with Lazy Priority-Based Search</h1>
+<p class="meta">連続時間MAPFと産業用AGVフリート調整の架け橋：Lazy Priority-Based Searchによるアプローチ</p>
+  <div class="meta">Federico Signorile, Raffaele Carli, Alessandro Bertogli, Roberto Olmi, Sven Koenig, Mariagrazia Dotoli<br>採択先: 未取得 ・ 2026-11-23 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.30874v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.30874v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-11-23</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、産業用AGV（自動搬送車）のフリート調整において、優先度に基づく連続時間MAPFの計算コストを削減するために、ノードの具体化を遅延させる新しいアルゴリズム「Lazy-CPBS」を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>産業用物流現場におけるAGVのフリート調整は、複雑で冗長なロードマップ上での衝突回避が必要であり、計算負荷が非常に高い課題があります。従来の離散時間MAPFとは異なり、連続時間設定では幾何学的な衝突判定や安全な時間間隔の管理が必要となり、エージェント数が増えると計算量が急増します。本研究は、この連続時間MAPF（MAPF_R）と、実際の産業用AGVの運用環境との間のギャップを埋めることを目的としています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本論文の主な貢献は、優先度に基づく探索空間の構造を分析し、優先度の変更がどのエージェントに影響を与えるかを明確にしたことです。これにより、冗長な再計画を回避するための理論的指針が示されました。また、ノードの具体化を拡張時まで遅延させる「Lazy-CPBS」アルゴリズムを提案し、計算オーバーヘッドを大幅に削減することに成功しました。さらに、産業用シミュレータから取得した実環境のロードマップを用いた評価により、実用的な有効性を証明しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>研究では、まずAGV-MAPF_R-CTCという、AGVの構成空間に適した連続時間MAPFの定式化を導入しています。次に、優先度に基づく連続時間探索（CPBS）のメカニズムを再検討し、低レベルプランナーであるSIPP（Safe Interval Path Planning）における境界条件を特定しました。提案手法であるLazy-CPBSは、高レベルノードの展開時にのみ子ノードの計画を計算する「遅延具体化（Lazy Materialization）」を採用しています。これにより、展開されない兄弟ノードに対する低レベルの探索コストを排除しています。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、標準的なMAPF_Rベンチマークと、実際の産業用AGVのデジタルツインから取得したロードマップの2つのキャンペーンで行われました。標準ベンチマークでは、den、Berlin、mazeなどの環境を用いて、CPBSおよびLazy-CPBSの性能を比較しました。産業用評価では、E80 Group S.p.A.のプロプライエタリなシミュレータからインポートされた5つの実際のレイアウトを使用し、実環境での堅牢性と実行時間のトレードオフを検証しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本研究の分析により、優先度ツリーの異なる領域が独立して探索可能であることが示唆されており、将来的な並列化の可能性が示されています。Lazy-CPBSの利点は、解の深さに依存するものの、冗長な再計画を避けることで実用的なスケーラビリティを向上させる点にあります。今後の課題として、ゾーン分散型のバリアントの開発や、マルチスレッド実装によるさらなる高速化、および継続的なタスク割り当てに対応するライフロングプランニングへの拡張が挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPF（マルチエージェント経路計画）は、ロボットフリートの調整における中心的な問題であり、倉庫物流や自動運転などの分野で応用されています。従来のMAPFは離散的なグリッドと同期的な時間ステップを前提としていますが、実際のロボットの動きは連続的であり、幾何学的な衝突回避が必要です。MAPF_Rは、ロードマップ上を任意の速度で移動する連続時間モデルを提供します。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>連続時間MAPF_Rでは、エージェント間の相互作用が複雑であり、特に産業用AGVのように接続性が高く冗長なロードマップでは、衝突回避のための計算コストが指数関数的に増大します。既存の優先度ベースの解法では、優先度の変更に伴う低レベルプランナーの呼び出し回数が多く、これが計算のボトルネックとなっていました。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>本論文では、優先度による予約（Reservation）とSIPPプランナーの相互作用を分析し、優先度の変更が影響を及ぼすエージェントの範囲を特定しています。また、ノードの展開順序を決定するために、再計画リスト（Replan-list）に基づく新しい順序付け手法を導入しています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、Intel Core i7-12700H CPUと16GB RAMを搭載したノートPCを使用し、各インスタンスに対して30秒の実行時間制限を設けています。産業用レイアウトでは、25個のランダムなインスタンスに対して、ランダム再起動または決定論的再起動を用いて、解が見つかるまで試行を行いました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験の結果、Lazy-CPBSはCPBSと比較して、産業用レイアウトにおいて最も一貫した堅牢性と実行時間のトレードオフを提供することが示されました。また、Lazy-CPBSはCPBSのオーバーヘッドを大幅に削減し、最適解を求めるソルバーよりもはるかに多くのエージェント数を扱えることが確認されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、優先度ベースの連続時間MAPFが、産業用AGVのフリート調整において、堅牢性と計算効率の優れたバランスを提供することを示しました。Lazy-CPBSは、理論的な解析に基づき、実世界の複雑なロードマップにおいても実用的なスケーラビリティを実現する強力な手法です。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>Lazy-CPBSの計算節約量は、優先度ツリーにおける解の深さに依存するという制約があります。また、本論文では、完全性（Completeness）に関する理論的な保証については、今後の研究課題として残されています。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>本研究は、理論的なMAPFアルゴリズムを、実際の産業用物流システムの運用に適用可能なレベルまで引き上げる上で重要な役割を果たします。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチエージェントの経路計画、産業用ロボットのフリート管理、および連続時間における衝突回避アルゴリズムを研究する専門家。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-25
+  </footer>
+</div>
+</body>
+</html>

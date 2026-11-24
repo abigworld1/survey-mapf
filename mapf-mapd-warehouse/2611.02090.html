@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Local Solution Repair for Multi-Agent Pickup and Delivery | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.02090.en.html" lang="en">English</a></nav>
+  <h1>Local Solution Repair for Multi-Agent Pickup and Delivery</h1>
+<p class="meta">マルチエージェント・ピックアップ＆デリバリーにおける局所解修復手法</p>
+  <div class="meta">Ethan Schneider, Jingkai Chen, Seth Hutchinson, Sonia Chernova<br>採択先: 未取得 ・ 2026-11-01 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.02090v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.02090v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-11-01</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pickup and Delivery</span><span class="tag">MAPD</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、既存のMAPD（Multi-Agent Pickup and Delivery）計画における非効率な動作を、実行時に局所的に検出し、再計画することでスループットを向上させる「局所解修復（LSR）」手法を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>自動倉庫などのマルチロボットシステムでは、衝突を避けつつ、絶え間なく発生するピックアップ・デリバリー・タスクを効率的に処理する必要があります。既存のMAPD手法は、計算効率のためにタスク割り当てと経路計画を分離して行うことが多く、その結果、ロボットが目標地点でバックトラッキング（引き返し）したり、混雑エリアでアイドリングしたりといった、実行時に非効率な動作（サブオプティマリティ）が発生します。これらの非効率性は、大規模かつ長期的な運用において蓄積し、システム全体のパフォーマンスを低下させる要因となります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、実行時にサブオプティマリティを検出し、局所的に計画を改善する「局所解修復（LSR）」フレームワークの提案です。LSRは、非効率な動作を行うエージェントのグループを特定し、それらのエージェントに対して目標地点を再割り当てすることで、衝突を回避しつつ効率を高めます。また、既存の最先端手法であるM2MやLNS-PBSの性能を、追加の計算コストを抑えつつ向上させられることを示しました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LSRは、まず既存の計画におけるサブオプティマリティを検出し、その原因となっているエージェントをグループ化します。次に、2つの異なる修復バリアントを用いて目標地点の再割り当てを行います。一つは、候補となる目標地点への推定経路コストを用いてハンガリアン法で割り当てる「推定コスト修復（ECR）」です。もう一つは、探索中に衝突のない経路計画を計算する枝分かれ限定法（Branch-and-Bound）を用いる「MAPFコスト修復（MAPF-CR）」です。修復案は、元の計画よりも合計経路コストが減少する場合にのみ採用されます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>3つの異なる倉庫レイアウト（Restricted, Open-Top, Open）を用いた、長期的な倉庫シミュレーションを通じて評価を行いました。評価指標として、タスクスループット、サブオプティマリティ動作の減少数、修復計算時間を使用しています。実験の結果、LSRは既存の最先端手法であるM2MおよびLNS-PBSに対して、スループットを最大で5.9%向上させ、サブオプティマリティ動作を最大14.6%（約36,000件）削減することに成功しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LSRは、計算コストとパフォーマンスのトレードオフを伴います。MAPF-CRは高いスループット向上を実現しますが、ECRに比べて計算時間が長くなる傾向があります。また、倉庫の構造が「Open」のように開けた環境では、エージェントが互いに回避しやすいため、LSRによる改善効果は「Restricted」のような狭い通路を持つ環境に比べて小さくなることが示されました。今後の課題として、適応的な検出閾値の設定や、より複雑なタスク構造への拡張が挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPD（Multi-Agent Pickup and Delivery）は、NP困難な問題として知られており、実用的なスケールでの解決には、タスク割り当てと経路計画を分離する手法が一般的です。MRTA（Multi-Robot Task Allocation）とMAPF（Multi-Agent Path Finding）の組み合わせとして定式化されます。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>既存のMAPDソルバーは、計算のスケール性を確保するために、タスク割り当てと経路計画を逐次的に行いますが、これによりエージェントが非効率な経路を選択したり、不要な待機を行ったりする問題が生じます。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>サブオプティマリティの検出、エージェントのグループ化、および目標地点の再割り当てという3段階のプロセスで構成されています。また、計算量の爆発を防ぐために、修復対象とするエージェントのグループサイズに上限を設けています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>27x50のグリッドマップを用いた3つのシナリオで、M2M、LNS-PBS、およびそれらにLSRを適用した手法を比較しました。シミュレーションは8時間の長期運用を想定しています。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>LSR（特にMAPF-CR）は、LNS-PBSに対して最大5.9%のスループット向上をもたらしました。また、サブオプティマリティ動作の削減において、LNS-PBS + MAPF-CRは最大14.6%の減少を達成しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>LSRは、既存のMAPDソルバーの効率性を維持しつつ、実行時の非効率性を修正する軽量かつ実用的な手法です。タスク割り当てと経路計画を密結合にするのではなく、実行時の局所的な修復を行うことが、大規模システムのパフォーマンス向上に有効であることを示しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>エージェントのグループサイズが一定数を超えると修復をスキップするため、大規模な衝突や非効率が発生した場合に完全に対応できない可能性があります。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>自動倉庫のような動的な環境において、計算コストを抑えながらシステムの稼働率を直接的に向上させることができるため、実用性が非常に高い手法です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模なマルチロボットシステムの運用、リアルタイムでの経路計画の最適化、および既存のMAPDアルゴリズムの性能向上を目指す研究者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-25
+  </footer>
+</div>
+</body>
+</html>
