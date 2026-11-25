@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Routing and Scheduling in Answer Set Programming applied to Multi-Agent Path Finding: Preliminary Report | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2403.12153.en.html" lang="en">English</a></nav>
+  <h1>Routing and Scheduling in Answer Set Programming applied to Multi-Agent Path Finding: Preliminary Report</h1>
+<p class="meta">マルチエージェント経路探索におけるAnswer Set Programmingを用いたルーティングとスケジューリング：予備報告</p>
+  <div class="meta">Roland Kaminski, Torsten Schaub, Tran Cao Son, Jiří Švancara, Philipp Wanko<br>採択先: 未取得 ・ 2024-03-18 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2403.12153v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2403.12153v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2024-03-18</span><span class="chip keyword-match">キーワード一致 1</span><span class="chip">被引用 0</span><span class="chip">関連度 4</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、Answer Set Programming (ASP) において、時間ステップの代わりに部分順序を用いて時間を表現することで、計画の長さの上限を設けずにルーティングとスケジューリングを行う新しい手法を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のASPによるマルチエージェント経路探索（MAPF）は、アクションや状態（fluent）を時間ステップでインデックス化する手法に依存していました。この手法は、デッドラインや持続時間を含むスケジューリング問題において、時間の粒度が細かくなるほど問題のコピーが増大し、計算コストが急増するという課題があります。特に、計画の長さが長くなるにつれて、パフォーマンスが著しく低下することが知られています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、時間の流れをアクションや状態の間の部分順序として捉える新しいASPエンコーディングを提案したことです。これにより、計画の最大長に関する固定の上限を設ける必要がなくなります。また、詳細な時間スケジューリングをASPの外部（差分制約プロパゲータなど）に委ねることで、ASPの計算負荷を軽減し、効率的なスケジューリングを実現する枠組みを提示しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法は、計画をアクションや状態のイベント順序（event orderings）として特徴付けます。ルーティングに関しては、エージェントの位置に関する順序集合として計画を定義し、衝突回避条件を定義します。スケジューリングに関しては、重み付きグラフにおける移動時間を考慮し、差分制約（difference constraints）を用いて時間的な依存関係を管理します。これにより、ASPはルーティングの論理構造を、外部のプロパゲータは詳細な時間計算を担当するという役割分担を実現します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価には、グリッドベースのMAPFベンチマーク（ランダム、部屋、迷路の構成）から生成された199個のインスタンスを使用しました。検証では、従来の「vanilla」エンコーディング、イベント順序に基づく「order AC」および「order DC」エンコーディングを比較しました。実験は、Intel Xeon CPUと64GBのメモリを搭載した計算クラスター上で、最大3時間のタイムアウト制限を設けて実施されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>提案手法は、計画の長さが長い場合でも効率的に動作しますが、時間的な軌跡が非循環的（acyclic）である必要があるという制約があります。これは、同じアクションや状態が複数回出現する場合に、それらを区別できなくなるためです。また、詳細な時間スケジューリングはASP内では効率的に扱えないため、外部の差分制約プロパゲータへの依存が前提となっています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>Answer Set Programming (ASP) は、到達可能性の表現に優れており、MAPFやワイヤールーティングなどの問題に適しています。しかし、デッドラインや持続時間を伴うスケジューリング問題では、時間ステップのインデックス化が計算量の増大を招きます。本研究は、部分順序計画法（partial-order planning）の概念をASPに応用することで、この問題を解決しようとしています。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>MAPFにおいて、エージェントが衝突を避けながら目的地に到達する経路を求める際、従来のASPエンコーディングでは時間の経過を離散的なステップとして扱う必要がありました。これにより、計画の長さが長くなると、変数や制約の数が線形に増加し、ソルバーのパフォーマンスが著しく低下するという問題が発生します。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>本論文では、計画を「イベントの順序集合」として定義する手法を導入しています。これにより、固定された時間ステップの概念を排除し、アクション間の相対的な順序のみを記述します。また、差分制約（difference constraints）を用いることで、時間的な制約を効率的に処理する「order DC」エンコーディングを提案しています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、ランダムな配置、壁で区切られた部屋、および木構造を持つ迷路の3つのシナリオでテストを行いました。評価指標として、計算時間と解決可能な問題の割合を比較しています。特に、パスベースの計画（path-based plans）における各エンコーディングの有効性を検証しました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>実験の結果、従来のvanillaエンコーディングは計画が短い場合には有効ですが、長い計画ではパフォーマンスが低下します。提案された「order DC」エンコーディングは、パスベースの計画において、衝突条件の有無に関わらず、長い計画に対しても非常に高い性能を示しました。一方で、イベント順序を直接扱う「order AC」は、接地（grounding）のサイズが膨大になるため、実用的な問題では困難であることが示されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>本研究は、ASPを用いたMAPFにおいて、時間ステップの代わりに部分順序を用いるアプローチが、特に長い計画を扱う場合に極めて有効であることを示しました。ルーティングをASPで、詳細なスケジューリングを差分制約で扱うという分離により、スケーラビリティの向上が達成されています。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>提案手法は、時間的な軌跡が非循環的であることを前提としており、同じアクションが時間的に異なる文脈で繰り返される場合の表現に制限があります。また、詳細なスケジューリングを外部プロパゲータに依存しているため、ASPソルバー単体での完全な解決とは異なる性質を持ちます。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>この研究は、ASPを用いたロボティクスや物流計画におけるスケーラビリティ問題を解決するための重要な理論的・実践的枠組みを提供します。特に、時間制約が厳しい実世界のMAPF問題への適用が期待されます。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>ASPを用いた計画策定、マルチエージェント経路探索、および大規模なスケジューリング問題を研究しているAI研究者やエンジニア。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-26
+  </footer>
+</div>
+</body>
+</html>

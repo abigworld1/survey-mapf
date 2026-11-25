@@ -6280,6 +6280,40 @@
       "url": "http://arxiv.org/abs/2308.11234v5",
       "venue": ""
     },
+    "arxiv:2312.10572": {
+      "added": "2026-11-26",
+      "added_at": "2026-11-26T06:31:35.022312",
+      "arxiv_id": "2312.10572",
+      "authors": [
+        "Zain Alabedeen Ali",
+        "Konstantin Yakovlev"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2023-12-17",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2312.10572.html",
+      "file_en": "mapf-mapd-warehouse/2312.10572.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2312.10572v4",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Improved Anonymous Multi-Agent Path Finding Algorithm",
+      "title_en": "Improved Anonymous Multi-Agent Path Finding Algorithm",
+      "title_ja": "改善された匿名マルチエージェント経路計画アルゴリズム",
+      "tldr": "本論文は、匿名マルチエージェント経路計画（AMAPF）問題を解くために、補助グラフ上での探索を効率化する「バルク探索（Bulk Search）」手法を提案し、既存の最先端手法を上回る性能を実現しています。",
+      "tldr_en": "This paper proposes a 'Bulk Search' algorithm for Anonymous Multi-Agent Path Finding (AMAPF) that explores groups of search states simultaneously, significantly outperforming state-of-the-art solvers in runtime and memory efficiency.",
+      "url": "http://arxiv.org/abs/2312.10572v4",
+      "venue": "AAAI24"
+    },
     "arxiv:2312.15908": {
       "added": "2026-11-24",
       "added_at": "2026-11-24T06:29:57.911015",
@@ -6415,6 +6449,42 @@
       "tldr_en": "EPH improves Multi-Agent Pathfinding (MAPF) in complex, structured environments by combining enhanced selective communication with three advanced inference strategies: hybrid expert guidance, Q-value-based conflict prioritization, and solution ensembling.",
       "url": "http://arxiv.org/abs/2403.07559v2",
       "venue": "2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2024)"
+    },
+    "arxiv:2403.12153": {
+      "added": "2026-11-26",
+      "added_at": "2026-11-26T06:16:26.709763",
+      "arxiv_id": "2403.12153",
+      "authors": [
+        "Roland Kaminski",
+        "Torsten Schaub",
+        "Tran Cao Son",
+        "Jiří Švancara",
+        "Philipp Wanko"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2024-03-18",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2403.12153.html",
+      "file_en": "mapf-mapd-warehouse/2403.12153.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2403.12153v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 4,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "Routing and Scheduling in Answer Set Programming applied to Multi-Agent Path Finding: Preliminary Report",
+      "title_en": "Routing and Scheduling in Answer Set Programming applied to Multi-Agent Path Finding: Preliminary Report",
+      "title_ja": "マルチエージェント経路探索におけるAnswer Set Programmingを用いたルーティングとスケジューリング：予備報告",
+      "tldr": "本論文は、Answer Set Programming (ASP) において、時間ステップの代わりに部分順序を用いて時間を表現することで、計画の長さの上限を設けずにルーティングとスケジューリングを行う新しい手法を提案しています。",
+      "tldr_en": "This paper proposes an alternative ASP approach for MAPF that uses partial orders instead of discrete time steps, enabling efficient routing and scheduling without fixed plan length bounds.",
+      "url": "http://arxiv.org/abs/2403.12153v1",
+      "venue": ""
     },
     "arxiv:2403.13421": {
       "added": "2026-07-12",
