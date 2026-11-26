@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Real-Time Kinodynamic Multi-Agent Motion Planning | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.29548.en.html" lang="en">English</a></nav>
+  <h1>Real-Time Kinodynamic Multi-Agent Motion Planning</h1>
+<p class="meta">リアルタイム・キネオダイナミック多エージェント経路計画</p>
+  <div class="meta">Jiarui Li, Runyu Zhang, Gioele Zardini<br>採択先: 未取得 ・ 2026-11-22 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.29548v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.29548v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.29548" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-11-22</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> TAKTフレームワークは、離散的な格子上の計画を連続的な動的実行可能な軌道へと変換する手法を提案し、大規模なロボット群のリアルタイムな衝突回避を実現します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>倉庫内のロボットやドローンの群れのような、大規模なロボット群の協調動作には、動的制約（速度・加速度制限）を満たしつつ衝突を回避する軌道計画が不可欠です。従来のキネオダイナミック（動力学的）多エージェント計画法は、探索中に制約を課すか、探索後に軌道最適化を行う必要があり、これが計算コストの増大とロボット数の制限を招いていました。本研究は、これらの制約を探索前に処理することで、大規模なフリートに対する高速な計画を可能にすることを目指しています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の主な貢献は、離散的な計画を動的に実行可能な連続軌道へと変換する「TAKT (Tickwise Actions to Kinodynamic Trajectories)」フレームワークの提案です。このフレームワークは、軌道平滑化によって失われるクリアランス（余裕）を事前に解析的に算出し、格子状の空間に予約することで、事後的な衝突回避の修正を不要にしました。また、ダイヤモンド形状の衝突判定ルールを導入することで、1ステップでの横方向への回避行動を可能にし、既存のMAPFアルゴリズム（PIBTやLaCAM）を効率的に拡張しました。これにより、数千台規模のロボットに対するリアルタイムな再計画を実現しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>TAKTは、離散化、離散協調、連続再構成の3段階のパイプラインで構成されます。まず、作業空間を格子状に分割し、動的制約を満たすためのクリアランスを事前に定義します。次に、ダイヤモンド形状のフットプリントを用いた離散ソルバー（TAKT-PIBTまたはTAKT-LaCAM）を用いて、衝突のない格子上の経路を探索します。最後に、閉形式の畳み込み演算（closed-form convolution）を各ロボットに適用することで、離散的な動きを、動的制約と衝突回避を保証する滑らかな連続軌道へと変換します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>2Dおよび3Dの環境（倉庫やホール、ドローン用空間）において、50台から1,000台規模のロボットを用いた評価を行いました。2Dのホール環境では、最強のベースラインと比較して2,000倍以上の高速化を達成し、3D環境でも100倍以上の高速化を実現しました。また、1,000台規模のロボットに対しても、2Dでは数秒、3Dでは数十秒で計画を完了し、動的な障害物（no-fly zone）に対してもリアルタイムな再計画が可能であることを示しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法は、離散的な計画が連続的な軌道に変換された際に衝突が発生しないことを数学的に保証していますが、これは事前のクリアランス確保に依存しています。将来の課題として、より狭い通路や高密度なフリートにおける衝突ルールの最適化、追従誤差や通信遅延の考慮、および格子解像度と動的制約を統合的に最適化する設計などが挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>多エージェント経路計画（MAPF）は、複数のロボットが衝突せずに目的地へ到達する経路を求める問題です。これにロボットの物理的な動きの制約（加速度や速度）を加えたものがキネオダイナミックMAPF（KMAMPP）であり、実世界のロボット運用において極めて重要です。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>既存のKMAMPP手法は、ロボットの数が増えると探索空間や制約条件が爆発的に増加するため、大規模なロボット群のリアルタイムな制御には適していませんでした。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>「ダイヤモンド形式」の衝突判定により、格子状の移動において横方向への回避を許容し、効率的な経路探索を可能にしています。また、畳み込みを用いた軌道再構成は、個々のロボットに対して独立して計算できるため、計算量がロボット数に対して線形に近い形でスケールします。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>2Dの倉庫・ホール環境および3Dのオープンボリューム・棚環境にて、PIBTおよびLaCAMを拡張したTAKT-PIBTとTAKT-LaCAMを評価しました。比較対象として、db-CBS、db-LaCAM、および結合状態空間を用いたJoint SSTを使用しました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>TAKTは、既存手法と比較して極めて高いスケーラビリティを示し、数百台のロボットに対して500ms以内の再計画を実現しました。また、シミュレーションにおいて、差動駆動ロボットやクアッドローターが計画された軌道を衝突なく追従できることも確認されました。</p></section>
+<section class="secsum"><h3>結論</h3><p>TAKTは、離散的な協調計画から動的に実行可能な連続軌道を生成する、スケーラブルで保証付きのフレームワークを提供します。これにより、大規模なロボットフリートのリアルタイムな運用が可能になります。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本論文の抜粋からは、特定の格子解像度やクリアランス設定が最適解の品質に与える影響についての詳細なトレードオフは完全には示されていません。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>大規模な自動倉庫やドローン群の制御における、計算コストと動的実行可能性のトレードオフを解消する重要な技術です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模なロボットフリートのリアルタイム制御、キネオダイナミックな経路計画、およびMAPFの研究者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-27
+  </footer>
+</div>
+</body>
+</html>

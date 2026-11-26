@@ -10265,6 +10265,41 @@
       "url": "http://arxiv.org/abs/2611.30874v1",
       "venue": ""
     },
+    "arxiv:2611.33793": {
+      "added": "2026-11-27",
+      "added_at": "2026-11-27T06:18:46.470555",
+      "arxiv_id": "2611.33793",
+      "authors": [
+        "Dachuan Liu",
+        "Shizhe Zhao",
+        "Zhongqiang Ren"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-25",
+      "doi": "",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.33793.html",
+      "file_en": "mapf-mapd-warehouse/2611.33793.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.33793v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 5,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "LSRP*-LA: Scalable and Anytime Multi-Agent Path Finding for Large Agents with Asynchronous Actions",
+      "title_en": "LSRP*-LA: Scalable and Anytime Multi-Agent Path Finding for Large Agents with Asynchronous Actions",
+      "title_ja": "LSRP*-LA: 非同期アクションを伴う大規模エージェントのためのスケーラブルかつAnytimeなマルチエージェント経路計画",
+      "tldr": "LSRP*-LAは、複数のセルを占有する大規模エージェントと非同期的なアクションを扱うMAPF問題に対し、高いスケーラビリティ、完全性、および実行時間に応じて解を改善し続けるAnytime性を備えた新しいプランナーです。",
+      "tldr_en": "LSRP*-LA is a scalable, complete, and anytime planner for Multi-Agent Path Finding (MAPF) involving large agents and asynchronous actions, capable of significantly improving solution quality during runtime.",
+      "url": "http://arxiv.org/abs/2611.33793v1",
+      "venue": ""
+    },
     "doi:10.1007/978-3-031-68416-6_18": {
       "added": "2026-10-13",
       "added_at": "2026-10-13T11:26:08.148914",
@@ -13588,6 +13623,41 @@
       "tldr": "本論文は、エージェント間の通信範囲に基づく近接制約を持つ非ラベル付きマルチエージェント経路計画問題（rCUMAPF）において、中間的な近接範囲 r の場合に、Makespan（完了時間）を最適化する問題がNP困難であることを証明しています。",
       "tldr_en": "This paper proves that finding a makespan-optimal solution for Unlabeled Multi-agent Pathfinding with proximity constraints (rCUMAPF) is NP-hard, even when the proximity range r is relatively large.",
       "url": "http://arxiv.org/abs/2611.21277v2",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2611.29548": {
+      "added": "2026-11-27",
+      "added_at": "2026-11-27T06:36:04.223181",
+      "arxiv_id": "2611.29548",
+      "authors": [
+        "Jiarui Li",
+        "Runyu Zhang",
+        "Gioele Zardini"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-22",
+      "doi": "10.48550/arxiv.2611.29548",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.29548.html",
+      "file_en": "mapf-mapd-warehouse/2611.29548.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.29548v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Real-Time Kinodynamic Multi-Agent Motion Planning",
+      "title_en": "Real-Time Kinodynamic Multi-Agent Motion Planning",
+      "title_ja": "リアルタイム・キネオダイナミック多エージェント経路計画",
+      "tldr": "TAKTフレームワークは、離散的な格子上の計画を連続的な動的実行可能な軌道へと変換する手法を提案し、大規模なロボット群のリアルタイムな衝突回避を実現します。",
+      "tldr_en": "The TAKT framework enables real-time collision-free trajectory planning for large robot fleets by converting discrete lattice plans into dynamically feasible continuous trajectories via closed-form convolutions.",
+      "url": "http://arxiv.org/abs/2611.29548v1",
       "venue": ""
     },
     "doi:10.5220/0014248800004052": {

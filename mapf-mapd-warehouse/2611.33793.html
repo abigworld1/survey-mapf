@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>LSRP*-LA: Scalable and Anytime Multi-Agent Path Finding for Large Agents with Asynchronous Actions | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.33793.en.html" lang="en">English</a></nav>
+  <h1>LSRP*-LA: Scalable and Anytime Multi-Agent Path Finding for Large Agents with Asynchronous Actions</h1>
+<p class="meta">LSRP*-LA: 非同期アクションを伴う大規模エージェントのためのスケーラブルかつAnytimeなマルチエージェント経路計画</p>
+  <div class="meta">Dachuan Liu, Shizhe Zhao, Zhongqiang Ren<br>採択先: 未取得 ・ 2026-11-25 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.33793v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.33793v1" target="_blank" rel="noopener">PDF</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-11-25</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 5</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> LSRP*-LAは、複数のセルを占有する大規模エージェントと非同期的なアクションを扱うMAPF問題に対し、高いスケーラビリティ、完全性、および実行時間に応じて解を改善し続けるAnytime性を備えた新しいプランナーです。</div>
+<section class="qa"><h2>どんなもの？</h2><p>従来のマルチエージェント経路計画（MAPF）の多くは、各エージェントが単一の頂点のみを占有し、全エージェントが同期して動くことを前提としていました。しかし、実際の物流や自動倉庫では、エージェントは複数のセルを占有する「大規模エージェント」であり、各エージェントが異なるタイミングで動く「非同期アクション」が一般的です。既存のプランナーは、これら両方の条件を満たす場合、扱えるエージェント数が極めて少ないか、一度見つけた解を改善できないという課題がありました。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究は、大規模エージェント（LA-MAPF）と非同期アクション（AA）の両方を同時に扱うことができる、LSRP*-LAという新しいプランナーを提案します。このプランナーは、大規模エージェント特有の複雑な衝突を回避するための「エバキュエーション（避難）」メカニズムを導入しており、これにより押し出されたエージェントが道を譲ることを可能にしています。また、LSRP*の特性を継承し、初期解の取得後も実行時間予算が尽きるまで解の品質を向上させ続けるAnytime性を実現しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>LSRP*-LAは、探索ツリーとアクションツリーを組み合わせた手法を採用しています。アクションツリーは、アイドル状態のエージェントに対して移動や待機などの可能なアクションを列挙し、それらの衝突を判定します。探索ツリーは、これらの有効なアクションの組み合わせ（ジョイントアクション）をノードとして、コストの低い経路を探索します。さらに、大規模エージェントが他のエージェントを「押し出す」動きに対応するため、Push Tree（押し出しツリー）とBan Chain（禁止連鎖）を用いたエバキュエーション手法を導入し、エージェントが移動するためのスペースを確保します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、最大800体のエージェントを含む4つの異なるマップ（den520d, maze-128-128-10, Berlin_1_256, empty-48-48）を用いて行われました。比較対象として、ルールベースのLSRP-LA、最適解を求めるCBS-AA-LA、優先度付き計画のPP-SIPP-LA、および同期型プランナーであるMD-PIBTとLayered LA-MAPFが用いられました。実験の結果、LSRP*-LAは既存のベースラインの2倍のエージェント数を扱えることが示され、同期型プランナーと比較して解のコストを約半分に抑えられることが確認されました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>LSRP*-LAは、大規模エージェントの移動によって他のエージェントが押し出される状況において、エバキュエーション（避難）プロセスが解の品質向上に極めて重要であることを明らかにしました。エバキュエーションがない場合、押し出されたエージェントが何度も押し戻されることで解のコストが大幅に増大します。本手法は完全性とAnytime性を備えていますが、エージェントが狭い場所で回転して回避するような、より複雑な動きのモデル化については今後の課題として挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>MAPFは、複数のエージェントが衝突することなく、スタートからゴールまで最短経路で移動する経路を求める問題です。これはNP困難な問題であり、実用的なアプリケーションでは、スケーラビリティ（多くのエージェントを扱う能力）と解の品質（経路の短さ）のトレードオフが重要となります。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>大規模エージェント（LA-MAPF）では、エージェントが複数のセルを占有するため、単一の頂点を用いる従来のMAPFよりも衝突判定が複雑になり、解を見つけること自体がNP困難になります。また、非同期アクション（AA）を考慮すると、エージェントごとにアクションの開始・終了時間が異なるため、状態空間が爆発的に増大します。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>ジョイントアクションの定義において、各エージェントの現在のイベント（最も早い到着時刻）に基づき、アイドル状態のエージェントに新しいアクションを割り当てる仕組みを導入しています。また、エバキュエーションプロセスにおいて、押し出されるエージェントが移動するためのスペースを確保するための「厳格な避難（Strict evacuation）」条件を定義しています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、C++で実装されたLSRP*-LAを、Apple M4チップを搭載したMacBook Air上で、各インスタンス60秒の制限時間で実行しました。エージェントのサイズは、2x2または3x3のセルとして設定され、約65%のエージェントが1x1より大きいサイズになるよう構成されています。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>LSRP*-LAは、den520dマップにおいて最大1000体のエージェントまでスケーリング可能であり、これはルールベース手法の2倍の能力です。解の品質においても、CBS-AA-LA（最適解）に対して最大2%以内の誤差に収まる非常に高い精度を示しました。また、同期型プランナーと比較して、解のコストを約半分に削減することに成功しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>LSRP*-LAは、大規模エージェントと非同期アクションという、実用的なMAPFにおける極めて困難な設定において、スケーラビリティ、完全性、Anytime性のすべてを両立させた画期的なプランナーです。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>本論文では、エージェントが押し出された際に回転して回避するような、より高度な幾何学的操作については考慮されていません。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>物流ロボットや自動倉庫のような、サイズが異なるロボットが非同期に動く実環境のシミュレーションにおいて、非常に高い実用性を持つ手法です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模な環境で、サイズが異なる複数のエージェントを効率的かつ高品質に制御する必要があるロボティクス研究者やエンジニア。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-27
+  </footer>
+</div>
+</body>
+</html>
