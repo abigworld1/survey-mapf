@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OpenRing: Deadlock-Free Execution of Any Planner on AGV Floors with One-Way Lanes | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.27127.en.html" lang="en">English</a></nav>
+  <h1>OpenRing: Deadlock-Free Execution of Any Planner on AGV Floors with One-Way Lanes</h1>
+<p class="meta">OpenRing: 片方向レーンを持つAGVフロアにおける任意のプランナーを用いたデッドロックのない実行</p>
+  <div class="meta">Zhihao Lin, Anh-Tu Nguyen, Hui Zhang, Yoshinobu Kawahara<br>採択先: 未取得 ・ 2026-11-20 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.27127v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.27127v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.27127" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-important">重要論文</span><span class="chip">公開日 2026-11-20</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Path Finding</span><span class="tag">Lifelong Multi-Agent Path Finding</span></div>
+  <div class="tldr"><strong>一言で:</strong> OpenRingは、プランナーがどのような経路を提案しても、あるいはプランナーが停止しても、デッドロックが発生しないAGV（自動搬送車）の実行フレームワークです。ローカルなガード機構が「満杯のセグメントによる環状の閉鎖」を防ぐことで、システムの稼働継続性を保証します。</div>
+<section class="qa"><h2>どんなもの？</h2><p>Lifelong MAPF（継続的なマルチエージェント経路探索）において、車両の遅延やプランナーの停止によって計画が崩れることが課題となります。特に片方向レーンを持つフロアでは、車両が遅れたりプランナーが停止したりすると、満杯のセグメントが環状に連なり、デッドロック（環状の閉鎖）を引き起こすリスクがあります。本研究は、プランナーの提案内容に依存せず、かつシステムの稼働を止めない安全な実行メカニズムを対象としています。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の新規性は、プランニング（経路提案）と実行（安全性の保証）を分離した点にあります。プランナーがどのような経路や順序を提案しても、あるいはプランナーが完全に失われても、デッドロックが発生しないことを理論的に証明しました。また、既存のルールと比較して、提案されたガード規則が「必要最小限」であることを示し、スループットの低下を理論的な限界値内に抑えることを明らかにしました。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>OpenRingは、プランナーが経路と通過順序を提案し、ローカルな「ガード（Guard）」がその実行を承認または拒否する二層構造を採用しています。ガードは、ある車両の移動が「満杯のセグメントによる待機環（Full wait cycle）」を閉じてしまう場合にのみ、その移動を拒否（Veto）します。また、車両が交差点に進入する前に「コミットメント（Commitment）」を行うことで、交差点での停止を防ぎ、スムーズな走行を可能にしています。これにより、プランナーの提案は「助言」として機能し、安全性が確保された上で実行されます。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>評価は、大規模な閉ループシミュレータ、物理挙動を考慮したIsaac Sim、および理論検証用のセルモデルの3段階で行われました。8つの異なるフロア構成（グリッド、不均一なブロック長、ワークステーション配置など）において、最大1108台のAGVを用いた実験を実施しました。結果として、OpenRingはデッドロックを一度も発生させず、スループットにおいても既存の最良のベースラインと同等以上の性能を示しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法の限界として、各内部セグメントが少なくとも2つの車両を収容できる容量を持つ必要があることが挙げられます。1つの車両しか収容できないセグメントでは、より厳格なガードが必要となります。また、本研究の保証はフロア全体の稼働継続性に関するものであり、個々の車両の待機時間の公平性については、順序の有効期限に基づく追加のルールが必要です。将来の課題として、数万台規模の車両への拡張や、非同期的なガード機構の検討が挙げられています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>AGVのフリート管理では、車両が到着し続ける中で経路を更新するLifelong MAPFが重要です。従来の計画手法は、計画が正確に実行されることを前提としていますが、現実には車両の遅延や予期せぬ停止が発生します。これらの乱れが、ネットワーク内で車両が互いに待ち合うデッドロック状態を引き起こす原因となります。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>片方向レーンが組み合わさったネットワークにおいて、車両がセグメントを占有し、その先が別の車両によって塞がれている状態が連鎖すると、誰も動けなくなる「環状の閉鎖（Ring of full segments）」が発生します。これは、プランナーがどれほど優れた経路を計算しても、実行段階での物理的な遅延によって発生し得る深刻な問題です。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>「満杯の待機サイクル（Full wait cycle）」の定義に基づき、ローカルなガードが移動を承認するかどうかを判定します。ガードは、移動先のセグメントが既に満杯であり、かつその先の車両の待機列が自分自身へと戻ってくるような閉じたループを形成する場合に移動を拒否します。また、スループットの低下（Price）を、セグメントの容量 B とトラバーサル時間 T_s を用いて B/T_s 以下に抑えることが理論的に示されています。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>実験では、PIBT、LaCAM、RHCRなどの既存手法と比較しました。特に、プランナーが停止した状態（Planner loss）での頑健性を検証し、OpenRingがデッドロックを回避しつつ、高いスループットを維持できることを確認しました。また、理論的な流量限界（Capacity bound）と実際のシミュレーション結果を比較し、理論の妥当性を検証しました。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>OpenRingは、126回のテスト走行においてデッドロックを一度も発生させませんでした。対照的に、既存のPIBTやRHCRなどの手法は、特定の条件下でデッドロックが発生しています。スループットに関しては、プランナーなしの状態でも、理論的な容量限界の約90%に達する高い性能を示しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>OpenRingは、プランニングと安全性を分離することで、どのようなプランナーでもデッドロックなしに実行できるフレームワークを提供します。プランナーの提案を「助言」として扱い、ローカルなガードが安全性を担保することで、システムの稼働を止めずに、理論的な限界に近い高いスループットを実現しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>セグメントの容量が1つの場合、ガードの条件がより厳しくなり、スループットが低下する可能性があります。また、現在のモデルは中央集権的なコーディネーターを想定しており、超大規模なシステムにおける非同期的な制御については未解決です。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>物流倉庫などの自動化された環境において、デッドロックによるシステムの全停止は極めて大きな損失を招きます。OpenRingは、プランナーの不完全さや車両の遅延に対して頑健な実行基盤を提供するため、実社会のAGV運用において極めて重要な技術です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>マルチエージェント経路探索（MAPF）の研究者、自動搬送車（AGV）の交通管理システムを設計するエンジニア、およびロボットの協調制御を専門とする研究者。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-28
+  </footer>
+</div>
+</body>
+</html>

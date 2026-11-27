@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Travel Cost Calibration for Multi-Agent Target Assignment and Pathfinding | Paper Survey</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#121212; color:#e8e8e8;
+         font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+         line-height:1.8; }
+  .wrap { max-width:760px; margin:0 auto; padding:32px 20px 64px; }
+  nav { font-size:13px; margin-bottom:20px; }
+  nav a { color:#9ad; text-decoration:none; }
+  h1 { font-size:1.5rem; line-height:1.5; margin:0 0 12px; }
+  .meta { color:#9a9a9a; font-size:13px; }
+  .links a { color:#7cc6ff; text-decoration:none; margin-right:4px; }
+  .paper-facts { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+  .chip { color:#d7dde1; background:#20272b; border:1px solid #3b4a50;
+          border-radius:999px; padding:2px 8px; font-size:11.5px; line-height:1.5; }
+  .chip.selection-important { border-color:#d9b65f; color:#f0d891; }
+  .chip.selection-recent { border-color:#4a90d9; color:#9bcfff; }
+  .chip.basis-abstract { border-color:#8a6a3a; color:#e0bc7a; }
+  .chip.reading-value { border-color:#7ec699; color:#a7dfb8; }
+  .rating-reason { flex-basis:100%; color:#b8b8b8; font-size:12.5px; margin-top:2px; }
+  .source-notice { padding:9px 12px; border-radius:6px; font-size:13px; margin:12px 0 0; }
+  .source-notice.fulltext { background:#18231d; border-left:3px solid #7ec699; color:#dceee2; }
+  .source-notice.abstract { background:#2a2117; border-left:3px solid #d9b65f; color:#edd5aa; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+  .tag { color:#cfd8dc; background:#263238; border:1px solid #3b4a50;
+         border-radius:999px; padding:2px 8px; font-size:11px; line-height:1.5; }
+  .tldr { background:#1c2533; border-left:3px solid #4a90d9; padding:12px 16px;
+          border-radius:6px; margin:18px 0 26px; }
+  .qa { margin:0 0 20px; }
+  .qa h2 { font-size:1.02rem; color:#7ec699; border-bottom:1px solid #2a2a2a;
+           padding-bottom:6px; margin:0 0 8px; }
+  .qa p { margin:0; }
+  .secs-title { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                padding-bottom:6px; margin:34px 0 14px; }
+  .secsum { margin:0 0 16px; }
+  .secsum h3 { font-size:0.98rem; color:#b9c6d6; margin:0 0 6px; }
+  .secsum p { margin:0; color:#d6d6d6; }
+  .followups { margin:34px 0 8px; }
+  .followups h2 { font-size:1.1rem; color:#cda; border-bottom:1px solid #2a2a2a;
+                  padding-bottom:6px; margin:0 0 14px; }
+  .dialogue { margin:0 0 18px; }
+  .turn { display:grid; grid-template-columns:32px 1fr; gap:9px; margin:9px 0; }
+  .speaker { width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+             justify-content:center; font-size:12px; font-weight:700; }
+  .turn.question .speaker { background:#263238; color:#b9d8e6; }
+  .turn.answer .speaker { background:#1f3327; color:#a7dfb8; }
+  .bubble { background:#181d20; border:1px solid #2d383d; border-radius:8px;
+            padding:9px 11px; color:#d8d8d8; }
+  .bubble h3 { font-size:0.98rem; color:#b9c6d6; margin:0.8em 0 0.35em; }
+  .bubble h3:first-child { margin-top:0; }
+  .bubble p { margin:0 0 0.65em; }
+  .bubble p:last-child { margin-bottom:0; }
+  .bubble ul { margin:0.35em 0 0.65em 1.25em; padding:0; }
+  .bubble li { margin:0.2em 0; }
+  .bubble .table-wrap { overflow-x:auto; margin:0.45em 0 0.8em; }
+  .bubble table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .bubble th, .bubble td { border:1px solid #2d383d; padding:6px 8px; vertical-align:top; }
+  .bubble th { background:#20282c; color:#dce7ed; font-weight:700; }
+  .bubble code { background:#11181b; border:1px solid #2b363a; border-radius:4px;
+                 padding:0 0.25em; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .turn.question .bubble { color:#e6edf0; }
+  .dialogue-meta { color:#888; font-size:12px; margin:5px 0 0 41px; }
+  footer { margin-top:40px; padding-top:16px; border-top:1px solid #2a2a2a;
+           color:#888; font-size:12px; }
+  mjx-container { max-width:100%; overflow-x:auto; overflow-y:hidden;
+                  box-sizing:border-box; -webkit-overflow-scrolling:touch; }
+  mjx-container[display="true"] { display:block; padding:0.2em 0; }
+  mjx-container[jax="SVG"] > svg { max-width:none !important; }
+</style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html">← この分野の一覧</a> ・ <a href="../index.html">Paper Survey トップ</a> ・ <a href="2611.09396.en.html" lang="en">English</a></nav>
+  <h1>Travel Cost Calibration for Multi-Agent Target Assignment and Pathfinding</h1>
+<p class="meta">マルチエージェント目標割り当てと経路計画のための移動コスト校正手法</p>
+  <div class="meta">Yu Kumagai, Ryohei Banno, Keisuke Okumura<br>採択先: 未取得 ・ 2026-11-06 ・ source: arxiv</div>
+  <div class="links"><a href="http://arxiv.org/abs/2611.09396v1" target="_blank" rel="noopener">原典</a> ・ <a href="https://arxiv.org/pdf/2611.09396v1" target="_blank" rel="noopener">PDF</a> ・ <a href="https://doi.org/10.48550/arxiv.2611.09396" target="_blank" rel="noopener">DOI</a></div>
+  <div class="paper-facts"><span class="chip selection-recent">新着論文</span><span class="chip">公開日 2026-11-06</span><span class="chip keyword-match">キーワード一致 2</span><span class="chip">被引用 0</span><span class="chip">関連度 2</span><span class="chip basis-fulltext">本文(arXiv)</span><span class="chip reading-value">読む価値 4/5</span><div class="rating-reason">被引用数、本文取得状況、要約量から推定した暫定評価。</div></div>
+  <div class="source-notice fulltext">本文取得済み: 本文(arXiv)を根拠に要約しています。</div>
+<div class="tags"><span class="tag">Multi-Agent Pathfinding</span><span class="tag">MAPF</span></div>
+  <div class="tldr"><strong>一言で:</strong> 本論文は、高速なサブオプティマルMAPFソルバーからのフィードバックを用いて移動コストの推定値を校正することで、目標割り当ての質を向上させる反復的なTAPF手法「TACT」を提案しています。</div>
+<section class="qa"><h2>どんなもの？</h2><p>ターゲット割り当てと経路計画（TAPF）は、各エージェントに目標を割り当て、それらへの衝突のない経路を計画する問題です。従来の「最短経路距離に基づく割り当て」という単純な手法では、エージェント間の干渉（衝突回避のための遅延）を考慮できないため、実際の移動コストと乖離が生じ、結果として非効率な割り当てがなされるという課題があります。</p></section>
+<section class="qa"><h2>先行研究と比べてどこがすごい？</h2><p>本研究の貢献は、低忠実度なMAPFソルバーを評価器として利用し、移動コストの推定値を動的に更新する反復的な校正フレームワークを提案した点にあります。これにより、従来の割り当て手法では困難であった大規模な問題においても、高い解の品質を実現しました。また、ノイズを導入することで割り当ての多様性を確保し、フィードバックを効率的に活用するメカニズムを導入しています。</p></section>
+<section class="qa"><h2>技術や手法のキモはどこ？</h2><p>提案手法であるTACTは、まず最短経路距離でコスト行列を初期化します。次に、現在の推定値にノイズを加えて多様な目標割り当て候補を生成し、それらを高速なサブオプティマルMAPFソルバー（LaCAMなど）で評価します。評価によって得られた実際の移動コスト（遅延を含む）をフィードバックとしてコスト行列に蓄積・校正し、このプロセスを反復的に繰り返すことで、干渉を考慮したより正確なコスト推定を実現します。</p></section>
+<section class="qa"><h2>どうやって有効だと検証した？</h2><p>実験では、小規模から最大800エージェント規模のMAPFベンチマークを使用し、EQ-DIST（均等分布）とHOTSPOT（密集分布）の2つのシナリオで評価を行いました。比較対象として、ITA-ECBS、DBS-Hungarian、SSP-LaCAM3を用いました。結果として、TACTは小規模問題では最適解に近い解を出し、大規模問題では既存の最先端手法を上回る解の品質を達成しました。</p></section>
+<section class="qa"><h2>議論はある？（限界・課題）</h2><p>本手法の有効性は、計算コストの低い割り当てステップと、多様な割り当てを生成するノイズ付加、そしてフィードバックの蓄積という要素の相互作用にあります。ノイズが大きすぎるとランダムな割り当てになり、小さすぎると多様性が失われるため、適切なパラメータ設定が重要です。また、計算リソースの割り当て（並列実行数やノイズのスケール）が収束速度と解の品質のトレードオフを生むことが示されています。</p></section>
+
+<h2 class="secs-title">セクション別の詳細要約</h2>
+<section class="secsum"><h3>研究背景</h3><p>マルチエージェント経路計画（MAPF）は、共有グラフ上でエージェントが衝突せずに目標に到達する経路を見つける問題であり、自動倉庫などの物流システムにおいて重要です。TAPFはその拡張であり、どのエージェントがどの目標に向かうかという「割り当て」の決定が含まれます。</p></section>
+<section class="secsum"><h3>既存研究の問題点</h3><p>従来のTAPFでは、割り当て段階でエージェント間の干渉を無視した「最短経路距離」をコストとして使用するため、経路計画段階で発生する衝突回避のための遅延が考慮されず、全体的なコストが最適化されない問題があります。</p></section>
+<section class="secsum"><h3>技術的なポイント</h3><p>低忠実度ソルバーを用いたマルチフィデリティ（多忠実度）アプローチの概念をTAPFに適用しています。コスト行列をサロゲートモデルとして扱い、MAPFの実行結果を観測値として用いて逐次的に更新する点が技術的な特徴です。</p></section>
+<section class="secsum"><h3>実験内容</h3><p>Mac Studio (M1 Ultra) を使用し、4連結グリッドマップ上で実験を実施しました。評価指標には、最適解に対するフロータイムの比率（flowtime / LB）を使用しています。</p></section>
+<section class="secsum"><h3>実験結果</h3><p>HOTSPOTシナリオのような高密度な環境において、TACTは干渉を考慮した割り当てを行うことで、従来の割り当て手法よりも大幅に優れた解を生成しました。大規模なインスタンス（最大800エージェント）においても、DBS-Hungarianなどの既存手法を上回るスケーラビリティと品質を示しました。</p></section>
+<section class="secsum"><h3>結論</h3><p>TACTは、高速なMAPFソルバーからのフィードバックを繰り返し用いることで、エージェント間の干渉を反映した移動コストの推定を可能にします。これにより、大規模なTAPF問題において、計算効率と解の品質の両立を実現しました。</p></section>
+<section class="secsum"><h3>限界・課題</h3><p>ノイズのスケール設定が解の品質に影響を与えること、およびノイズが大きすぎると探索がランダム化してしまうという限界が示唆されています。また、計算リソースの割り当てに関する最適化も重要な課題です。</p></section>
+<section class="secsum"><h3>MAPF研究者にとっての重要性</h3><p>物流ロボットの運用において、割り当てと経路計画を統合的に最適化することは、スループットの向上に直結するため、非常に重要な研究領域です。</p></section>
+<section class="secsum"><h3>どんな人が読むべきか</h3><p>大規模なマルチエージェントシステムのスケジューリングや、ロボットのタスク割り当てを最適化したい研究者やエンジニアに推奨されます。</p></section>
+
+
+  <footer>
+    ⚠ このページは <strong>AIによる自動生成・要約</strong>です（誤りを含む可能性があります）。正確な内容は必ず原典をご確認ください。<br>
+    情報源: 本文(arXiv) ・ 要約エンジン: local-llm:gemma-4-26b-a4b-it ・ 生成日: 2026-11-28
+  </footer>
+</div>
+</body>
+</html>

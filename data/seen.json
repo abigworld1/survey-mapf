@@ -13555,6 +13555,41 @@
       "url": "http://arxiv.org/abs/2611.07528v1",
       "venue": ""
     },
+    "doi:10.48550/arxiv.2611.09396": {
+      "added": "2026-11-28",
+      "added_at": "2026-11-28T06:33:18.659142",
+      "arxiv_id": "2611.09396",
+      "authors": [
+        "Yu Kumagai",
+        "Ryohei Banno",
+        "Keisuke Okumura"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-06",
+      "doi": "10.48550/arxiv.2611.09396",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.09396.html",
+      "file_en": "mapf-mapd-warehouse/2611.09396.en.html",
+      "matched_keywords": [
+        "Multi-Agent Pathfinding",
+        "MAPF"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.09396v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "recent",
+      "selection_label": "新着論文",
+      "source_quality": "fulltext",
+      "title": "Travel Cost Calibration for Multi-Agent Target Assignment and Pathfinding",
+      "title_en": "Travel Cost Calibration for Multi-Agent Target Assignment and Pathfinding",
+      "title_ja": "マルチエージェント目標割り当てと経路計画のための移動コスト校正手法",
+      "tldr": "本論文は、高速なサブオプティマルMAPFソルバーからのフィードバックを用いて移動コストの推定値を校正することで、目標割り当ての質を向上させる反復的なTAPF手法「TACT」を提案しています。",
+      "tldr_en": "The paper proposes TACT, an iterative TAPF method that improves target assignment quality by calibrating travel cost estimates using feedback from fast, suboptimal MAPF solvers.",
+      "url": "http://arxiv.org/abs/2611.09396v1",
+      "venue": ""
+    },
     "doi:10.48550/arxiv.2611.10363": {
       "added": "2026-11-20",
       "added_at": "2026-11-20T06:26:52.120742",
@@ -13623,6 +13658,42 @@
       "tldr": "本論文は、エージェント間の通信範囲に基づく近接制約を持つ非ラベル付きマルチエージェント経路計画問題（rCUMAPF）において、中間的な近接範囲 r の場合に、Makespan（完了時間）を最適化する問題がNP困難であることを証明しています。",
       "tldr_en": "This paper proves that finding a makespan-optimal solution for Unlabeled Multi-agent Pathfinding with proximity constraints (rCUMAPF) is NP-hard, even when the proximity range r is relatively large.",
       "url": "http://arxiv.org/abs/2611.21277v2",
+      "venue": ""
+    },
+    "doi:10.48550/arxiv.2611.27127": {
+      "added": "2026-11-28",
+      "added_at": "2026-11-28T06:19:18.226152",
+      "arxiv_id": "2611.27127",
+      "authors": [
+        "Zhihao Lin",
+        "Anh-Tu Nguyen",
+        "Hui Zhang",
+        "Yoshinobu Kawahara"
+      ],
+      "basis": "fulltext(arxiv)",
+      "citations": 0,
+      "date": "2026-11-20",
+      "doi": "10.48550/arxiv.2611.27127",
+      "engine": "local-llm:gemma-4-26b-a4b-it",
+      "file": "mapf-mapd-warehouse/2611.27127.html",
+      "file_en": "mapf-mapd-warehouse/2611.27127.en.html",
+      "matched_keywords": [
+        "Multi-Agent Path Finding",
+        "Lifelong Multi-Agent Path Finding"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2611.27127v1",
+      "reading_value": 4,
+      "reading_value_reason": "被引用数、本文取得状況、要約量から推定した暫定評価。",
+      "relevance": 2,
+      "selection": "important",
+      "selection_label": "重要論文",
+      "source_quality": "fulltext",
+      "title": "OpenRing: Deadlock-Free Execution of Any Planner on AGV Floors with One-Way Lanes",
+      "title_en": "OpenRing: Deadlock-Free Execution of Any Planner on AGV Floors with One-Way Lanes",
+      "title_ja": "OpenRing: 片方向レーンを持つAGVフロアにおける任意のプランナーを用いたデッドロックのない実行",
+      "tldr": "OpenRingは、プランナーがどのような経路を提案しても、あるいはプランナーが停止しても、デッドロックが発生しないAGV（自動搬送車）の実行フレームワークです。ローカルなガード機構が「満杯のセグメントによる環状の閉鎖」を防ぐことで、システムの稼働継続性を保証します。",
+      "tldr_en": "OpenRing is a framework that enables deadlock-free execution of any multi-agent path finding (MAPF) planner on AGV floors, ensuring continuous operation even if the planner fails or vehicles deviate from their routes.",
+      "url": "http://arxiv.org/abs/2611.27127v1",
       "venue": ""
     },
     "doi:10.48550/arxiv.2611.29548": {
